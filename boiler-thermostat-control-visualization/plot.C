@@ -95,6 +95,6 @@ void plot() {
       int binx = temperature_plot->GetXaxis()->FindBin(hourAngle);
       double binCenterx = temperature_plot->GetXaxis()->GetBinCenter(binx);
       std::cout<<"\t HH "<<HH<<" mm "<<mm<<" binx "<<binx<<" binCenterx "<<binCenterx<<" set "<<temp<<std::endl;
-      latex.DrawLatex(binCenterx, binCentery, hour.Data());
+      latex.DrawLatex(binCenterx, binCentery, TString::Format("%.1f",temp).Data());
     }}
 }
