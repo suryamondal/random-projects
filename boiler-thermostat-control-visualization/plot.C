@@ -41,15 +41,15 @@ std::map<TString, std::vector<std::tuple<TString,double>>> setTemperature {
 		  std::make_tuple("08:30", 18.),
 		  std::make_tuple("12:00", 21.),
 		  std::make_tuple("13:30", 18.),
-		  std::make_tuple("17:30", 22.),
-		  std::make_tuple("24:00", 18.) } },
-  { "Saturday",  {std::make_tuple("08:00", 22.),
+		  std::make_tuple("17:30", 22.) } },
+  { "Saturday",  {std::make_tuple("00:00", 18.),
+		  std::make_tuple("08:00", 22.),
 		  std::make_tuple("09:30", 18.),
 		  std::make_tuple("13:30", 21.),
 		  std::make_tuple("14:30", 18.),
-		  std::make_tuple("18:30", 22.),
-		  std::make_tuple("24:00", 18.) } },
-  { "Sunday",    {std::make_tuple("08:00", 22.),
+		  std::make_tuple("18:30", 22.) } },
+  { "Sunday",    {std::make_tuple("00:00", 18.),
+		  std::make_tuple("08:00", 22.),
 		  std::make_tuple("09:30", 18.),
 		  std::make_tuple("13:30", 21.),
 		  std::make_tuple("14:30", 18.),
@@ -62,11 +62,13 @@ std::map<TString, std::vector<std::tuple<TString,double>>> setTemperature {
 
 const double waterMass         = 100;	// kg
 const double systemCapacity    = 20;	// kW
-const double heatLoss          = 2;	// kW
+const double heatLoss          = 0.1;	// kW/C
 const double heatLoad          = 500;	// kg of air
 const double airSpecificHeat   = 1.005;	// kJ/kg-C
 const double waterSpecificHeat = 4.186; // kJ/kg-C
+const double heatTransferCf    = 0.1;	// kW/C
 const int    simulationCycle   = 10;	// 
+
 const double outdoorTemperature[24] =	// C
   {
     9, // 0
@@ -130,48 +132,49 @@ void plot() {
   // simulation
 
 
-  double lst_iT, lst_wT, sT = 0;
+  double lst_iT = 0, lst_wT, sT = 0;
   for(int sim = 0; sim<simulationCycle; sim++) {
     for(int ijy=daysInAweek; ijy>0; ijy--) {
       for(int ijx=1; ijx<=binsInAday; ijx++) {
 	double hourAngle = temperature_plot->GetXaxis()->GetBinCenter(ijx);
 
-	// Current status
+	// Initialise
 
-	double iT = temperature_plot->GetBinContent(ijx, ijy);
-	double wT = water_temperature->GetBinContent(ijx, ijy);
-	if(!iT) {
-	  iT = outdoorTemperature[int(hourAngle)];
-	  temperature_plot-> SetBinContent(ijx, ijy, iT);
-	  water_temperature->SetBinContent(ijx, ijy, wT);
-	  lst_iT = iT; lst_wT = wT; continue;
-	}
-
-	double oT = outdoorTemperature[int(hourAngle)];
+	if(!last_iT) {
+	  lst_iT = lst_wT = outdoorTemperature[int(hourAngle)];
+	  temperature_plot-> SetBinContent(ijx, ijy, lst_iT);
+	  water_temperature->SetBinContent(ijx, ijy, lst_wT);
+	  continue; }
 
 	auto search1 = tProgram.find(dayTags[daysInAweek - ijy]);
 	if(search1 != tProgram.end()) {
-	  for(int window = -1; window<=0; window++) {
-	    int day_no = daysInAweek - ijy;
-	    int HH = int(hourAngle);
-	    int mm = int((hourAngle - int(hourAngle)) * 60.) + window;
-	    if(mm < 0) { HH--;    mm += 60; }
-	    if(HH < 0) { day_no--; HH += 24; }
-	    if(day_no < 0) { day_no += daysInAweek;}
-	    TString time_str = TString::Format("%02i:%02i",HH,mm);
-	    auto search11 = tProgram.find(dayTags[day_no]);
-	    if(search11 != tProgram.end()) {
-	      auto search2 = search11->second.find(time_str);
-	      if(search2 != search11->second.end()) {
-		sT = search2->second;
-		std::cout<<" day_str "<<dayTags[day_no]<<" time_str "<<time_str<<" sT "<<sT<<std::endl;
-		break;
-	      }}}
+	  int HH = int(hourAngle);
+	  int mm = int((hourAngle - int(hourAngle)) * 60.);
+	  TString time_str = TString::Format("%02i:%02i",HH,mm);
+	  auto search2 = search1->second.find(time_str);
+	  if(search2 != search1->second.end()) {
+	    sT = search2->second;
+	    std::cout<<" day_str "<<dayTags[daysInAweek - ijy]<<" time_str "<<time_str<<" sT "<<sT<<std::endl;
+	  }
 	}
 
 	if(!sT) {continue;}
 
-	// Projecting in the next bin
+	// Projecting in this next bin
+
+	double oT = outdoorTemperature[int(hourAngle)];
+	bool isBoilerOn = (lst_iT < sT);
+
+	double step = temperature_plot->GetXaxis()->GetBinWidth(ijx);
+	step *= 60.;		// in seconds
+
+	double boilerHeat = isBoilerOn ? systemCapacity * step : 0;
+	lst_wT += boilerHeat / (waterSpecificHeat * waterMass);
+	double waterHeatLoss = (wT - lst_iT) * heatTransferCf * step;
+	lst_wT -= waterHeatLoss  / (waterSpecificHeat * waterMass);
+	lst_iT += waterHeatLoss / (airSpecificHeat * heatLoad);
+	double airHeatLoss = (lst_iT - oT) * heatLoss * step;
+	lst_iT -= airHeatLoss / (airSpecificHeat * heatLoad);
 	
       }
     }
