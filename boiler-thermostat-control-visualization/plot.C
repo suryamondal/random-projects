@@ -140,7 +140,7 @@ void plot() {
 
 	// Initialise
 
-	if(!last_iT) {
+	if(!lst_iT) {
 	  lst_iT = lst_wT = outdoorTemperature[int(hourAngle)];
 	  temperature_plot-> SetBinContent(ijx, ijy, lst_iT);
 	  water_temperature->SetBinContent(ijx, ijy, lst_wT);
@@ -166,24 +166,28 @@ void plot() {
 	bool isBoilerOn = (lst_iT < sT);
 
 	double step = temperature_plot->GetXaxis()->GetBinWidth(ijx);
-	step *= 60.;		// in seconds
+	step *= 3600.;		// in seconds
 
 	double boilerHeat = isBoilerOn ? systemCapacity * step : 0;
 	lst_wT += boilerHeat / (waterSpecificHeat * waterMass);
-	double waterHeatLoss = (wT - lst_iT) * heatTransferCf * step;
+	double waterHeatLoss = (lst_wT - lst_iT) * heatTransferCf * step;
 	lst_wT -= waterHeatLoss  / (waterSpecificHeat * waterMass);
 	lst_iT += waterHeatLoss / (airSpecificHeat * heatLoad);
 	double airHeatLoss = (lst_iT - oT) * heatLoss * step;
 	lst_iT -= airHeatLoss / (airSpecificHeat * heatLoad);
-	
+
+	std::cout<<"\t\t sim "<<std::setw(3)<<sim<<" ijx "<<std::setw(5)<<ijx<<" ijy "<<std::setw(5)<<ijy<<std::endl;
+	std::cout<<"\t\t oT "<<std::setw(6)<<oT<<" isBoilerOn "<<std::setw(6)<<isBoilerOn<<" lst_iT "<<std::setw(6)<<lst_iT<<" lst_wT "<<std::setw(6)<<lst_wT<<std::endl;
+
+	temperature_plot-> SetBinContent(ijx, ijy, lst_iT);
+	water_temperature->SetBinContent(ijx, ijy, lst_wT);
       }
     }
   } // for(int sim = 0; sim<simulationCycle; sim++) {
 
 
-
-
-
+  TCanvas *c1 = new TCanvas("c1","c1",1000,600);
+  c1->cd();
   temperature_plot->Draw("colz");
   temperature_plot->GetXaxis()->SetNdivisions(-24);
   gPad->SetGrid();
@@ -211,4 +215,11 @@ void plot() {
       std::cout<<"\t HH "<<HH<<" mm "<<mm<<" binx "<<binx<<" binCenterx "<<binCenterx<<" set "<<temp<<std::endl;
       latex.DrawLatex(binCenterx, binCentery, TString::Format("%.1f",temp).Data());
     }}
+
+  TCanvas *c2 = new TCanvas("c2","c2",1000,600);
+  c2->cd();
+  water_temperature->Draw("colz");
+  water_temperature->GetXaxis()->SetNdivisions(-24);
+  gPad->SetGrid();
+
 }
