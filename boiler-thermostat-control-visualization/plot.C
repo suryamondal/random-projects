@@ -61,13 +61,14 @@ std::map<TString, std::vector<std::tuple<TString,double>>> setTemperature {
 // simulation parameter
 
 const double waterMass         = 100;	// kg
-const double systemCapacity    = 20;	// kW
-const double heatLoss          = 0.1;	// kW/C
+const double systemCapacity    = 10;	// kW
+const double heatLoss          = 0.02;	// kW/C
 const double heatLoad          = 500;	// kg of air
 const double airSpecificHeat   = 1.005;	// kJ/kg-C
 const double waterSpecificHeat = 4.186; // kJ/kg-C
-const double heatTransferCf    = 0.1;	// kW/C
+const double heatTransferCf    = 0.5;	// kW/C
 const int    simulationCycle   = 10;	// 
+const double tempHist          = 1;	// C
 
 const double outdoorTemperature[24] =	// C
   {
@@ -132,6 +133,7 @@ void plot() {
   // simulation
 
 
+  bool isBoilerOn = false;
   double lst_iT = 0, lst_wT, sT = 0;
   for(int sim = 0; sim<simulationCycle; sim++) {
     for(int ijy=daysInAweek; ijy>0; ijy--) {
@@ -163,7 +165,8 @@ void plot() {
 	// Projecting in this next bin
 
 	double oT = outdoorTemperature[int(hourAngle)];
-	bool isBoilerOn = (lst_iT < sT);
+	if(!isBoilerOn && (lst_iT < sT - tempHist*0.5)) {isBoilerOn = true;}
+	if(isBoilerOn && (lst_iT > sT + tempHist*0.5)) {isBoilerOn = false;}
 
 	double step = temperature_plot->GetXaxis()->GetBinWidth(ijx);
 	step *= 3600.;		// in seconds
@@ -176,8 +179,8 @@ void plot() {
 	double airHeatLoss = (lst_iT - oT) * heatLoss * step;
 	lst_iT -= airHeatLoss / (airSpecificHeat * heatLoad);
 
-	std::cout<<"\t\t sim "<<std::setw(3)<<sim<<" ijx "<<std::setw(5)<<ijx<<" ijy "<<std::setw(5)<<ijy<<std::endl;
-	std::cout<<"\t\t oT "<<std::setw(6)<<oT<<" isBoilerOn "<<std::setw(6)<<isBoilerOn<<" lst_iT "<<std::setw(6)<<lst_iT<<" lst_wT "<<std::setw(6)<<lst_wT<<std::endl;
+	// std::cout<<"\t\t sim "<<std::setw(3)<<sim<<" ijx "<<std::setw(5)<<ijx<<" ijy "<<std::setw(5)<<ijy<<std::endl;
+	// std::cout<<"\t\t oT "<<std::setw(6)<<oT<<" isBoilerOn "<<std::setw(6)<<isBoilerOn<<" lst_iT "<<std::setw(6)<<lst_iT<<" lst_wT "<<std::setw(6)<<lst_wT<<std::endl;
 
 	temperature_plot-> SetBinContent(ijx, ijy, lst_iT);
 	water_temperature->SetBinContent(ijx, ijy, lst_wT);
@@ -212,7 +215,7 @@ void plot() {
       double hourAngle = HH + mm/60.;
       int binx = temperature_plot->GetXaxis()->FindBin(hourAngle);
       double binCenterx = temperature_plot->GetXaxis()->GetBinCenter(binx);
-      std::cout<<"\t HH "<<HH<<" mm "<<mm<<" binx "<<binx<<" binCenterx "<<binCenterx<<" set "<<temp<<std::endl;
+      // std::cout<<"\t HH "<<HH<<" mm "<<mm<<" binx "<<binx<<" binCenterx "<<binCenterx<<" set "<<temp<<std::endl;
       latex.DrawLatex(binCenterx, binCentery, TString::Format("%.1f",temp).Data());
     }}
 
