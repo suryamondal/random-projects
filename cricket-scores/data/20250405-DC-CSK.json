@@ -16,38 +16,32 @@
                     },
                     {
                         "player": "KL Rahul",
-                        "runs": 27,
-                        "balls": 1,
-                        "wicket": "not out"
+                        "runs": 77,
+                        "balls": 51,
+                        "wicket": "c Dhoni b Matheesha Pathirana"
                     },
                     {
-                        "player": "Mukesh Kumar",
-                        "runs": 4,
-                        "balls": 0,
-                        "wicket": "not out"
-                    },
-                    {
-                        "player": "Mohit Sharma",
-                        "runs": 3,
-                        "balls": 0,
-                        "wicket": "not out"
-                    },
-                    {
-                        "player": "Vipraj Nigam",
-                        "runs": 4,
-                        "balls": 0,
-                        "wicket": "not out"
-                    },
-                    {
-                        "player": "Kuldeep Yadav",
-                        "runs": 4,
-                        "balls": 0,
-                        "wicket": "not out"
+                        "player": "Abishek Porel",
+                        "runs": 33,
+                        "balls": 20,
+                        "wicket": "c Matheesha Pathirana b Ravindra Jadeja"
                     },
                     {
                         "player": "Axar Patel",
-                        "runs": 1,
-                        "balls": 0,
+                        "runs": 21,
+                        "balls": 14,
+                        "wicket": "b Noor Ahmad"
+                    },
+                    {
+                        "player": "Sameer Rizvi",
+                        "runs": 20,
+                        "balls": 15,
+                        "wicket": "c Ravindra Jadeja b Khaleel Ahmed"
+                    },
+                    {
+                        "player": "Shai Hope",
+                        "runs": 15,
+                        "balls": 10,
                         "wicket": "not out"
                     }
                 ],
@@ -55,31 +49,31 @@
                     {
                         "player": "Khaleel Ahmed",
                         "overs": 4,
-                        "runs_conceded": 36,
+                        "runs_conceded": 35,
+                        "wickets": 2
+                    },
+                    {
+                        "player": "Matheesha Pathirana",
+                        "overs": 4,
+                        "runs_conceded": 40,
                         "wickets": 1
                     },
                     {
-                        "player": "Ravichandran Ashwin",
+                        "player": "Ravindra Jadeja",
                         "overs": 4,
-                        "runs_conceded": 27,
+                        "runs_conceded": 28,
                         "wickets": 1
                     },
                     {
-                        "player": "Moeen Ali",
+                        "player": "Noor Ahmad",
                         "overs": 4,
-                        "runs_conceded": 30,
-                        "wickets": 0
+                        "runs_conceded": 32,
+                        "wickets": 1
                     },
                     {
-                        "player": "Deepak Chahar",
+                        "player": "Maheesh Theekshana",
                         "overs": 4,
-                        "runs_conceded": 30,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Tushar Deshpande",
-                        "overs": 4,
-                        "runs_conceded": 30,
+                        "runs_conceded": 38,
                         "wickets": 0
                     }
                 ]
@@ -89,21 +83,21 @@
                 "batting": [
                     {
                         "player": "Ruturaj Gaikwad",
-                        "runs": 0,
-                        "balls": 0,
-                        "wicket": "not out"
+                        "runs": 45,
+                        "balls": 32,
+                        "wicket": "c Shai Hope b Anrich Nortje"
                     },
                     {
                         "player": "Devon Conway",
-                        "runs": 0,
-                        "balls": 0,
-                        "wicket": "not out"
+                        "runs": 13,
+                        "balls": 14,
+                        "wicket": "b Kuldeep Yadav"
                     },
                     {
-                        "player": "Vijay Shankar",
-                        "runs": 69,
-                        "balls": 54,
-                        "wicket": "not out"
+                        "player": "Shivam Dube",
+                        "runs": 35,
+                        "balls": 25,
+                        "wicket": "c KL Rahul b Axar Patel"
                     },
                     {
                         "player": "MS Dhoni",
@@ -113,70 +107,46 @@
                     },
                     {
                         "player": "Ravindra Jadeja",
-                        "runs": 0,
-                        "balls": 0,
-                        "wicket": "not out"
+                        "runs": 20,
+                        "balls": 15,
+                        "wicket": "b Kuldeep Yadav"
                     },
                     {
-                        "player": "Rachin Ravindra",
-                        "runs": 0,
-                        "balls": 0,
-                        "wicket": "not out"
-                    },
-                    {
-                        "player": "Moeen Ali",
-                        "runs": 0,
-                        "balls": 0,
-                        "wicket": "not out"
-                    },
-                    {
-                        "player": "Deepak Chahar",
-                        "runs": 0,
-                        "balls": 0,
-                        "wicket": "not out"
-                    },
-                    {
-                        "player": "Tushar Deshpande",
-                        "runs": 0,
-                        "balls": 0,
-                        "wicket": "not out"
-                    },
-                    {
-                        "player": "Khaleel Ahmed",
-                        "runs": 0,
-                        "balls": 0,
+                        "player": "Maheesh Theekshana",
+                        "runs": 5,
+                        "balls": 8,
                         "wicket": "not out"
                     }
                 ],
                 "bowling": [
                     {
-                        "player": "Axar Patel",
+                        "player": "Anrich Nortje",
                         "overs": 4,
                         "runs_conceded": 30,
                         "wickets": 1
                     },
                     {
-                        "player": "Mohit Sharma",
-                        "overs": 4,
-                        "runs_conceded": 30,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Vipraj Nigam",
-                        "overs": 4,
-                        "runs_conceded": 30,
-                        "wickets": 0
-                    },
-                    {
                         "player": "Kuldeep Yadav",
                         "overs": 4,
-                        "runs_conceded": 30,
+                        "runs_conceded": 28,
+                        "wickets": 2
+                    },
+                    {
+                        "player": "Axar Patel",
+                        "overs": 4,
+                        "runs_conceded": 35,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Khaleel Ahmed",
+                        "overs": 4,
+                        "runs_conceded": 40,
                         "wickets": 0
                     },
                     {
                         "player": "Mukesh Kumar",
                         "overs": 4,
-                        "runs_conceded": 30,
+                        "runs_conceded": 25,
                         "wickets": 0
                     }
                 ]
