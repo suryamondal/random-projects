@@ -12,7 +12,7 @@
                         "player": "Yashasvi Jaiswal",
                         "runs": 75,
                         "balls": 47,
-                        "wicket": "lbw b Hazlewood"
+                        "wicket": "lbw b Josh Hazlewood"
                     },
                     {
                         "player": "Sanju Samson",
@@ -24,7 +24,7 @@
                         "player": "Riyan Parag",
                         "runs": 30,
                         "balls": 22,
-                        "wicket": "c Kohli b Yash Dayal"
+                        "wicket": "c Virat Kohli b Yash Dayal"
                     },
                     {
                         "player": "Dhruv Jurel",
@@ -36,7 +36,7 @@
                         "player": "Shimron Hetmyer",
                         "runs": 9,
                         "balls": 8,
-                        "wicket": "c Padikkal b Bhuvneshwar"
+                        "wicket": "c Devdutt Padikkal b Bhuvneshwar Kumar"
                     },
                     {
                         "player": "Nitish Rana",
@@ -46,18 +46,6 @@
                     }
                 ],
                 "bowling": [
-                    {
-                        "player": "Bhuvneshwar Kumar",
-                        "overs": 4,
-                        "runs_conceded": 32,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Yash Dayal",
-                        "overs": 4,
-                        "runs_conceded": 36,
-                        "wickets": 1
-                    },
                     {
                         "player": "Josh Hazlewood",
                         "overs": 3,
@@ -71,15 +59,27 @@
                         "wickets": 1
                     },
                     {
-                        "player": "Livingstone",
-                        "overs": 1,
-                        "runs_conceded": 8,
-                        "wickets": 0
+                        "player": "Yash Dayal",
+                        "overs": 4,
+                        "runs_conceded": 36,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Bhuvneshwar Kumar",
+                        "overs": 4,
+                        "runs_conceded": 32,
+                        "wickets": 1
                     },
                     {
                         "player": "Suyash Sharma",
                         "overs": 4,
                         "runs_conceded": 39,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Liam Livingstone",
+                        "overs": 1,
+                        "runs_conceded": 8,
                         "wickets": 0
                     }
                 ]
@@ -90,45 +90,63 @@
                     {
                         "player": "Philip Salt",
                         "runs": 65,
-                        "balls": 35,
-                        "wicket": "not out"
+                        "balls": 33,
+                        "wicket": "c Yashasvi Jaiswal b Kumar Kartikeya"
                     },
                     {
                         "player": "Virat Kohli",
                         "runs": 62,
                         "balls": 45,
                         "wicket": "not out"
+                    },
+                    {
+                        "player": "Devdutt Padikkal",
+                        "runs": 40,
+                        "balls": 28,
+                        "wicket": "not out"
                     }
                 ],
                 "bowling": [
                     {
-                        "player": "Trent Boult",
+                        "player": "Jofra Archer",
                         "overs": 4,
-                        "runs_conceded": 30,
+                        "runs_conceded": 36,
                         "wickets": 0
                     },
                     {
-                        "player": "Prasidh Krishna",
-                        "overs": 4,
-                        "runs_conceded": 35,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Yash Dayal",
-                        "overs": 4,
-                        "runs_conceded": 40,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Ravichandran Ashwin",
-                        "overs": 4,
-                        "runs_conceded": 45,
+                        "player": "Tushar Deshpande",
+                        "overs": 2,
+                        "runs_conceded": 21,
                         "wickets": 0
                     },
                     {
                         "player": "Sandeep Sharma",
-                        "overs": 4,
-                        "runs_conceded": 50,
+                        "overs": 2.3,
+                        "runs_conceded": 29,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Maheesh Theekshana",
+                        "overs": 2,
+                        "runs_conceded": 21,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Kumar Kartikeya",
+                        "overs": 3,
+                        "runs_conceded": 25,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Wanindu Hasaranga",
+                        "overs": 3,
+                        "runs_conceded": 33,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Riyan Parag",
+                        "overs": 1,
+                        "runs_conceded": 10,
                         "wickets": 0
                     }
                 ]

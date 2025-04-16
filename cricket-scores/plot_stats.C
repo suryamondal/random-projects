@@ -19,6 +19,10 @@
 using json = nlohmann::json;
 using namespace std;
 
+// std::string nameOfTeam = "Mumbai Indians";
+std::string nameOfTeam = "Rajasthan Royals";
+// std::string nameOfTeam = "Delhi Capitals";
+
 void plot_stats() {
   gStyle->SetOptStat(0);
 
@@ -71,7 +75,7 @@ void plot_stats() {
 
     for (int nIn : {0, 1}) {
       // Batting
-      if (innings[nIn]["team_batting"] == "Delhi Capitals")
+      if (innings[nIn]["team_batting"] == nameOfTeam.c_str())
         for (const auto& player : innings[nIn]["batting"]) {
           string name = player["player"];
           int runs = player["runs"];
@@ -81,7 +85,7 @@ void plot_stats() {
           }
         }
       // Bowling
-      if (innings[!nIn]["team_batting"] == "Delhi Capitals")
+      if (innings[!nIn]["team_batting"] == nameOfTeam.c_str())
         for (const auto& player : innings[nIn]["bowling"]) {
           string name = player["player"];
           int wickets = player["wickets"];
