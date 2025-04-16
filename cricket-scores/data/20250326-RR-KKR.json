@@ -1,0 +1,174 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-03-26",
+        "venue": "Barsapara Cricket Stadium, Guwahati",
+        "result": "Kolkata Knight Riders won by 8 wickets",
+        "innings": [
+            {
+                "team_batting": "Rajasthan Royals",
+                "batting": [
+                    {
+                        "player": "Yashasvi Jaiswal",
+                        "runs": 29,
+                        "balls": 24,
+                        "wicket": "c Harshit Rana b Moeen"
+                    },
+                    {
+                        "player": "Sanju Samson",
+                        "runs": 13,
+                        "balls": 11,
+                        "wicket": "b Vaibhav Arora"
+                    },
+                    {
+                        "player": "Riyan Parag",
+                        "runs": 25,
+                        "balls": 15,
+                        "wicket": "c Quinton de Kock b Varun Chakaravarthy"
+                    },
+                    {
+                        "player": "Nitish Rana",
+                        "runs": 8,
+                        "balls": 9,
+                        "wicket": "b Moeen"
+                    },
+                    {
+                        "player": "Wanindu Hasaranga",
+                        "runs": 4,
+                        "balls": 4,
+                        "wicket": "c Ajinkya Rahane b Varun Chakaravarthy"
+                    },
+                    {
+                        "player": "Dhruv Jurel",
+                        "runs": 33,
+                        "balls": 28,
+                        "wicket": "b Harshit Rana"
+                    },
+                    {
+                        "player": "Shubham Dubey",
+                        "runs": 9,
+                        "balls": 12,
+                        "wicket": "c Andre Russell b Vaibhav Arora"
+                    },
+                    {
+                        "player": "Shimron Hetmyer",
+                        "runs": 7,
+                        "balls": 8,
+                        "wicket": "c Angkrish Raghuvanshi b Harshit Rana"
+                    },
+                    {
+                        "player": "Jofra Archer",
+                        "runs": 16,
+                        "balls": 7,
+                        "wicket": "b Spencer Johnson"
+                    },
+                    {
+                        "player": "Maheesh Theekshana",
+                        "runs": 1,
+                        "balls": 1,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Tushar Deshpande",
+                        "runs": 2,
+                        "balls": 1,
+                        "wicket": "not out"
+                    }
+                ],
+                "bowling": [
+                    {
+                        "player": "Spencer Johnson",
+                        "overs": 4,
+                        "runs_conceded": 42,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Vaibhav Arora",
+                        "overs": 4,
+                        "runs_conceded": 33,
+                        "wickets": 2
+                    },
+                    {
+                        "player": "Harshit Rana",
+                        "overs": 4,
+                        "runs_conceded": 36,
+                        "wickets": 2
+                    },
+                    {
+                        "player": "Moeen",
+                        "overs": 4,
+                        "runs_conceded": 23,
+                        "wickets": 2
+                    },
+                    {
+                        "player": "Varun Chakaravarthy",
+                        "overs": 4,
+                        "runs_conceded": 17,
+                        "wickets": 2
+                    }
+                ]
+            },
+            {
+                "team_batting": "Kolkata Knight Riders",
+                "batting": [
+                    {
+                        "player": "Moeen Ali",
+                        "runs": 5,
+                        "balls": 12,
+                        "wicket": "run out (Maheesh Theekshana/Riyan Parag)"
+                    },
+                    {
+                        "player": "Quinton de Kock",
+                        "runs": 97,
+                        "balls": 61,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Ajinkya Rahane",
+                        "runs": 29,
+                        "balls": 23,
+                        "wicket": "c Dhruv Jurel b Wanindu Hasaranga"
+                    },
+                    {
+                        "player": "Angkrish Raghuvanshi",
+                        "runs": 22,
+                        "balls": 17,
+                        "wicket": "not out"
+                    }
+                ],
+                "bowling": [
+                    {
+                        "player": "Jofra Archer",
+                        "overs": 4,
+                        "runs_conceded": 35,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Maheesh Theekshana",
+                        "overs": 3,
+                        "runs_conceded": 28,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Tushar Deshpande",
+                        "overs": 3.3,
+                        "runs_conceded": 40,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Wanindu Hasaranga",
+                        "overs": 4,
+                        "runs_conceded": 30,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Riyan Parag",
+                        "overs": 3,
+                        "runs_conceded": 20,
+                        "wickets": 0
+                    }
+                ]
+            }
+        ]
+    }
+}

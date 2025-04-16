@@ -1,0 +1,138 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-13",
+        "venue": "Sawai Mansingh Stadium, Jaipur",
+        "result": "Royal Challengers Bengaluru won by 9 wickets",
+        "innings": [
+            {
+                "team_batting": "Rajasthan Royals",
+                "batting": [
+                    {
+                        "player": "Yashasvi Jaiswal",
+                        "runs": 75,
+                        "balls": 47,
+                        "wicket": "lbw b Hazlewood"
+                    },
+                    {
+                        "player": "Sanju Samson",
+                        "runs": 15,
+                        "balls": 19,
+                        "wicket": "st Jitesh Sharma b Krunal Pandya"
+                    },
+                    {
+                        "player": "Riyan Parag",
+                        "runs": 30,
+                        "balls": 22,
+                        "wicket": "c Kohli b Yash Dayal"
+                    },
+                    {
+                        "player": "Dhruv Jurel",
+                        "runs": 35,
+                        "balls": 23,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Shimron Hetmyer",
+                        "runs": 9,
+                        "balls": 8,
+                        "wicket": "c Padikkal b Bhuvneshwar"
+                    },
+                    {
+                        "player": "Nitish Rana",
+                        "runs": 4,
+                        "balls": 1,
+                        "wicket": "not out"
+                    }
+                ],
+                "bowling": [
+                    {
+                        "player": "Bhuvneshwar Kumar",
+                        "overs": 4,
+                        "runs_conceded": 32,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Yash Dayal",
+                        "overs": 4,
+                        "runs_conceded": 36,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Josh Hazlewood",
+                        "overs": 3,
+                        "runs_conceded": 26,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Krunal Pandya",
+                        "overs": 4,
+                        "runs_conceded": 29,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Livingstone",
+                        "overs": 1,
+                        "runs_conceded": 8,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Suyash Sharma",
+                        "overs": 4,
+                        "runs_conceded": 39,
+                        "wickets": 0
+                    }
+                ]
+            },
+            {
+                "team_batting": "Royal Challengers Bengaluru",
+                "batting": [
+                    {
+                        "player": "Philip Salt",
+                        "runs": 65,
+                        "balls": 35,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Virat Kohli",
+                        "runs": 62,
+                        "balls": 45,
+                        "wicket": "not out"
+                    }
+                ],
+                "bowling": [
+                    {
+                        "player": "Trent Boult",
+                        "overs": 4,
+                        "runs_conceded": 30,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Prasidh Krishna",
+                        "overs": 4,
+                        "runs_conceded": 35,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Yash Dayal",
+                        "overs": 4,
+                        "runs_conceded": 40,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Ravichandran Ashwin",
+                        "overs": 4,
+                        "runs_conceded": 45,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Sandeep Sharma",
+                        "overs": 4,
+                        "runs_conceded": 50,
+                        "wickets": 0
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,144 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-09",
+        "venue": "Narendra Modi Stadium, Ahmedabad",
+        "result": "Gujarat Titans won by 6 wickets",
+        "innings": [
+            {
+                "team_batting": "Rajasthan Royals",
+                "batting": [
+                    {
+                        "player": "Yashasvi Jaiswal",
+                        "runs": 45,
+                        "balls": 32,
+                        "wicket": "b Rashid Khan"
+                    },
+                    {
+                        "player": "Sanju Samson",
+                        "runs": 38,
+                        "balls": 28,
+                        "wicket": "c Shubman Gill b Alzarri Joseph"
+                    },
+                    {
+                        "player": "Riyan Parag",
+                        "runs": 52,
+                        "balls": 37,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Shimron Hetmyer",
+                        "runs": 25,
+                        "balls": 18,
+                        "wicket": "c Rashid Khan b Alzarri Joseph"
+                    },
+                    {
+                        "player": "Ravichandran Ashwin",
+                        "runs": 15,
+                        "balls": 10,
+                        "wicket": "not out"
+                    }
+                ],
+                "bowling": [
+                    {
+                        "player": "Rashid Khan",
+                        "overs": 4,
+                        "runs_conceded": 28,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Alzarri Joseph",
+                        "overs": 4,
+                        "runs_conceded": 32,
+                        "wickets": 2
+                    },
+                    {
+                        "player": "Lockie Ferguson",
+                        "overs": 4,
+                        "runs_conceded": 35,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Mohammad Shami",
+                        "overs": 4,
+                        "runs_conceded": 40,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Hardik Pandya",
+                        "overs": 4,
+                        "runs_conceded": 42,
+                        "wickets": 0
+                    }
+                ]
+            },
+            {
+                "team_batting": "Gujarat Titans",
+                "batting": [
+                    {
+                        "player": "Shubman Gill",
+                        "runs": 60,
+                        "balls": 45,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Sai Sudharsan",
+                        "runs": 35,
+                        "balls": 25,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Hardik Pandya",
+                        "runs": 15,
+                        "balls": 10,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Rashid Khan",
+                        "runs": 10,
+                        "balls": 8,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Lockie Ferguson",
+                        "runs": 5,
+                        "balls": 3,
+                        "wicket": "not out"
+                    }
+                ],
+                "bowling": [
+                    {
+                        "player": "Trent Boult",
+                        "overs": 4,
+                        "runs_conceded": 30,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Prasidh Krishna",
+                        "overs": 4,
+                        "runs_conceded": 35,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Yash Dayal",
+                        "overs": 4,
+                        "runs_conceded": 40,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Ravichandran Ashwin",
+                        "overs": 4,
+                        "runs_conceded": 45,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Sandeep Sharma",
+                        "overs": 4,
+                        "runs_conceded": 50,
+                        "wickets": 0
+                    }
+                ]
+            }
+        ]
+    }
+}
