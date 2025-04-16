@@ -1,0 +1,173 @@
+{
+    "match": {
+        "type": "T20",
+        "date": "2025-03-23",
+        "venue": "Rajiv Gandhi International Stadium, Hyderabad",
+        "innings": [
+            {
+                "team_batting": "Sunrisers Hyderabad",
+                "batting": [
+                    {
+                        "player": "Abhishek Sharma",
+                        "runs": 24,
+                        "balls": 11,
+                        "wicket_by": "M Theekshana"
+                    },
+                    {
+                        "player": "Travis Head",
+                        "runs": 67,
+                        "balls": 31,
+                        "wicket_by": "Tushar Deshpande"
+                    },
+                    {
+                        "player": "Ishan Kishan",
+                        "runs": 106,
+                        "balls": 47,
+                        "wicket_by": ""
+                    },
+                    {
+                        "player": "Nitish Kumar Reddy",
+                        "runs": 30,
+                        "balls": 15,
+                        "wicket_by": "M Theekshana"
+                    },
+                    {
+                        "player": "Heinrich Klaasen",
+                        "runs": 34,
+                        "balls": 14,
+                        "wicket_by": "Sandeep Sharma"
+                    },
+                    {
+                        "player": "Aniket Verma",
+                        "runs": 7,
+                        "balls": 3,
+                        "wicket_by": "Tushar Deshpande"
+                    },
+                    {
+                        "player": "Abhinav Manohar",
+                        "runs": 0,
+                        "balls": 1,
+                        "wicket_by": "Tushar Deshpande"
+                    },
+                    {
+                        "player": "Pat Cummins",
+                        "runs": 0,
+                        "balls": 1,
+                        "wicket_by": ""
+                    }
+                ],
+                "bowling": [
+                    {
+                        "player": "M Theekshana",
+                        "overs": 4,
+                        "runs_conceded": 52,
+                        "wickets": 2
+                    },
+                    {
+                        "player": "Tushar Deshpande",
+                        "overs": 4,
+                        "runs_conceded": 48,
+                        "wickets": 3
+                    },
+                    {
+                        "player": "Sandeep Sharma",
+                        "overs": 4,
+                        "runs_conceded": 34,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Fazalhaq Farooqi",
+                        "overs": 3,
+                        "runs_conceded": 49,
+                        "wickets": 0
+                    }
+                ]
+            },
+            {
+                "team_batting": "Rajasthan Royals",
+                "batting": [
+                    {
+                        "player": "Yashasvi Jaiswal",
+                        "runs": 20,
+                        "balls": 10,
+                        "wicket_by": "Simarjeet Singh"
+                    },
+                    {
+                        "player": "Sanju Samson",
+                        "runs": 66,
+                        "balls": 33,
+                        "wicket_by": "Harshal Patel"
+                    },
+                    {
+                        "player": "Dhruv Jurel",
+                        "runs": 70,
+                        "balls": 32,
+                        "wicket_by": "Harshal Patel"
+                    },
+                    {
+                        "player": "Riyan Parag",
+                        "runs": 24,
+                        "balls": 12,
+                        "wicket_by": "Simarjeet Singh"
+                    },
+                    {
+                        "player": "Shimron Hetmyer",
+                        "runs": 30,
+                        "balls": 15,
+                        "wicket_by": "Harshal Patel"
+                    },
+                    {
+                        "player": "Shubham Dubey",
+                        "runs": 34,
+                        "balls": 11,
+                        "wicket_by": ""
+                    },
+                    {
+                        "player": "Jofra Archer",
+                        "runs": 1,
+                        "balls": 1,
+                        "wicket_by": ""
+                    }
+                ],
+                "bowling": [
+                    {
+                        "player": "Simarjeet Singh",
+                        "overs": 4,
+                        "runs_conceded": 38,
+                        "wickets": 2
+                    },
+                    {
+                        "player": "Harshal Patel",
+                        "overs": 4,
+                        "runs_conceded": 34,
+                        "wickets": 2
+                    },
+                    {
+                        "player": "Pat Cummins",
+                        "overs": 4,
+                        "runs_conceded": 60,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Abhishek Sharma",
+                        "overs": 2,
+                        "runs_conceded": 17,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Adam Zampa",
+                        "overs": 4,
+                        "runs_conceded": 48,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Mohammed Shami",
+                        "overs": 3,
+                        "runs_conceded": 33,
+                        "wickets": 1
+                    }
+                ]
+            }
+        ]
+    }
+}

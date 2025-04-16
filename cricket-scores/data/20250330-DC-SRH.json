@@ -1,0 +1,174 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-03-30",
+        "venue": "Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium, Visakhapatnam",
+        "result": "Delhi Capitals won by 7 wickets",
+        "innings": [
+            {
+                "team_batting": "Sunrisers Hyderabad",
+                "batting": [
+                    {
+                        "player": "Abhishek Sharma",
+                        "runs": 1,
+                        "balls": 1,
+                        "wicket": "run out (Vipraj Nigam)"
+                    },
+                    {
+                        "player": "Travis Head",
+                        "runs": 22,
+                        "balls": 12,
+                        "wicket": "c Rahul b Mitchell Starc"
+                    },
+                    {
+                        "player": "Ishan Kishan",
+                        "runs": 2,
+                        "balls": 5,
+                        "wicket": "c Stubbs b Mitchell Starc"
+                    },
+                    {
+                        "player": "Nitish Reddy",
+                        "runs": 0,
+                        "balls": 2,
+                        "wicket": "c Axar b Mitchell Starc"
+                    },
+                    {
+                        "player": "Aniket Verma",
+                        "runs": 74,
+                        "balls": 41,
+                        "wicket": "c Jake Fraser-McGurk b Kuldeep Yadav"
+                    },
+                    {
+                        "player": "Heinrich Klaasen",
+                        "runs": 32,
+                        "balls": 19,
+                        "wicket": "c Vipraj Nigam b Mohit Sharma"
+                    },
+                    {
+                        "player": "Abhinav Manohar",
+                        "runs": 4,
+                        "balls": 6,
+                        "wicket": "c du Plessis b Kuldeep Yadav"
+                    },
+                    {
+                        "player": "Pat Cummins",
+                        "runs": 2,
+                        "balls": 7,
+                        "wicket": "c Jake Fraser-McGurk b Kuldeep Yadav"
+                    },
+                    {
+                        "player": "Wiaan Mulder",
+                        "runs": 9,
+                        "balls": 11,
+                        "wicket": "c du Plessis b Mitchell Starc"
+                    },
+                    {
+                        "player": "Harshal Patel",
+                        "runs": 5,
+                        "balls": 9,
+                        "wicket": "c Axar b Mitchell Starc"
+                    },
+                    {
+                        "player": "Mohammad Shami",
+                        "runs": 1,
+                        "balls": 1,
+                        "wicket": "not out"
+                    }
+                ],
+                "bowling": [
+                    {
+                        "player": "Mitchell Starc",
+                        "overs": 3.4,
+                        "runs_conceded": 35,
+                        "wickets": 5
+                    },
+                    {
+                        "player": "Mukesh Kumar",
+                        "overs": 2,
+                        "runs_conceded": 17,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Axar Patel",
+                        "overs": 4,
+                        "runs_conceded": 43,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Vipraj Nigam",
+                        "overs": 2,
+                        "runs_conceded": 21,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Mohit Sharma",
+                        "overs": 3,
+                        "runs_conceded": 25,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Kuldeep Yadav",
+                        "overs": 4,
+                        "runs_conceded": 22,
+                        "wickets": 3
+                    }
+                ]
+            },
+            {
+                "team_batting": "Delhi Capitals",
+                "batting": [
+                    {
+                        "player": "Jake Fraser-McGurk",
+                        "runs": 38,
+                        "balls": 32,
+                        "wicket": "c and b Zeeshan Ansari"
+                    },
+                    {
+                        "player": "Faf du Plessis",
+                        "runs": 50,
+                        "balls": 27,
+                        "wicket": "c Mulder b Zeeshan Ansari"
+                    },
+                    {
+                        "player": "Abishek Porel",
+                        "runs": 34,
+                        "balls": 18,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "KL Rahul",
+                        "runs": 15,
+                        "balls": 5,
+                        "wicket": "b Zeeshan Ansari"
+                    },
+                    {
+                        "player": "Tristan Stubbs",
+                        "runs": 21,
+                        "balls": 14,
+                        "wicket": "not out"
+                    }
+                ],
+                "bowling": [
+                    {
+                        "player": "Zeeshan Ansari",
+                        "overs": 4,
+                        "runs_conceded": 42,
+                        "wickets": 3
+                    },
+                    {
+                        "player": "Harshal Patel",
+                        "overs": 3,
+                        "runs_conceded": 17,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Wiaan Mulder",
+                        "overs": 1,
+                        "runs_conceded": 16,
+                        "wickets": 0
+                    }
+                ]
+            }
+        ]
+    }
+}

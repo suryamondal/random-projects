@@ -1,0 +1,186 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-05",
+        "venue": "MA Chidambaram Stadium, Chennai",
+        "result": "Delhi Capitals won by 25 runs",
+        "innings": [
+            {
+                "team_batting": "Delhi Capitals",
+                "batting": [
+                    {
+                        "player": "Jake Fraser-McGurk",
+                        "runs": 0,
+                        "balls": 5,
+                        "wicket": "c Ashwin b Khaleel Ahmed"
+                    },
+                    {
+                        "player": "KL Rahul",
+                        "runs": 27,
+                        "balls": 1,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Mukesh Kumar",
+                        "runs": 4,
+                        "balls": 0,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Mohit Sharma",
+                        "runs": 3,
+                        "balls": 0,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Vipraj Nigam",
+                        "runs": 4,
+                        "balls": 0,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Kuldeep Yadav",
+                        "runs": 4,
+                        "balls": 0,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Axar Patel",
+                        "runs": 1,
+                        "balls": 0,
+                        "wicket": "not out"
+                    }
+                ],
+                "bowling": [
+                    {
+                        "player": "Khaleel Ahmed",
+                        "overs": 4,
+                        "runs_conceded": 36,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Ravichandran Ashwin",
+                        "overs": 4,
+                        "runs_conceded": 27,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Moeen Ali",
+                        "overs": 4,
+                        "runs_conceded": 30,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Deepak Chahar",
+                        "overs": 4,
+                        "runs_conceded": 30,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Tushar Deshpande",
+                        "overs": 4,
+                        "runs_conceded": 30,
+                        "wickets": 0
+                    }
+                ]
+            },
+            {
+                "team_batting": "Chennai Super Kings",
+                "batting": [
+                    {
+                        "player": "Ruturaj Gaikwad",
+                        "runs": 0,
+                        "balls": 0,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Devon Conway",
+                        "runs": 0,
+                        "balls": 0,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Vijay Shankar",
+                        "runs": 69,
+                        "balls": 54,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "MS Dhoni",
+                        "runs": 30,
+                        "balls": 26,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Ravindra Jadeja",
+                        "runs": 0,
+                        "balls": 0,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Rachin Ravindra",
+                        "runs": 0,
+                        "balls": 0,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Moeen Ali",
+                        "runs": 0,
+                        "balls": 0,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Deepak Chahar",
+                        "runs": 0,
+                        "balls": 0,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Tushar Deshpande",
+                        "runs": 0,
+                        "balls": 0,
+                        "wicket": "not out"
+                    },
+                    {
+                        "player": "Khaleel Ahmed",
+                        "runs": 0,
+                        "balls": 0,
+                        "wicket": "not out"
+                    }
+                ],
+                "bowling": [
+                    {
+                        "player": "Axar Patel",
+                        "overs": 4,
+                        "runs_conceded": 30,
+                        "wickets": 1
+                    },
+                    {
+                        "player": "Mohit Sharma",
+                        "overs": 4,
+                        "runs_conceded": 30,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Vipraj Nigam",
+                        "overs": 4,
+                        "runs_conceded": 30,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Kuldeep Yadav",
+                        "overs": 4,
+                        "runs_conceded": 30,
+                        "wickets": 0
+                    },
+                    {
+                        "player": "Mukesh Kumar",
+                        "overs": 4,
+                        "runs_conceded": 30,
+                        "wickets": 0
+                    }
+                ]
+            }
+        ]
+    }
+}
