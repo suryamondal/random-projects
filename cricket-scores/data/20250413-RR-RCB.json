@@ -12,37 +12,37 @@
                         "player": "Yashasvi Jaiswal",
                         "runs": 75,
                         "balls": 47,
-                        "wicket": "lbw b Josh Hazlewood"
+                        "wicket_by": "lbw b Josh Hazlewood"
                     },
                     {
                         "player": "Sanju Samson",
                         "runs": 15,
                         "balls": 19,
-                        "wicket": "st Jitesh Sharma b Krunal Pandya"
+                        "wicket_by": "st Jitesh Sharma b Krunal Pandya"
                     },
                     {
                         "player": "Riyan Parag",
                         "runs": 30,
                         "balls": 22,
-                        "wicket": "c Virat Kohli b Yash Dayal"
+                        "wicket_by": "c Virat Kohli b Yash Dayal"
                     },
                     {
                         "player": "Dhruv Jurel",
                         "runs": 35,
                         "balls": 23,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "Shimron Hetmyer",
                         "runs": 9,
                         "balls": 8,
-                        "wicket": "c Devdutt Padikkal b Bhuvneshwar Kumar"
+                        "wicket_by": "c Devdutt Padikkal b Bhuvneshwar Kumar"
                     },
                     {
                         "player": "Nitish Rana",
                         "runs": 4,
                         "balls": 1,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     }
                 ],
                 "bowling": [
@@ -91,19 +91,19 @@
                         "player": "Philip Salt",
                         "runs": 65,
                         "balls": 33,
-                        "wicket": "c Yashasvi Jaiswal b Kumar Kartikeya"
+                        "wicket_by": "c Yashasvi Jaiswal b Kumar Kartikeya"
                     },
                     {
                         "player": "Virat Kohli",
                         "runs": 62,
                         "balls": 45,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "Devdutt Padikkal",
                         "runs": 40,
                         "balls": 28,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     }
                 ],
                 "bowling": [

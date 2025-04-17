@@ -12,55 +12,55 @@
                         "player": "Phil Salt",
                         "runs": 37,
                         "balls": 17,
-                        "wicket": "run out (Vipraj Nigam/Rahul)"
+                        "wicket_by": "run out (Vipraj Nigam/Rahul)"
                     },
                     {
                         "player": "Virat Kohli",
                         "runs": 22,
                         "balls": 14,
-                        "wicket": "c Mitchell Starc b Vipraj Nigam"
+                        "wicket_by": "c Mitchell Starc b Vipraj Nigam"
                     },
                     {
                         "player": "Devdutt Padikkal",
                         "runs": 1,
                         "balls": 8,
-                        "wicket": "c Axar Patel b Mukesh Kumar"
+                        "wicket_by": "c Axar Patel b Mukesh Kumar"
                     },
                     {
                         "player": "Rajat Patidar",
                         "runs": 25,
                         "balls": 23,
-                        "wicket": "c KL Rahul b Kuldeep Yadav"
+                        "wicket_by": "c KL Rahul b Kuldeep Yadav"
                     },
                     {
                         "player": "Liam Livingstone",
                         "runs": 4,
                         "balls": 6,
-                        "wicket": "c Ashutosh Sharma b Mohit Sharma"
+                        "wicket_by": "c Ashutosh Sharma b Mohit Sharma"
                     },
                     {
                         "player": "Dinesh Karthik",
                         "runs": 28,
                         "balls": 17,
-                        "wicket": "c Tristan Stubbs b Kuldeep Yadav"
+                        "wicket_by": "c Tristan Stubbs b Kuldeep Yadav"
                     },
                     {
                         "player": "Wanindu Hasaranga",
                         "runs": 20,
                         "balls": 12,
-                        "wicket": "c Faf du Plessis b Mitchell Starc"
+                        "wicket_by": "c Faf du Plessis b Mitchell Starc"
                     },
                     {
                         "player": "Harshal Patel",
                         "runs": 10,
                         "balls": 9,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "Mohammed Siraj",
                         "runs": 5,
                         "balls": 4,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     }
                 ],
                 "bowling": [
@@ -103,31 +103,31 @@
                         "player": "Faf du Plessis",
                         "runs": 0,
                         "balls": 1,
-                        "wicket": "b Mohammed Siraj"
+                        "wicket_by": "b Mohammed Siraj"
                     },
                     {
                         "player": "Abishek Porel",
                         "runs": 0,
                         "balls": 2,
-                        "wicket": "b Harshal Patel"
+                        "wicket_by": "b Harshal Patel"
                     },
                     {
                         "player": "KL Rahul",
                         "runs": 93,
                         "balls": 53,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "Tristan Stubbs",
                         "runs": 38,
                         "balls": 23,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "Ashutosh Sharma",
                         "runs": 15,
                         "balls": 10,
-                        "wicket": "c Dinesh Karthik b Wanindu Hasaranga"
+                        "wicket_by": "c Dinesh Karthik b Wanindu Hasaranga"
                     }
                 ],
                 "bowling": [

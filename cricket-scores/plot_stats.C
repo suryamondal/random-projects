@@ -19,8 +19,9 @@
 using json = nlohmann::json;
 using namespace std;
 
-// std::string nameOfTeam = "Mumbai Indians";
-std::string nameOfTeam = "Rajasthan Royals";
+std::string nameOfTeam = "Mumbai Indians";
+// std::string nameOfTeam = "Sunrisers Hyderabad";
+// std::string nameOfTeam = "Rajasthan Royals";
 // std::string nameOfTeam = "Delhi Capitals";
 
 void plot_stats() {
@@ -118,7 +119,7 @@ void plot_stats() {
   // gPad->SetGridx(1);
   gPad->SetGridy(1);
 
-  TH2F *battingHist = new TH2F("batting", "Runs by Player;Match Index;Player Name", nMatches, 0.5, nMatches + 0.5, nBatPlayers, 0.5, nBatPlayers + 0.5);
+  TH2F *battingHist = new TH2F("batting", ("Runs " + nameOfTeam + "; Match Index;Player Name").c_str(), nMatches, 0.5, nMatches + 0.5, nBatPlayers, 0.5, nBatPlayers + 0.5);
 
   for (int i = 0; i < nMatches; ++i) {
     for (const auto& [name, runs] : battingData[i]) {
@@ -137,7 +138,7 @@ void plot_stats() {
   // gPad->SetGridx(1);
   gPad->SetGridy(1);
 
-  TH2F *bowlingHist = new TH2F("bowling", "Wickets by Player (Bowling);Match Index;Player Name", nMatches, 0.5, nMatches + 0.5, nBowlPlayers, 0.5, nBowlPlayers + 0.5);
+  TH2F *bowlingHist = new TH2F("bowling", ("Wickets " + nameOfTeam + ";Match Index;Player Name").c_str(), nMatches, 0.5, nMatches + 0.5, nBowlPlayers, 0.5, nBowlPlayers + 0.5);
 
   for (int i = 0; i < nMatches; ++i) {
     for (const auto& [name, wkts] : bowlingData[i]) {

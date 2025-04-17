@@ -13,67 +13,67 @@
                         "player": "Yashasvi Jaiswal",
                         "runs": 4,
                         "balls": 3,
-                        "wicket": "c Ashwin b Khaleel Ahmed"
+                        "wicket_by": "c Ashwin b Khaleel Ahmed"
                     },
                     {
                         "player": "Sanju Samson",
                         "runs": 20,
                         "balls": 16,
-                        "wicket": "c Rachin Ravindra b Noor Ahmad"
+                        "wicket_by": "c Rachin Ravindra b Noor Ahmad"
                     },
                     {
                         "player": "Nitish Rana",
                         "runs": 81,
                         "balls": 36,
-                        "wicket": "st Dhoni b Ashwin"
+                        "wicket_by": "st Dhoni b Ashwin"
                     },
                     {
                         "player": "Riyan Parag",
                         "runs": 37,
                         "balls": 28,
-                        "wicket": "b Matheesha Pathirana"
+                        "wicket_by": "b Matheesha Pathirana"
                     },
                     {
                         "player": "Dhruv Jurel",
                         "runs": 3,
                         "balls": 7,
-                        "wicket": "c Matheesha Pathirana b Noor Ahmad"
+                        "wicket_by": "c Matheesha Pathirana b Noor Ahmad"
                     },
                     {
                         "player": "Wanindu Hasaranga",
                         "runs": 4,
                         "balls": 5,
-                        "wicket": "c Vijay Shankar b Ravindra Jadeja"
+                        "wicket_by": "c Vijay Shankar b Ravindra Jadeja"
                     },
                     {
                         "player": "Shimron Hetmyer",
                         "runs": 19,
                         "balls": 16,
-                        "wicket": "c Ashwin b Matheesha Pathirana"
+                        "wicket_by": "c Ashwin b Matheesha Pathirana"
                     },
                     {
                         "player": "Jofra Archer",
                         "runs": 0,
                         "balls": 2,
-                        "wicket": "c Ruturaj Gaikwad b Khaleel Ahmed"
+                        "wicket_by": "c Ruturaj Gaikwad b Khaleel Ahmed"
                     },
                     {
                         "player": "Kumar Kartikeya",
                         "runs": 1,
                         "balls": 1,
-                        "wicket": "run out (Khaleel Ahmed)"
+                        "wicket_by": "run out (Khaleel Ahmed)"
                     },
                     {
                         "player": "Maheesh Theekshana",
                         "runs": 2,
                         "balls": 4,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "Tushar Deshpande",
                         "runs": 1,
                         "balls": 2,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     }
                 ],
                 "bowling": [
@@ -122,49 +122,49 @@
                         "player": "Rachin Ravindra",
                         "runs": 0,
                         "balls": 4,
-                        "wicket": "c Dhruv Jurel b Jofra Archer"
+                        "wicket_by": "c Dhruv Jurel b Jofra Archer"
                     },
                     {
                         "player": "Rahul Tripathi",
                         "runs": 23,
                         "balls": 19,
-                        "wicket": "c Hetmyer b Wanindu Hasaranga"
+                        "wicket_by": "c Hetmyer b Wanindu Hasaranga"
                     },
                     {
                         "player": "Ruturaj Gaikwad",
                         "runs": 63,
                         "balls": 44,
-                        "wicket": "c Yashasvi Jaiswal b Wanindu Hasaranga"
+                        "wicket_by": "c Yashasvi Jaiswal b Wanindu Hasaranga"
                     },
                     {
                         "player": "Shivam Dube",
                         "runs": 18,
                         "balls": 10,
-                        "wicket": "c Riyan Parag b Wanindu Hasaranga"
+                        "wicket_by": "c Riyan Parag b Wanindu Hasaranga"
                     },
                     {
                         "player": "Vijay Shankar",
                         "runs": 9,
                         "balls": 6,
-                        "wicket": "b Wanindu Hasaranga"
+                        "wicket_by": "b Wanindu Hasaranga"
                     },
                     {
                         "player": "Ravindra Jadeja",
                         "runs": 32,
                         "balls": 22,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "MS Dhoni",
                         "runs": 16,
                         "balls": 11,
-                        "wicket": "c Hetmyer b Sandeep Sharma"
+                        "wicket_by": "c Hetmyer b Sandeep Sharma"
                     },
                     {
                         "player": "Jamie Overton",
                         "runs": 11,
                         "balls": 4,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     }
                 ],
                 "bowling": [

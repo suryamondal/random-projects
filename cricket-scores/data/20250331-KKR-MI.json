@@ -8,17 +8,17 @@
             {
                 "team_batting": "Kolkata Knight Riders",
                 "batting": [
-                    { "player": "Quinton de Kock", "runs": 1, "balls": 3, "wicket": "Deepak Chahar" },
-                    { "player": "Sunil Narine", "runs": 0, "balls": 2, "wicket": "Trent Boult" },
-                    { "player": "Ajinkya Rahane", "runs": 11, "balls": 7, "wicket": "Ashwani Kumar" },
-                    { "player": "Angkrish Raghuvanshi", "runs": 26, "balls": 16, "wicket": "Hardik Pandya" },
-                    { "player": "Venkatesh Iyer", "runs": 3, "balls": 9, "wicket": "Deepak Chahar" },
-                    { "player": "Rinku Singh", "runs": 17, "balls": 14, "wicket": "Ashwani Kumar" },
-                    { "player": "Manish Pandey", "runs": 19, "balls": 14, "wicket": "Ashwani Kumar" },
-                    { "player": "Andre Russell", "runs": 5, "balls": 11, "wicket": "Ashwani Kumar" },
-                    { "player": "Ramandeep Singh", "runs": 22, "balls": 12, "wicket": "Mitchell Santner" },
-                    { "player": "Harshit Rana", "runs": 4, "balls": 8, "wicket": "Vignesh Puthur" },
-                    { "player": "Spencer Johnson", "runs": 1, "balls": 3, "wicket": "not out" }
+                    { "player": "Quinton de Kock", "runs": 1, "balls": 3, "wicket_by": "Deepak Chahar" },
+                    { "player": "Sunil Narine", "runs": 0, "balls": 2, "wicket_by": "Trent Boult" },
+                    { "player": "Ajinkya Rahane", "runs": 11, "balls": 7, "wicket_by": "Ashwani Kumar" },
+                    { "player": "Angkrish Raghuvanshi", "runs": 26, "balls": 16, "wicket_by": "Hardik Pandya" },
+                    { "player": "Venkatesh Iyer", "runs": 3, "balls": 9, "wicket_by": "Deepak Chahar" },
+                    { "player": "Rinku Singh", "runs": 17, "balls": 14, "wicket_by": "Ashwani Kumar" },
+                    { "player": "Manish Pandey", "runs": 19, "balls": 14, "wicket_by": "Ashwani Kumar" },
+                    { "player": "Andre Russell", "runs": 5, "balls": 11, "wicket_by": "Ashwani Kumar" },
+                    { "player": "Ramandeep Singh", "runs": 22, "balls": 12, "wicket_by": "Mitchell Santner" },
+                    { "player": "Harshit Rana", "runs": 4, "balls": 8, "wicket_by": "Vignesh Puthur" },
+                    { "player": "Spencer Johnson", "runs": 1, "balls": 3, "wicket_by": "not out" }
                 ],
                 "bowling": [
                     { "player": "Trent Boult", "overs": 4, "runs_conceded": 23, "wickets": 1 },
@@ -32,17 +32,17 @@
             {
                 "team_batting": "Mumbai Indians",
                 "batting": [
-                    { "player": "Rohit Sharma", "runs": 13, "balls": 12, "wicket": "Andre Russell" },
-                    { "player": "Ryan Rickelton", "runs": 62, "balls": 41, "wicket": "not out" },
-                    { "player": "Will Jacks", "runs": 16, "balls": 17, "wicket": "Andre Russell" },
-                    { "player": "Suryakumar Yadav", "runs": 27, "balls": 9, "wicket": "not out" }
+                    { "player": "Rohit Sharma", "runs": 13, "balls": 12, "wicket_by": "Andre Russell" },
+                    { "player": "Ryan Rickelton", "runs": 62, "balls": 41, "wicket_by": "not out" },
+                    { "player": "Will Jacks", "runs": 16, "balls": 17, "wicket_by": "Andre Russell" },
+                    { "player": "Suryakumar Yadav", "runs": 27, "balls": 9, "wicket_by": "not out" }
                 ],
                 "bowling": [
                     { "player": "Spencer Johnson", "overs": 2, "runs_conceded": 14, "wickets": 0 },
                     { "player": "Harshit Rana", "overs": 2, "runs_conceded": 28, "wickets": 0 },
                     { "player": "Varun Chakaravarthy", "overs": 3, "runs_conceded": 12, "wickets": 0 },
                     { "player": "Andre Russell", "overs": 2.5, "runs_conceded": 35, "wickets": 2 },
-                    { "player": "Sunil Narine", "overs": 3, "runs_conceded": 33, "wickets": 0 },
+                    { "player": "Sunil Narine", "overs": 3, "runs_conceded": 33, "wickets": 0 }
                 ]
             }
         ]

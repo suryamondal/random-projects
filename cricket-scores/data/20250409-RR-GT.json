@@ -12,31 +12,31 @@
                         "player": "Yashasvi Jaiswal",
                         "runs": 45,
                         "balls": 32,
-                        "wicket": "b Rashid Khan"
+                        "wicket_by": "b Rashid Khan"
                     },
                     {
                         "player": "Sanju Samson",
                         "runs": 38,
                         "balls": 28,
-                        "wicket": "c Shubman Gill b Alzarri Joseph"
+                        "wicket_by": "c Shubman Gill b Alzarri Joseph"
                     },
                     {
                         "player": "Riyan Parag",
                         "runs": 52,
                         "balls": 37,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "Shimron Hetmyer",
                         "runs": 25,
                         "balls": 18,
-                        "wicket": "c Rashid Khan b Alzarri Joseph"
+                        "wicket_by": "c Rashid Khan b Alzarri Joseph"
                     },
                     {
                         "player": "Ravichandran Ashwin",
                         "runs": 15,
                         "balls": 10,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     }
                 ],
                 "bowling": [
@@ -59,7 +59,7 @@
                         "wickets": 0
                     },
                     {
-                        "player": "Mohammad Shami",
+                        "player": "Mohammed Shami",
                         "overs": 4,
                         "runs_conceded": 40,
                         "wickets": 0
@@ -79,31 +79,31 @@
                         "player": "Shubman Gill",
                         "runs": 60,
                         "balls": 45,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "Sai Sudharsan",
                         "runs": 35,
                         "balls": 25,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "Hardik Pandya",
                         "runs": 15,
                         "balls": 10,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "Rashid Khan",
                         "runs": 10,
                         "balls": 8,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "Lockie Ferguson",
                         "runs": 5,
                         "balls": 3,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     }
                 ],
                 "bowling": [

@@ -8,33 +8,33 @@
             {
                 "team_batting": "Sunrisers Hyderabad",
                 "batting": [
-                    { "player": "Abhishek Sharma", "runs": 18, "balls": 16, "wicket": "c Rahul Tewatia b Mohammed Siraj" },
-                    { "player": "Travis Head", "runs": 8, "balls": 5, "wicket": "c Sai Sudharsan b Mohammed Siraj" },
-                    { "player": "Ishan Kishan", "runs": 17, "balls": 14, "wicket": "c Ishant Sharma b Prasidh Krishna" },
-                    { "player": "Nitish Reddy", "runs": 31, "balls": 34, "wicket": "c Rashid Khan b R Sai Kishore" },
-                    { "player": "Heinrich Klaasen", "runs": 27, "balls": 19, "wicket": "b Sai Kishore" },
-                    { "player": "Aniket Verma", "runs": 18, "balls": 14, "wicket": "lbw b Mohammed Siraj" },
-                    { "player": "Kamindu Mendis", "runs": 1, "balls": 5, "wicket": "c Sai Sudharsan b Prasidh Krishna" },
-                    { "player": "Pat Cummins", "runs": 22, "balls": 9, "wicket": "not out" },
-                    { "player": "Simarjeet Singh", "runs": 0, "balls": 2, "wicket": "b Mohammed Siraj" },
-                    { "player": "Mohammed Shami", "runs": 6, "balls": 2, "wicket": "not out" }
+                    { "player": "Abhishek Sharma", "runs": 18, "balls": 16, "wicket_by": "c Rahul Tewatia b Mohammed Siraj" },
+                    { "player": "Travis Head", "runs": 8, "balls": 5, "wicket_by": "c Sai Sudharsan b Mohammed Siraj" },
+                    { "player": "Ishan Kishan", "runs": 17, "balls": 14, "wicket_by": "c Ishant Sharma b Prasidh Krishna" },
+                    { "player": "Nitish Reddy", "runs": 31, "balls": 34, "wicket_by": "c Rashid Khan b R Sai Kishore" },
+                    { "player": "Heinrich Klaasen", "runs": 27, "balls": 19, "wicket_by": "b Sai Kishore" },
+                    { "player": "Aniket Verma", "runs": 18, "balls": 14, "wicket_by": "lbw b Mohammed Siraj" },
+                    { "player": "Kamindu Mendis", "runs": 1, "balls": 5, "wicket_by": "c Sai Sudharsan b Prasidh Krishna" },
+                    { "player": "Pat Cummins", "runs": 22, "balls": 9, "wicket_by": "not out" },
+                    { "player": "Simarjeet Singh", "runs": 0, "balls": 2, "wicket_by": "b Mohammed Siraj" },
+                    { "player": "Mohammed Shami", "runs": 6, "balls": 2, "wicket_by": "not out" }
                 ],
                 "bowling": [
                     { "player": "Mohammed Siraj", "overs": 4, "runs_conceded": 17, "wickets": 4 },
                     { "player": "Ishant Sharma", "overs": 4, "runs_conceded": 53, "wickets": 0 },
                     { "player": "Prasidh Krishna", "overs": 4, "runs_conceded": 25, "wickets": 2 },
                     { "player": "Rashid Khan", "overs": 4, "runs_conceded": 31, "wickets": 0 },
-                    { "player": "R Sai Kishore", "overs": 4, "runs_conceded": 24, "wickets": 2 },
+                    { "player": "R Sai Kishore", "overs": 4, "runs_conceded": 24, "wickets": 2 }
                 ]
             },
             {
                 "team_batting": "Gujarat Titans",
                 "batting": [
-                    { "player": "Shubman Gill", "runs": 61, "balls": 43, "wicket": "not out" },
-                    { "player": "Sai Sudharsan", "runs": 5, "balls": 9, "wicket": "c Aniket Verma b Mohammed Shami" },
-                    { "player": "Jos Buttler", "runs": 0, "balls": 3, "wicket": "c Heinrich Klaasen b Pat Cummins" },
-                    { "player": "Washington Sundar", "runs": 49, "balls": 29, "wicket": "c Aniket Verma b Mohammed Shami" },
-                    { "player": "Sherfane Rutherford", "runs": 35, "balls": 16, "wicket": "not out" }
+                    { "player": "Shubman Gill", "runs": 61, "balls": 43, "wicket_by": "not out" },
+                    { "player": "Sai Sudharsan", "runs": 5, "balls": 9, "wicket_by": "c Aniket Verma b Mohammed Shami" },
+                    { "player": "Jos Buttler", "runs": 0, "balls": 3, "wicket_by": "c Heinrich Klaasen b Pat Cummins" },
+                    { "player": "Washington Sundar", "runs": 49, "balls": 29, "wicket_by": "c Aniket Verma b Mohammed Shami" },
+                    { "player": "Sherfane Rutherford", "runs": 35, "balls": 16, "wicket_by": "not out" }
                 ],
                 "bowling": [
                     { "player": "Mohammed Shami", "overs": 4, "runs_conceded": 28, "wickets": 2 },

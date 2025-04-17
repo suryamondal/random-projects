@@ -12,37 +12,37 @@
                         "player": "Jake Fraser-McGurk",
                         "runs": 0,
                         "balls": 5,
-                        "wicket": "c Ashwin b Khaleel Ahmed"
+                        "wicket_by": "c Ashwin b Khaleel Ahmed"
                     },
                     {
                         "player": "KL Rahul",
                         "runs": 77,
                         "balls": 51,
-                        "wicket": "c Dhoni b Matheesha Pathirana"
+                        "wicket_by": "c Dhoni b Matheesha Pathirana"
                     },
                     {
                         "player": "Abishek Porel",
                         "runs": 33,
                         "balls": 20,
-                        "wicket": "c Matheesha Pathirana b Ravindra Jadeja"
+                        "wicket_by": "c Matheesha Pathirana b Ravindra Jadeja"
                     },
                     {
                         "player": "Axar Patel",
                         "runs": 21,
                         "balls": 14,
-                        "wicket": "b Noor Ahmad"
+                        "wicket_by": "b Noor Ahmad"
                     },
                     {
                         "player": "Sameer Rizvi",
                         "runs": 20,
                         "balls": 15,
-                        "wicket": "c Ravindra Jadeja b Khaleel Ahmed"
+                        "wicket_by": "c Ravindra Jadeja b Khaleel Ahmed"
                     },
                     {
                         "player": "Shai Hope",
                         "runs": 15,
                         "balls": 10,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     }
                 ],
                 "bowling": [
@@ -85,37 +85,37 @@
                         "player": "Ruturaj Gaikwad",
                         "runs": 45,
                         "balls": 32,
-                        "wicket": "c Shai Hope b Anrich Nortje"
+                        "wicket_by": "c Shai Hope b Anrich Nortje"
                     },
                     {
                         "player": "Devon Conway",
                         "runs": 13,
                         "balls": 14,
-                        "wicket": "b Kuldeep Yadav"
+                        "wicket_by": "b Kuldeep Yadav"
                     },
                     {
                         "player": "Shivam Dube",
                         "runs": 35,
                         "balls": 25,
-                        "wicket": "c KL Rahul b Axar Patel"
+                        "wicket_by": "c KL Rahul b Axar Patel"
                     },
                     {
                         "player": "MS Dhoni",
                         "runs": 30,
                         "balls": 26,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "Ravindra Jadeja",
                         "runs": 20,
                         "balls": 15,
-                        "wicket": "b Kuldeep Yadav"
+                        "wicket_by": "b Kuldeep Yadav"
                     },
                     {
                         "player": "Maheesh Theekshana",
                         "runs": 5,
                         "balls": 8,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     }
                 ],
                 "bowling": [

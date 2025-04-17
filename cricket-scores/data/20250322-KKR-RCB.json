@@ -7,17 +7,17 @@
             {
                 "team_batting": "Kolkata Knight Riders",
                 "batting": [
-                    {"player": "Quinton de Kock", "runs": 4, "balls": 5, "wicket": "Josh Hazlewood"},
-                    {"player": "Sunil Narine", "runs": 44, "balls": 26, "wicket": "Rasikh Salam"},
-                    {"player": "Ajinkya Rahane", "runs": 56, "balls": 31, "wicket": "Krunal Pandya"},
-                    {"player": "Venkatesh Iyer", "runs": 6, "balls": 7, "wicket": "Krunal Pandya"},
-                    {"player": "Angkrish Raghuvanshi", "runs": 30, "balls": 22, "wicket": "Yash Dayal"},
-                    {"player": "Rinku Singh", "runs": 12, "balls": 10, "wicket": "Krunal Pandya"},
-                    {"player": "Andre Russell", "runs": 4, "balls": 3, "wicket": "Suyash Sharma"},
-                    {"player": "Ramandeep Singh", "runs": 6, "balls": 9, "wicket": ""},
-                    {"player": "Harshit Rana", "runs": 5, "balls": 6, "wicket": "Josh Hazlewood"},
-                    {"player": "Spencer Johnson", "runs": 1, "balls": 1, "wicket": ""},
-                    {"player": "Varun Chakaravarthy", "runs": 0, "balls": 0, "wicket": ""}
+                    {"player": "Quinton de Kock", "runs": 4, "balls": 5, "wicket_by": "Josh Hazlewood"},
+                    {"player": "Sunil Narine", "runs": 44, "balls": 26, "wicket_by": "Rasikh Salam"},
+                    {"player": "Ajinkya Rahane", "runs": 56, "balls": 31, "wicket_by": "Krunal Pandya"},
+                    {"player": "Venkatesh Iyer", "runs": 6, "balls": 7, "wicket_by": "Krunal Pandya"},
+                    {"player": "Angkrish Raghuvanshi", "runs": 30, "balls": 22, "wicket_by": "Yash Dayal"},
+                    {"player": "Rinku Singh", "runs": 12, "balls": 10, "wicket_by": "Krunal Pandya"},
+                    {"player": "Andre Russell", "runs": 4, "balls": 3, "wicket_by": "Suyash Sharma"},
+                    {"player": "Ramandeep Singh", "runs": 6, "balls": 9, "wicket_by": ""},
+                    {"player": "Harshit Rana", "runs": 5, "balls": 6, "wicket_by": "Josh Hazlewood"},
+                    {"player": "Spencer Johnson", "runs": 1, "balls": 1, "wicket_by": ""},
+                    {"player": "Varun Chakaravarthy", "runs": 0, "balls": 0, "wicket_by": ""}
                 ],
                 "bowling": [
                     {"player": "Josh Hazlewood", "overs": 4, "runs_conceded": 22, "wickets": 2},
@@ -31,17 +31,17 @@
             {
                 "team_batting": "Royal Challengers Bengaluru",
                 "batting": [
-                    {"player": "Phil Salt", "runs": 56, "balls": 31, "wicket": "Varun Chakaravarthy"},
-                    {"player": "Virat Kohli", "runs": 59, "balls": 36, "wicket": ""},
-                    {"player": "Devdutt Padikkal", "runs": 10, "balls": 10, "wicket": "Sunil Narine"},
-                    {"player": "Rajat Patidar", "runs": 34, "balls": 16, "wicket": "Vaibhav Arora"},
-                    {"player": "Liam Livingstone", "runs": 15, "balls": 5, "wicket": ""},
-                    {"player": "Jitesh Sharma", "runs": 0, "balls": 0, "wicket": ""},
-                    {"player": "Tim David", "runs": 0, "balls": 0, "wicket": ""},
-                    {"player": "Krunal Pandya", "runs": 0, "balls": 0, "wicket": ""},
-                    {"player": "Rasikh Salam", "runs": 0, "balls": 0, "wicket": ""},
-                    {"player": "Josh Hazlewood", "runs": 0, "balls": 0, "wicket": ""},
-                    {"player": "Yash Dayal", "runs": 0, "balls": 0, "wicket": ""}
+                    {"player": "Phil Salt", "runs": 56, "balls": 31, "wicket_by": "Varun Chakaravarthy"},
+                    {"player": "Virat Kohli", "runs": 59, "balls": 36, "wicket_by": ""},
+                    {"player": "Devdutt Padikkal", "runs": 10, "balls": 10, "wicket_by": "Sunil Narine"},
+                    {"player": "Rajat Patidar", "runs": 34, "balls": 16, "wicket_by": "Vaibhav Arora"},
+                    {"player": "Liam Livingstone", "runs": 15, "balls": 5, "wicket_by": ""},
+                    {"player": "Jitesh Sharma", "runs": 0, "balls": 0, "wicket_by": ""},
+                    {"player": "Tim David", "runs": 0, "balls": 0, "wicket_by": ""},
+                    {"player": "Krunal Pandya", "runs": 0, "balls": 0, "wicket_by": ""},
+                    {"player": "Rasikh Salam", "runs": 0, "balls": 0, "wicket_by": ""},
+                    {"player": "Josh Hazlewood", "runs": 0, "balls": 0, "wicket_by": ""},
+                    {"player": "Yash Dayal", "runs": 0, "balls": 0, "wicket_by": ""}
                 ],
                 "bowling": [
                     {"player": "Vaibhav Arora", "overs": 3, "runs_conceded": 42, "wickets": 1},

@@ -1,6 +1,6 @@
 {
     "match": {
-        "type": "T20",
+        "format": "T20",
         "date": "2025-03-23",
         "venue": "Rajiv Gandhi International Stadium, Hyderabad",
         "innings": [
@@ -22,7 +22,7 @@
                     { "player": "Jofra Archer", "overs": 4, "runs_conceded": 76, "wickets": 0 },
                     { "player": "Sandeep Sharma", "overs": 4, "runs_conceded": 51, "wickets": 1 },
                     { "player": "Nitish Rana", "overs": 1, "runs_conceded": 9, "wickets": 0 },
-                    { "player": "Tushar Deshpande", "overs": 4, "runs_conceded": 48, "wickets": 3 },
+                    { "player": "Tushar Deshpande", "overs": 4, "runs_conceded": 48, "wickets": 3 }
                 ]
             },
             {
@@ -42,7 +42,7 @@
                     { "player": "Pat Cummins", "overs": 4, "runs_conceded": 60, "wickets": 0 },
                     { "player": "Abhishek Sharma", "overs": 2, "runs_conceded": 17, "wickets": 0 },
                     { "player": "Adam Zampa", "overs": 4, "runs_conceded": 48, "wickets": 1 },
-                    { "player": "Harshal Patel", "overs": 4, "runs_conceded": 34, "wickets": 2 },
+                    { "player": "Harshal Patel", "overs": 4, "runs_conceded": 34, "wickets": 2 }
                 ]
             }
         ]

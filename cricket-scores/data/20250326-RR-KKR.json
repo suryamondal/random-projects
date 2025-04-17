@@ -12,67 +12,67 @@
                         "player": "Yashasvi Jaiswal",
                         "runs": 29,
                         "balls": 24,
-                        "wicket": "c Harshit Rana b Moeen"
+                        "wicket_by": "c Harshit Rana b Moeen"
                     },
                     {
                         "player": "Sanju Samson",
                         "runs": 13,
                         "balls": 11,
-                        "wicket": "b Vaibhav Arora"
+                        "wicket_by": "b Vaibhav Arora"
                     },
                     {
                         "player": "Riyan Parag",
                         "runs": 25,
                         "balls": 15,
-                        "wicket": "c Quinton de Kock b Varun Chakaravarthy"
+                        "wicket_by": "c Quinton de Kock b Varun Chakaravarthy"
                     },
                     {
                         "player": "Nitish Rana",
                         "runs": 8,
                         "balls": 9,
-                        "wicket": "b Moeen"
+                        "wicket_by": "b Moeen"
                     },
                     {
                         "player": "Wanindu Hasaranga",
                         "runs": 4,
                         "balls": 4,
-                        "wicket": "c Ajinkya Rahane b Varun Chakaravarthy"
+                        "wicket_by": "c Ajinkya Rahane b Varun Chakaravarthy"
                     },
                     {
                         "player": "Dhruv Jurel",
                         "runs": 33,
                         "balls": 28,
-                        "wicket": "b Harshit Rana"
+                        "wicket_by": "b Harshit Rana"
                     },
                     {
                         "player": "Shubham Dubey",
                         "runs": 9,
                         "balls": 12,
-                        "wicket": "c Andre Russell b Vaibhav Arora"
+                        "wicket_by": "c Andre Russell b Vaibhav Arora"
                     },
                     {
                         "player": "Shimron Hetmyer",
                         "runs": 7,
                         "balls": 8,
-                        "wicket": "c Angkrish Raghuvanshi b Harshit Rana"
+                        "wicket_by": "c Angkrish Raghuvanshi b Harshit Rana"
                     },
                     {
                         "player": "Jofra Archer",
                         "runs": 16,
                         "balls": 7,
-                        "wicket": "b Spencer Johnson"
+                        "wicket_by": "b Spencer Johnson"
                     },
                     {
                         "player": "Maheesh Theekshana",
                         "runs": 1,
                         "balls": 1,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "Tushar Deshpande",
                         "runs": 2,
                         "balls": 1,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     }
                 ],
                 "bowling": [
@@ -115,25 +115,25 @@
                         "player": "Moeen Ali",
                         "runs": 5,
                         "balls": 12,
-                        "wicket": "run out (Maheesh Theekshana/Riyan Parag)"
+                        "wicket_by": "run out (Maheesh Theekshana/Riyan Parag)"
                     },
                     {
                         "player": "Quinton de Kock",
                         "runs": 97,
                         "balls": 61,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     },
                     {
                         "player": "Ajinkya Rahane",
                         "runs": 29,
                         "balls": 23,
-                        "wicket": "c Dhruv Jurel b Wanindu Hasaranga"
+                        "wicket_by": "c Dhruv Jurel b Wanindu Hasaranga"
                     },
                     {
                         "player": "Angkrish Raghuvanshi",
                         "runs": 22,
                         "balls": 17,
-                        "wicket": "not out"
+                        "wicket_by": "not out"
                     }
                 ],
                 "bowling": [

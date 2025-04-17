@@ -8,13 +8,13 @@
             {
                 "team_batting": "Kolkata Knight Riders",
                 "batting": [
-                    { "player": "Quinton de Kock", "runs": 1, "balls": 6, "wicket": "c Zeeshan Ansari b Pat Cummins" },
-                    { "player": "Sunil Narine", "runs": 7, "balls": 7, "wicket": "c Heinrich Klaasen b Mohammed Shami" },
-                    { "player": "Ajinkya Rahane", "runs": 38, "balls": 27, "wicket": "c Heinrich Klaasen b Zeeshan Ansari" },
-                    { "player": "Angkrish Raghuvanshi", "runs": 50, "balls": 32, "wicket": "c Harshal Patel b Kamindu Mendis" },
-                    { "player": "Venkatesh Iyer", "runs": 60, "balls": 29, "wicket": "c Aniket Verma b Harshal Patel" },
-                    { "player": "Rinku Singh", "runs": 32, "balls": 17, "wicket": "not out" },
-                    { "player": "Andre Russell", "runs": 1, "balls": 2, "wicket": "run out (Heinrich Klaasen)" }
+                    { "player": "Quinton de Kock", "runs": 1, "balls": 6, "wicket_by": "Pat Cummins" },
+                    { "player": "Sunil Narine", "runs": 7, "balls": 7, "wicket_by": "Mohammed Shami" },
+                    { "player": "Ajinkya Rahane", "runs": 38, "balls": 27, "wicket_by": "Zeeshan Ansari" },
+                    { "player": "Angkrish Raghuvanshi", "runs": 50, "balls": 32, "wicket_by": "Kamindu Mendis" },
+                    { "player": "Venkatesh Iyer", "runs": 60, "balls": 29, "wicket_by": "Harshal Patel" },
+                    { "player": "Rinku Singh", "runs": 32, "balls": 17, "wicket_by": "" },
+                    { "player": "Andre Russell", "runs": 1, "balls": 2, "wicket_by": "Heinrich Klaasen" }
                 ],
                 "bowling": [
                     { "player": "Mohammed Shami", "overs": 4, "runs_conceded": 29, "wickets": 1 },
@@ -28,24 +28,24 @@
             {
                 "team_batting": "Sunrisers Hyderabad",
                 "batting": [
-                    { "player": "Travis Head", "runs": 4, "balls": 2, "wicket": "c Hardhit Rana b Vaibhav Arora" },
-                    { "player": "Abhishek Sharma", "runs": 2, "balls": 6, "wicket": "c Venkatesh Iyer b Harshit Rana" },
-                    { "player": "Ishan Kishan", "runs": 2, "balls": 5, "wicket": "c Ajinkya Rahane b Vaibhav Arora" },
-                    { "player": "Nitish Kumar Reddy", "runs": 19, "balls": 15, "wicket": "c Sunil Narine b Vaibhav Arora" },
-                    { "player": "Kamindu Mendis", "runs": 27, "balls": 20, "wicket": "c Anukul Roy b Sunil Narine" },
-                    { "player": "Heinrich Klaasen", "runs": 33, "balls": 21, "wicket": "c Moeen Ali b Vaibhav Arora" },
-                    { "player": "Aniket Verma", "runs": 6, "balls": 6, "wicket": "c Vebkatesh Iyer b Varun Chakaravarthy" },
-                    { "player": "Pat Cummins", "runs": 14, "balls": 15, "wicket": "c Harshit Rana b Varun Chakaravarthy" },
-                    { "player": "Harshal Patel", "runs": 3, "balls": 5, "wicket": "c b Andre Russell" }
-                    { "player": "Simarjeet Singh", "runs": 0, "balls": 1, "wicket": "b Varun Chakaravarthy" },
-                    { "player": "Mohammed Shami", "runs": 2, "balls": 4, "wicket": "not out" },
+                    { "player": "Travis Head", "runs": 4, "balls": 2, "wicket_by": "Vaibhav Arora" },
+                    { "player": "Abhishek Sharma", "runs": 2, "balls": 6, "wicket_by": "Harshit Rana" },
+                    { "player": "Ishan Kishan", "runs": 2, "balls": 5, "wicket_by": "Vaibhav Arora" },
+                    { "player": "Nitish Kumar Reddy", "runs": 19, "balls": 15, "wicket_by": "Vaibhav Arora" },
+                    { "player": "Kamindu Mendis", "runs": 27, "balls": 20, "wicket_by": "Sunil Narine" },
+                    { "player": "Heinrich Klaasen", "runs": 33, "balls": 21, "wicket_by": "Vaibhav Arora" },
+                    { "player": "Aniket Verma", "runs": 6, "balls": 6, "wicket_by": "Varun Chakaravarthy" },
+                    { "player": "Pat Cummins", "runs": 14, "balls": 15, "wicket_by": "Varun Chakaravarthy" },
+                    { "player": "Harshal Patel", "runs": 3, "balls": 5, "wicket_by": "Andre Russell" },
+                    { "player": "Simarjeet Singh", "runs": 0, "balls": 1, "wicket_by": "Varun Chakaravarthy" },
+                    { "player": "Mohammed Shami", "runs": 2, "balls": 4, "wicket_by": "" }
                 ],
                 "bowling": [
                     { "player": "Vaibhav Arora", "overs": 4, "runs_conceded": 29, "wickets": 3 },
-                    { "player": "Harshit Rana", "overs": 3, "runs_conceded": 15, "wickets": 1 }
+                    { "player": "Harshit Rana", "overs": 3, "runs_conceded": 15, "wickets": 1 },
                     { "player": "Varun Chakaravarthy", "overs": 4, "runs_conceded": 22, "wickets": 3 },
                     { "player": "Andre Russell", "overs": 1.4, "runs_conceded": 21, "wickets": 2 },
-                    { "player": "Sunil Narine", "overs": 4, "runs_conceded": 30, "wickets": 1 },
+                    { "player": "Sunil Narine", "overs": 4, "runs_conceded": 30, "wickets": 1 }
                 ]
             }
         ]
