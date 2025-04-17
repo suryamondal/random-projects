@@ -8,7 +8,7 @@
             {
                 "team_batting": "Royal Challengers Bengaluru",
                 "batting": [
-                    { "player": "Phil Salt", "runs": 37, "balls": 17, "wicket_by": "" },
+                    { "player": "Philip Salt", "runs": 37, "balls": 17, "wicket_by": "" },
                     { "player": "Virat Kohli", "runs": 22, "balls": 14, "wicket_by": "Vipraj Nigam" },
                     { "player": "Devdutt Padikkal", "runs": 1, "balls": 8, "wicket_by": "Mukesh Kumar" },
                     { "player": "Rajat Patidar", "runs": 25, "balls": 23, "wicket_by": "Kuldeep Yadav" },
@@ -39,7 +39,7 @@
                 ],
                 "bowling": [
                     { "player": "Bhuvneshwar Kumar", "overs": 4, "runs_conceded": 26, "wickets": 2 },
-                    { "player": "Yash Dalal", "overs": 3.5, "runs_conceded": 45, "wickets": 1 },
+                    { "player": "Yash Dayal", "overs": 3.5, "runs_conceded": 45, "wickets": 1 },
                     { "player": "Josh Hazlewood", "overs": 3, "runs_conceded": 40, "wickets": 0 },
                     { "player": "Suyash Sharma", "overs": 4, "runs_conceded": 35, "wickets": 1 },
                     { "player": "Krunal Pandya", "overs": 2, "runs_conceded": 19, "wickets": 0 },

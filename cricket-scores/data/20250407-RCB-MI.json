@@ -8,7 +8,7 @@
             {
                 "team_batting": "Royal Challengers Bengaluru",
                 "batting": [
-                    { "player": "Phil Salt", "runs": 4, "balls": 2, "wicket_by": "Trent Boult" },
+                    { "player": "Philip Salt", "runs": 4, "balls": 2, "wicket_by": "Trent Boult" },
                     { "player": "Virat Kohli", "runs": 67, "balls": 42, "wicket_by": "Hardik Pandya" },
                     { "player": "Devdutt Padikkal", "runs": 37, "balls": 22, "wicket_by": "Vignesh Puthur" },
                     { "player": "Rajat Patidar", "runs": 64, "balls": 32, "wicket_by": "Trent Boult" },

@@ -8,7 +8,7 @@
             {
                 "team_batting": "Royal Challengers Bengaluru",
                 "batting": [
-                    { "player": "Phil Salt", "runs": 32, "balls": 16, "wicket": "Noor Ahmad" },
+                    { "player": "Philip Salt", "runs": 32, "balls": 16, "wicket": "Noor Ahmad" },
                     { "player": "Virat Kohli", "runs": 31, "balls": 30, "wicket": "Noor Ahmad" },
                     { "player": "Devdutt Padikkal", "runs": 27, "balls": 14, "wicket": "Ravichandran Ashwin" },
                     { "player": "Rajat Patidar", "runs": 51, "balls": 32, "wicket": "Matheesha Pathirana" },

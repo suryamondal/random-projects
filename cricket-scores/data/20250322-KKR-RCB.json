@@ -30,7 +30,7 @@
             {
                 "team_batting": "Royal Challengers Bengaluru",
                 "batting": [
-                    {"player": "Phil Salt", "runs": 56, "balls": 31, "wicket_by": "Varun Chakaravarthy"},
+                    {"player": "Philip Salt", "runs": 56, "balls": 31, "wicket_by": "Varun Chakaravarthy"},
                     {"player": "Virat Kohli", "runs": 59, "balls": 36, "wicket_by": ""},
                     {"player": "Devdutt Padikkal", "runs": 10, "balls": 10, "wicket_by": "Sunil Narine"},
                     {"player": "Rajat Patidar", "runs": 34, "balls": 16, "wicket_by": "Vaibhav Arora"},

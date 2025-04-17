@@ -8,7 +8,7 @@
             {
                 "team_batting": "Royal Challengers Bengaluru",
                 "batting": [
-                    {"player": "Phil Salt", "runs": 14, "balls": 13, "wicket": "Mohammad Siraj"},
+                    {"player": "Philip Salt", "runs": 14, "balls": 13, "wicket": "Mohammad Siraj"},
                     {"player": "Virat Kohli", "runs": 7, "balls": 6, "wicket": "Arshad Khan"},
                     {"player": "Devdutt Padikkal", "runs": 4, "balls": 3, "wicket": "Mohammad Siraj"},
                     {"player": "Rajat Patidar", "runs": 12, "balls": 12, "wicket": "Ishant Sharma"},
