@@ -33,7 +33,7 @@
                     { "player": "Rachin Ravindra", "runs": 41, "balls": 31, "wicket": "Yash Dayal" },
                     { "player": "Rahul Tripathi", "runs": 5, "balls": 3, "wicket": "Josh Hazlewood" },
                     { "player": "Ruturaj Gaikwad", "runs": 0, "balls": 4, "wicket": "Josh Hazlewood" },
-                    { "player": "Deepak Hooda", "runs": 4, "balls": 9, "wicket": "Bhuvaneshwar Kumar" },
+                    { "player": "Deepak Hooda", "runs": 4, "balls": 9, "wicket": "Bhuvneshwar Kumar" },
                     { "player": "Sam Curran", "runs": 8, "balls": 13, "wicket": "Liam Livingstone" },
                     { "player": "Shivam Dube", "runs": 19, "balls": 15, "wicket": "Yash Dayal" },
                     { "player": "Ravindra Jadeja", "runs": 25, "balls": 19, "wicket": "Josh Hazlewood" },
@@ -43,7 +43,7 @@
                     { "player": "Noor Ahmad", "runs": 0, "balls": 2, "wicket": "" }
                 ],
                 "bowling": [
-                    { "player": "Bhuvaneshwar", "overs": 3, "runs_conceded": 20, "wickets": 1 },
+                    { "player": "Bhuvneshwar Kumar", "overs": 3, "runs_conceded": 20, "wickets": 1 },
                     { "player": "Josh Hazlewood", "overs": 4, "runs_conceded": 21, "wickets": 3 },
                     { "player": "Yash Dayal", "overs": 3, "runs_conceded": 18, "wickets": 2 },
                     { "player": "Liam Livingstone", "overs": 4, "runs_conceded": 28, "wickets": 2 },

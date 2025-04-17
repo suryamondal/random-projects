@@ -3,8 +3,9 @@ import os
 
 # List of IPL teams you want to loop over
 teams = [
-    "Mumbai Indians",
-    "Sunrisers Hyderabad",
+    "Royal Challengers Bengaluru",
+    # "Mumbai Indians",
+    # "Sunrisers Hyderabad",
     # "Rajasthan Royals",
     # "Delhi Capitals"
 ]
