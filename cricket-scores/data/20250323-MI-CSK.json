@@ -42,7 +42,7 @@
                 ],
                 "bowling": [
                     { "player": "Trent Boult", "overs": 3, "runs_conceded": 27, "wickets": 0 },
-                    { "player": "Deepak Chahar", "overs": 2, "runs_conceded": 18, "wickets": 2 },
+                    { "player": "Deepak Chahar", "overs": 2, "runs_conceded": 18, "wickets": 1 },
                     { "player": "Satyanarayana Raju", "overs": 1, "runs_conceded": 13, "wickets": 0 },
                     { "player": "Mitchell Santner", "overs": 2.1, "runs_conceded": 24, "wickets": 0 },
                     { "player": "Will Jacks", "overs": 4, "runs_conceded": 32, "wickets": 1 },
