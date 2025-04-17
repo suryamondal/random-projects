@@ -8,159 +8,42 @@
             {
                 "team_batting": "Royal Challengers Bengaluru",
                 "batting": [
-                    {
-                        "player": "Phil Salt",
-                        "runs": 37,
-                        "balls": 17,
-                        "wicket_by": "run out (Vipraj Nigam/Rahul)"
-                    },
-                    {
-                        "player": "Virat Kohli",
-                        "runs": 22,
-                        "balls": 14,
-                        "wicket_by": "c Mitchell Starc b Vipraj Nigam"
-                    },
-                    {
-                        "player": "Devdutt Padikkal",
-                        "runs": 1,
-                        "balls": 8,
-                        "wicket_by": "c Axar Patel b Mukesh Kumar"
-                    },
-                    {
-                        "player": "Rajat Patidar",
-                        "runs": 25,
-                        "balls": 23,
-                        "wicket_by": "c KL Rahul b Kuldeep Yadav"
-                    },
-                    {
-                        "player": "Liam Livingstone",
-                        "runs": 4,
-                        "balls": 6,
-                        "wicket_by": "c Ashutosh Sharma b Mohit Sharma"
-                    },
-                    {
-                        "player": "Dinesh Karthik",
-                        "runs": 28,
-                        "balls": 17,
-                        "wicket_by": "c Tristan Stubbs b Kuldeep Yadav"
-                    },
-                    {
-                        "player": "Wanindu Hasaranga",
-                        "runs": 20,
-                        "balls": 12,
-                        "wicket_by": "c Faf du Plessis b Mitchell Starc"
-                    },
-                    {
-                        "player": "Harshal Patel",
-                        "runs": 10,
-                        "balls": 9,
-                        "wicket_by": "not out"
-                    },
-                    {
-                        "player": "Mohammed Siraj",
-                        "runs": 5,
-                        "balls": 4,
-                        "wicket_by": "not out"
-                    }
+                    { "player": "Phil Salt", "runs": 37, "balls": 17, "wicket_by": "" },
+                    { "player": "Virat Kohli", "runs": 22, "balls": 14, "wicket_by": "Vipraj Nigam" },
+                    { "player": "Devdutt Padikkal", "runs": 1, "balls": 8, "wicket_by": "Mukesh Kumar" },
+                    { "player": "Rajat Patidar", "runs": 25, "balls": 23, "wicket_by": "Kuldeep Yadav" },
+                    { "player": "Liam Livingstone", "runs": 4, "balls": 6, "wicket_by": "Mohit Sharma" },
+                    { "player": "Jitesh Sharma", "runs": 3, "balls": 11, "wicket_by": "Kuldeep Yadav" },
+                    { "player": "Krunal Pandya", "runs": 18, "balls": 18, "wicket_by": "Vipraj Nigam" },
+                    { "player": "Tim David", "runs": 37, "balls": 20, "wicket_by": "" },
+                    { "player": "Bhuvneshwar Kumar", "runs": 1, "balls": 4, "wicket_by": "" }
                 ],
                 "bowling": [
-                    {
-                        "player": "Mitchell Starc",
-                        "overs": 4,
-                        "runs_conceded": 35,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Vipraj Nigam",
-                        "overs": 4,
-                        "runs_conceded": 28,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Mukesh Kumar",
-                        "overs": 4,
-                        "runs_conceded": 36,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Kuldeep Yadav",
-                        "overs": 4,
-                        "runs_conceded": 30,
-                        "wickets": 2
-                    },
-                    {
-                        "player": "Mohit Sharma",
-                        "overs": 4,
-                        "runs_conceded": 34,
-                        "wickets": 1
-                    }
+                    { "player": "Mitchell Starc", "overs": 3, "runs_conceded": 35, "wickets": 0 },
+                    { "player": "Axar Patel", "overs": 4, "runs_conceded": 52, "wickets": 0 },
+                    { "player": "Vipraj Nigam", "overs": 4, "runs_conceded": 18, "wickets": 2 },
+                    { "player": "Mukesh Kumar", "overs": 3, "runs_conceded": 26, "wickets": 1 },
+                    { "player": "Kuldeep Yadav", "overs": 4, "runs_conceded": 17, "wickets": 2 },
+                    { "player": "Mohit Sharma", "overs": 2, "runs_conceded": 10, "wickets": 1 }
                 ]
             },
             {
                 "team_batting": "Delhi Capitals",
                 "batting": [
-                    {
-                        "player": "Faf du Plessis",
-                        "runs": 0,
-                        "balls": 1,
-                        "wicket_by": "b Mohammed Siraj"
-                    },
-                    {
-                        "player": "Abishek Porel",
-                        "runs": 0,
-                        "balls": 2,
-                        "wicket_by": "b Harshal Patel"
-                    },
-                    {
-                        "player": "KL Rahul",
-                        "runs": 93,
-                        "balls": 53,
-                        "wicket_by": "not out"
-                    },
-                    {
-                        "player": "Tristan Stubbs",
-                        "runs": 38,
-                        "balls": 23,
-                        "wicket_by": "not out"
-                    },
-                    {
-                        "player": "Ashutosh Sharma",
-                        "runs": 15,
-                        "balls": 10,
-                        "wicket_by": "c Dinesh Karthik b Wanindu Hasaranga"
-                    }
+                    { "player": "Faf du Plessis", "runs": 2, "balls": 7, "wicket_by": "Yash Dayal" },
+                    { "player": "Jake Fraser-McGurk", "runs": 7, "balls": 6, "wicket_by": "Bhuvneshwar Kumar" },
+                    { "player": "Abishek Porel", "runs": 7, "balls": 7, "wicket_by": "Bhuvneshwar Kumar" },
+                    { "player": "KL Rahul", "runs": 93, "balls": 53, "wicket_by": "" },
+                    { "player": "Axar Patel", "runs": 15, "balls": 11, "wicket_by": "Suyash Sharma" },
+                    { "player": "Tristan Stubbs", "runs": 38, "balls": 23, "wicket_by": "" }
                 ],
                 "bowling": [
-                    {
-                        "player": "Mohammed Siraj",
-                        "overs": 4,
-                        "runs_conceded": 30,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Harshal Patel",
-                        "overs": 4,
-                        "runs_conceded": 35,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Wanindu Hasaranga",
-                        "overs": 4,
-                        "runs_conceded": 40,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Liam Livingstone",
-                        "overs": 2,
-                        "runs_conceded": 25,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Shahbaz Ahmed",
-                        "overs": 3.5,
-                        "runs_conceded": 39,
-                        "wickets": 0
-                    }
+                    { "player": "Bhuvneshwar Kumar", "overs": 4, "runs_conceded": 26, "wickets": 2 },
+                    { "player": "Yash Dalal", "overs": 3.5, "runs_conceded": 45, "wickets": 1 },
+                    { "player": "Josh Hazlewood", "overs": 3, "runs_conceded": 40, "wickets": 0 },
+                    { "player": "Suyash Sharma", "overs": 4, "runs_conceded": 35, "wickets": 1 },
+                    { "player": "Krunal Pandya", "overs": 2, "runs_conceded": 19, "wickets": 0 },
+                    { "player": "Liam Livingstone", "overs": 1, "runs_conceded": 14, "wickets": 0 }
                 ]
             }
         ]

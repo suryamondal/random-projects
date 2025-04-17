@@ -8,147 +8,37 @@
             {
                 "team_batting": "Rajasthan Royals",
                 "batting": [
-                    {
-                        "player": "Yashasvi Jaiswal",
-                        "runs": 75,
-                        "balls": 47,
-                        "wicket_by": "lbw b Josh Hazlewood"
-                    },
-                    {
-                        "player": "Sanju Samson",
-                        "runs": 15,
-                        "balls": 19,
-                        "wicket_by": "st Jitesh Sharma b Krunal Pandya"
-                    },
-                    {
-                        "player": "Riyan Parag",
-                        "runs": 30,
-                        "balls": 22,
-                        "wicket_by": "c Virat Kohli b Yash Dayal"
-                    },
-                    {
-                        "player": "Dhruv Jurel",
-                        "runs": 35,
-                        "balls": 23,
-                        "wicket_by": "not out"
-                    },
-                    {
-                        "player": "Shimron Hetmyer",
-                        "runs": 9,
-                        "balls": 8,
-                        "wicket_by": "c Devdutt Padikkal b Bhuvneshwar Kumar"
-                    },
-                    {
-                        "player": "Nitish Rana",
-                        "runs": 4,
-                        "balls": 1,
-                        "wicket_by": "not out"
-                    }
+                    { "player": "Yashasvi Jaiswal", "runs": 75, "balls": 47, "wicket_by": "Josh Hazlewood" },
+                    { "player": "Sanju Samson", "runs": 15, "balls": 19, "wicket_by": "Krunal Pandya" },
+                    { "player": "Riyan Parag", "runs": 30, "balls": 22, "wicket_by": "Yash Dayal" },
+                    { "player": "Dhruv Jurel", "runs": 35, "balls": 23, "wicket_by": "" },
+                    { "player": "Shimron Hetmyer", "runs": 9, "balls": 8, "wicket_by": "Bhuvneshwar Kumar" },
+                    { "player": "Nitish Rana", "runs": 4, "balls": 1, "wicket_by": "" }
                 ],
                 "bowling": [
-                    {
-                        "player": "Josh Hazlewood",
-                        "overs": 3,
-                        "runs_conceded": 26,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Krunal Pandya",
-                        "overs": 4,
-                        "runs_conceded": 29,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Yash Dayal",
-                        "overs": 4,
-                        "runs_conceded": 36,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Bhuvneshwar Kumar",
-                        "overs": 4,
-                        "runs_conceded": 32,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Suyash Sharma",
-                        "overs": 4,
-                        "runs_conceded": 39,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Liam Livingstone",
-                        "overs": 1,
-                        "runs_conceded": 8,
-                        "wickets": 0
-                    }
+                    { "player": "Bhuvneshwar Kumar", "overs": 4, "runs_conceded": 32, "wickets": 1 },
+                    { "player": "Yash Dayal", "overs": 4, "runs_conceded": 36, "wickets": 1 },
+                    { "player": "Josh Hazlewood", "overs": 3, "runs_conceded": 26, "wickets": 1 },
+                    { "player": "Krunal Pandya", "overs": 4, "runs_conceded": 29, "wickets": 1 },
+                    { "player": "Liam Livingstone", "overs": 1, "runs_conceded": 8, "wickets": 0 },
+                    { "player": "Suyash Sharma", "overs": 4, "runs_conceded": 39, "wickets": 0 }
                 ]
             },
             {
                 "team_batting": "Royal Challengers Bengaluru",
                 "batting": [
-                    {
-                        "player": "Philip Salt",
-                        "runs": 65,
-                        "balls": 33,
-                        "wicket_by": "c Yashasvi Jaiswal b Kumar Kartikeya"
-                    },
-                    {
-                        "player": "Virat Kohli",
-                        "runs": 62,
-                        "balls": 45,
-                        "wicket_by": "not out"
-                    },
-                    {
-                        "player": "Devdutt Padikkal",
-                        "runs": 40,
-                        "balls": 28,
-                        "wicket_by": "not out"
-                    }
+                    { "player": "Philip Salt", "runs": 65, "balls": 33, "wicket_by": "Kumar Kartikeya" },
+                    { "player": "Virat Kohli", "runs": 62, "balls": 45, "wicket_by": "" },
+                    { "player": "Devdutt Padikkal", "runs": 40, "balls": 28, "wicket_by": "" }
                 ],
                 "bowling": [
-                    {
-                        "player": "Jofra Archer",
-                        "overs": 4,
-                        "runs_conceded": 36,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Tushar Deshpande",
-                        "overs": 2,
-                        "runs_conceded": 21,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Sandeep Sharma",
-                        "overs": 2.3,
-                        "runs_conceded": 29,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Maheesh Theekshana",
-                        "overs": 2,
-                        "runs_conceded": 21,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Kumar Kartikeya",
-                        "overs": 3,
-                        "runs_conceded": 25,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Wanindu Hasaranga",
-                        "overs": 3,
-                        "runs_conceded": 33,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Riyan Parag",
-                        "overs": 1,
-                        "runs_conceded": 10,
-                        "wickets": 0
-                    }
+                    { "player": "Jofra Archer", "overs": 4, "runs_conceded": 36, "wickets": 0 },
+                    { "player": "Tushar Deshpande", "overs": 2, "runs_conceded": 21, "wickets": 0 },
+                    { "player": "Sandeep Sharma", "overs": 2.3, "runs_conceded": 29, "wickets": 0 },
+                    { "player": "Maheesh Theekshana", "overs": 2, "runs_conceded": 21, "wickets": 0 },
+                    { "player": "Kumar Kartikeya", "overs": 3, "runs_conceded": 25, "wickets": 1 },
+                    { "player": "Wanindu Hasaranga", "overs": 3, "runs_conceded": 33, "wickets": 0 },
+                    { "player": "Riyan Parag", "overs": 1, "runs_conceded": 10, "wickets": 0 }
                 ]
             }
         ]
