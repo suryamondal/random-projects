@@ -19,12 +19,14 @@
 using json = nlohmann::json;
 using namespace std;
 
-std::string nameOfTeam = "Mumbai Indians";
-// std::string nameOfTeam = "Sunrisers Hyderabad";
-// std::string nameOfTeam = "Rajasthan Royals";
-// std::string nameOfTeam = "Delhi Capitals";
+// std::string nameOfTeam = "Mumbai Indians";
+// // std::string nameOfTeam = "Sunrisers Hyderabad";
+// // std::string nameOfTeam = "Rajasthan Royals";
+// // std::string nameOfTeam = "Delhi Capitals";
 
-void plot_stats() {
+void plot_stats(const char* teamName = "Mumbai Indians") {
+  string nameOfTeam = teamName;
+
   gStyle->SetOptStat(0);
 
   vector<string> files;
