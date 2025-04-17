@@ -116,6 +116,7 @@ void plot_stats() {
 
   // Plotting
   TCanvas *c1 = new TCanvas("c1", "Batting Stats", 1200, 600);
+  c1->SetLeftMargin(0.1502504);
   // gPad->SetGridx(1);
   gPad->SetGridy(1);
 
@@ -133,8 +134,10 @@ void plot_stats() {
     battingHist->GetXaxis()->SetBinLabel(i + 1, TString::Format("%d", i + 1));
 
   battingHist->Draw("COLZ TEXT");
+  c1->SaveAs(("plots/" + nameOfTeam + " Bat.pdf").c_str());
 
   TCanvas *c2 = new TCanvas("c2", "Bowling Stats", 1200, 600);
+  c2->SetLeftMargin(0.1502504);
   // gPad->SetGridx(1);
   gPad->SetGridy(1);
 
@@ -152,6 +155,7 @@ void plot_stats() {
     bowlingHist->GetXaxis()->SetBinLabel(i + 1, TString::Format("%d", i + 1));
 
   bowlingHist->Draw("COLZ TEXT");
+  c2->SaveAs(("plots/" + nameOfTeam + " Bowl.pdf").c_str());
 
   // Interactive canvas will stay open
 }
