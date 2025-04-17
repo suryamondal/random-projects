@@ -1,0 +1,52 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-04",
+        "venue": "Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",
+        "result": "Lucknow Super Giants won by 12 runs",
+        "innings": [
+            {
+                "team_batting": "Lucknow Super Giants",
+                "batting": [
+                    { "player": "Mitchell Marsh", "runs": 60, "balls": 31, "wicket": "Vignesh Puthur" },
+                    { "player": "Aiden Markram", "runs": 53, "balls": 38, "wicket": "Hardik Pandya" },
+                    { "player": "Nicholas Pooran", "runs": 12, "balls": 6, "wicket": "Hardik Pandya" },
+                    { "player": "Rishabh Pant", "runs": 2, "balls": 6, "wicket": "Hardik Pandya" },
+                    { "player": "Ayush Badoni", "runs": 30, "balls": 19, "wicket": "Ashwani Kumar" },
+                    { "player": "David Miller", "runs": 27, "balls": 14, "wicket": "Hardik Pandya" },
+                    { "player": "Abdul Samad", "runs": 4, "balls": 2, "wicket": "Trent Boult" },
+                    { "player": "Shardul Thakur", "runs": 5, "balls": 2, "wicket": "" },
+                    { "player": "Akash Deep", "runs": 0, "balls": 1, "wicket": "Hardik Pandya" },
+                    { "player": "Avesh Khan", "runs": 2, "balls": 1, "wicket": "" },
+                ],
+                "bowling": [
+                    { "player": "Trent Boult", "overs": 3, "runs_conceded": 28, "wickets": 1 },
+                    { "player": "Deepak Chahar", "overs": 2, "runs_conceded": 23, "wickets": 0 },
+                    { "player": "Ashwani Kumar", "overs": 3, "runs_conceded": 39, "wickets": 1 },
+                    { "player": "Mitchell Santner", "overs": 4, "runs_conceded": 46, "wickets": 0 },
+                    { "player": "Vignesh Puthur", "overs": 4, "runs_conceded": 31, "wickets": 1 },
+                    { "player": "Hardik Pandya", "overs": 4, "runs_conceded": 36, "wickets": 5 },
+                ]
+            },
+            {
+                "team_batting": "Mumbai Indians",
+                "batting": [
+                    { "player": "Will Jacks", "runs": 5, "balls": 7, "wicket": "Akash Deep" },
+                    { "player": "Ryan Rickelton", "runs": 10, "balls": 5, "wicket": "Shardul Thakur" },
+                    { "player": "Naman Dhir", "runs": 46, "balls": 24, "wicket": "Bigvesh Rathi" },
+                    { "player": "Suryakumar Yadav", "runs": 67, "balls": 43, "wicket": "Avesh Khan" },
+                    { "player": "Tilak Varma", "runs": 25, "balls": 23, "wicket": "" },
+                    { "player": "Hardik Pandya", "runs": 28, "balls": 16, "wicket": "" },
+                    { "player": "Mitchell Santner", "runs": 2, "balls": 2, "wicket": "" },
+                ],
+                "bowling": [
+                    { "player": "Shardul Thakur", "overs": 4, "runs_conceded": 40, "wickets": 1 },
+                    { "player": "Akash Deep", "overs": 4, "runs_conceded": 46, "wickets": 1 },
+                    { "player": "Avesh Khan", "overs": 4, "runs_conceded": 40, "wickets": 1 },
+                    { "player": "Digvesh Singh Rathi", "overs": 4, "runs_conceded": 21, "wickets": 1 },
+                    { "player": "Ravi Bishnoi", "overs": 4, "runs_conceded": 40, "wickets": 0 },
+                ]
+            }
+        ]
+    }
+}

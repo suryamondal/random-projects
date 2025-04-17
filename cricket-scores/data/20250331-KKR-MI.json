@@ -8,171 +8,41 @@
             {
                 "team_batting": "Kolkata Knight Riders",
                 "batting": [
-                    {
-                        "player": "Quinton de Kock",
-                        "runs": 1,
-                        "balls": 3,
-                        "wicket": "c Ashwani Kumar b D Chahar"
-                    },
-                    {
-                        "player": "Sunil Narine",
-                        "runs": 0,
-                        "balls": 2,
-                        "wicket": "b Boult"
-                    },
-                    {
-                        "player": "Ajinkya Rahane",
-                        "runs": 11,
-                        "balls": 7,
-                        "wicket": "c Tilak Varma b Ashwani Kumar"
-                    },
-                    {
-                        "player": "Angkrish Raghuvanshi",
-                        "runs": 26,
-                        "balls": 16,
-                        "wicket": "c Naman Dhir b Hardik Pandya"
-                    },
-                    {
-                        "player": "Venkatesh Iyer",
-                        "runs": 3,
-                        "balls": 9,
-                        "wicket": "c Rickelton b D Chahar"
-                    },
-                    {
-                        "player": "Rinku Singh",
-                        "runs": 17,
-                        "balls": 14,
-                        "wicket": "c Naman Dhir b Ashwani Kumar"
-                    },
-                    {
-                        "player": "Manish Pandey",
-                        "runs": 19,
-                        "balls": 14,
-                        "wicket": "b Ashwani Kumar"
-                    },
-                    {
-                        "player": "Andre Russell",
-                        "runs": 5,
-                        "balls": 11,
-                        "wicket": "b Ashwani Kumar"
-                    },
-                    {
-                        "player": "Ramandeep Singh",
-                        "runs": 22,
-                        "balls": 12,
-                        "wicket": "c Hardik Pandya b Santner"
-                    },
-                    {
-                        "player": "Harshit Rana",
-                        "runs": 4,
-                        "balls": 8,
-                        "wicket": "c Naman Dhir b Vignesh Puthur"
-                    },
-                    {
-                        "player": "Spencer Johnson",
-                        "runs": 1,
-                        "balls": 3,
-                        "wicket": "not out"
-                    }
+                    { "player": "Quinton de Kock", "runs": 1, "balls": 3, "wicket": "Deepak Chahar" },
+                    { "player": "Sunil Narine", "runs": 0, "balls": 2, "wicket": "Trent Boult" },
+                    { "player": "Ajinkya Rahane", "runs": 11, "balls": 7, "wicket": "Ashwani Kumar" },
+                    { "player": "Angkrish Raghuvanshi", "runs": 26, "balls": 16, "wicket": "Hardik Pandya" },
+                    { "player": "Venkatesh Iyer", "runs": 3, "balls": 9, "wicket": "Deepak Chahar" },
+                    { "player": "Rinku Singh", "runs": 17, "balls": 14, "wicket": "Ashwani Kumar" },
+                    { "player": "Manish Pandey", "runs": 19, "balls": 14, "wicket": "Ashwani Kumar" },
+                    { "player": "Andre Russell", "runs": 5, "balls": 11, "wicket": "Ashwani Kumar" },
+                    { "player": "Ramandeep Singh", "runs": 22, "balls": 12, "wicket": "Mitchell Santner" },
+                    { "player": "Harshit Rana", "runs": 4, "balls": 8, "wicket": "Vignesh Puthur" },
+                    { "player": "Spencer Johnson", "runs": 1, "balls": 3, "wicket": "not out" }
                 ],
                 "bowling": [
-                    {
-                        "player": "Trent Boult",
-                        "overs": 4,
-                        "runs_conceded": 23,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Deepak Chahar",
-                        "overs": 2,
-                        "runs_conceded": 19,
-                        "wickets": 2
-                    },
-                    {
-                        "player": "Ashwani Kumar",
-                        "overs": 3,
-                        "runs_conceded": 24,
-                        "wickets": 4
-                    },
-                    {
-                        "player": "Hardik Pandya",
-                        "overs": 2,
-                        "runs_conceded": 10,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Vignesh Puthur",
-                        "overs": 2,
-                        "runs_conceded": 21,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Mitchell Santner",
-                        "overs": 3.2,
-                        "runs_conceded": 17,
-                        "wickets": 1
-                    }
+                    { "player": "Trent Boult", "overs": 4, "runs_conceded": 23, "wickets": 1 },
+                    { "player": "Deepak Chahar", "overs": 2, "runs_conceded": 19, "wickets": 2 },
+                    { "player": "Ashwani Kumar", "overs": 3, "runs_conceded": 24, "wickets": 4 },
+                    { "player": "Hardik Pandya", "overs": 2, "runs_conceded": 10, "wickets": 1 },
+                    { "player": "Vignesh Puthur", "overs": 2, "runs_conceded": 21, "wickets": 1 },
+                    { "player": "Mitchell Santner", "overs": 3.2, "runs_conceded": 17, "wickets": 1 }
                 ]
             },
             {
                 "team_batting": "Mumbai Indians",
                 "batting": [
-                    {
-                        "player": "Rohit Sharma",
-                        "runs": 13,
-                        "balls": 12,
-                        "wicket": "c Harshit Rana b Russell"
-                    },
-                    {
-                        "player": "Ryan Rickelton",
-                        "runs": 62,
-                        "balls": 41,
-                        "wicket": "not out"
-                    },
-                    {
-                        "player": "Will Jacks",
-                        "runs": 16,
-                        "balls": 17,
-                        "wicket": "c Ajinkya Rahane b Russell"
-                    },
-                    {
-                        "player": "Suryakumar Yadav",
-                        "runs": 27,
-                        "balls": 9,
-                        "wicket": "not out"
-                    }
+                    { "player": "Rohit Sharma", "runs": 13, "balls": 12, "wicket": "Andre Russell" },
+                    { "player": "Ryan Rickelton", "runs": 62, "balls": 41, "wicket": "not out" },
+                    { "player": "Will Jacks", "runs": 16, "balls": 17, "wicket": "Andre Russell" },
+                    { "player": "Suryakumar Yadav", "runs": 27, "balls": 9, "wicket": "not out" }
                 ],
                 "bowling": [
-                    {
-                        "player": "Andre Russell",
-                        "overs": 3,
-                        "runs_conceded": 29,
-                        "wickets": 2
-                    },
-                    {
-                        "player": "Spencer Johnson",
-                        "overs": 2,
-                        "runs_conceded": 25,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Harshit Rana",
-                        "overs": 2,
-                        "runs_conceded": 20,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Sunil Narine",
-                        "overs": 3,
-                        "runs_conceded": 30,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Varun Chakaravarthy",
-                        "overs": 2.5,
-                        "runs_conceded": 17,
-                        "wickets": 0
-                    }
+                    { "player": "Spencer Johnson", "overs": 2, "runs_conceded": 14, "wickets": 0 },
+                    { "player": "Harshit Rana", "overs": 2, "runs_conceded": 28, "wickets": 0 },
+                    { "player": "Varun Chakaravarthy", "overs": 3, "runs_conceded": 12, "wickets": 0 },
+                    { "player": "Andre Russell", "overs": 2.5, "runs_conceded": 35, "wickets": 2 },
+                    { "player": "Sunil Narine", "overs": 3, "runs_conceded": 33, "wickets": 0 },
                 ]
             }
         ]

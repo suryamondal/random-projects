@@ -8,171 +8,44 @@
             {
                 "team_batting": "Gujarat Titans",
                 "batting": [
-                    {
-                        "player": "Sai Sudharsan",
-                        "runs": 63,
-                        "balls": 41,
-                        "wicket": "lbw b Boult"
-                    },
-                    {
-                        "player": "Shubman Gill",
-                        "runs": 38,
-                        "balls": 27,
-                        "wicket": "c Naman Dhir b Hardik Pandya"
-                    },
-                    {
-                        "player": "Jos Buttler",
-                        "runs": 39,
-                        "balls": 24,
-                        "wicket": "c Rickelton b Mujeeb"
-                    },
-                    {
-                        "player": "Shahrukh Khan",
-                        "runs": 9,
-                        "balls": 7,
-                        "wicket": "c Tilak Varma b Hardik Pandya"
-                    },
-                    {
-                        "player": "Sherfane Rutherford",
-                        "runs": 18,
-                        "balls": 11,
-                        "wicket": "c Santner b D Chahar"
-                    },
-                    {
-                        "player": "Rahul Tewatia",
-                        "runs": 0,
-                        "balls": 0,
-                        "wicket": "run out (Hardik Pandya)"
-                    },
-                    {
-                        "player": "Rashid Khan",
-                        "runs": 6,
-                        "balls": 4,
-                        "wicket": "c Hardik Pandya b Satyanarayana Raju"
-                    },
-                    {
-                        "player": "Rabada",
-                        "runs": 7,
-                        "balls": 5,
-                        "wicket": ""
-                    },
-                    {
-                        "player": "Sai Kishore",
-                        "runs": 1,
-                        "balls": 1,
-                        "wicket": "run out (Rickelton)"
-                    }
+                    { "player": "Sai Sudharsan", "runs": 63, "balls": 41, "wicket": "Trent Boult"},
+                    { "player": "Shubman Gill", "runs": 38, "balls": 27, "wicket": "Hardik Pandya"},
+                    { "player": "Jos Buttler", "runs": 39, "balls": 24, "wicket": "Mujeeb Ur Rahman"},
+                    { "player": "Shahrukh Khan", "runs": 9, "balls": 7, "wicket": "Hardik Pandya"},
+                    { "player": "Sherfane Rutherford", "runs": 18, "balls": 11, "wicket": "Deepak Chahar"},
+                    { "player": "Rahul Tewatia", "runs": 0, "balls": 0, "wicket": ""},
+                    { "player": "Rashid Khan", "runs": 6, "balls": 4, "wicket": "Satyanarayana Raju"},
+                    { "player": "Rabada", "runs": 7, "balls": 5, "wicket": ""},
+                    { "player": "Sai Kishore", "runs": 1, "balls": 1, "wicket": ""},
                 ],
                 "bowling": [
-                    {
-                        "player": "Trent Boult",
-                        "overs": 4,
-                        "runs_conceded": 34,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Deepak Chahar",
-                        "overs": 4,
-                        "runs_conceded": 39,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Mujeeb Ur Rahman",
-                        "overs": 2,
-                        "runs_conceded": 28,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Hardik Pandya",
-                        "overs": 4,
-                        "runs_conceded": 29,
-                        "wickets": 2
-                    },
-                    {
-                        "player": "Mitchell Santner",
-                        "overs": 3,
-                        "runs_conceded": 25,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Satyanarayana Raju",
-                        "overs": 3,
-                        "runs_conceded": 40,
-                        "wickets": 1
-                    }
+                    { "player": "Trent Boult", "overs": 4, "runs_conceded": 34, "wickets": 1},
+                    { "player": "Deepak Chahar", "overs": 4, "runs_conceded": 39, "wickets": 1},
+                    { "player": "Mujeeb Ur Rahman", "overs": 2, "runs_conceded": 28, "wickets": 1},
+                    { "player": "Hardik Pandya", "overs": 4, "runs_conceded": 29, "wickets": 2},
+                    { "player": "Mitchell Santner", "overs": 3, "runs_conceded": 25, "wickets": 0},
+                    { "player": "Satyanarayana Raju", "overs": 3, "runs_conceded": 40, "wickets": 1},
                 ]
             },
             {
                 "team_batting": "Mumbai Indians",
                 "batting": [
-                    {
-                        "player": "Rohit Sharma",
-                        "runs": 8,
-                        "balls": 4,
-                        "wicket": "b Siraj"
-                    },
-                    {
-                        "player": "Ryan Rickelton",
-                        "runs": 6,
-                        "balls": 9,
-                        "wicket": "b Siraj"
-                    },
-                    {
-                        "player": "Tilak Varma",
-                        "runs": 39,
-                        "balls": 36,
-                        "wicket": "c Rahul Tewatia b Prasidh"
-                    },
-                    {
-                        "player": "Suryakumar Yadav",
-                        "runs": 48,
-                        "balls": 28,
-                        "wicket": "c Shubman Gill b Prasidh"
-                    },
-                    {
-                        "player": "Naman Dhir",
-                        "runs": 18,
-                        "balls": 11,
-                        "wicket": ""
-                    },
-                    {
-                        "player": "Mitchell Santner",
-                        "runs": 18,
-                        "balls": 9,
-                        "wicket": ""
-                    }
+                    { "player": "Rohit Sharma", "runs": 8, "balls": 4, "wicket": "Mohammed Siraj"},
+                    { "player": "Ryan Rickelton", "runs": 6, "balls": 9, "wicket": "Mohammed Siraj"},
+                    { "player": "Tilak Varma", "runs": 39, "balls": 36, "wicket": "Prasidh Krishna"},
+                    { "player": "Suryakumar Yadav", "runs": 48, "balls": 28, "wicket": "Prasidh Krishna"},
+                    { "player": "Robin Minz", "runs": 3, "balls": 6, "wicket": "Sai Kishore"},
+                    { "player": "hardik Pandya", "runs": 11, "balls": 17, "wicket": "Kagiso Rabada"},
+                    { "player": "Naman Dhir", "runs": 18, "balls": 11, "wicket": ""},
+                    { "player": "Mitchell Santner", "runs": 18, "balls": 9, "wicket": ""},
                 ],
                 "bowling": [
-                    {
-                        "player": "Mohammed Siraj",
-                        "overs": 4,
-                        "runs_conceded": 34,
-                        "wickets": 2
-                    },
-                    {
-                        "player": "Prasidh Krishna",
-                        "overs": 4,
-                        "runs_conceded": 29,
-                        "wickets": 2
-                    },
-                    {
-                        "player": "Kagiso Rabada",
-                        "overs": 4,
-                        "runs_conceded": 30,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Rashid Khan",
-                        "overs": 4,
-                        "runs_conceded": 25,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Sai Kishore",
-                        "overs": 4,
-                        "runs_conceded": 42,
-                        "wickets": 0
-                    }
+                    { "player": "Mohammed Siraj", "overs": 4, "runs_conceded": 34, "wickets": 2},
+                    { "player": "Kagiso Rabada", "overs": 4, "runs_conceded": 42, "wickets": 1},
+                    { "player": "Ishant Sharma", "overs": 2, "runs_conceded": 17, "wickets": 0},
+                    { "player": "Rashid Khan", "overs": 2, "runs_conceded": 10, "wickets": 0},
+                    { "player": "Sai Kishore", "overs": 4, "runs_conceded": 37, "wickets": 1},
+                    { "player": "Prasidh Krishna", "overs": 4, "runs_conceded": 18, "wickets": 2},
                 ]
             }
         ]

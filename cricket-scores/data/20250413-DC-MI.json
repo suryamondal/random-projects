@@ -8,141 +8,45 @@
             {
                 "team_batting": "Mumbai Indians",
                 "batting": [
-                    {
-                        "player": "Rohit Sharma",
-                        "runs": 18,
-                        "balls": 12,
-                        "wicket": "lbw b Vipraj Nigam"
-                    },
-                    {
-                        "player": "Ryan Rickelton",
-                        "runs": 41,
-                        "balls": 25,
-                        "wicket": "b Kuldeep Yadav"
-                    },
-                    {
-                        "player": "Suryakumar Yadav",
-                        "runs": 40,
-                        "balls": 28,
-                        "wicket": "c Mitchell Starc b Kuldeep Yadav"
-                    },
-                    {
-                        "player": "Tilak Varma",
-                        "runs": 59,
-                        "balls": 33,
-                        "wicket": "c Abishek Porel b Mukesh Kumar"
-                    },
-                    {
-                        "player": "Hardik Pandya",
-                        "runs": 2,
-                        "balls": 4,
-                        "wicket": "c Tristan Stubbs b Vipraj Nigam"
-                    },
-                    {
-                        "player": "Naman Dhir",
-                        "runs": 38,
-                        "balls": 18,
-                        "wicket": "not out"
-                    }
+                    {"player": "Rohit Sharma", "runs": 18, "balls": 12, "wicket": "Vipraj Nigam"},
+                    {"player": "Ryan Rickelton", "runs": 41, "balls": 25, "wicket": "Kuldeep Yadav"},
+                    {"player": "Suryakumar Yadav", "runs": 40, "balls": 28, "wicket": "Kuldeep Yadav"},
+                    {"player": "Tilak Varma", "runs": 59, "balls": 33, "wicket": "Mukesh Kumar"},
+                    {"player": "Hardik Pandya", "runs": 2, "balls": 4, "wicket": "Vipraj Nigam"},
+                    {"player": "Naman Dhir", "runs": 38, "balls": 17, "wicket": ""},
+                    {"player": "Will Jacks", "runs": 1, "balls": 1, "wicket": ""}
                 ],
                 "bowling": [
-                    {
-                        "player": "Kuldeep Yadav",
-                        "overs": 4,
-                        "runs_conceded": 37,
-                        "wickets": 2
-                    },
-                    {
-                        "player": "Vipraj Nigam",
-                        "overs": 4,
-                        "runs_conceded": 42,
-                        "wickets": 2
-                    },
-                    {
-                        "player": "Mukesh Kumar",
-                        "overs": 4,
-                        "runs_conceded": 45,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Mitchell Starc",
-                        "overs": 4,
-                        "runs_conceded": 50,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Axar Patel",
-                        "overs": 4,
-                        "runs_conceded": 31,
-                        "wickets": 0
-                    }
+                    {"player": "Mitchell Starc", "overs": 3, "runs_conceded": 43, "wickets": 0},
+                    {"player": "Mukesh Kumar", "overs": 4, "runs_conceded": 38, "wickets": 1},
+                    {"player": "Vipraj Nigam", "overs": 4, "runs_conceded": 41, "wickets": 2},
+                    {"player": "Kuldeep Yadav", "overs": 4, "runs_conceded": 23, "wickets": 2},
+                    {"player": "Axar Patel", "overs": 2, "runs_conceded": 19, "wickets": 0},
+                    {"player": "Mohit Sharma", "overs": 3, "runs_conceded": 40, "wickets": 0}
                 ]
             },
             {
                 "team_batting": "Delhi Capitals",
                 "batting": [
-                    {
-                        "player": "KL Rahul",
-                        "runs": 65,
-                        "balls": 42,
-                        "wicket": "c Naman Dhir b Jasprit Bumrah"
-                    },
-                    {
-                        "player": "Harry Brook",
-                        "runs": 48,
-                        "balls": 30,
-                        "wicket": "b Piyush Chawla"
-                    },
-                    {
-                        "player": "Tristan Stubbs",
-                        "runs": 35,
-                        "balls": 20,
-                        "wicket": "c Tilak Varma b Jasprit Bumrah"
-                    },
-                    {
-                        "player": "Axar Patel",
-                        "runs": 20,
-                        "balls": 15,
-                        "wicket": "b Hardik Pandya"
-                    },
-                    {
-                        "player": "Abishek Porel",
-                        "runs": 10,
-                        "balls": 8,
-                        "wicket": "b Gerald Coetzee"
-                    }
+                    {"player": "Jake Fraser-McGurk", "runs": 84, "balls": 27, "wicket": "Deepak Chahar"},
+                    {"player": "Abishek Porel", "runs": 33, "balls": 25, "wicket": "Karn Sharma"},
+                    {"player": "Korun Nair", "runs": 89, "balls": 40, "wicket": "Mitchell Santner"},
+                    {"player": "KL Rahul", "runs": 15, "balls": 13, "wicket": "Karn Sharma"},
+                    {"player": "Axar Patel", "runs": 9, "balls": 6, "wicket": "Jasprit Bumrah"},
+                    {"player": "Tristan Stubbs", "runs": 1, "balls": 4, "wicket": "karn Sharma"},
+                    {"player": "Ashutosh Sharma", "runs": 17, "balls": 14, "wicket": "Ryan Rickelton"},
+                    {"player": "Vipraj Nigam", "runs": 14, "balls": 8, "wicket": "Mitchell Santner"},
+                    {"player": "Mitchell Starc", "runs": 1, "balls": 1, "wicket": ""},
+                    {"player": "Kuldeep Yadav", "runs": 1, "balls": 1, "wicket": "Ryan Rickelton"},
+                    {"player": "Mohit Sharma", "runs": 0, "balls": 1, "wicket": "Ryan Rickelton"},
                 ],
                 "bowling": [
-                    {
-                        "player": "Jasprit Bumrah",
-                        "overs": 4,
-                        "runs_conceded": 28,
-                        "wickets": 2
-                    },
-                    {
-                        "player": "Piyush Chawla",
-                        "overs": 4,
-                        "runs_conceded": 35,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Hardik Pandya",
-                        "overs": 4,
-                        "runs_conceded": 30,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Gerald Coetzee",
-                        "overs": 4,
-                        "runs_conceded": 40,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Shreyas Gopal",
-                        "overs": 4,
-                        "runs_conceded": 45,
-                        "wickets": 0
-                    }
+                    {"player": "Deepak Chahar", "overs": 3, "runs_conceded": 24, "wickets": 1},
+                    {"player": "Trent Boult", "overs": 2, "runs_conceded": 21, "wickets": 0},
+                    {"player": "Jasprit Bumrah", "overs": 4, "runs_conceded": 44, "wickets": 1},
+                    {"player": "Mitchell Santner", "overs": 4, "runs_conceded": 43, "wickets": 2},
+                    {"player": "Hardik Pandya", "overs": 2, "runs_conceded": 21, "wickets": 0},
+                    {"player": "Karn Sharma", "overs": 4, "runs_conceded": 36, "wickets": 3},
                 ]
             }
         ]
