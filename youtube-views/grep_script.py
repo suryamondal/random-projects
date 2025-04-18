@@ -9,6 +9,7 @@ import pytz
 ACQUISITION_INTERVAL = 5        # MINUTES
 
 # List of videos and their tags
+# List of verified videos and their tags
 VIDEOS = [
     {"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "tag": "Classic_Rickroll"},
     {"url": "https://www.youtube.com/watch?v=ZyhrYis509A", "tag": "Aqua_Barbie"},
@@ -16,8 +17,9 @@ VIDEOS = [
     {"url": "https://www.youtube.com/watch?v=qJZ1Ez28C-A", "tag": "Veritasium_Strange_Trust_Quantum"},
     {"url": "https://www.youtube.com/watch?v=lcjdwSY2AzM", "tag": "Veritasium_Mistake_Einstein"},
     {"url": "https://www.youtube.com/watch?v=iUn5F52SNuY", "tag": "Dhruv_Rathee_Trump_Tariff"},
+    {"url": "https://www.youtube.com/watch?v=k2xudgpVExw", "tag": "Shyam_Sharma_National_Herald"},
     {"url": "https://www.youtube.com/watch?v=cvjA-jXk94o", "tag": "Linus_Tech_Malaysia_Tech_Mall"},
-    {"url": "https://www.youtube.com/watch?v=MZE99-Be_Gk", "tag": "Linus_Tech_Malaysia_Dell_Hung_Up"},
+    {"url": "https://www.youtube.com/watch?v=MZE99-Be_Gk", "tag": "Linus_Tech_Dell_Hung_Up"},
     {"url": "https://www.youtube.com/watch?v=6RiYXI1Tfu4", "tag": "Tom_Schott_Aerial_Ropeway"},
 ]
 
@@ -56,7 +58,7 @@ def wait_till_next_quarter():
     print(f"Next data acquisition will happen at {next_quarter_time.strftime('%Y-%m-%d %H:%M:%S')} UTC")
     return sleep_seconds
 
-def log_data():
+def log_data(write=False):
     """Fetches and logs data for all videos."""
     timestamp = datetime.now(pytz.utc).strftime('%Y-%m-%d %H:%M:%S')
     for video in VIDEOS:
@@ -66,12 +68,13 @@ def log_data():
         stats = extract_video_stats(video["url"])
         # If stats are found, write them to the corresponding CSV file
         if stats:
-            with open(csv_file, "a", newline='') as csvfile:
-                writer = csv.writer(csvfile)
-                # Initialize the CSV with headers if the file doesn't exist
-                if csvfile.tell() == 0:
-                    writer.writerow(["timestamp", "tag", "views"])
-                writer.writerow([timestamp, video["tag"], stats["views"]])
+            if write:
+                with open(csv_file, "a", newline='') as csvfile:
+                    writer = csv.writer(csvfile)
+                    # Initialize the CSV with headers if the file doesn't exist
+                    if csvfile.tell() == 0:
+                        writer.writerow(["timestamp", "tag", "views"])
+                    writer.writerow([timestamp, video["tag"], stats["views"]])
             print(f"[{timestamp}] {video['tag']} - Views: {stats['views']}")
         else:
             print(f"[{timestamp}] Failed to retrieve stats for {video['tag']}")
@@ -79,11 +82,12 @@ def log_data():
 # Run the tracker every n minutes at the quarter-hour marks
 print("Starting YouTube tracker. Press Ctrl+C to stop.")
 try:
+    log_data(False)
     while True:
         # Sleep until the next quarter-hour mark
         sleep_time = wait_till_next_quarter()
         time.sleep(sleep_time)
         # log data
-        log_data()
+        log_data(True)
 except KeyboardInterrupt:
     print("Tracking stopped.")
