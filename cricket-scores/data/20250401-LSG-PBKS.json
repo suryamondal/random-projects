@@ -21,7 +21,7 @@
                 "bowling": [
                     {"player": "Arshdeep Singh", "overs": 4, "runs_conceded": 43, "wickets": 3},
                     {"player": "Lockie Ferguson", "overs": 3, "runs_conceded": 26, "wickets": 1},
-                    {"player": "Glen Maxwell", "overs": 3, "runs_conceded": 22, "wickets": 1},
+                    {"player": "Glenn Maxwell", "overs": 3, "runs_conceded": 22, "wickets": 1},
                     {"player": "Marco Jansen", "overs": 4, "runs_conceded": 28, "wickets": 1},
                     {"player": "Marcus Stoinis", "overs": 2, "runs_conceded": 15, "wickets": 0},
                     {"player": "Yuzvendra Chahal", "overs": 4, "runs_conceded": 36, "wickets": 1}
