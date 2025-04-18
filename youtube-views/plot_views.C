@@ -26,7 +26,6 @@ void plot_views(const char* fileTagName) {
     int year, month, day, hour, min, sec;
     sscanf(timestamp.c_str(), "%d-%d-%d %d:%d:%d",
            &year, &month, &day, &hour, &min, &sec);
-
     TDatime dt(year, month, day, hour, min, sec);
     double time_val = dt.Convert();  // Convert to seconds since epoch
 
@@ -46,8 +45,10 @@ void plot_views(const char* fileTagName) {
 
   // Axis formatting for time
   graph->GetXaxis()->SetTimeDisplay(1);
-  graph->GetXaxis()->SetTimeFormat("%H:%M");
-  graph->GetXaxis()->SetTitle("Time (HH:MM)");
+  graph->GetXaxis()->SetTimeFormat("%d %H:%M");
+  graph->GetXaxis()->SetTitle("Time (D H:M)");
+  graph->GetXaxis()->SetLabelSize(0.025);
+  graph->GetYaxis()->SetLabelSize(0.025);
 
   graph->Draw("APL");
 
