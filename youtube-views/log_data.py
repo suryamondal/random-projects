@@ -47,8 +47,8 @@ def extract_video_stats(url):
 
 def log_data(write=False):
     """Fetches and logs data for all videos."""
-    timestamp = datetime.now(pytz.utc).strftime('%Y-%m-%d %H:%M:%S')
     for video in VIDEOS:
+        timestamp = datetime.now(pytz.utc).strftime('%Y-%m-%d %H:%M:%S')
         # Define the CSV file for each tag
         csv_file = f"data/{video['tag']}_views.csv"
         # Fetch stats for the video

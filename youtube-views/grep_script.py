@@ -12,7 +12,10 @@ ACQUISITION_INTERVAL = 5        # MINUTES
 
 def log_data(write=True):
     try:
-        subprocess.run(["python3", "log_data.py", '--write'], check=True)
+        cmd = ["python3", "log_data.py"]
+        if write:
+            cmd += ['--write']
+        subprocess.run(cmd, check=True)
     except subprocess.CalledProcessError as e:
         print(f"[ERROR] Failed running log_data.py: {e}")
 
