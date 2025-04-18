@@ -8,14 +8,14 @@
             {
                 "team_batting": "Punjab Kings",
                 "batting": [
-                    {"player": "Priyansh Arya", "runs": 36, "balls": 13, "wicket_by": "c Nitish Reddy b Harshal Patel"},
-                    {"player": "Prabhsimran Singh", "runs": 42, "balls": 23, "wicket_by": "c Pat Cummins b Eshan Malinga"},
-                    {"player": "Shreyas Iyer", "runs": 82, "balls": 36, "wicket_by": "c Travis Head b Harshal Patel"},
+                    {"player": "Priyansh Arya", "runs": 36, "balls": 13, "wicket_by": "Harshal Patel"},
+                    {"player": "Prabhsimran Singh", "runs": 42, "balls": 23, "wicket_by": "Eshan Malinga"},
+                    {"player": "Shreyas Iyer", "runs": 82, "balls": 36, "wicket_by": "Harshal Patel"},
                     {"player": "Nehal Wadhera", "runs": 27, "balls": 22, "wicket_by": "lbw b Eshan Malinga"},
-                    {"player": "Shashank Singh", "runs": 2, "balls": 3, "wicket_by": "lbw b Harshal Patel"},
-                    {"player": "Glenn Maxwell", "runs": 3, "balls": 7, "wicket_by": "b Harshal Patel"},
-                    {"player": "Marcus Stoinis", "runs": 34, "balls": 11, "wicket_by": "not out"},
-                    {"player": "Marco Jansen", "runs": 5, "balls": 5, "wicket_by": "not out"}
+                    {"player": "Shashank Singh", "runs": 2, "balls": 3, "wicket_by": "Harshal Patel"},
+                    {"player": "Glenn Maxwell", "runs": 3, "balls": 7, "wicket_by": "Harshal Patel"},
+                    {"player": "Marcus Stoinis", "runs": 34, "balls": 11, "wicket_by": ""},
+                    {"player": "Marco Jansen", "runs": 5, "balls": 5, "wicket_by": ""}
                 ],
                 "bowling": [
                     {"player": "Mohammed Shami", "overs": 4, "runs_conceded": 75, "wickets": 0},
@@ -28,10 +28,10 @@
             {
                 "team_batting": "Sunrisers Hyderabad",
                 "batting": [
-                    {"player": "Abhishek Sharma", "runs": 141, "balls": 55, "wicket_by": "c Praveen Dubey b Arshdeep Singh"},
-                    {"player": "Travis Head", "runs": 66, "balls": 37, "wicket_by": "c Maxwell b Chahal"},
-                    {"player": "Heinrich Klaasen", "runs": 21, "balls": 14, "wicket_by": "not out"},
-                    {"player": "Ishan Kishan", "runs": 9, "balls": 6, "wicket_by": "not out"}
+                    {"player": "Travis Head", "runs": 66, "balls": 37, "wicket_by": "Yuzvendra Chahal"},
+                    {"player": "Abhishek Sharma", "runs": 141, "balls": 55, "wicket_by": "Arshdeep Singh"},
+                    {"player": "Heinrich Klaasen", "runs": 21, "balls": 14, "wicket_by": ""},
+                    {"player": "Ishan Kishan", "runs": 9, "balls": 6, "wicket_by": ""}
                 ],
                 "bowling": [
                     {"player": "Arshdeep Singh", "overs": 4, "runs_conceded": 37, "wickets": 1},

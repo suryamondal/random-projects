@@ -1,0 +1,56 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-15",
+        "venue": "Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",
+        "result": "Punjab Kings won by 16 runs",
+        "innings": [
+            {
+                "team_batting": "Punjab Kings",
+                "batting": [
+                    { "player": "Priyansh Arya", "runs": 22, "balls": 12, "wicket": "Harshit Rana" },
+                    { "player": "Prabhsimran Singh", "runs": 30, "balls": 15, "wicket": "Harshit Rana" },
+                    { "player": "Shreyas Iyer", "runs": 0, "balls": 2, "wicket": "Harshit Rana" },
+                    { "player": "Josh Inglis", "runs": 2, "balls": 6, "wicket": "Varun Chakaravarthy" },
+                    { "player": "Nehal Wadhera", "runs": 10, "balls": 9, "wicket": "Anrich Nortje" },
+                    { "player": "Glenn Maxwell", "runs": 5, "balls": 7, "wicket": "Varun Chakaravarthy" },
+                    { "player": "Suryansh Shegde", "runs": 4, "balls": 4, "wicket": "Sunil Narine" },
+                    { "player": "Shashank Singh", "runs": 18, "balls": 17, "wicket": "Vaibhav Arora" },
+                    { "player": "Marco Jansen", "runs": 1, "balls": 2, "wicket": "Sunil Narine" },
+                    { "player": "Xavier Bartlett", "runs": 11, "balls": 15, "wicket": "run out" },
+                    { "player": "Arshdeep Singh", "runs": 1, "balls": 1, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Vaibhav Arora", "overs": 2.3, "runs_conceded": 26, "wickets": 1 },
+                    { "player": "Anrich Nortje", "overs": 3, "runs_conceded": 23, "wickets": 1 },
+                    { "player": "Harshit Rana", "overs": 3, "runs_conceded": 25, "wickets": 3 },
+                    { "player": "Varun Chakaravarthy", "overs": 4, "runs_conceded": 21, "wickets": 2 },
+                    { "player": "Sunil Narine", "overs": 3, "runs_conceded": 14, "wickets": 2 }
+                ]
+            },
+            {
+                "team_batting": "Kolkata Knight Riders",
+                "batting": [
+                    {"player": "Quinton de Kock", "runs": 2, "balls": 4, "wicket": "Xavier Bartlett"},
+                    {"player": "Sunil Narine", "runs": 5, "balls": 4, "wicket": "Marco Jansen"},
+                    {"player": "Ajinkya Rahane", "runs": 17, "balls": 17, "wicket": "Yuzvendra Chahal"},
+                    {"player": "Angkrish Raghuvanshi", "runs": 37, "balls": 28, "wicket": "Yuzvendra Chahal"},
+                    {"player": "Venkatesh Iyer", "runs": 7, "balls": 4, "wicket": "Glenn Maxwell"},
+                    {"player": "Rinku Singh", "runs": 2, "balls": 9, "wicket": "Yuzvendra Chahal"},
+                    {"player": "Andre Russell", "runs": 17, "balls": 11, "wicket": "Marco Jansen"},
+                    {"player": "Ramandeep Singh", "runs": 0, "balls": 1, "wicket": "Yuzvendra Chahal"},
+                    {"player": "Harshit Rana", "runs": 3, "balls": 6, "wicket": "Marco Jansen"},
+                    {"player": "Marco Jansen", "runs": 0, "balls": 7, "wicket": "Arshdeep Singh"},
+                    {"player": "Anrich Nortje", "runs": 0, "balls": 0, "wicket": ""}
+                ],
+                "bowling": [
+                    {"player": "Marco Jansen", "overs": 3.1, "runs_conceded": 17, "wickets": 3},
+                    {"player": "Xavier Bartlett", "overs": 3, "runs_conceded": 30, "wickets": 1},
+                    {"player": "Arshdeep Singh", "overs": 3, "runs_conceded": 11, "wickets": 1},
+                    {"player": "Yuzvendra Chahal", "overs": 4, "runs_conceded": 28, "wickets": 4},
+                    {"player": "Glenn Maxwell", "overs": 2, "runs_conceded": 5, "wickets": 1}
+                ]
+            }
+        ]
+    }
+}
