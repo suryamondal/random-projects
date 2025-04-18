@@ -3,20 +3,23 @@ import os
 import glob
 
 tags = [
-    "Classic_Cickroll",
     "Aqua_Barbie",
-    "Veritasium_Broke_Math",
-    "Veritasium_Strange_Trust_Quantum",
-    "Veritasium_Mistake_Einstein",
+    "Classic_Rickroll",
+    "Dhruv_Rathee_Milky_Way",
     "Dhruv_Rathee_Trump_Tariff",
+    "Linus_Tech_Dell_Hung_Up",
     "Linus_Tech_Malaysia_Tech_Mall",
-    "Tom_Schott_Aerial_Ropeway"
+    "Shyam_Sharma_National_Herald",
+    "Tom_Schott_Aerial_Ropeway",
+    "Veritasium_Broke_Math",
+    "Veritasium_Mistake_Einstein",
+    "Veritasium_Strange_Trust_Quantum"
 ]
 
 
 def run_merge():
     print("🔄 Running pdftk")
-    output_file = 'plots/all.pdf'
+    output_file = 'plots/all-views.pdf'
     if os.path.exists(output_file):
         os.remove(output_file)
     pdfs = sorted(glob.glob('plots/*.pdf'))
