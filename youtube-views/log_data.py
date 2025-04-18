@@ -6,6 +6,7 @@ import time
 from datetime import datetime, timedelta
 import pytz
 import argparse
+from yt_dlp import YoutubeDL
 
 # List of verified videos and their tags
 VIDEOS = [
@@ -33,25 +34,15 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
 }
 
+
 def extract_video_stats(url):
-    """Fetches view count from YouTube video page."""
-    response = requests.get(url, headers=HEADERS)
-    if response.status_code != 200:
-        print(f"Failed to fetch {url}")
-        return None
-    html = response.text
-    # Try to extract player response JSON
-    match = re.search(r'var ytInitialPlayerResponse = ({.*?});', html)
-    if not match:
-        print(f"Could not find player response for {url}")
-        return None
     try:
-        data = json.loads(match.group(1))
-        video_details = data.get("videoDetails", {})
-        views = int(video_details.get("viewCount", 0))
-        return {"views": views}
+        with YoutubeDL({'quiet': True}) as ydl:
+            info = ydl.extract_info(url, download=False)
+            views = info.get("view_count", 0)
+            return {"views": views}
     except Exception as e:
-        print(f"Error parsing data: {e}")
+        print(f"Error fetching stats for {url}: {e}")
         return None
 
 def log_data(write=False):
