@@ -7,6 +7,7 @@ tags = [
     "Classic_Rickroll",
     "Dhruv_Rathee_Milky_Way",
     "Dhruv_Rathee_Trump_Tariff",
+    "Linus_Tech_Clean_Pool",
     "Linus_Tech_Dell_Hung_Up",
     "Linus_Tech_Malaysia_Tech_Mall",
     "Shyam_Sharma_National_Herald",

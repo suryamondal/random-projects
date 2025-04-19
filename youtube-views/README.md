@@ -40,8 +40,6 @@ Setup Instructions:
    - ROOT (https://root.cern/)
 
 2. Clone the Repository:
-   $ git clone https://github.com/yourusername/youtube-views-logger.git
-   $ cd youtube-views-logger
 
 3. Install Dependencies (if needed):
    $ pip install -r requirements.txt
