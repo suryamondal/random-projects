@@ -8,147 +8,43 @@
             {
                 "team_batting": "Delhi Capitals",
                 "batting": [
-                    {
-                        "player": "Jake Fraser-McGurk",
-                        "runs": 0,
-                        "balls": 5,
-                        "wicket_by": "c Ashwin b Khaleel Ahmed"
-                    },
-                    {
-                        "player": "KL Rahul",
-                        "runs": 77,
-                        "balls": 51,
-                        "wicket_by": "c Dhoni b Matheesha Pathirana"
-                    },
-                    {
-                        "player": "Abishek Porel",
-                        "runs": 33,
-                        "balls": 20,
-                        "wicket_by": "c Matheesha Pathirana b Ravindra Jadeja"
-                    },
-                    {
-                        "player": "Axar Patel",
-                        "runs": 21,
-                        "balls": 14,
-                        "wicket_by": "b Noor Ahmad"
-                    },
-                    {
-                        "player": "Sameer Rizvi",
-                        "runs": 20,
-                        "balls": 15,
-                        "wicket_by": "c Ravindra Jadeja b Khaleel Ahmed"
-                    },
-                    {
-                        "player": "Shai Hope",
-                        "runs": 15,
-                        "balls": 10,
-                        "wicket_by": "not out"
-                    }
+                    { "player": "Jake Fraser-McGurk", "runs": 0, "balls": 5, "wicket_by": "Khaleel Ahmed" },
+                    { "player": "KL Rahul", "runs": 77, "balls": 51, "wicket_by": "Matheesha Pathirana" },
+                    { "player": "Abishek Porel", "runs": 33, "balls": 20, "wicket_by": "Ravindra Jadeja" },
+                    { "player": "Axar Patel", "runs": 21, "balls": 14, "wicket_by": "Noor Ahmad" },
+                    { "player": "Sameer Rizvi", "runs": 20, "balls": 15, "wicket_by": "Khaleel Ahmed" },
+                    { "player": "Tristan Stubbs", "runs": 24, "balls": 12, "wicket_by": "" },
+                    { "player": "Ashutosh Sharma", "runs": 1, "balls": 1, "wicket_by": "run out" },
+                    { "player": "Vipraj Nigam", "runs": 1, "balls": 2, "wicket_by": "" }
+
                 ],
                 "bowling": [
-                    {
-                        "player": "Khaleel Ahmed",
-                        "overs": 4,
-                        "runs_conceded": 35,
-                        "wickets": 2
-                    },
-                    {
-                        "player": "Matheesha Pathirana",
-                        "overs": 4,
-                        "runs_conceded": 40,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Ravindra Jadeja",
-                        "overs": 4,
-                        "runs_conceded": 28,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Noor Ahmad",
-                        "overs": 4,
-                        "runs_conceded": 32,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Maheesh Theekshana",
-                        "overs": 4,
-                        "runs_conceded": 38,
-                        "wickets": 0
-                    }
+                    { "player": "Khaleel Ahmed", "overs": 4, "runs_conceded": 25, "wickets": 2 },
+                    { "player": "Mukesh Choudhary", "overs": 4, "runs_conceded": 50, "wickets": 0 },
+                    { "player": "Ravichandran Ashwin", "overs": 3, "runs_conceded": 21, "wickets": 0 },
+                    { "player": "Ravindra Jadeja", "overs": 2, "runs_conceded": 19, "wickets": 1 },
+                    { "player": "Noor Ahmad", "overs": 3, "runs_conceded": 36, "wickets": 1 },
+                    { "player": "Matheesha Pathirana", "overs": 4, "runs_conceded": 31, "wickets": 1 }
                 ]
             },
             {
                 "team_batting": "Chennai Super Kings",
                 "batting": [
-                    {
-                        "player": "Ruturaj Gaikwad",
-                        "runs": 45,
-                        "balls": 32,
-                        "wicket_by": "c Shai Hope b Anrich Nortje"
-                    },
-                    {
-                        "player": "Devon Conway",
-                        "runs": 13,
-                        "balls": 14,
-                        "wicket_by": "b Kuldeep Yadav"
-                    },
-                    {
-                        "player": "Shivam Dube",
-                        "runs": 35,
-                        "balls": 25,
-                        "wicket_by": "c KL Rahul b Axar Patel"
-                    },
-                    {
-                        "player": "MS Dhoni",
-                        "runs": 30,
-                        "balls": 26,
-                        "wicket_by": "not out"
-                    },
-                    {
-                        "player": "Ravindra Jadeja",
-                        "runs": 20,
-                        "balls": 15,
-                        "wicket_by": "b Kuldeep Yadav"
-                    },
-                    {
-                        "player": "Maheesh Theekshana",
-                        "runs": 5,
-                        "balls": 8,
-                        "wicket_by": "not out"
-                    }
+                    { "player": "Rachin Ravindra", "runs": 3, "balls": 6, "wicket_by": "Mukesh Kumar" },
+                    { "player": "Devon Conway", "runs": 13, "balls": 14, "wicket_by": "Vipraj Nigam" },
+                    { "player": "Ruturaj Gaikwad", "runs": 5, "balls": 4, "wicket_by": "Mitchell Starc" },
+                    { "player": "Vijay Shankar", "runs": 69, "balls": 54, "wicket_by": "" },
+                    { "player": "Shivam Dube", "runs": 18, "balls": 15, "wicket_by": "Vipraj Nigam" },
+                    { "player": "Ravindra Jadeja", "runs": 2, "balls": 3, "wicket_by": "Kuldeep Yadav" },
+                    { "player": "MS Dhoni", "runs": 30, "balls": 26, "wicket_by": "" }
                 ],
                 "bowling": [
-                    {
-                        "player": "Anrich Nortje",
-                        "overs": 4,
-                        "runs_conceded": 30,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Kuldeep Yadav",
-                        "overs": 4,
-                        "runs_conceded": 28,
-                        "wickets": 2
-                    },
-                    {
-                        "player": "Axar Patel",
-                        "overs": 4,
-                        "runs_conceded": 35,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Khaleel Ahmed",
-                        "overs": 4,
-                        "runs_conceded": 40,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Mukesh Kumar",
-                        "overs": 4,
-                        "runs_conceded": 25,
-                        "wickets": 0
-                    }
+                    { "player": "Mitchell Starc", "overs": 4, "runs_conceded": 27, "wickets": 1 },
+                    { "player": "Mukesh Kumar", "overs": 4, "runs_conceded": 36, "wickets": 1 },
+                    { "player": "Mohit Sharma", "overs": 3, "runs_conceded": 27, "wickets": 0 },
+                    { "player": "Vipraj Nigam", "overs": 4, "runs_conceded": 27, "wickets": 2 },
+                    { "player": "Kuldeep Yadav", "overs": 4, "runs_conceded": 30, "wickets": 1 },
+                    { "player": "Axar Patel", "overs": 1, "runs_conceded": 5, "wickets": 0 }
                 ]
             }
         ]

@@ -28,7 +28,7 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   string nameOfTeam = teamName;
 
   gStyle->SetOptStat(0);
-  gStyle->SetPalette(1);
+  // gStyle->SetPalette(1);
   gStyle->SetNumberContours(100);
 
   vector<string> files;

@@ -6,137 +6,47 @@
         "result": "Gujarat Titans won by 6 wickets",
         "innings": [
             {
-                "team_batting": "Rajasthan Royals",
+                "team_batting": "Gujarat Titans",
                 "batting": [
-                    {
-                        "player": "Yashasvi Jaiswal",
-                        "runs": 45,
-                        "balls": 32,
-                        "wicket_by": "b Rashid Khan"
-                    },
-                    {
-                        "player": "Sanju Samson",
-                        "runs": 38,
-                        "balls": 28,
-                        "wicket_by": "c Shubman Gill b Alzarri Joseph"
-                    },
-                    {
-                        "player": "Riyan Parag",
-                        "runs": 52,
-                        "balls": 37,
-                        "wicket_by": "not out"
-                    },
-                    {
-                        "player": "Shimron Hetmyer",
-                        "runs": 25,
-                        "balls": 18,
-                        "wicket_by": "c Rashid Khan b Alzarri Joseph"
-                    },
-                    {
-                        "player": "Ravichandran Ashwin",
-                        "runs": 15,
-                        "balls": 10,
-                        "wicket_by": "not out"
-                    }
+                    { "player": "Sai Sudharsan", "runs": 82, "balls": 53, "wicket_by": "Tushar Deshpande" },
+                    { "player": "Shubman Gill", "runs": 2, "balls": 3, "wicket_by": "Jofra Archer" },
+                    { "player": "Jos Buttler", "runs": 36, "balls": 25, "wicket_by": "M Theekshana" },
+                    { "player": "Shahrukh Khan", "runs": 36, "balls": 20, "wicket_by": "M Theekshana" },
+                    { "player": "Sherfane Rutherford", "runs": 7, "balls": 3, "wicket_by": "Sandeep Sharma" },
+                    { "player": "Rahul Tewatia", "runs": 24, "balls": 12, "wicket_by": "" },
+                    { "player": "Rashid Khan", "runs": 12, "balls": 4, "wicket_by": "Tushar Deshpande" },
+                    { "player": "Arshad Khan", "runs": 0, "balls": 0, "wicket_by": "" }
                 ],
                 "bowling": [
-                    {
-                        "player": "Rashid Khan",
-                        "overs": 4,
-                        "runs_conceded": 28,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Alzarri Joseph",
-                        "overs": 4,
-                        "runs_conceded": 32,
-                        "wickets": 2
-                    },
-                    {
-                        "player": "Lockie Ferguson",
-                        "overs": 4,
-                        "runs_conceded": 35,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Mohammed Shami",
-                        "overs": 4,
-                        "runs_conceded": 40,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Hardik Pandya",
-                        "overs": 4,
-                        "runs_conceded": 42,
-                        "wickets": 0
-                    }
+                    { "player": "Jofra Archer", "overs": 4, "runs_conceded": 30, "wickets": 1 },
+                    { "player": "Fazalhaq Farooqi", "overs": 4, "runs_conceded": 38, "wickets": 0 },
+                    { "player": "Tushar Deshpande", "overs": 4, "runs_conceded": 53, "wickets": 2 },
+                    { "player": "Sandeep Sharma", "overs": 4, "runs_conceded": 41, "wickets": 1 },
+                    { "player": "M Theekshana", "overs": 4, "runs_conceded": 54, "wickets": 2 }
                 ]
             },
             {
-                "team_batting": "Gujarat Titans",
+                "team_batting": "Rajasthan Royals",
                 "batting": [
-                    {
-                        "player": "Shubman Gill",
-                        "runs": 60,
-                        "balls": 45,
-                        "wicket_by": "not out"
-                    },
-                    {
-                        "player": "Sai Sudharsan",
-                        "runs": 35,
-                        "balls": 25,
-                        "wicket_by": "not out"
-                    },
-                    {
-                        "player": "Hardik Pandya",
-                        "runs": 15,
-                        "balls": 10,
-                        "wicket_by": "not out"
-                    },
-                    {
-                        "player": "Rashid Khan",
-                        "runs": 10,
-                        "balls": 8,
-                        "wicket_by": "not out"
-                    },
-                    {
-                        "player": "Lockie Ferguson",
-                        "runs": 5,
-                        "balls": 3,
-                        "wicket_by": "not out"
-                    }
+                    { "player": "Yashasvi Jaiswal", "runs": 6, "balls": 7, "wicket_by": "Arshad Khan" },
+                    { "player": "Sanju Samson", "runs": 41, "balls": 28, "wicket_by": "Prasidh Krishna" },
+                    { "player": "Nitish Rana", "runs": 1, "balls": 3, "wicket_by": "Mohammed Siraj" },
+                    { "player": "Riyan Parag", "runs": 26, "balls": 14, "wicket_by": "Kulwant Khejroliya" },
+                    { "player": "Dhruv Jurel", "runs": 5, "balls": 4, "wicket_by": "Rashid Khan" },
+                    { "player": "Shimron Hetmyer", "runs": 52, "balls": 32, "wicket_by": "Prasidh Krishna" },
+                    { "player": "Shubham Dubey", "runs": 1, "balls": 3, "wicket_by": "Rashid Khan" },
+                    { "player": "Jofra Archer", "runs": 4, "balls": 4, "wicket_by": "Prasidh Krishna" },
+                    { "player": "Maheesh Theekshana", "runs": 5, "balls": 13, "wicket_by": "Sai Kishore" },
+                    { "player": "Tushar Deshpande", "runs": 3, "balls": 3, "wicket_by": "Sai Kishore" },
+                    { "player": "Sandeep Sharma", "runs": 6, "balls": 5, "wicket_by": "" }
                 ],
                 "bowling": [
-                    {
-                        "player": "Trent Boult",
-                        "overs": 4,
-                        "runs_conceded": 30,
-                        "wickets": 1
-                    },
-                    {
-                        "player": "Prasidh Krishna",
-                        "overs": 4,
-                        "runs_conceded": 35,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Yash Dayal",
-                        "overs": 4,
-                        "runs_conceded": 40,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Ravichandran Ashwin",
-                        "overs": 4,
-                        "runs_conceded": 45,
-                        "wickets": 0
-                    },
-                    {
-                        "player": "Sandeep Sharma",
-                        "overs": 4,
-                        "runs_conceded": 50,
-                        "wickets": 0
-                    }
+                    { "player": "Mohammed Siraj", "overs": 4, "runs_conceded": 30, "wickets": 1 },
+                    { "player": "Arshad Khan", "overs": 2, "runs_conceded": 19, "wickets": 1 },
+                    { "player": "Prasidh Krishna", "overs": 4, "runs_conceded": 24, "wickets": 3 },
+                    { "player": "Kulwant Khejroliya", "overs": 3, "runs_conceded": 29, "wickets": 1 },
+                    { "player": "Rashid Khan", "overs": 4, "runs_conceded": 37, "wickets": 2 },
+                    { "player": "Sai Kishore", "overs": 2.2, "runs_conceded": 20, "wickets": 2 }
                 ]
             }
         ]

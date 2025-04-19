@@ -1,0 +1,52 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-17",
+        "venue": "Wankhede Stadium, Mumbai",
+        "result": "Mumbai Indians won by 4 wickets",
+        "innings": [
+            {
+                "team_batting": "Sunrisers Hyderabad",
+                "batting": [
+                    { "player": "Abhishek Sharma", "runs": 40, "balls": 28, "wicket": "Hardik Pandya" },
+                    { "player": "Travis Head", "runs": 28, "balls": 29, "wicket": "Will Jacks" },
+                    { "player": "Ishan Kishan", "runs": 2, "balls": 3, "wicket": "Will Jacks" },
+                    { "player": "Nitish Reddy", "runs": 19, "balls": 21, "wicket": "Trent Boult" },
+                    { "player": "Heinrich Klaasen", "runs": 37, "balls": 28, "wicket": "Jasprit Bumrah" },
+                    { "player": "Aniket Verma", "runs": 18, "balls": 8, "wicket": "" },
+                    { "player": "Pat Cummins", "runs": 8, "balls": 4, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Deepak Chahar", "overs": 4, "runs_conceded": 47, "wickets": 0 },
+                    { "player": "Trent Boult", "overs": 4, "runs_conceded": 29, "wickets": 1 },
+                    { "player": "Jasprit Bumrah", "overs": 4, "runs_conceded": 21, "wickets": 1 },
+                    { "player": "Will Jacks", "overs": 3, "runs_conceded": 14, "wickets": 2 },
+                    { "player": "Hardik Pandya", "overs": 4, "runs_conceded": 42, "wickets": 1 },
+                    { "player": "Mitchell Santner", "overs": 1, "runs_conceded": 8, "wickets": 0 }
+                    
+                ]
+            },
+            {
+                "team_batting": "Mumbai Indians",
+                "batting": [
+                    { "player": "Ryan Rickelton", "runs": 31, "balls": 23, "wicket": "Harshal Patel" },
+                    { "player": "Rohit Sharma", "runs": 26, "balls": 16, "wicket": "Pat Cummins" },
+                    { "player": "Will Jacks", "runs": 36, "balls": 26, "wicket": "Pat Cummins" },
+                    { "player": "Suryakumar Yadav", "runs": 26, "balls": 15, "wicket": "Pat Cummins" },
+                    { "player": "Tilak Varma", "runs": 21, "balls": 17, "wicket": "" },
+                    { "player": "Hardik Pandya", "runs": 21, "balls": 9, "wicket": "Eshan Malinga" },
+                    { "player": "Naman Dhir", "runs": 0, "balls": 3, "wicket": "Eshan Malinga" },
+                    { "player": "Mitchell Santner", "runs": 0, "balls": 1, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mohammed Shami", "overs": 3, "runs_conceded": 28, "wickets": 0 },
+                    { "player": "Pat Cummins", "overs": 4, "runs_conceded": 26, "wickets": 3 },
+                    { "player": "Eshan Malinga", "overs": 4, "runs_conceded": 36, "wickets": 2 },
+                    { "player": "Zeeshan Ansari", "overs": 3.1, "runs_conceded": 35, "wickets": 0 },
+                    { "player": "Harshal Patel", "overs": 3, "runs_conceded": 31, "wickets": 1 },
+                    { "player": "Rahul Chahar", "overs": 1, "runs_conceded": 9, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

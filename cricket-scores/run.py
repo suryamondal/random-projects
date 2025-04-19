@@ -3,12 +3,13 @@ import os
 
 # List of IPL teams you want to loop over
 teams = [
-    "Royal Challengers Bengaluru",
-    "Punjab Kings",
+    # "Royal Challengers Bengaluru",
+    # "Punjab Kings",
     # "Mumbai Indians",
     # "Sunrisers Hyderabad",
     # "Rajasthan Royals",
-    # "Delhi Capitals"
+    "Delhi Capitals",
+    "Gujarat Titans"
 ]
 
 def run_plot_for_team(team_name):
