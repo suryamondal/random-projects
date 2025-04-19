@@ -54,17 +54,23 @@ Setup Instructions:
 2. Clone the Repository:
 
 3. Install Dependencies (if needed):
-   ```pip install requests pytz yt_dlp```
+   ```BASH
+   pip install requests pytz yt_dlp
+   ```
 
 ---------------------------------------------------------------------
 
 Usage:
 
 1. Manually Log Data:
-   ```python3 grep_script.py```
+   ```BASH
+   python3 grep_script.py
+   ```
 
 3. Generate Plots:
-   ```python3 run_plot.py```
+   ```BASH
+   python3 run_plot.py
+   ```
 
    This will:
    - Generate plots for each tag
