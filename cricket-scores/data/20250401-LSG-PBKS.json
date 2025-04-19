@@ -30,8 +30,8 @@
             {
                 "team_batting": "Punjab Kings",
                 "batting": [
-                    {"player": "Priyansh Arya", "runs": 8, "balls": 9, "wickets_by": "Digvesh Rathi"},
-                    {"player": "Prabhsimran Singh", "runs": 69, "balls": 34, "wickets_by": "Digvesh Rathi"},
+                    {"player": "Priyansh Arya", "runs": 8, "balls": 9, "wickets_by": "Digvesh Singh Rathi"},
+                    {"player": "Prabhsimran Singh", "runs": 69, "balls": 34, "wickets_by": "Digvesh Singh Rathi"},
                     {"player": "Shreyas Iyer", "runs": 52, "balls": 25, "wickets_by": ""},
                     {"player": "Nehal Wadhera", "runs": 43, "balls": 25, "wickets_by": ""}
                 ],

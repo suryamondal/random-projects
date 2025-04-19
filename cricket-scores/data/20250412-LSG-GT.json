@@ -10,7 +10,7 @@
                 "batting": [
                     { "player": "Sai Sudharsan", "runs": 56, "balls": 37, "wicket": "Ravi Bishnoi" },
                     { "player": "Shubman Gill", "runs": 60, "balls": 38, "wicket": "Avesh Khan" },
-                    { "player": "Jos Buttler", "runs": 16, "balls": 14, "wicket": "Digvesh Rathi" },
+                    { "player": "Jos Buttler", "runs": 16, "balls": 14, "wicket": "Digvesh Singh Rathi" },
                     { "player": "Washington Sundar", "runs": 2, "balls": 3, "wicket": "Ravi Bishnoi" },
                     { "player": "Sherfane Rutherford", "runs": 22, "balls": 19, "wicket": "Shardul Thakur" },
                     { "player": "Shahrukh Khan", "runs": 11, "balls": 6, "wicket": "" },
@@ -20,7 +20,7 @@
                 "bowling": [
                     { "player": "Shardul Thakur", "overs": 4, "runs_conceded": 34, "wickets": 2 },
                     { "player": "Akash Deep", "overs": 3, "runs_conceded": 33, "wickets": 0 },
-                    { "player": "Digvesh Rathi", "overs": 4, "runs_conceded": 30, "wickets": 1 },
+                    { "player": "Digvesh Singh Rathi", "overs": 4, "runs_conceded": 30, "wickets": 1 },
                     { "player": "Avesh Khan", "overs": 4, "runs_conceded": 32, "wickets": 1 },
                     { "player": "Ravi Bishnoi", "overs": 4, "runs_conceded": 32, "wickets": 2 },
                     { "player": "Aiden Markram", "overs": 1, "runs_conceded": 15, "wickets": 0 }

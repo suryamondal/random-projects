@@ -16,7 +16,7 @@
                     {"player": "Shardul Thakur", "runs": 0, "balls": 3, "wicket_by": "run out" },
                     {"player": "Shahbaz Ahmed", "runs": 9, "balls": 8, "wicket_by": "Mitchell Starc" },
                     {"player": "Ravi Bishnoi", "runs": 0, "balls": 2, "wicket_by": "Mitchell Starc" },
-                    {"player": "Digvesh Rathi", "runs": 0, "balls": 0, "wicket_by": "" }
+                    {"player": "Digvesh Singh Rathi", "runs": 0, "balls": 0, "wicket_by": "" }
                 ],
                 "bowling": [
                     {"player": "Mitchell Starc", "overs": 4, "runs_conceded": 42, "wickets": 3 },
@@ -35,10 +35,10 @@
                     {"player": "Faf du Plessis", "runs": 29, "balls": 18, "wicket_by": "Ravi Bishnoi" },
                     {"player": "Abishek Porel", "runs": 0, "balls": 1, "wicket_by": "Shardul Thakur" },
                     {"player": "Sameer Rizvi", "runs": 4, "balls": 4, "wicket_by": "M Siddharth" },
-                    {"player": "Axar Patel", "runs": 22, "balls": 11, "wicket_by": "Digvesh Rathi" },
+                    {"player": "Axar Patel", "runs": 22, "balls": 11, "wicket_by": "Digvesh Singh Rathi" },
                     {"player": "Tristan Stubbs", "runs": 34, "balls": 22, "wicket_by": "M Siddharth" },
                     {"player": "Ashutosh Sharma", "runs": 66, "balls": 31, "wicket_by": "" },
-                    {"player": "Vipraj Nigam", "runs": 39, "balls": 15, "wicket_by": "Digvesh Rathi" },
+                    {"player": "Vipraj Nigam", "runs": 39, "balls": 15, "wicket_by": "Digvesh Singh Rathi" },
                     {"player": "Mitchell Starc", "runs": 2, "balls": 5, "wicket_by": "Ravi Bishnoi" },
                     {"player": "Kuldeep Yadav", "runs": 5, "balls": 5, "wicket_by": "run out" },
                     {"player": "Mohit Sharma", "runs": 1, "balls": 2, "wicket_by": "" }
@@ -46,7 +46,7 @@
                 "bowling": [
                     {"player": "Shardul Thakur", "overs": 2, "runs_conceded": 19, "wickets": 2 },
                     {"player": "Manimaran Siddharth", "overs": 4, "runs_conceded": 39, "wickets": 2 },
-                    {"player": "Digvesh Rathi", "overs": 4, "runs_conceded": 31, "wickets": 2 },
+                    {"player": "Digvesh Singh Rathi", "overs": 4, "runs_conceded": 31, "wickets": 2 },
                     {"player": "Ravi Bishnoi", "overs": 4, "runs_conceded": 53, "wickets": 2 },
                     {"player": "Prince Yadav", "overs": 4, "runs_conceded": 47, "wickets": 0 },
                     {"player": "Shahbaz Ahmed", "overs": 1.3, "runs_conceded": 22, "wickets": 0 }

@@ -23,7 +23,7 @@
                 "bowling": [
                     { "player": "Shardul Thakur", "overs": 4, "runs_conceded": 34, "wickets": 4 },
                     { "player": "Avesh Khan", "overs": 4, "runs_conceded": 45, "wickets": 1 },
-                    { "player": "Digvesh Singh", "overs": 4, "runs_conceded": 40, "wickets": 1 },
+                    { "player": "Digvesh Singh Rathi", "overs": 4, "runs_conceded": 40, "wickets": 1 },
                     { "player": "Ravi Bishnoi", "overs": 4, "runs_conceded": 42, "wickets": 1 },
                     { "player": "Prince Yadav", "overs": 4, "runs_conceded": 29, "wickets": 1 }
                 ]

@@ -7,10 +7,10 @@
             {
                 "team_batting": "Sunrisers Hyderabad",
                 "batting": [
-                    { "player": "Abhishek Sharma", "runs": 24, "balls": 11, "wicket_by": "M Theekshana" },
+                    { "player": "Abhishek Sharma", "runs": 24, "balls": 11, "wicket_by": "Maheesh Theekshana" },
                     { "player": "Travis Head", "runs": 67, "balls": 31, "wicket_by": "Tushar Deshpande" },
                     { "player": "Ishan Kishan", "runs": 106, "balls": 47, "wicket_by": "" },
-                    { "player": "Nitish Kumar Reddy", "runs": 30, "balls": 15, "wicket_by": "M Theekshana" },
+                    { "player": "Nitish Kumar Reddy", "runs": 30, "balls": 15, "wicket_by": "Maheesh Theekshana" },
                     { "player": "Heinrich Klaasen", "runs": 34, "balls": 14, "wicket_by": "Sandeep Sharma" },
                     { "player": "Aniket Verma", "runs": 7, "balls": 3, "wicket_by": "Tushar Deshpande" },
                     { "player": "Abhinav Manohar", "runs": 0, "balls": 1, "wicket_by": "Tushar Deshpande" },
@@ -18,7 +18,7 @@
                 ],
                 "bowling": [
                     { "player": "Fazalhaq Farooqi", "overs": 3, "runs_conceded": 49, "wickets": 0 },
-                    { "player": "M Theekshana", "overs": 4, "runs_conceded": 52, "wickets": 2 },
+                    { "player": "Maheesh Theekshana", "overs": 4, "runs_conceded": 52, "wickets": 2 },
                     { "player": "Jofra Archer", "overs": 4, "runs_conceded": 76, "wickets": 0 },
                     { "player": "Sandeep Sharma", "overs": 4, "runs_conceded": 51, "wickets": 1 },
                     { "player": "Nitish Rana", "overs": 1, "runs_conceded": 9, "wickets": 0 },

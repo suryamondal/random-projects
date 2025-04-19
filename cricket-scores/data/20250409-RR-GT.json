@@ -10,8 +10,8 @@
                 "batting": [
                     { "player": "Sai Sudharsan", "runs": 82, "balls": 53, "wicket_by": "Tushar Deshpande" },
                     { "player": "Shubman Gill", "runs": 2, "balls": 3, "wicket_by": "Jofra Archer" },
-                    { "player": "Jos Buttler", "runs": 36, "balls": 25, "wicket_by": "M Theekshana" },
-                    { "player": "Shahrukh Khan", "runs": 36, "balls": 20, "wicket_by": "M Theekshana" },
+                    { "player": "Jos Buttler", "runs": 36, "balls": 25, "wicket_by": "Maheesh Theekshana" },
+                    { "player": "Shahrukh Khan", "runs": 36, "balls": 20, "wicket_by": "Maheesh Theekshana" },
                     { "player": "Sherfane Rutherford", "runs": 7, "balls": 3, "wicket_by": "Sandeep Sharma" },
                     { "player": "Rahul Tewatia", "runs": 24, "balls": 12, "wicket_by": "" },
                     { "player": "Rashid Khan", "runs": 12, "balls": 4, "wicket_by": "Tushar Deshpande" },
@@ -22,7 +22,7 @@
                     { "player": "Fazalhaq Farooqi", "overs": 4, "runs_conceded": 38, "wickets": 0 },
                     { "player": "Tushar Deshpande", "overs": 4, "runs_conceded": 53, "wickets": 2 },
                     { "player": "Sandeep Sharma", "overs": 4, "runs_conceded": 41, "wickets": 1 },
-                    { "player": "M Theekshana", "overs": 4, "runs_conceded": 54, "wickets": 2 }
+                    { "player": "Maheesh Theekshana", "overs": 4, "runs_conceded": 54, "wickets": 2 }
                 ]
             },
             {
