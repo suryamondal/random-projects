@@ -8,7 +8,7 @@
             {
                 "team_batting": "Royal Challengers Bengaluru",
                 "batting": [
-                    { "player": "Phil Salt", "runs": 4, "balls": 4, "wicket_by": "Arshdeep Singh" },
+                    { "player": "Philip Salt", "runs": 4, "balls": 4, "wicket_by": "Arshdeep Singh" },
                     { "player": "Virat Kohli", "runs": 1, "balls": 3, "wicket_by": "Arshdeep Singh" },
                     { "player": "Rajat Patidar", "runs": 23, "balls": 18, "wicket_by": "Yuzvendra Chahal" },
                     { "player": "Liam Livingstone", "runs": 4, "balls": 6, "wicket_by": "Xavier Bartlett" },
