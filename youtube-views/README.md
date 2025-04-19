@@ -5,7 +5,7 @@ This repository logs the view counts of selected YouTube videos over time and ge
 ---------------------------------------------------------------------
 
 Project Structure:
-
+```ASCII
 .
 ├── data/             # Directory to store CSV logs of view data
 ├── grep_script.py    # Script to periodically execute log_data.py
@@ -14,6 +14,7 @@ Project Structure:
 ├── plot_views.C      # ROOT macro for plotting view trends
 ├── run_plot.py       # Wrapper script to generate plots and compile PDF
 └── README.md         # This file
+```
 
 ---------------------------------------------------------------------
 
