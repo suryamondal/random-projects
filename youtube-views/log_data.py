@@ -21,6 +21,7 @@ VIDEOS = [
     {"url": "https://www.youtube.com/watch?v=cvjA-jXk94o", "tag": "Linus_Tech_Malaysia_Tech_Mall"},
     {"url": "https://www.youtube.com/watch?v=MZE99-Be_Gk", "tag": "Linus_Tech_Dell_Hung_Up"},
     {"url": "https://www.youtube.com/watch?v=TD_RYb7m4Pw", "tag": "Linus_Tech_Clean_Pool"},
+    {"url": "https://www.youtube.com/watch?v=l2zXFWmACBY", "tag": "Linus_Tech_Cool_both_Side"},
     {"url": "https://www.youtube.com/watch?v=6RiYXI1Tfu4", "tag": "Tom_Schott_Aerial_Ropeway"},
 ]
 

@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 import pytz
 import os
 
-ACQUISITION_INTERVAL = 5        # MINUTES
+ACQUISITION_INTERVAL = 10        # MINUTES
 
 def log_data(write=True):
     try:
