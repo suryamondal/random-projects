@@ -42,17 +42,17 @@ Setup Instructions:
 2. Clone the Repository:
 
 3. Install Dependencies (if needed):
-   $ pip install -r requirements.txt
+   `pip install -r requirements.txt`
 
 ---------------------------------------------------------------------
 
 Usage:
 
 1. Manually Log Data:
-   $ python3 grep_script.py
+   `python3 grep_script.py`
 
 3. Generate Plots:
-   $ python3 run_plot.py
+   `python3 run_plot.py`
 
    This will:
    - Generate plots for each tag
