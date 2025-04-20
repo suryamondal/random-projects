@@ -1,0 +1,47 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-15",
+        "venue": "Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",
+        "result": "Mumbai Indians won by 9 wickets",
+        "innings": [
+            {
+                "team_batting": "Chennai Super Kings",
+                "batting": [
+                    { "player": "Shaik Rasheed", "runs": 19, "balls": 20, "wicket": "Mitchell Santner" },
+                    { "player": "Rachin Ravindra", "runs": 5, "balls": 9, "wicket": "Ashwani Kumar" },
+                    { "player": "Ayush Mhatre", "runs": 32, "balls": 15, "wicket": "Deepak Chahar" },
+                    { "player": "Ravindra Jadeja", "runs": 53, "balls": 35, "wicket": "" },
+                    { "player": "Shivam Dube", "runs": 50, "balls": 32, "wicket": "Jasprit Bumrah" },
+                    { "player": "MS Dhoni", "runs": 4, "balls": 6, "wicket": "Jasprit Bumrah" },
+                    { "player": "Jamie Overton", "runs": 4, "balls": 3, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Deepak Chahar", "overs": 4, "runs_conceded": 32, "wickets": 1 },
+                    { "player": "Trent Boult", "overs": 4, "runs_conceded": 43, "wickets": 0 },
+                    { "player": "Ashwani Kumar", "overs": 2, "runs_conceded": 42, "wickets": 1 },
+                    { "player": "Mitchell Santner", "overs": 3, "runs_conceded": 14, "wickets": 1 },
+                    { "player": "Jasprit Bumrah", "overs": 4, "runs_conceded": 25, "wickets": 2 },
+                    { "player": "Will Jacks", "overs": 1, "runs_conceded": 4, "wickets": 0 },
+                    { "player": "Hardik Pandya", "overs": 2, "runs_conceded": 13, "wickets": 0 }
+                ]
+            },
+            {
+                "team_batting": "Mumbai Indians",
+                "batting": [
+                    { "player": "Ryan Rickelton", "runs": 24, "balls": 19, "wicket": "Ravindra Jadeja" },
+                    { "player": "Rohit Sharma", "runs": 76, "balls": 45, "wicket": "" },
+                    { "player": "Suryakumar Yadav", "runs": 68, "balls": 30, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Khaleel Ahmed", "overs": 2, "runs_conceded": 24, "wickets": 0 },
+                    { "player": "Jamie Overton", "overs": 2, "runs_conceded": 29, "wickets": 0 },
+                    { "player": "Ravichandran Ashwin", "overs": 4, "runs_conceded": 25, "wickets": 0 },
+                    { "player": "Ravindra Jadeja", "overs": 3, "runs_conceded": 28, "wickets": 1 },
+                    { "player": "Noor Ahmad", "overs": 3, "runs_conceded": 36, "wickets": 0 },
+                    { "player": "Matheesha Pathirana", "overs": 1.4, "runs_conceded": 34, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

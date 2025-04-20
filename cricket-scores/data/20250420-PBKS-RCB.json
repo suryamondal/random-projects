@@ -1,0 +1,50 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-15",
+        "venue": "Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",
+        "result": "Royal Challengers Bengaluru won by 7 wickets",
+        "innings": [
+            {
+                "team_batting": "Punjab Kings",
+                "batting": [
+                    { "player": "Priyansh Arya", "runs": 22, "balls": 15, "wicket": "Krunal Pandya" },
+                    { "player": "Prabhsimran Singh", "runs": 33, "balls": 17, "wicket": "Krunal Pandya" },
+                    { "player": "Shreyas Iyer", "runs": 6, "balls": 10, "wicket": "Romario Shepherd" },
+                    { "player": "Josh Inglis", "runs": 29, "balls": 17, "wicket": "Suyash Sharma" },
+                    { "player": "Nehal Wadhera", "runs": 5, "balls": 6, "wicket": "run out" },
+                    { "player": "Shashank Singh", "runs": 31, "balls": 33, "wicket": "" },
+                    { "player": "Marcus Stoinis", "runs": 1, "balls": 2, "wicket": "Suyash Sharma" },
+                    { "player": "Marco Jansen", "runs": 25, "balls": 20, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Bhuvneshwar Kumar", "overs": 4, "runs_conceded": 26, "wickets": 0 },
+                    { "player": "Yash Dayal", "overs": 2, "runs_conceded": 22, "wickets": 0 },
+                    { "player": "Josh Hazlewood", "overs": 4, "runs_conceded": 39, "wickets": 0 },
+                    { "player": "Krunal Pandya", "overs": 4, "runs_conceded": 25, "wickets": 2 },
+                    { "player": "Romario Shepherd", "overs": 2, "runs_conceded": 18, "wickets": 1 },
+                    { "player": "Suyash Sharma", "overs": 4, "runs_conceded": 26, "wickets": 2 }
+                ]
+            },
+            {
+                "team_batting": "Royal Challengers Bengaluru",
+                "batting": [
+                    { "player": "Philip Salt", "runs": 1, "balls": 3, "wicket": "Arshdeep Singh" },
+                    { "player": "Virat Kohli", "runs": 73, "balls": 54, "wicket": "" },
+                    { "player": "Devdutt Padikkal", "runs": 61, "balls": 35, "wicket": "Harpreet Brar" },
+                    { "player": "Rajat Patidar", "runs": 12, "balls": 13, "wicket": "Yuzvendra Chahal" },
+                    { "player": "Jitesh Sharma", "runs": 11, "balls": 8, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Arshdeep Singh", "overs": 3, "runs_conceded": 26, "wickets": 1 },
+                    { "player": "Xavier Bartlett", "overs": 3, "runs_conceded": 28, "wickets": 0 },
+                    { "player": "Harpreet Brar", "overs": 4, "runs_conceded": 27, "wickets": 1 },
+                    { "player": "Marco Jansen", "overs": 3, "runs_conceded": 20, "wickets": 0 },
+                    { "player": "Yuzvendra Chahal", "overs": 4, "runs_conceded": 36, "wickets": 1 },
+                    { "player": "Marcus Stoinis", "overs": 1, "runs_conceded": 13, "wickets": 0 },
+                    { "player": "Nehal Wadhera", "overs": 0.5, "runs_conceded": 9, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

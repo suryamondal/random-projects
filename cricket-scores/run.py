@@ -7,13 +7,14 @@ import shlex
 teams = [
     # "Royal Challengers Bengaluru",
     # "Punjab Kings",
-    "Mumbai Indians",
-    "Chennai Super Kings",
+    # "Mumbai Indians",
+    # "Chennai Super Kings",
     # "Sunrisers Hyderabad",
     # "Rajasthan Royals",
     # "Lucknow Super Giants",
     # "Delhi Capitals",
-    # "Gujarat Titans"
+    "Gujarat Titans",
+    "Kolkata Knight Riders"    
 ]
 
 def run_plot_for_team(team_name):
