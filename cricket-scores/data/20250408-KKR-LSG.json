@@ -26,7 +26,7 @@
                 "team_batting": "Kolkata Knight Riders",
                 "batting": [
                     { "player": "Quinton de Kock", "runs": 15, "balls": 9, "wicket": "Akash Deep" },
-                    { "player": "Sunil Narine", "runs": 30, "balls": 13, "wicket": "Digvesh Rathi" },
+                    { "player": "Sunil Narine", "runs": 30, "balls": 13, "wicket": "Digvesh Singh Rathi" },
                     { "player": "Ajinkya Rahane", "runs": 61, "balls": 35, "wicket": "Shardul Thakur" },
                     { "player": "Venkatesh Iyer", "runs": 45, "balls": 29, "wicket": "Akash Deep" },
                     { "player": "Ramandeep Singh", "runs": 1, "balls": 2, "wicket": "Ravi Bishnoi" },
@@ -39,7 +39,7 @@
                     { "player": "Akash Deep", "overs": 4, "runs_conceded": 55, "wickets": 2 },
                     { "player": "Shardul Thakur", "overs": 4, "runs_conceded": 52, "wickets": 2 },
                     { "player": "Avesh Khan", "overs": 4, "runs_conceded": 45, "wickets": 1 },
-                    { "player": "Digvesh Rathi", "overs": 4, "runs_conceded": 33, "wickets": 1 },
+                    { "player": "Digvesh Singh Rathi", "overs": 4, "runs_conceded": 33, "wickets": 1 },
                     { "player": "Ravi Bishnoi", "overs": 4, "runs_conceded": 47, "wickets": 1 }
                 ]
             }
