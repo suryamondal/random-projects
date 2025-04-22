@@ -15,6 +15,7 @@ VIDEOS = [
     {"url": "https://www.youtube.com/watch?v=_cr46G2K5Fo", "tag": "Veritasium_Broke_Math"},
     {"url": "https://www.youtube.com/watch?v=qJZ1Ez28C-A", "tag": "Veritasium_Strange_Trust_Quantum"},
     {"url": "https://www.youtube.com/watch?v=lcjdwSY2AzM", "tag": "Veritasium_Mistake_Einstein"},
+    {"url": "https://www.youtube.com/watch?v=4LYlMqBXTJI", "tag": "Veritasium_Soccer_Ball"},
     {"url": "https://www.youtube.com/watch?v=iUn5F52SNuY", "tag": "Dhruv_Rathee_Trump_Tariff"},
     {"url": "https://www.youtube.com/watch?v=6y5hGiqd9rA", "tag": "Dhruv_Rathee_Milky_Way"},
     {"url": "https://www.youtube.com/watch?v=k2xudgpVExw", "tag": "Shyam_Sharma_National_Herald"},
