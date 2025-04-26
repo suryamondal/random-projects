@@ -13,16 +13,10 @@
 #include <set>
 #include <algorithm>
 
-// nlohmann/json (include the header)
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 using namespace std;
-
-// std::string nameOfTeam = "Mumbai Indians";
-// // std::string nameOfTeam = "Sunrisers Hyderabad";
-// // std::string nameOfTeam = "Rajasthan Royals";
-// // std::string nameOfTeam = "Delhi Capitals";
 
 void plot_stats(const char* teamName = "Mumbai Indians") {
   string nameOfTeam = teamName;
@@ -56,8 +50,8 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   // Sort files to get matches in order
   sort(files.begin(), files.end());
 
-  vector<map<string, int>> battingData; // matchIndex -> {player -> runs}
-  vector<map<string, int>> bowlingData; // matchIndex -> {player -> wickets}
+  vector<map<string, double>> battingData; // matchIndex -> {player -> runs}
+  vector<map<string, double>> bowlingData; // matchIndex -> {player -> wickets}
 
   // Load and process each file
   for (const auto& filename : files) {
@@ -75,17 +69,18 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
 
     if (innings.empty()) continue;
 
-    map<string, int> runMap;
-    map<string, int> wicketMap;
+    map<string, double> runMap;
+    map<string, double> wicketMap;
 
     for (int nIn : {0, 1}) {
       // Batting
       if (innings[nIn]["team_batting"] == nameOfTeam.c_str())
         for (const auto& player : innings[nIn]["batting"]) {
           string name = player["player"];
-          int runs = player["runs"];
+          double runs = player["runs"];
+          double balls = player["balls"];
           if (runs > 0) {
-            runMap[name] = runs;
+            runMap[name] = runs * runs / balls;
             battingPlayersSet.insert(name);
           }
         }
@@ -93,9 +88,13 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
       if (innings[!nIn]["team_batting"] == nameOfTeam.c_str())
         for (const auto& player : innings[nIn]["bowling"]) {
           string name = player["player"];
-          int wickets = player["wickets"];
+          double wickets = player["wickets"];
+          double rawOvers = player["overs"];
+          int completedOvers = int(rawOvers);
+          double balls = completedOvers * 6 + (rawOvers - completedOvers) * 10;
+          double runs = player["runs_conceded"];
           if (wickets > 0) {
-            wicketMap[name] = wickets;
+            wicketMap[name] = wickets * balls / runs;
             bowlingPlayersSet.insert(name);
           }
         }
@@ -123,6 +122,7 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   c1->SetLeftMargin(0.1502504);
   // gPad->SetGridx(1);
   gPad->SetGridy(1);
+  gStyle->SetPaintTextFormat(".0f");
 
   TH2F *battingHist = new TH2F("batting", ("Runs " + nameOfTeam + "; Match Index;Player Name").c_str(), nMatches, 0.5, nMatches + 0.5, nBatPlayers, 0.5, nBatPlayers + 0.5);
 
@@ -137,13 +137,17 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   for (int i = 0; i < nMatches; ++i)
     battingHist->GetXaxis()->SetBinLabel(i + 1, TString::Format("%d", i + 1));
 
+  // battingHist->SetMarkerFormat("%.1f");
   battingHist->Draw("COLZ TEXT");
+  battingHist->SetMinimum(0);
+  battingHist->SetMaximum(100);
   c1->SaveAs(("plots/" + nameOfTeam + " Bat.pdf").c_str());
 
   TCanvas *c2 = new TCanvas("c2", "Bowling Stats", 1200, 600);
   c2->SetLeftMargin(0.1502504);
   // gPad->SetGridx(1);
   gPad->SetGridy(1);
+  gStyle->SetPaintTextFormat(".1f");
 
   TH2F *bowlingHist = new TH2F("bowling", ("Wickets " + nameOfTeam + ";Match Index;Player Name").c_str(), nMatches, 0.5, nMatches + 0.5, nBowlPlayers, 0.5, nBowlPlayers + 0.5);
 
@@ -158,7 +162,10 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   for (int i = 0; i < nMatches; ++i)
     bowlingHist->GetXaxis()->SetBinLabel(i + 1, TString::Format("%d", i + 1));
 
+  // bowlingHist->SetMarkerFormat("%.1f");
   bowlingHist->Draw("COLZ TEXT");
+  bowlingHist->SetMinimum(0);
+  bowlingHist->SetMaximum(5);
   c2->SaveAs(("plots/" + nameOfTeam + " Bowl.pdf").c_str());
 
   // Interactive canvas will stay open

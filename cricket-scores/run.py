@@ -6,19 +6,19 @@ import shlex
 # List of IPL teams you want to loop over
 teams = [
     # "Royal Challengers Bengaluru",
-    # "Punjab Kings",
+    "Punjab Kings",
     # "Mumbai Indians",
-    # "Chennai Super Kings",
     # "Sunrisers Hyderabad",
+    # "Chennai Super Kings",
     # "Rajasthan Royals",
     # "Lucknow Super Giants",
     # "Delhi Capitals",
-    "Gujarat Titans",
+    # "Gujarat Titans",
     "Kolkata Knight Riders"    
 ]
 
 def run_plot_for_team(team_name):
-    print(f"🔄 Running for team: {team_name}")
+    print(f"\n\n\n🔄 Running for team: {team_name}")
     cmd = f'root -l -q \'plot_stats.C("{team_name}")\''
     subprocess.run(cmd, shell=True)
 
