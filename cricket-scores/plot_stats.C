@@ -128,7 +128,8 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
 
   for (int i = 0; i < nMatches; ++i) {
     for (const auto& [name, runs] : battingData[i]) {
-      battingHist->SetBinContent(i + 1, battingIndex[name], runs);
+      if (runs > 1)
+        battingHist->SetBinContent(i + 1, battingIndex[name], runs);
     }
   }
 
@@ -153,7 +154,8 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
 
   for (int i = 0; i < nMatches; ++i) {
     for (const auto& [name, wkts] : bowlingData[i]) {
-      bowlingHist->SetBinContent(i + 1, bowlingIndex[name], wkts);
+      if (wkts > 0)
+        bowlingHist->SetBinContent(i + 1, bowlingIndex[name], wkts);
     }
   }
 

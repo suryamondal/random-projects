@@ -6,15 +6,15 @@ import shlex
 # List of IPL teams you want to loop over
 teams = [
     # "Royal Challengers Bengaluru",
-    "Punjab Kings",
+    # "Punjab Kings",
     # "Mumbai Indians",
     # "Sunrisers Hyderabad",
     # "Chennai Super Kings",
-    # "Rajasthan Royals",
+    "Rajasthan Royals",
     # "Lucknow Super Giants",
     # "Delhi Capitals",
-    # "Gujarat Titans",
-    "Kolkata Knight Riders"    
+    "Gujarat Titans",
+    # "Kolkata Knight Riders"    
 ]
 
 def run_plot_for_team(team_name):
