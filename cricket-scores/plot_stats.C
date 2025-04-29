@@ -21,7 +21,7 @@ using namespace std;
 void plot_stats(const char* teamName = "Mumbai Indians") {
   string nameOfTeam = teamName;
 
-  gStyle->SetOptStat(0);
+  // gStyle->SetOptStat(0);
   // gStyle->SetPalette(1);
   gStyle->SetNumberContours(100);
 
@@ -93,10 +93,9 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
           int completedOvers = int(rawOvers);
           double balls = completedOvers * 6 + (rawOvers - completedOvers) * 10;
           double runs = player["runs_conceded"];
-          if (wickets > 0) {
-            wicketMap[name] = wickets * balls / runs;
-            bowlingPlayersSet.insert(name);
-          }
+          // std::cout << wickets * 30 + (balls - runs) << std::endl;
+          wicketMap[name] = wickets * 30 + (balls - runs);
+          bowlingPlayersSet.insert(name);
         }
     }
     if (runMap.size())
@@ -125,11 +124,13 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   gStyle->SetPaintTextFormat(".0f");
 
   TH2F *battingHist = new TH2F("batting", ("Runs " + nameOfTeam + "; Match Index;Player Name").c_str(), nMatches, 0.5, nMatches + 0.5, nBatPlayers, 0.5, nBatPlayers + 0.5);
+  TH1F *battingModes = new TH1F("batting_modes", ("Batting Modes " + nameOfTeam + ";Batting Score;Count").c_str(), 50, 0, 100);
 
   for (int i = 0; i < nMatches; ++i) {
     for (const auto& [name, runs] : battingData[i]) {
       if (runs > 1)
         battingHist->SetBinContent(i + 1, battingIndex[name], runs);
+      battingModes->Fill(runs);
     }
   }
 
@@ -138,11 +139,19 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   for (int i = 0; i < nMatches; ++i)
     battingHist->GetXaxis()->SetBinLabel(i + 1, TString::Format("%d", i + 1));
 
+  c1->cd();
+  gStyle->SetOptStat(0);
   // battingHist->SetMarkerFormat("%.1f");
   battingHist->Draw("COLZ TEXT");
   battingHist->SetMinimum(0);
   battingHist->SetMaximum(100);
   c1->SaveAs(("plots/" + nameOfTeam + " Bat.pdf").c_str());
+
+  TCanvas *c3 = new TCanvas("c3", "Batting Modes", 1200, 600);
+  gStyle->SetOptStat("uo");
+  c3->SetLeftMargin(0.1502504);
+  battingModes->Draw("HIST");
+  c3->SaveAs(("plots/" + nameOfTeam + " Bat Modes.pdf").c_str());
 
   TCanvas *c2 = new TCanvas("c2", "Bowling Stats", 1200, 600);
   c2->SetLeftMargin(0.1502504);
@@ -150,12 +159,13 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   gPad->SetGridy(1);
   gStyle->SetPaintTextFormat(".1f");
 
-  TH2F *bowlingHist = new TH2F("bowling", ("Wickets " + nameOfTeam + ";Match Index;Player Name").c_str(), nMatches, 0.5, nMatches + 0.5, nBowlPlayers, 0.5, nBowlPlayers + 0.5);
+  TH2F *bowlingHist = new TH2F("bowling", ("Bowling " + nameOfTeam + ";Match Index;Player Name").c_str(), nMatches, 0.5, nMatches + 0.5, nBowlPlayers, 0.5, nBowlPlayers + 0.5);
+  TH1F *bowlingModes = new TH1F("bowling_modes", ("Bowling Modes " + nameOfTeam + ";Bowling Score;Count").c_str(), 70, -40, 100);
 
   for (int i = 0; i < nMatches; ++i) {
     for (const auto& [name, wkts] : bowlingData[i]) {
-      if (wkts > 0)
-        bowlingHist->SetBinContent(i + 1, bowlingIndex[name], wkts);
+      bowlingHist->SetBinContent(i + 1, bowlingIndex[name], wkts > 0 ? wkts : 0.0000001);
+      bowlingModes->Fill(wkts);
     }
   }
 
@@ -164,11 +174,19 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   for (int i = 0; i < nMatches; ++i)
     bowlingHist->GetXaxis()->SetBinLabel(i + 1, TString::Format("%d", i + 1));
 
+  c2->cd();
+  gStyle->SetOptStat(0);
   // bowlingHist->SetMarkerFormat("%.1f");
   bowlingHist->Draw("COLZ TEXT");
   bowlingHist->SetMinimum(0);
-  bowlingHist->SetMaximum(5);
+  bowlingHist->SetMaximum(100);
   c2->SaveAs(("plots/" + nameOfTeam + " Bowl.pdf").c_str());
+
+  TCanvas *c4 = new TCanvas("c4", "Bowling Modes", 1200, 600);
+  gStyle->SetOptStat("uo");
+  c4->SetLeftMargin(0.1502504);
+  bowlingModes->Draw("HIST");
+  c4->SaveAs(("plots/" + nameOfTeam + " Bowl Modes.pdf").c_str());
 
   // Interactive canvas will stay open
 }
