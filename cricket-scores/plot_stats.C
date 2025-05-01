@@ -190,7 +190,7 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   c2->SetLeftMargin(0.1502504);
   // gPad->SetGridx(1);
   gPad->SetGridy(1);
-  gStyle->SetPaintTextFormat(".1f");
+  // gStyle->SetPaintTextFormat(".1f");
 
   TH2F *bowlingHist = new TH2F("bowling", ("Bowling " + nameOfTeam + ";Match Index;Player Name").c_str(), nMatches, 0.5, nMatches + 0.5, nBowlPlayers, 0.5, nBowlPlayers + 0.5);
   TH1F *bowlingModes = new TH1F("bowling_modes", ("Bowling Modes " + nameOfTeam + ";Bowling Score;Count").c_str(), 70, -40, 100);
@@ -226,7 +226,7 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   gStyle->SetOptStat(0);
   // bowlingHist->SetMarkerFormat("%.1f");
   bowlingHist->Draw("COLZ TEXT");
-  bowlingHist->SetMinimum(0);
+  // bowlingHist->SetMinimum(-1);
   bowlingHist->SetMaximum(100);
   c2->SaveAs(("plots/" + nameOfTeam + " Bowl.pdf").c_str());
 
@@ -253,24 +253,31 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
       for (const auto& [p2, score2] : scoreMap) {
         int idx2 = playerIndex[p2];
         if (idx1 == idx2) continue; // Skip diagonal
-        combinedHist->Fill(idx1, idx2, score1);
+        // combinedHist->Fill(idx1, idx2, 2 * score1 * score2 / (score1 + score2));
+        combinedHist->Fill(idx1, idx2, score1 + score2);
+        // combinedHist->Fill(idx1, idx2, TMath::Sqrt(score1 * score2));
       }
     }
   }
+  combinedHist->Scale(1./nMatches);
   // Label axes
   for (const auto& [name, idx] : playerIndex) {
     combinedHist->GetXaxis()->SetBinLabel(idx, name.c_str());
     combinedHist->GetYaxis()->SetBinLabel(idx, name.c_str());
   }
   // Draw canvas
-  TCanvas *c5 = new TCanvas("c5", "Combined Player Synergy", 1200, 800);
-  c5->SetLeftMargin(0.15);
-  c5->SetBottomMargin(0.15);
+  TCanvas *c5 = new TCanvas("c5", "Combined Player Synergy", 1200, 1200);
+  c5->SetLeftMargin(0.20);
+  c5->SetBottomMargin(0.20);
   gStyle->SetOptStat(0);
   gPad->SetGridx(1);
   gPad->SetGridy(1);
-  // combinedHist->SetMinimum(0);
-  // combinedHist->SetMaximum(200);
+  combinedHist->GetXaxis()->SetLabelSize(0.025);
+  combinedHist->GetYaxis()->SetLabelSize(0.025);
+  combinedHist->GetZaxis()->SetLabelSize(0.015);
+  combinedHist->SetMarkerSize(0.5);
+  combinedHist->SetMinimum(-10);
+  combinedHist->SetMaximum(+150);
   combinedHist->Draw("COLZ TEXT");
   c5->SaveAs(("plots/" + nameOfTeam + " - Synergy.pdf").c_str());
 
