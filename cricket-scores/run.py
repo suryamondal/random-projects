@@ -7,13 +7,13 @@ import shlex
 teams = [
     # "Royal Challengers Bengaluru",
     # "Punjab Kings",
-    "Mumbai Indians",
-    # "Sunrisers Hyderabad",
+    # "Mumbai Indians",
+    "Sunrisers Hyderabad",
     # "Chennai Super Kings",
-    "Rajasthan Royals",
+    # "Rajasthan Royals",
     # "Lucknow Super Giants",
     # "Delhi Capitals",
-    # "Gujarat Titans",
+    "Gujarat Titans",
     # "Kolkata Knight Riders"
 ]
 
@@ -85,6 +85,25 @@ def stitch_pdfs_for_team_modes(team_name):
     else:
         print(f"⚠️ Missing Bat or Bowl PDF for {team_name}")
 
+def stitch_pair_synergy(team1, team2):
+    plot_dir = "plots"
+    team1_pdf = os.path.join(plot_dir, f"{team1} - Synergy.pdf")
+    team2_pdf = os.path.join(plot_dir, f"{team2} - Synergy.pdf")
+    combined_pdf = os.path.join(plot_dir, f"{team1} - {team2} - Synergy.pdf")
+    temp_combined = os.path.join(plot_dir, f"{team1} - {team2} - Synergy_temp.pdf")
+    if os.path.exists(team1_pdf) and os.path.exists(team2_pdf):
+        print(f"📎 Combining: {team1} + {team2}")
+        cmd = ["pdfjam", "--nup", "2x1", team1_pdf, team2_pdf, "-o", temp_combined]
+        subprocess.run(cmd)
+        print(f"✂️ Cropping combined Synergy PDF for: {team1}-{team2}")
+        crop_cmd = ["pdfcrop", temp_combined, combined_pdf]
+        subprocess.run(crop_cmd)
+        os.remove(temp_combined)
+        os.remove(team1_pdf)
+        os.remove(team2_pdf)
+    else:
+        print(f"⚠️ Missing final Synergy PDFs for {team1} or {team2}")
+
 def stitch_pair_modes(team1, team2):
     plot_dir = "plots"
     team1_pdf = os.path.join(plot_dir, f"{team1} Modes.pdf")
@@ -119,6 +138,7 @@ def main():
         team2 = teams[i + 1]
         stitch_pair(team1, team2)
         stitch_pair_modes(team1, team2)
+        stitch_pair_synergy(team1, team2)
 
 if __name__ == "__main__":
     main()

@@ -241,29 +241,21 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
                                 nAllPlayers, 0.5, nAllPlayers + 0.5,
                                 nAllPlayers, 0.5, nAllPlayers + 0.5);
   for (int i = 0; i < nMatches; ++i) {
-  map<string, double> scoreMap;
-  // Aggregate scores from batting and bowling
-  for (const auto& [name, val] : battingData[i]) {
-    scoreMap[name] += val;
-  }
-  for (const auto& [name, val] : bowlingData[i]) {
-    scoreMap[name] += val;
-  }
-  // Fill matrix with asymmetric rule
-  for (const auto& [p1, score1] : scoreMap) {
-    int idx1 = playerIndex[p1];
-    for (const auto& [p2, score2] : scoreMap) {
-      int idx2 = playerIndex[p2];
-      if (idx1 == idx2) continue; // Skip diagonal
-      if (idx1 < idx2) {
-        // Upper triangle: fill with Y-axis (p2) score
-        combinedHist->Fill(idx1, idx2, score1);
-      } else {
-        // Lower triangle: fill with X-axis (p1) score
+    map<string, double> scoreMap;
+    // Aggregate scores from batting and bowling
+    for (const auto& [name, val] : battingData[i])
+      scoreMap[name] += val;
+    for (const auto& [name, val] : bowlingData[i])
+      scoreMap[name] += val;
+    // Fill matrix with asymmetric rule
+    for (const auto& [p1, score1] : scoreMap) {
+      int idx1 = playerIndex[p1];
+      for (const auto& [p2, score2] : scoreMap) {
+        int idx2 = playerIndex[p2];
+        if (idx1 == idx2) continue; // Skip diagonal
         combinedHist->Fill(idx1, idx2, score1);
       }
     }
-  }
   }
   // Label axes
   for (const auto& [name, idx] : playerIndex) {
@@ -280,6 +272,6 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   // combinedHist->SetMinimum(0);
   // combinedHist->SetMaximum(200);
   combinedHist->Draw("COLZ TEXT");
-  c5->SaveAs(("plots/" + nameOfTeam + " Combined Player Synergy.pdf").c_str());
+  c5->SaveAs(("plots/" + nameOfTeam + " - Synergy.pdf").c_str());
 
 }
