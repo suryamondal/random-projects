@@ -80,7 +80,7 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
           string name = player["player"];
           double runs = player["runs"];
           double balls = player["balls"];
-          if (runs > 40) {
+          if (runs > 0) {
             runMap[name] = runs * runs / balls;
             battingPlayersSet.insert(name);
           }
@@ -98,10 +98,10 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
           double runs = player["runs_conceded"];
           double score = wickets * 30 + (balls - runs);
           // std::cout << score << std::endl;
-          if (score > 30) {
-            wicketMap[name] = score;
-            bowlingPlayersSet.insert(name);
-          }
+          // if (score > 0) {
+          wicketMap[name] = score;
+          bowlingPlayersSet.insert(name);
+          // }
         }
         isPresent = true;
       }
@@ -121,6 +121,14 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   for (const auto& name : battingPlayersSet) battingIndex[name] = idx++;
   idx = 1;
   for (const auto& name : bowlingPlayersSet) bowlingIndex[name] = idx++;
+
+  // Unified player set and index for combined stats
+  set<string> allPlayersSet = battingPlayersSet;
+  allPlayersSet.insert(bowlingPlayersSet.begin(), bowlingPlayersSet.end());
+  map<string, int> playerIndex;
+  idx = 1;
+  for (const auto& name : allPlayersSet) playerIndex[name] = idx++;
+  int nAllPlayers = playerIndex.size();
 
   int nMatches = battingData.size();
   int nBatPlayers = battingIndex.size();
@@ -228,7 +236,41 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   bowlingModes->Draw("HIST");
   c4->SaveAs(("plots/" + nameOfTeam + " Bowl Modes.pdf").c_str());
 
-  // CSV
+  // Combined stats: TH2F for player vs player total contributions
+  TH2F *combinedHist = new TH2F("combined", ("Combined Contribution " + nameOfTeam).c_str(),
+                                nAllPlayers, 0.5, nAllPlayers + 0.5,
+                                nAllPlayers, 0.5, nAllPlayers + 0.5);
 
-  // Interactive canvas will stay open
+  for (int i = 0; i < nMatches; ++i) {
+    map<string, double> scoreMap;
+    // Aggregate scores from batting and bowling
+    for (const auto& [name, val] : battingData[i])
+      scoreMap[name] += val;
+    for (const auto& [name, val] : bowlingData[i])
+      scoreMap[name] += val;
+    // Fill all player-pair combinations for this match
+    for (const auto& [p1, score1] : scoreMap) {
+      for (const auto& [p2, score2] : scoreMap) {
+        double combinedScore = score1 + score2;
+        combinedHist->Fill(playerIndex[p1], playerIndex[p2], combinedScore);
+      }
+    }
+  }
+  // Label axes
+  for (const auto& [name, idx] : playerIndex) {
+    combinedHist->GetXaxis()->SetBinLabel(idx, name.c_str());
+    combinedHist->GetYaxis()->SetBinLabel(idx, name.c_str());
+  }
+  // Draw canvas
+  TCanvas *c5 = new TCanvas("c5", "Combined Player Synergy", 1200, 800);
+  c5->SetLeftMargin(0.15);
+  c5->SetBottomMargin(0.15);
+  gStyle->SetOptStat(0);
+  gPad->SetGridx(1);
+  gPad->SetGridy(1);
+  // combinedHist->SetMinimum(0);
+  // combinedHist->SetMaximum(200);
+  combinedHist->Draw("COLZ TEXT");
+  c5->SaveAs(("plots/" + nameOfTeam + " Combined Player Synergy.pdf").c_str());
+
 }
