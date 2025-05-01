@@ -72,20 +72,23 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
     map<string, double> runMap;
     map<string, double> wicketMap;
 
+    bool isPresent = false;
     for (int nIn : {0, 1}) {
       // Batting
-      if (innings[nIn]["team_batting"] == nameOfTeam.c_str())
+      if (innings[nIn]["team_batting"] == nameOfTeam.c_str()) {
         for (const auto& player : innings[nIn]["batting"]) {
           string name = player["player"];
           double runs = player["runs"];
           double balls = player["balls"];
-          if (runs > 0) {
+          if (runs > 40) {
             runMap[name] = runs * runs / balls;
             battingPlayersSet.insert(name);
           }
         }
+        isPresent = true;
+      }
       // Bowling
-      if (innings[!nIn]["team_batting"] == nameOfTeam.c_str())
+      if (innings[!nIn]["team_batting"] == nameOfTeam.c_str()) {
         for (const auto& player : innings[nIn]["bowling"]) {
           string name = player["player"];
           double wickets = player["wickets"];
@@ -93,15 +96,22 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
           int completedOvers = int(rawOvers);
           double balls = completedOvers * 6 + (rawOvers - completedOvers) * 10;
           double runs = player["runs_conceded"];
-          // std::cout << wickets * 30 + (balls - runs) << std::endl;
-          wicketMap[name] = wickets * 30 + (balls - runs);
-          bowlingPlayersSet.insert(name);
+          double score = wickets * 30 + (balls - runs);
+          // std::cout << score << std::endl;
+          if (score > 30) {
+            wicketMap[name] = score;
+            bowlingPlayersSet.insert(name);
+          }
         }
+        isPresent = true;
+      }
     }
-    if (runMap.size())
+    if (isPresent) {
+      // if (runMap.size())
       battingData.push_back(runMap);
-    if (wicketMap.size())
+      // if (wicketMap.size())
       bowlingData.push_back(wicketMap);
+    }
   }
 
   // Assign indices to players
@@ -139,6 +149,21 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   for (int i = 0; i < nMatches; ++i)
     battingHist->GetXaxis()->SetBinLabel(i + 1, TString::Format("%d", i + 1));
 
+  // ofstream batCsv(("plots/" + nameOfTeam + " Batting.csv").c_str());
+  // batCsv << "Match";
+  // for (const auto& [name, idx] : battingIndex)
+  //   batCsv << "," << name;
+  // batCsv << "\n";
+  // for (int i = 1; i <= nMatches; ++i) {
+  //   batCsv << i;
+  //   for (const auto& [name, idx] : battingIndex) {
+  //     batCsv << "," << battingHist->GetBinContent(i, idx);
+  //   }
+  //   batCsv << "\n";
+  // }
+  // batCsv.close();
+
+
   c1->cd();
   gStyle->SetOptStat(0);
   // battingHist->SetMarkerFormat("%.1f");
@@ -174,6 +199,21 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   for (int i = 0; i < nMatches; ++i)
     bowlingHist->GetXaxis()->SetBinLabel(i + 1, TString::Format("%d", i + 1));
 
+  // ofstream bowlCsv(("plots/" + nameOfTeam + " Bowling.csv").c_str());
+  // bowlCsv << "Match";
+  // for (const auto& [name, idx] : bowlingIndex)
+  //   bowlCsv << "," << name;
+  // bowlCsv << "\n";
+  // for (int i = 1; i <= nMatches; ++i) {
+  //   bowlCsv << i;
+  //   for (const auto& [name, idx] : bowlingIndex) {
+  //     bowlCsv << "," << bowlingHist->GetBinContent(i, idx);
+  //   }
+  //   bowlCsv << "\n";
+  // }
+  // bowlCsv.close();
+
+
   c2->cd();
   gStyle->SetOptStat(0);
   // bowlingHist->SetMarkerFormat("%.1f");
@@ -187,6 +227,8 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   c4->SetLeftMargin(0.1502504);
   bowlingModes->Draw("HIST");
   c4->SaveAs(("plots/" + nameOfTeam + " Bowl Modes.pdf").c_str());
+
+  // CSV
 
   // Interactive canvas will stay open
 }
