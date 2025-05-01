@@ -240,21 +240,30 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   TH2F *combinedHist = new TH2F("combined", ("Combined Contribution " + nameOfTeam).c_str(),
                                 nAllPlayers, 0.5, nAllPlayers + 0.5,
                                 nAllPlayers, 0.5, nAllPlayers + 0.5);
-
   for (int i = 0; i < nMatches; ++i) {
-    map<string, double> scoreMap;
-    // Aggregate scores from batting and bowling
-    for (const auto& [name, val] : battingData[i])
-      scoreMap[name] += val;
-    for (const auto& [name, val] : bowlingData[i])
-      scoreMap[name] += val;
-    // Fill all player-pair combinations for this match
-    for (const auto& [p1, score1] : scoreMap) {
-      for (const auto& [p2, score2] : scoreMap) {
-        double combinedScore = score1 + score2;
-        combinedHist->Fill(playerIndex[p1], playerIndex[p2], combinedScore);
+  map<string, double> scoreMap;
+  // Aggregate scores from batting and bowling
+  for (const auto& [name, val] : battingData[i]) {
+    scoreMap[name] += val;
+  }
+  for (const auto& [name, val] : bowlingData[i]) {
+    scoreMap[name] += val;
+  }
+  // Fill matrix with asymmetric rule
+  for (const auto& [p1, score1] : scoreMap) {
+    int idx1 = playerIndex[p1];
+    for (const auto& [p2, score2] : scoreMap) {
+      int idx2 = playerIndex[p2];
+      if (idx1 == idx2) continue; // Skip diagonal
+      if (idx1 < idx2) {
+        // Upper triangle: fill with Y-axis (p2) score
+        combinedHist->Fill(idx1, idx2, score1);
+      } else {
+        // Lower triangle: fill with X-axis (p1) score
+        combinedHist->Fill(idx1, idx2, score1);
       }
     }
+  }
   }
   // Label axes
   for (const auto& [name, idx] : playerIndex) {
