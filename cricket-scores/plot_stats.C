@@ -254,7 +254,7 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
         int idx2 = playerIndex[p2];
         if (idx1 == idx2) continue; // Skip diagonal
         // combinedHist->Fill(idx1, idx2, 2 * score1 * score2 / (score1 + score2));
-        combinedHist->Fill(idx1, idx2, score1 + score2);
+        combinedHist->Fill(idx1, idx2, (score1 + score2) / TMath::Exp(TMath::Abs(score1 - score2)));
         // combinedHist->Fill(idx1, idx2, TMath::Sqrt(score1 * score2));
       }
     }
