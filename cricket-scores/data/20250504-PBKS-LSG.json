@@ -1,0 +1,51 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-04",
+        "venue": "Himachal Pradesh Cricket Association Stadium, Dharamsala",
+        "result": "Punjab Kings won by 37 runs",
+        "innings": [
+            {
+                "team_batting": "Punjab Kings",
+                "batting": [
+                    { "player": "Priyansh Arya", "runs": 14, "balls": 0, "wicket": "Akash Maharaj Singh" },
+                    { "player": "Prabhsimran Singh", "runs": 91, "balls": 48, "wicket": "Digvesh Singh Rathi" },
+                    { "player": "Josh Inglis", "runs": 30, "balls": 14, "wicket": "Akash Maharaj Singh" },
+                    { "player": "Shreyas Iyer", "runs": 45, "balls": 25, "wicket": "Digvesh Rathi" },
+                    { "player": "Nehal Wadhera", "runs": 16, "balls": 9, "wicket": "Prince Yadav" },
+                    { "player": "Shashank Singh", "runs": 33, "balls": 15, "wicket": "" },
+                    { "player": "Marcus Stoinis", "runs": 15, "balls": 5, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Akash Maharaj Singh", "overs": 4, "runs_conceded": 30, "wickets": 2 },
+                    { "player": "Mayank Yadav", "overs": 4, "runs_conceded": 60, "wickets": 0 },
+                    { "player": "Avesh Khan", "overs": 4, "runs_conceded": 57, "wickets": 0 },
+                    { "player": "Digvesh Singh Rathi", "overs": 4, "runs_conceded": 46, "wickets": 2 },
+                    { "player": "Prince Yadav", "overs": 4, "runs_conceded": 43, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Lucknow Super Giants",
+                "batting": [
+                    { "player": "Aiden Markram", "runs": 13, "balls": 10, "wicket": "Arshdeep Singh" },
+                    { "player": "Mitchell Marsh", "runs": 0, "balls": 5, "wicket": "Arshdeep Singh" },
+                    { "player": "Nicholas Pooran", "runs": 6, "balls": 5, "wicket": "Arshdeep Singh" },
+                    { "player": "Rishabh Pant", "runs": 18, "balls": 17, "wicket": "Azmatullah Omarzai" },
+                    { "player": "Ayush Badoni", "runs": 74, "balls": 40, "wicket": "Yuzvendra Chahal" },
+                    { "player": "David Miller", "runs": 11, "balls": 8, "wicket": "Azmatullah Omarzai" },
+                    { "player": "Abdul Samad", "runs": 45, "balls": 24, "wicket": "Marco Jansen" },
+                    { "player": "Avesh Khan", "runs": 19, "balls": 10, "wicket": "" },
+                    { "player": "Prince Yadav", "runs": 1, "balls": 1, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Arshdeep Singh", "overs": 4, "runs_conceded": 16, "wickets": 3 },
+                    { "player": "Marco Jansen", "overs": 4, "runs_conceded": 31, "wickets": 1 },
+                    { "player": "Azmatullah Omarzai", "overs": 4, "runs_conceded": 33, "wickets": 2 },
+                    { "player": "Yuzvendra Chahal", "overs": 4, "runs_conceded": 50, "wickets": 1 },
+                    { "player": "Vijaykumar Vyshak", "overs": 3, "runs_conceded": 49, "wickets": 0 },
+                    { "player": "Marcus Stoinis", "overs": 1, "runs_conceded": 17, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,53 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-21",
+        "venue": "Wankhede Stadium, Mumbai",
+        "result": "Mumbai Indians won by 59 runs",
+        "innings": [
+            {
+                "team_batting": "Mumbai Indians",
+                "batting": [
+                    { "player": "Ryan Rickelton", "runs": 25, "balls": 18, "wicket": "Kuldeep Yadav" },
+                    { "player": "Rohit Sharma", "runs": 5, "balls": 5, "wicket": "Mustafizur Rahman" },
+                    { "player": "Will Jacks", "runs": 21, "balls": 13, "wicket": "Mukesh Kumar" },
+                    { "player": "Suryakumar Yadav", "runs": 73, "balls": 43, "wicket": "" },
+                    { "player": "Tilak Varma", "runs": 27, "balls": 27, "wicket": "Mukesh Kumar" },
+                    { "player": "Hardik Pandya", "runs": 3, "balls": 6, "wicket": "Dushmantha Chameera" },
+                    { "player": "Naman Dhir", "runs": 24, "balls": 8, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mukesh Kumar", "overs": 4, "runs_conceded": 48, "wickets": 2 },
+                    { "player": "Dushmantha Chameera", "overs": 4, "runs_conceded": 54, "wickets": 1 },
+                    { "player": "Mustafizur Rahman", "overs": 4, "runs_conceded": 30, "wickets": 1 },
+                    { "player": "Vipraj Nigam", "overs": 4, "runs_conceded": 25, "wickets": 0 },
+                    { "player": "Kuldeep Yadav", "overs": 4, "runs_conceded": 22, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Delhi Capitals",
+                "batting": [
+                    { "player": "KL Rahul", "runs": 11, "balls": 6, "wicket": "Trent Boult" },
+                    { "player": "Faf du Plessis", "runs": 6, "balls": 7, "wicket": "Deepak Chahar" },
+                    { "player": "Abishek Porel", "runs": 6, "balls": 9, "wicket": "Will Jacks" },
+                    { "player": "Sameer Rizvi", "runs": 39, "balls": 35, "wicket": "Mitchell Santner" },
+                    { "player": "Vipraj Nigam", "runs": 20, "balls": 11, "wicket": "Mitchell Santner" },
+                    { "player": "Tristan Stubbs", "runs": 2, "balls": 4, "wicket": "Jasprit Bumrah" },
+                    { "player": "Ashutosh Sharma", "runs": 18, "balls": 16, "wicket": "Mitchell Santner" },
+                    { "player": "Madhav Tiwari", "runs": 3, "balls": 4, "wicket": "Jasprit Bumrah" },
+                    { "player": "Dushmantha Chameera", "runs": 8, "balls": 10, "wicket": "" },
+                    { "player": "Kuldeep Yadav", "runs": 7, "balls": 8, "wicket": "Karn Sharma" },
+                    { "player": "Mustafizur Rahman", "runs": 0, "balls": 1, "wicket": "Jasprit Bumrah" }
+                ],
+                "bowling": [
+                    { "player": "Trent Boult", "overs": 4, "runs_conceded": 29, "wickets": 1 },
+                    { "player": "Deepak Chahar", "overs": 3, "runs_conceded": 22, "wickets": 1 },
+                    { "player": "Will Jacks", "overs": 1, "runs_conceded": 16, "wickets": 1 },
+                    { "player": "Mitchell Santner", "overs": 4, "runs_conceded": 11, "wickets": 3 },
+                    { "player": "Jasprit Bumrah", "overs": 3.2, "runs_conceded": 12, "wickets": 3 },
+                    { "player": "Karn Sharma", "overs": 3, "runs_conceded": 31, "wickets": 1 }
+                ]
+            }
+        ]
+    }
+}
