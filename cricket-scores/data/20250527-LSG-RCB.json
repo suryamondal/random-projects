@@ -1,0 +1,47 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-27",
+        "venue": "Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",
+        "result": "Royal Challengers Bengaluru won by 6 wickets",
+        "innings": [
+            {
+                "team_batting": "Lucknow Super Giants",
+                "batting": [
+                    { "player": "Mitchell Marsh", "runs": 67, "balls": 37, "wicket": "Bhuvneshwar Kumar" },
+                    { "player": "Matthew Breetzke", "runs": 14, "balls": 12, "wicket": "Nuwan Thushara" },
+                    { "player": "Rishabh Pant", "runs": 118, "balls": 61, "wicket": "" },
+                    { "player": "Nicholas Pooran", "runs": 13, "balls": 10, "wicket": "Romario Shepherd" },
+                    { "player": "Abdul Samad", "runs": 1, "balls": 1, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Nuwan Thushara", "overs": 4, "runs_conceded": 26, "wickets": 1 },
+                    { "player": "Krunal Pandya", "overs": 2, "runs_conceded": 14, "wickets": 0 },
+                    { "player": "Yash Dayal", "overs": 3, "runs_conceded": 44, "wickets": 0 },
+                    { "player": "Bhuvneshwar Kumar", "overs": 4, "runs_conceded": 46, "wickets": 1 },
+                    { "player": "Suyash Sharma", "overs": 3, "runs_conceded": 39, "wickets": 0 },
+                    { "player": "Romario Shepherd", "overs": 4, "runs_conceded": 51, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Royal Challengers Bengaluru",
+                "batting": [
+                    { "player": "Philip Salt", "runs": 30, "balls": 19, "wicket": "Akash Maharaj Singh" },
+                    { "player": "Virat Kohli", "runs": 54, "balls": 30, "wicket": "Avesh Khan" },
+                    { "player": "Rajat Patidar", "runs": 14, "balls": 7, "wicket": "William ORourke" },
+                    { "player": "Liam Livingstone", "runs": 0, "balls": 1, "wicket": "William ORourke" },
+                    { "player": "Mayank Agarwal", "runs": 41, "balls": 23, "wicket": "" },
+                    { "player": "Jitesh Sharma", "runs": 85, "balls": 33, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Akash Maharaj Singh", "overs": 4, "runs_conceded": 40, "wickets": 1 },
+                    { "player": "William ORourke", "overs": 4, "runs_conceded": 74, "wickets": 2 },
+                    { "player": "Digvesh Singh Rathi", "overs": 4, "runs_conceded": 36, "wickets": 0 },
+                    { "player": "Shahbaz Ahmed", "overs": 3, "runs_conceded": 39, "wickets": 0 },
+                    { "player": "Avesh Khan", "overs": 3, "runs_conceded": 32, "wickets": 1 },
+                    { "player": "Ayush Badoni", "overs": 0.4, "runs_conceded": 9, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}
