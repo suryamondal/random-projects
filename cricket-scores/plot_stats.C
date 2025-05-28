@@ -174,7 +174,6 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
 
   c1->cd();
   gStyle->SetOptStat(0);
-  // battingHist->SetMarkerFormat("%.1f");
   battingHist->Draw("COLZ TEXT");
   battingHist->SetMinimum(0);
   battingHist->SetMaximum(100);
@@ -224,7 +223,6 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
 
   c2->cd();
   gStyle->SetOptStat(0);
-  // bowlingHist->SetMarkerFormat("%.1f");
   bowlingHist->Draw("COLZ TEXT");
   // bowlingHist->SetMinimum(-1);
   bowlingHist->SetMaximum(100);
@@ -253,8 +251,9 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
       for (const auto& [p2, score2] : scoreMap) {
         int idx2 = playerIndex[p2];
         if (idx1 == idx2) continue; // Skip diagonal
-        // combinedHist->Fill(idx1, idx2, 2 * score1 * score2 / (score1 + score2));
-        combinedHist->Fill(idx1, idx2, (score1 + score2) / TMath::Exp(TMath::Abs(score1 - score2)));
+        if (score1 + score2 == 0) continue;
+        combinedHist->Fill(idx1, idx2, 2 * score1 * score2 / (score1 + score2));
+        // combinedHist->Fill(idx1, idx2, 1.0 / TMath::Exp((score1 + score2) / TMath::Abs(score1 - score2)));
         // combinedHist->Fill(idx1, idx2, TMath::Sqrt(score1 * score2));
       }
     }
@@ -267,6 +266,7 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   }
   // Draw canvas
   TCanvas *c5 = new TCanvas("c5", "Combined Player Synergy", 1200, 1200);
+  // gStyle->SetPaintTextFormat(".0f");
   c5->SetLeftMargin(0.20);
   c5->SetBottomMargin(0.20);
   gStyle->SetOptStat(0);
@@ -276,8 +276,8 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   combinedHist->GetYaxis()->SetLabelSize(0.025);
   combinedHist->GetZaxis()->SetLabelSize(0.015);
   combinedHist->SetMarkerSize(0.5);
-  combinedHist->SetMinimum(-10);
-  combinedHist->SetMaximum(+150);
+  combinedHist->SetMinimum(0);
+  combinedHist->SetMaximum(60);
   combinedHist->Draw("COLZ TEXT");
   c5->SaveAs(("plots/" + nameOfTeam + " - Synergy.pdf").c_str());
 
