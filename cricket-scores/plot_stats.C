@@ -216,24 +216,32 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
     }
   }
 
-  // Compute mean score per player
-  vector<pair<string, double>> playerMeanScores;
+  // Compute standard deviation per player
+  vector<pair<string, double>> playerStdScores;
   for (const auto& [name, scores] : combinedScores) {
-    double total = accumulate(scores.begin(), scores.end(), 0.0);
-    double count = count_if(scores.begin(), scores.end(), [](double v) { return v != 0; });
-    if (count > 0) {
-      playerMeanScores.emplace_back(name, total / count);
+    vector<double> nonZeroScores;
+    for (double v : scores)
+      if (v != 0)
+        nonZeroScores.push_back(v);
+
+    if (!nonZeroScores.empty()) {
+      double mean = accumulate(nonZeroScores.begin(), nonZeroScores.end(), 0.0) / nonZeroScores.size();
+      double sq_sum = 0.0;
+      for (double v : nonZeroScores)
+        sq_sum += (v - mean) * (v - mean);
+      double stddev = sqrt(sq_sum / nonZeroScores.size());
+      playerStdScores.emplace_back(name, mean / stddev);
     }
   }
 
-  // Sort descending by mean score
-  sort(playerMeanScores.begin(), playerMeanScores.end(), [](auto& a, auto& b) {
+  // Sort descending by standard deviation
+  sort(playerStdScores.begin(), playerStdScores.end(), [](auto& a, auto& b) {
     return a.second > b.second;
   });
 
   map<string, int> combinedIndex;
   int yIdx = 1;
-  for (const auto& [name, _] : playerMeanScores)
+  for (const auto& [name, _] : playerStdScores)
     combinedIndex[name] = yIdx++;
 
   int nCombinedPlayers = combinedIndex.size();
