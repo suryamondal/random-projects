@@ -78,7 +78,7 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
           string name = player["player"];
           double runs = player["runs"];
           double balls = player["balls"];
-          if (runs > 0) {
+          if (runs > 0 && balls > 0) {
             runMap[name] = runs * runs / balls;
             battingPlayersSet.insert(name);
             battingPositions[name].push_back(position);
@@ -192,4 +192,70 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   bowlingHist->Draw("COLZ TEXT");
   bowlingHist->SetMaximum(100);
   c2->SaveAs(("plots/" + nameOfTeam + " Bowl.pdf").c_str());
+
+
+  // -------- Combined Stats --------
+
+  TCanvas *c3 = new TCanvas("c3", "Combined Stats", 1200, 600);
+  c3->SetLeftMargin(0.1502504);
+  gPad->SetGridy(1);
+
+  map<string, vector<double>> combinedScores;
+  set<string> allPlayers;
+
+  for (int i = 0; i < nMatches; ++i) {
+    for (const auto& [name, score] : battingData[i]) {
+      combinedScores[name].resize(nMatches, 0);
+      combinedScores[name][i] += score;
+      allPlayers.insert(name);
+    }
+    for (const auto& [name, score] : bowlingData[i]) {
+      combinedScores[name].resize(nMatches, 0);
+      combinedScores[name][i] += score;
+      allPlayers.insert(name);
+    }
+  }
+
+  // Compute mean score per player
+  vector<pair<string, double>> playerMeanScores;
+  for (const auto& [name, scores] : combinedScores) {
+    double total = accumulate(scores.begin(), scores.end(), 0.0);
+    double count = count_if(scores.begin(), scores.end(), [](double v) { return v != 0; });
+    if (count > 0) {
+      playerMeanScores.emplace_back(name, total / count);
+    }
+  }
+
+  // Sort descending by mean score
+  sort(playerMeanScores.begin(), playerMeanScores.end(), [](auto& a, auto& b) {
+    return a.second > b.second;
+  });
+
+  map<string, int> combinedIndex;
+  int yIdx = 1;
+  for (const auto& [name, _] : playerMeanScores)
+    combinedIndex[name] = yIdx++;
+
+  int nCombinedPlayers = combinedIndex.size();
+  TH2F *combinedHist = new TH2F("combined", ("Combined Score " + nameOfTeam + ";Match Index;Player Name").c_str(),
+                                nMatches, 0.5, nMatches + 0.5, nCombinedPlayers, 0.5, nCombinedPlayers + 0.5);
+
+  for (int i = 0; i < nMatches; ++i) {
+    for (const auto& [name, scores] : combinedScores) {
+      if (combinedIndex.count(name) && scores[i] != 0)
+        combinedHist->SetBinContent(i + 1, combinedIndex[name], scores[i] > 0 ? scores[i] : 0.000001);
+    }
+  }
+
+  for (const auto& [name, index] : combinedIndex)
+    combinedHist->GetYaxis()->SetBinLabel(index, name.c_str());
+  for (int i = 0; i < nMatches; ++i)
+    combinedHist->GetXaxis()->SetBinLabel(i + 1, TString::Format("%d", i + 1));
+
+  c3->cd();
+  gStyle->SetOptStat(0);
+  combinedHist->Draw("COLZ TEXT");
+  combinedHist->SetMinimum(0);
+  combinedHist->SetMaximum(100);
+  c3->SaveAs(("plots/" + nameOfTeam + " Combined.pdf").c_str());
 }
