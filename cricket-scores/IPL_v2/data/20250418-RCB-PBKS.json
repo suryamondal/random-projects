@@ -1,0 +1,52 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-18",
+        "venue": "M.Chinnaswamy Stadium, Bengaluru",
+        "result": "Punjab Kings won by 5 wickets (14 overs game, rain reduced)",
+        "innings": [
+            {
+                "team_batting": "Royal Challengers Bengaluru",
+                "batting": [
+                    { "player": "Philip Salt", "runs": 4, "balls": 4, "wicket_by": "Arshdeep Singh" },
+                    { "player": "Virat Kohli", "runs": 1, "balls": 3, "wicket_by": "Arshdeep Singh" },
+                    { "player": "Rajat Patidar", "runs": 23, "balls": 18, "wicket_by": "Yuzvendra Chahal" },
+                    { "player": "Liam Livingstone", "runs": 4, "balls": 6, "wicket_by": "Xavier Bartlett" },
+                    { "player": "Jitesh Sharma", "runs": 2, "balls": 7, "wicket_by": "Yuzvendra Chahal" },
+                    { "player": "Krunal Pandya", "runs": 1, "balls": 2, "wicket_by": "Marco Jansen" },
+                    { "player": "Tim David", "runs": 50, "balls": 26, "wicket_by": "" },
+                    { "player": "Manoj Bhandage", "runs": 1, "balls": 4, "wicket_by": "Marco Jansen" },
+                    { "player": "Bhuvneshwar Kumar", "runs": 8, "balls": 13, "wicket_by": "Harpreet Brar" },
+                    { "player": "Yash Dayal", "runs": 0, "balls": 1, "wicket_by": "Harpreet Brar" },
+                    { "player": "Josh Hazlewood", "runs": 0, "balls": 1, "wicket_by": "" }
+                ],
+                "bowling": [
+                    { "player": "Arshdeep Singh", "overs": 3, "runs_conceded": 13, "wickets": 2 },
+                    { "player": "Xavier Bartlett", "overs": 3, "runs_conceded": 26, "wickets": 1 },
+                    { "player": "Marco Jansen", "overs": 3, "runs_conceded": 10, "wickets": 2 },
+                    { "player": "Yuzvendra Chahal", "overs": 3, "runs_conceded": 11, "wickets": 2 },
+                    { "player": "Harpreet Brar", "overs": 2, "runs_conceded": 25, "wickets": 2 }
+                ]
+            },
+            {
+                "team_batting": "Punjab Kings",
+                "batting": [
+                    { "player": "Priyansh Arya", "runs": 16, "balls": 11, "wicket_by": "Yash Dayal" },
+                    { "player": "Prabhsimran Singh", "runs": 13, "balls": 9, "wicket_by": "Bhuvneshwar Kumar" },
+                    { "player": "Shreyas Iyer", "runs": 7, "balls": 11, "wicket_by": "Josh Hazlewood" },
+                    { "player": "Josh Inglis", "runs": 14, "balls": 17, "wicket_by": "Josh Hazlewood" },
+                    { "player": "Nehal Wadhera", "runs": 33, "balls": 19, "wicket_by": "" },
+                    { "player": "Shashank Singh", "runs": 1, "balls": 5, "wicket_by": "Bhuvneshwar Kumar" },
+                    { "player": "Marcus Stoinis", "runs": 7, "balls": 2, "wicket_by": "" }
+                ],
+                "bowling": [
+                    { "player": "Bhuvneshwar Kumar", "overs": 3, "runs_conceded": 26, "wickets": 2 },
+                    { "player": "Yash Dayal", "overs": 2.1, "runs_conceded": 18, "wickets": 0 },
+                    { "player": "Josh Hazlewood", "overs": 3, "runs_conceded": 14, "wickets": 3 },
+                    { "player": "Krunal Pandya", "overs": 1, "runs_conceded": 10, "wickets": 0 },
+                    { "player": "Suyash Sharma", "overs": 3, "runs_conceded": 25, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

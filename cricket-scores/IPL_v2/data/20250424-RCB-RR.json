@@ -1,0 +1,53 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-24",
+        "venue": "M.Chinnaswamy Stadium, Bengaluru",
+        "result": "Royal Challengers Bengaluru won by 11 runs",
+        "innings": [
+            {
+                "team_batting": "Royal Challengers Bengaluru",
+                "batting": [
+                    { "player": "Philip Salt", "runs": 26, "balls": 23, "wicket": "Wanindu Hasaranga" },
+                    { "player": "Virat Kohli", "runs": 70, "balls": 42, "wicket": "Jofra Archer" },
+                    { "player": "Devdutt Padikkal", "runs": 50, "balls": 27, "wicket": "Sandeep Sharma" },
+                    { "player": "Tim David", "runs": 23, "balls": 15, "wicket": "run out" },
+                    { "player": "Rajat Patidar", "runs": 1, "balls": 3, "wicket": "Sandeep Sharma" },
+                    { "player": "Jitesh Sharma", "runs": 20, "balls": 10, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Jofra Archer", "overs": 4, "runs_conceded": 33, "wickets": 1 },
+                    { "player": "Fazalhaq Farooqi", "overs": 3, "runs_conceded": 30, "wickets": 0 },
+                    { "player": "Tushar Deshpande", "overs": 2, "runs_conceded": 36, "wickets": 0 },
+                    { "player": "Sandeep Sharma", "overs": 4, "runs_conceded": 45, "wickets": 2 },
+                    { "player": "Wanindu Hasaranga", "overs": 4, "runs_conceded": 30, "wickets": 1 },
+                    { "player": "Riyan Parag", "overs": 3, "runs_conceded": 30, "wickets": 0 }
+                ]
+            },
+            {
+                "team_batting": "Rajasthan Royals",
+                "batting": [
+                    { "player": "Yashasvi Jaiswal", "runs": 49, "balls": 19, "wicket": "Josh Hazlewood" },
+                    { "player": "Vaibhav Suryavanshi", "runs": 16, "balls": 12, "wicket": "Bhuvneshwar Kumar" },
+                    { "player": "Nitish Rana", "runs": 28, "balls": 22, "wicket": "Krunal Pandya" },
+                    { "player": "Riyan Parag", "runs": 22, "balls": 10, "wicket": "Krunal Pandya" },
+                    { "player": "Dhruv Jurel", "runs": 47, "balls": 34, "wicket": "Josh Hazlewood" },
+                    { "player": "Shimron Hetmyer", "runs": 11, "balls": 8, "wicket": "Josh Hazlewood" },
+                    { "player": "Shubham Dubey", "runs": 12, "balls": 7, "wicket": "Yash Dayal" },
+                    { "player": "Jofra Archer", "runs": 0, "balls": 1, "wicket": "Josh Hazlewood" },
+                    { "player": "Wanindu Hasaranga", "runs": 1, "balls": 3, "wicket": "run out" },
+                    { "player": "Tushar Deshpande", "runs": 1, "balls": 2, "wicket": "" },
+                    { "player": "Fazalhaq Farooqi", "runs": 2, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Bhuvneshwar Kumar", "overs": 4, "runs_conceded": 50, "wickets": 1 },
+                    { "player": "Yash Dayal", "overs": 3, "runs_conceded": 33, "wickets": 1 },
+                    { "player": "Josh Hazlewood", "overs": 4, "runs_conceded": 33, "wickets": 4 },
+                    { "player": "Romario Shepherd", "overs": 1, "runs_conceded": 15, "wickets": 0 },
+                    { "player": "Suyash Sharma", "overs": 4, "runs_conceded": 31, "wickets": 0 },
+                    { "player": "Krunal Pandya", "overs": 4, "runs_conceded": 31, "wickets": 2 }
+                ]
+            }
+        ]
+    }
+}

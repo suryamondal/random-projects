@@ -1,0 +1,53 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-25",
+        "venue": "Arun Jaitley Stadium, Delhi",
+        "result": "Sunrisers Hyderabad won by 110 runs",
+        "innings": [
+            {
+                "team_batting": "Sunrisers Hyderabad",
+                "batting": [
+                    { "player": "Abhishek Sharma", "runs": 32, "balls": 16, "wicket": "Sunil Narine" },
+                    { "player": "Travis Head", "runs": 76, "balls": 40, "wicket": "Sunil Narine" },
+                    { "player": "Heinrich Klaasen", "runs": 105, "balls": 39, "wicket": "" },
+                    { "player": "Ishan Kishan", "runs": 29, "balls": 20, "wicket": "Vaibhav Arora" },
+                    { "player": "Aniket Verma", "runs": 12, "balls": 6, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Vaibhav Arora", "overs": 4, "runs_conceded": 39, "wickets": 1 },
+                    { "player": "Anrich Nortje", "overs": 4, "runs_conceded": 60, "wickets": 0 },
+                    { "player": "Harshit Rana", "overs": 3, "runs_conceded": 40, "wickets": 0 },
+                    { "player": "Sunil Narine", "overs": 4, "runs_conceded": 42, "wickets": 2 },
+                    { "player": "Varun Chakaravarthy", "overs": 3, "runs_conceded": 54, "wickets": 0 },
+                    { "player": "Andre Russell", "overs": 2, "runs_conceded": 34, "wickets": 0 }
+                ]
+            },
+            {
+                "team_batting": "Kolkata Knight Riders",
+                "batting": [
+                    { "player": "Quinton de Kock", "runs": 9, "balls": 13, "wicket": "Eshan Malinga" },
+                    { "player": "Sunil Narine", "runs": 31, "balls": 16, "wicket": "Jaydev Unadkat" },
+                    { "player": "Ajinkya Rahane", "runs": 15, "balls": 8, "wicket": "Jaydev Unadkat" },
+                    { "player": "Angkrish Raghuvanshi", "runs": 14, "balls": 18, "wicket": "Eshan Malinga" },
+                    { "player": "Rinku Singh", "runs": 9, "balls": 6, "wicket": "Harsh Dubey" },
+                    { "player": "Andre Russell", "runs": 0, "balls": 1, "wicket": "Harsh Dubey" },
+                    { "player": "Manish Pandey", "runs": 37, "balls": 23, "wicket": "Jaydev Unadkat" },
+                    { "player": "Ramandeep Singh", "runs": 13, "balls": 5, "wicket": "Harsh Dubey" },
+                    { "player": "Harshit Rana", "runs": 34, "balls": 21, "wicket": "Eshan Malinga" },
+                    { "player": "Vaibhav Arora", "runs": 0, "balls": 1, "wicket": "run out" },
+                    { "player": "Anrich Nortje", "runs": 0, "balls": 0, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Pat Cummins", "overs": 2, "runs_conceded": 25, "wickets": 0 },
+                    { "player": "Jaydev Unadkat", "overs": 4, "runs_conceded": 24, "wickets": 3 },
+                    { "player": "Harshal Patel", "overs": 2, "runs_conceded": 21, "wickets": 0 },
+                    { "player": "Eshan Malinga", "overs": 3.4, "runs_conceded": 31, "wickets": 3 },
+                    { "player": "Harsh Dubey", "overs": 4, "runs_conceded": 34, "wickets": 3 },
+                    { "player": "Nitish Kumar Reddy", "overs": 1, "runs_conceded": 6, "wickets": 0 },
+                    { "player": "Abhishek Sharma", "overs": 2, "runs_conceded": 25, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

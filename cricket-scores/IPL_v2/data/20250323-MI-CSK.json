@@ -1,0 +1,55 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-03-23",
+        "venue": "MA Chidambaram Stadium, Chennai",
+        "innings": [
+            {
+                "team_batting": "Mumbai Indians",
+                "batting": [
+                    { "player": "Rohit Sharma", "runs": 0, "balls": 4, "wicket_by": "Khaleel Ahmed" },
+                    { "player": "Ryan Rickelton", "runs": 13, "balls": 7, "wicket_by": "Khaleel Ahmed" },
+                    { "player": "Will Jacks", "runs": 11, "balls": 7, "wicket_by": "Ravichandran Ashwin" },
+                    { "player": "Suryakumar Yadav", "runs": 29, "balls": 26, "wicket_by": "Noor Ahmad" },
+                    { "player": "Tilak Varma", "runs": 31, "balls": 25, "wicket_by": "Noor Ahmad" },
+                    { "player": "Robin Minz", "runs": 3, "balls": 9, "wicket_by": "Noor Ahmad" },
+                    { "player": "Naman Dhir", "runs": 17, "balls": 12, "wicket_by": "Noor Ahmad" },
+                    { "player": "Mitchell Santner", "runs": 11, "balls": 13, "wicket_by": "Nathan Ellis" },
+                    { "player": "Deepak Chahar", "runs": 28, "balls": 15, "wicket_by": "" },
+                    { "player": "Trent Boult", "runs": 1, "balls": 2, "wicket_by": "Khaleel Ahmed" },
+                    { "player": "Satyanarayana Raju", "runs": 1, "balls": 1, "wicket_by": "" }
+                ],
+                "bowling": [
+                    { "player": "Khaleel Ahmed", "overs": 4, "runs_conceded": 29, "wickets": 3 },
+                    { "player": "Sam Curran", "overs": 1, "runs_conceded": 13, "wickets": 0 },
+                    { "player": "Nathan Ellis", "overs": 4, "runs_conceded": 38, "wickets": 1 },
+                    { "player": "Ravichandran Ashwin", "overs": 4, "runs_conceded": 31, "wickets": 1 },
+                    { "player": "Ravindra Jadeja", "overs": 3, "runs_conceded": 21, "wickets": 0 },
+                    { "player": "Noor Ahmad", "overs": 4, "runs_conceded": 18, "wickets": 4 }
+                ]
+            },
+            {
+                "team_batting": "Chennai Super Kings",
+                "batting": [
+                    { "player": "Rachin Ravindra", "runs": 65, "balls": 45, "wicket_by": "" },
+                    { "player": "Rahul Tripathi", "runs": 2, "balls": 3, "wicket_by": "Deepak Chahar" },
+                    { "player": "Ruturaj Gaikwad", "runs": 53, "balls": 26, "wicket_by": "Vignesh Puthur" },
+                    { "player": "Shivam Dube", "runs": 9, "balls": 7, "wicket_by": "Vignesh Puthur" },
+                    { "player": "Deepak Hooda", "runs": 3, "balls": 5, "wicket_by": "Vignesh Puthur" },
+                    { "player": "Sam Curran", "runs": 4, "balls": 9, "wicket_by": "Will Jacks" },
+                    { "player": "Ravindra Jadeja", "runs": 17, "balls": 18, "wicket_by": "Deepak Chahar" },
+                    { "player": "MS Dhoni", "runs": 0, "balls": 2, "wicket_by": "" }
+                ],
+                "bowling": [
+                    { "player": "Trent Boult", "overs": 3, "runs_conceded": 27, "wickets": 0 },
+                    { "player": "Deepak Chahar", "overs": 2, "runs_conceded": 18, "wickets": 1 },
+                    { "player": "Satyanarayana Raju", "overs": 1, "runs_conceded": 13, "wickets": 0 },
+                    { "player": "Mitchell Santner", "overs": 2.1, "runs_conceded": 24, "wickets": 0 },
+                    { "player": "Will Jacks", "overs": 4, "runs_conceded": 32, "wickets": 1 },
+                    { "player": "Vignesh Puthur", "overs": 4, "runs_conceded": 32, "wickets": 3 },
+                    { "player": "Naman Dhir", "overs": 3, "runs_conceded": 12, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

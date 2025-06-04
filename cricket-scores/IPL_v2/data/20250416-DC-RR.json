@@ -1,0 +1,50 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-16",
+        "venue": "Arun Jaitley Stadium, Delhi",
+        "result": "Match tied (Delhi Capitals won the Super Over)",
+        "innings": [
+            {
+                "team_batting": "Delhi Capitals",
+                "batting": [
+                    { "player": "Jake Fraser-McGurk", "runs": 9, "balls": 6, "wicket": "Jofra Archer" },
+                    { "player": "Abishek Porel", "runs": 49, "balls": 37, "wicket": "Wanindu Hasaranga" },
+                    { "player": "Karun Nair", "runs": 0, "balls": 3, "wicket": "run out" },
+                    { "player": "KL Rahul", "runs": 38, "balls": 32, "wicket": "Jofra Archer" },
+                    { "player": "Tristan Stubbs", "runs": 34, "balls": 18, "wicket": "" },
+                    { "player": "Axar Patel", "runs": 34, "balls": 14, "wicket": "Maheesh Theekshana" },
+                    { "player": "Ashutosh Sharma", "runs": 15, "balls": 11, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Jofra Archer", "overs": 4, "runs_conceded": 32, "wickets": 2 },
+                    { "player": "Tushar Deshpande", "overs": 3, "runs_conceded": 38, "wickets": 0 },
+                    { "player": "Sandeep Sharma", "overs": 4, "runs_conceded": 33, "wickets": 0 },
+                    { "player": "Maheesh Theekshana", "overs": 4, "runs_conceded": 40, "wickets": 1 },
+                    { "player": "Wanindu Hasaranga", "overs": 4, "runs_conceded": 38, "wickets": 1 },
+                    { "player": "Riyan Parag", "overs": 1, "runs_conceded": 6, "wickets": 0 }
+                ]
+            },
+            {
+                "team_batting": "Rajasthan Royals",
+                "batting": [
+                    { "player": "Yashasvi Jaiswal", "runs": 51, "balls": 37, "wicket": "Kuldeep Yadav" },
+                    { "player": "Sanju Samson", "runs": 31, "balls": 19, "wicket": "" },
+                    { "player": "Riyan Parag", "runs": 8, "balls": 11, "wicket": "Axar Patel" },
+                    { "player": "Nitish Rana", "runs": 51, "balls": 28, "wicket": "Mitchell Starc" },
+                    { "player": "Dhruv Jurel", "runs": 26, "balls": 17, "wicket": "run out" },
+                    { "player": "Shimron Hetmyer", "runs": 15, "balls": 9, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mitchell Starc", "overs": 4, "runs_conceded": 36, "wickets": 1 },
+                    { "player": "Mukesh Kumar", "overs": 3, "runs_conceded": 31, "wickets": 0 },
+                    { "player": "Mohit Sharma", "overs": 4, "runs_conceded": 38, "wickets": 0 },
+                    { "player": "Vipraj Nigam", "overs": 1, "runs_conceded": 13, "wickets": 0 },
+                    { "player": "Axar Patel", "overs": 3, "runs_conceded": 23, "wickets": 1 },
+                    { "player": "Kuldeep Yadav", "overs": 4, "runs_conceded": 33, "wickets": 1 },
+                    { "player": "Tristan Stubbs", "overs": 1, "runs_conceded": 12, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

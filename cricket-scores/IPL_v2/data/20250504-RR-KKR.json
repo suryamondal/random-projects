@@ -1,0 +1,51 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-04",
+        "venue": "Eden Gardens, Kolkata",
+        "result": "Kolkata Knight Riders won by 1 run",
+        "innings": [
+            {
+                "team_batting": "Kolkata Knight Riders",
+                "batting": [
+                    { "player": "Rahmanullah Gurbaz", "runs": 35, "balls": 25, "wicket": "Maheesh Theekshana" },
+                    { "player": "Sunil Narine", "runs": 11, "balls": 9, "wicket": "Yudhvir Singh Charak" },
+                    { "player": "Ajinkya Rahane", "runs": 30, "balls": 24, "wicket": "Riyan Parag" },
+                    { "player": "Angkrish Raghuvanshi", "runs": 44, "balls": 31, "wicket": "Jofra Archer" },
+                    { "player": "Andre Russell", "runs": 57, "balls": 25, "wicket": "" },
+                    { "player": "Rinku Singh", "runs": 19, "balls": 6, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Jofra Archer", "overs": 4, "runs_conceded": 30, "wickets": 1 },
+                    { "player": "Yudhvir Singh Charak", "overs": 2, "runs_conceded": 26, "wickets": 1 },
+                    { "player": "Maheesh Theekshana", "overs": 4, "runs_conceded": 41, "wickets": 1 },
+                    { "player": "Akash Madhwal", "overs": 3, "runs_conceded": 50, "wickets": 0 },
+                    { "player": "Wanindu Hasaranga", "overs": 4, "runs_conceded": 35, "wickets": 0 },
+                    { "player": "Riyan Parag", "overs": 3, "runs_conceded": 21, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Rajasthan Royals",
+                "batting": [
+                    { "player": "Yashasvi Jaiswal", "runs": 34, "balls": 21, "wicket": "Moeen Ali" },
+                    { "player": "Vaibhav Suryavanshi", "runs": 4, "balls": 2, "wicket": "Vaibhav Arora" },
+                    { "player": "Kunal Singh Rathore", "runs": 0, "balls": 5, "wicket": "Moeen Ali" },
+                    { "player": "Riyan Parag", "runs": 95, "balls": 45, "wicket": "Harshit Rana" },
+                    { "player": "Dhruv Jurel", "runs": 0, "balls": 1, "wicket": "Varun Chakaravarthy" },
+                    { "player": "Wanindu Hasaranga", "runs": 0, "balls": 2, "wicket": "Varun Chakaravarthy" },
+                    { "player": "Shimron Hetmyer", "runs": 29, "balls": 23, "wicket": "Harshit Rana" },
+                    { "player": "Shubham Dubey", "runs": 25, "balls": 14, "wicket": "" },
+                    { "player": "Jofra Archer", "runs": 12, "balls": 8, "wicket": "run out" }
+                ],
+                "bowling": [
+                    { "player": "Vaibhav Arora", "overs": 4, "runs_conceded": 50, "wickets": 1 },
+                    { "player": "Moeen Ali", "overs": 3, "runs_conceded": 43, "wickets": 2 },
+                    { "player": "Harshit Rana", "overs": 4, "runs_conceded": 41, "wickets": 2 },
+                    { "player": "Varun Chakaravarthy", "overs": 4, "runs_conceded": 32, "wickets": 2 },
+                    { "player": "Sunil Narine", "overs": 4, "runs_conceded": 27, "wickets": 0 },
+                    { "player": "Andre Russell", "overs": 1, "runs_conceded": 11, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "version": "2",
+    "match": {
+        "format": "T20",
+        "date": "2025-06-03",
+        "venue": "Narendra Modi Stadium, Ahmedabad",
+        "stat": [
+            { "player": "Shashank Singh", "score": 127, "team": "Punjab Kings" },
+            { "player": "Arshdeep Singh", "score": 120, "team": "Punjab Kings" },
+            { "player": "Kyle Jamieson", "score": 119, "team": "Punjab Kings" },
+            { "player": "Krunal Pandya", "score": 94, "team": "Royal Challengers Bengaluru" },
+            { "player": "Bhuvneshwar Kumar", "score": 82, "team": "Royal Challengers Bengaluru" },
+            { "player": "Josh Inglis", "score": 79, "team": "Punjab Kings" },
+            { "player": "Romario Shepherd", "score": 64, "team": "Royal Challengers Bengaluru" },
+            { "player": "Virat Kohli", "score": 63, "team": "Royal Challengers Bengaluru" },
+            { "player": "Jitesh Sharma", "score": 62, "team": "Royal Challengers Bengaluru" },
+            { "player": "Liam Livingstone", "score": 57, "team": "Royal Challengers Bengaluru" },
+            { "player": "Yash Dayal", "score": 55, "team": "Royal Challengers Bengaluru" },
+            { "player": "Rajat Patidar", "score": 54, "team": "Royal Challengers Bengaluru" },
+            { "player": "Priyansh Arya", "score": 52, "team": "Punjab Kings" },
+            { "player": "Vijaykumar Vyshak", "score": 47, "team": "Punjab Kings" },
+            { "player": "Azmatullah Omarzai", "score": 46, "team": "Punjab Kings" },
+            { "player": "Prabhsimran Singh", "score": 46, "team": "Punjab Kings" },
+            { "player": "Mayank Agarwal", "score": 44, "team": "Royal Challengers Bengaluru" },
+            { "player": "Phil Salt", "score": 42, "team": "Royal Challengers Bengaluru" },
+            { "player": "Yuzvendra Chahal", "score": 37, "team": "Punjab Kings" },
+            { "player": "Josh Hazlewood", "score": 35, "team": "Royal Challengers Bengaluru" },
+            { "player": "Nehal Wadhera", "score": 25, "team": "Punjab Kings" },
+            { "player": "Shreyas Iyer", "score": 21, "team": "Punjab Kings" },
+            { "player": "Marcus Stoinis", "score": 16, "team": "Punjab Kings" },
+            { "player": "Suyash Sharma", "score": 8, "team": "Royal Challengers Bengaluru" }
+        ]
+    }
+}

@@ -1,0 +1,52 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-02",
+        "venue": "Narendra Modi Stadium, Ahmedabad",
+        "result": "Gujarat Titans won by 38 runs",
+        "innings": [
+            {
+                "team_batting": "Gujarat Titans",
+                "batting": [
+                    { "player": "Sai Sudharsan", "runs": 48, "balls": 23, "wicket": "Heinrich Klaasen" },
+                    { "player": "Shubman Gill", "runs": 76, "balls": 38, "wicket": "run out" },
+                    { "player": "Jos Buttler", "runs": 64, "balls": 37, "wicket": "Pat Cummins" },
+                    { "player": "Washington Sundar", "runs": 21, "balls": 16, "wicket": "Jaydev Unadkat" },
+                    { "player": "Shahrukh Khan", "runs": 6, "balls": 2, "wicket": "" },
+                    { "player": "Rahul Tewatia", "runs": 6, "balls": 3, "wicket": "Jaydev Unadkat" },
+                    { "player": "Rashid Khan", "runs": 0, "balls": 1, "wicket": "Jaydev Unadkat" }
+                ],
+                "bowling": [
+                    { "player": "Mohammed Shami", "overs": 3, "runs_conceded": 48, "wickets": 0 },
+                    { "player": "Jaydev Unadkat", "overs": 4, "runs_conceded": 35, "wickets": 3 },
+                    { "player": "Pat Cummins", "overs": 4, "runs_conceded": 40, "wickets": 1 },
+                    { "player": "Harshal Patel", "overs": 3, "runs_conceded": 41, "wickets": 0 },
+                    { "player": "Zeeshan Ansari", "overs": 4, "runs_conceded": 42, "wickets": 1 },
+                    { "player": "Kamindu Mendis", "overs": 2, "runs_conceded": 18, "wickets": 0 }
+                ]
+            },
+            {
+                "team_batting": "Sunrisers Hyderabad",
+                "batting": [
+                    { "player": "Travis Head", "runs": 20, "balls": 16, "wicket": "Prasidh Krishna" },
+                    { "player": "Abhishek Sharma", "runs": 74, "balls": 41, "wicket": "Mohammed Siraj" },
+                    { "player": "Ishan Kishan", "runs": 13, "balls": 17, "wicket": "Gerald Coetzee" },
+                    { "player": "Heinrich Klaasen", "runs": 23, "balls": 18, "wicket": "Prasidh Krishna" },
+                    { "player": "Aniket Verma", "runs": 3, "balls": 7, "wicket": "Mohammed Siraj" },
+                    { "player": "Nitish Kumar Reddy", "runs": 21, "balls": 10, "wicket": "" },
+                    { "player": "Kamindu Mendis", "runs": 0, "balls": 1, "wicket": "Mohammed Siraj" },
+                    { "player": "Pat Cummins", "runs": 19, "balls": 10, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mohammed Siraj", "overs": 4, "runs_conceded": 33, "wickets": 2 },
+                    { "player": "Ishant Sharma", "overs": 3.2, "runs_conceded": 35, "wickets": 1 },
+                    { "player": "Prasidh Krishna", "overs": 4, "runs_conceded": 19, "wickets": 2 },
+                    { "player": "Gerald Coetzee", "overs": 4, "runs_conceded": 36, "wickets": 1 },
+                    { "player": "Washington Sundar", "overs": 1, "runs_conceded": 6, "wickets": 0 },
+                    { "player": "Rashid Khan", "overs": 3, "runs_conceded": 50, "wickets": 0 },
+                    { "player": "Sai Kishore", "overs": 0.4, "runs_conceded": 1, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

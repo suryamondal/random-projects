@@ -1,0 +1,56 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-03-28",
+        "venue": "MA Chidambaram Stadium, Chennai",
+        "result": "Royal Challengers Bengaluru won by 50 runs",
+        "innings": [
+            {
+                "team_batting": "Royal Challengers Bengaluru",
+                "batting": [
+                    { "player": "Philip Salt", "runs": 32, "balls": 16, "wicket": "Noor Ahmad" },
+                    { "player": "Virat Kohli", "runs": 31, "balls": 30, "wicket": "Noor Ahmad" },
+                    { "player": "Devdutt Padikkal", "runs": 27, "balls": 14, "wicket": "Ravichandran Ashwin" },
+                    { "player": "Rajat Patidar", "runs": 51, "balls": 32, "wicket": "Matheesha Pathirana" },
+                    { "player": "Liam Livingstone", "runs": 10, "balls": 9, "wicket": "Noor Ahmad" },
+                    { "player": "Jitesh Sharma", "runs": 12, "balls": 6, "wicket": "Khaleel Ahmed" },
+                    { "player": "Tim David", "runs": 22, "balls": 8, "wicket": "" },
+                    { "player": "Krunal Pandya", "runs": 0, "balls": 3, "wicket": "Matheesha Pathirana" },
+                    { "player": "Bhuvneshwar Kumar", "runs": 0, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Khaleel Ahmed", "overs": 4, "runs_conceded": 28, "wickets": 1 },
+                    { "player": "Ravichandran Ashwin", "overs": 2, "runs_conceded": 22, "wickets": 1 },
+                    { "player": "Sam Curran", "overs": 3, "runs_conceded": 34, "wickets": 0 },
+                    { "player": "Noor Ahmad", "overs": 4, "runs_conceded": 36, "wickets": 3 },
+                    { "player": "Ravindra Jadeja", "overs": 3, "runs_conceded": 37, "wickets": 0 },
+                    { "player": "Matheesha Pathirana", "overs": 4, "runs_conceded": 36, "wickets": 2 }
+                ]
+            },
+            {
+                "team_batting": "Chennai Super Kings",
+                "batting": [
+                    { "player": "Rachin Ravindra", "runs": 41, "balls": 31, "wicket": "Yash Dayal" },
+                    { "player": "Rahul Tripathi", "runs": 5, "balls": 3, "wicket": "Josh Hazlewood" },
+                    { "player": "Ruturaj Gaikwad", "runs": 0, "balls": 4, "wicket": "Josh Hazlewood" },
+                    { "player": "Deepak Hooda", "runs": 4, "balls": 9, "wicket": "Bhuvneshwar Kumar" },
+                    { "player": "Sam Curran", "runs": 8, "balls": 13, "wicket": "Liam Livingstone" },
+                    { "player": "Shivam Dube", "runs": 19, "balls": 15, "wicket": "Yash Dayal" },
+                    { "player": "Ravindra Jadeja", "runs": 25, "balls": 19, "wicket": "Josh Hazlewood" },
+                    { "player": "Ravichandran Ashwin", "runs": 11, "balls": 8, "wicket": "Liam Livingstone" },
+
+                    { "player": "MS Dhoni", "runs": 30, "balls": 16, "wicket": "" },
+                    { "player": "Noor Ahmad", "runs": 0, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Bhuvneshwar Kumar", "overs": 3, "runs_conceded": 20, "wickets": 1 },
+                    { "player": "Josh Hazlewood", "overs": 4, "runs_conceded": 21, "wickets": 3 },
+                    { "player": "Yash Dayal", "overs": 3, "runs_conceded": 18, "wickets": 2 },
+                    { "player": "Liam Livingstone", "overs": 4, "runs_conceded": 28, "wickets": 2 },
+                    { "player": "Suyash Sharma", "overs": 4, "runs_conceded": 32, "wickets": 0 },
+                    { "player": "Krunal Pandya", "overs": 2, "runs_conceded": 26, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

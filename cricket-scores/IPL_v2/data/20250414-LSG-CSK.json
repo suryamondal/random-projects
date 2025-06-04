@@ -1,0 +1,51 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-14",
+        "venue": "Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",
+        "result": "Chennai Super Kings won by 5 wickets",
+        "innings": [
+            {
+                "team_batting": "Lucknow Super Giants",
+                "batting": [
+                    { "player": "Aiden Markram", "runs": 6, "balls": 6, "wicket": "Khaleel Ahmed" },
+                    { "player": "Mitchell Marsh", "runs": 30, "balls": 25, "wicket": "Ravindra Jadeja" },
+                    { "player": "Nicholas Pooran", "runs": 8, "balls": 9, "wicket": "Anshul Kamboj" },
+                    { "player": "Rishabh Pant", "runs": 63, "balls": 49, "wicket": "Matheesha Pathirana" },
+                    { "player": "Ayush Badoni", "runs": 22, "balls": 17, "wicket": "Ravindra Jadeja" },
+                    { "player": "Abdul Samad", "runs": 20, "balls": 11, "wicket": "run out" },
+                    { "player": "David Miller", "runs": 0, "balls": 0, "wicket": "" },
+                    { "player": "Shardul Thakur", "runs": 6, "balls": 4, "wicket": "Matheesha Pathirana" }
+                ],
+                "bowling": [
+                    { "player": "Khaleel Ahmed", "overs": 4, "runs_conceded": 38, "wickets": 1 },
+                    { "player": "Anshul Kamboj", "overs": 3, "runs_conceded": 20, "wickets": 1 },
+                    { "player": "Jamie Overton", "overs": 2, "runs_conceded": 24, "wickets": 0 },
+                    { "player": "Ravindra Jadeja", "overs": 3, "runs_conceded": 24, "wickets": 2 },
+                    { "player": "Noor Ahmad", "overs": 4, "runs_conceded": 13, "wickets": 0 },
+                    { "player": "Matheesha Pathirana", "overs": 4, "runs_conceded": 45, "wickets": 2 }
+                ]
+            },
+            {
+                "team_batting": "Chennai Super Kings",
+                "batting": [
+                    { "player": "Shaik Rasheed", "runs": 27, "balls": 19, "wicket": "Avesh Khan" },
+                    { "player": "Rachin Ravindra", "runs": 37, "balls": 22, "wicket": "Aiden Markram" },
+                    { "player": "Rahul Tripathi", "runs": 9, "balls": 10, "wicket": "Ravi Bishnoi" },
+                    { "player": "Ravindra Jadeja", "runs": 7, "balls": 11, "wicket": "Ravi Bishnoi" },
+                    { "player": "Shivam Dube", "runs": 43, "balls": 37, "wicket": "" },
+                    { "player": "Vijay Shankar", "runs": 9, "balls": 8, "wicket": "Digvesh Singh Rathi" },
+                    { "player": "MS Dhoni", "runs": 26, "balls": 11, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Shardul Thakur", "overs": 4, "runs_conceded": 56, "wickets": 0 },
+                    { "player": "Akash Deep", "overs": 1, "runs_conceded": 13, "wickets": 0 },
+                    { "player": "Digvesh Singh Rathi", "overs": 4, "runs_conceded": 23, "wickets": 1 },
+                    { "player": "Avesh Khan", "overs": 3.3, "runs_conceded": 32, "wickets": 1 },
+                    { "player": "Ravi Bishnoi", "overs": 3, "runs_conceded": 18, "wickets": 2 },
+                    { "player": "Aiden Markram", "overs": 4, "runs_conceded": 25, "wickets": 1 }
+                ]
+            }
+        ]
+    }
+}

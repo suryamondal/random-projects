@@ -1,0 +1,52 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-30",
+        "venue": "Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",
+        "result": "Mumbai Indians won by 20 runs",
+        "innings": [
+            {
+                "team_batting": "Mumbai Indians",
+                "batting": [
+                    { "player": "Rohit Sharma", "runs": 81, "balls": 50, "wicket": "Prasidh Krishna" },
+                    { "player": "Jonny Bairstow", "runs": 47, "balls": 22, "wicket": "Ravisrinivasan Sai Kishore" },
+                    { "player": "Suryakumar Yadav", "runs": 33, "balls": 20, "wicket": "Ravisrinivasan Sai Kishore" },
+                    { "player": "Tilak Varma", "runs": 25, "balls": 11, "wicket": "Mohammed Siraj" },
+                    { "player": "Hardik Pandya", "runs": 22, "balls": 9, "wicket": "" },
+                    { "player": "Naman Dhir", "runs": 9, "balls": 6, "wicket": "Prasidh Krishna" },
+                    { "player": "Mitchell Santner", "runs": 0, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mohammed Siraj", "overs": 4, "runs_conceded": 37, "wickets": 1 },
+                    { "player": "Prasidh Krishna", "overs": 4, "runs_conceded": 53, "wickets": 2 },
+                    { "player": "Ravisrinivasan Sai Kishore", "overs": 4, "runs_conceded": 42, "wickets": 2 },
+                    { "player": "Rashid Khan", "overs": 4, "runs_conceded": 31, "wickets": 0 },
+                    { "player": "Gerald Coetzee", "overs": 3, "runs_conceded": 51, "wickets": 0 },
+                    { "player": "Washington Sundar", "overs": 1, "runs_conceded": 7, "wickets": 0 }
+                ]
+            },
+            {
+                "team_batting": "Gujarat Titans",
+                "batting": [
+                    { "player": "Sai Sudharsan", "runs": 80, "balls": 49, "wicket": "Richard Gleeson" },
+                    { "player": "Shubman Gill", "runs": 1, "balls": 2, "wicket": "Trent Boult" },
+                    { "player": "Kusal Mendis", "runs": 20, "balls": 10, "wicket": "Mitchell Santner" },
+                    { "player": "Washington Sundar", "runs": 48, "balls": 24, "wicket": "Jasprit Bumrah" },
+                    { "player": "Sherfane Rutherford", "runs": 24, "balls": 15, "wicket": "Trent Boult" },
+                    { "player": "Rahul Tewatia", "runs": 16, "balls": 11, "wicket": "" },
+                    { "player": "Shahrukh Khan", "runs": 13, "balls": 7, "wicket": "Ashwani Kumar" },
+                    { "player": "Rashid Khan", "runs": 0, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Trent Boult", "overs": 4, "runs_conceded": 56, "wickets": 2 },
+                    { "player": "Jasprit Bumrah", "overs": 4, "runs_conceded": 27, "wickets": 1 },
+                    { "player": "Richard Gleeson", "overs": 3.3, "runs_conceded": 39, "wickets": 1 },
+                    { "player": "Hardik Pandya", "overs": 3, "runs_conceded": 37, "wickets": 0 },
+                    { "player": "Mitchell Santner", "overs": 1, "runs_conceded": 1, "wickets": 1 },
+                    { "player": "Naman Dhir", "overs": 1, "runs_conceded": 9, "wickets": 0 },
+                    { "player": "Ashwani Kumar", "overs": 3.3, "runs_conceded": 28, "wickets": 1 }
+                ]
+            }
+        ]
+    }
+}

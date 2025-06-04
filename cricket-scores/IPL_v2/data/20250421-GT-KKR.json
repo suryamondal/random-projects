@@ -1,0 +1,50 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-21",
+        "venue": "Eden Gardens, Kolkata",
+        "result": "Gujarat Titans won by 39 runs",
+        "innings": [
+            {
+                "team_batting": "Gujarat Titans",
+                "batting": [
+                    { "player": "Sai Sudharsan", "runs": 52, "balls": 36, "wicket": "Andre Russell" },
+                    { "player": "Shubman Gill", "runs": 90, "balls": 55, "wicket": "Vaibhav Arora" },
+                    { "player": "Jos Buttler", "runs": 41, "balls": 23, "wicket": "" },
+                    { "player": "Rahul Tewatia", "runs": 0, "balls": 2, "wicket": "Harshit Rana" },
+                    { "player": "Shahrukh Khan", "runs": 11, "balls": 5, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Vaibhav Arora", "overs": 4, "runs_conceded": 44, "wickets": 1 },
+                    { "player": "Moeen Ali", "overs": 3, "runs_conceded": 27, "wickets": 0 },
+                    { "player": "Harshit Rana", "overs": 4, "runs_conceded": 45, "wickets": 1 },
+                    { "player": "Varun Chakaravarthy", "overs": 4, "runs_conceded": 33, "wickets": 0 },
+                    { "player": "Sunil Narine", "overs": 4, "runs_conceded": 36, "wickets": 0 },
+                    { "player": "Andre Russell", "overs": 1, "runs_conceded": 13, "wickets": 1 } ]
+            },
+            {
+                "team_batting": "Kolkata Knight Riders",
+                "batting": [
+                    { "player": "Rahmanullah Gurbaz", "runs": 1, "balls": 4, "wicket": "Mohammed Siraj" },
+                    { "player": "Sunil Narine", "runs": 17, "balls": 13, "wicket": "Rashid Khan" },
+                    { "player": "Ajinkya Rahane", "runs": 50, "balls": 36, "wicket": "Washington Sundar" },
+                    { "player": "Venkatesh Iyer", "runs": 14, "balls": 19, "wicket": "Ravisrinivasan Sai Kishore" },
+                    { "player": "Rinku Singh", "runs": 17, "balls": 14, "wicket": "Ishant Sharma" },
+                    { "player": "Andre Russell", "runs": 21, "balls": 15, "wicket": "Rashid Khan" },
+                    { "player": "Ramandeep Singh", "runs": 1, "balls": 2, "wicket": "Prasidh Krishna" },
+                    { "player": "Moeen Ali", "runs": 0, "balls": 2, "wicket": "Prasidh Krishna" },
+                    { "player": "Angkrish Raghuvanshi", "runs": 27, "balls": 13, "wicket": "" },
+                    { "player": "Harshit Rana", "runs": 1, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mohammed Siraj", "overs": 4, "runs_conceded": 32, "wickets": 1 },
+                    { "player": "Ishant Sharma", "overs": 2, "runs_conceded": 18, "wickets": 1 },
+                    { "player": "Prasidh Krishna", "overs": 4, "runs_conceded": 25, "wickets": 2 },
+                    { "player": "Rashid Khan", "overs": 4, "runs_conceded": 25, "wickets": 2 },
+                    { "player": "Washington Sundar", "overs": 3, "runs_conceded": 36, "wickets": 1 },
+                    { "player": "Ravisrinivasan Sai Kishore", "overs": 3, "runs_conceded": 19, "wickets": 1 }
+                ]
+            }
+        ]
+    }
+}

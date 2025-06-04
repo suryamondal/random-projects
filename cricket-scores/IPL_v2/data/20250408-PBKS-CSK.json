@@ -1,0 +1,53 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-08",
+        "venue": "Maharaja Yadavindra Singh International Cricket Stadium, Mullanpur, Chandigarh",
+        "result": "Punjab Kings won by 18 runs",
+        "innings": [
+            {
+                "team_batting": "Punjab Kings",
+                "batting": [
+                    {"player": "Priyansh Arya", "runs": 103, "balls": 42, "wicket": "Noor Ahmad"},
+                    {"player": "Prabhsimran Singh", "runs": 0, "balls": 2, "wicket": "Mukesh Choudhary"},
+                    {"player": "Shreyas Iyer", "runs": 9, "balls": 7, "wicket": "Khaleel Ahmed"},
+                    {"player": "Marcus Stoinis", "runs": 4, "balls": 7, "wicket": "Khaleel Ahmed"},
+                    {"player": "Nehal Wadhera", "runs": 9, "balls": 7, "wicket": "Ravichandran Ashwin"},
+                    {"player": "Glenn Maxwell", "runs": 1, "balls": 2, "wicket": "Ravichandran Ashwin"},
+                    {"player": "Shashank Singh", "runs": 52, "balls": 36, "wicket": ""},
+                    {"player": "Marco Jansen", "runs": 34, "balls": 19, "wicket": ""}
+                ],
+                "bowling": [
+                    {"player": "Khaleel Ahmed", "overs": 4, "runs_conceded": 45, "wickets": 2},
+                    {"player": "Mukesh Choudhary", "overs": 2, "runs_conceded": 21, "wickets": 1},
+                    {"player": "Ravichandran Ashwin", "overs": 4, "runs_conceded": 48, "wickets": 2},
+                    {"player": "Ravindra Jadeja", "overs": 3, "runs_conceded": 18, "wickets": 0},
+                    {"player": "Noor Ahmad", "overs": 3, "runs_conceded": 32, "wickets": 1},
+                    {"player": "Matheesha Pathirana", "overs": 4, "runs_conceded": 52, "wickets": 0}
+                ]
+            },
+            {
+                "team_batting": "Chennai Super Kings",
+                "batting": [
+                    {"player": "Rachin Ravindra", "runs": 36, "balls": 23, "wicket": "Glenn Maxwell"},
+                    {"player": "Devon Conway", "runs": 69, "balls": 49, "wicket": ""},
+                    {"player": "Ruturaj Gaikwad", "runs": 1, "balls": 3, "wicket": "Lockie Ferguson"},
+                    {"player": "Shivam Dube", "runs": 42, "balls": 27, "wicket": "Lockie Ferguson"},
+                    {"player": "MS Dhoni", "runs": 27, "balls": 12, "wicket": "Yash Thakur"},
+                    {"player": "Ravindra Jadeja", "runs": 9, "balls": 5, "wicket": ""},
+                    {"player": "Vijay Shankar", "runs": 2, "balls": 2, "wicket": ""}
+                ],
+                "bowling": [
+                    {"player": "Arshdeep Singh", "overs": 4, "runs_conceded": 39, "wickets": 0},
+                    {"player": "Yash Thakur", "overs": 4, "runs_conceded": 39, "wickets": 1},
+                    {"player": "Glenn Maxwell", "overs": 2, "runs_conceded": 11, "wickets": 1},
+                    {"player": "Marco Jansen", "overs": 4, "runs_conceded": 48, "wickets": 0},
+                    {"player": "Lockie Ferguson", "overs": 4, "runs_conceded": 40, "wickets": 2},
+                    {"player": "Marcus Stoinis", "overs": 1, "runs_conceded": 10, "wickets": 0},
+                    {"player": "Yuzvendra Chahal", "overs": 1, "runs_conceded": 9, "wickets": 0}
+
+                ]
+            }
+        ]
+    }
+}
