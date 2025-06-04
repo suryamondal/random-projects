@@ -13,6 +13,7 @@
 #include <set>
 #include <numeric>
 #include <algorithm>
+#include <map>
 
 #include <nlohmann/json.hpp>
 
@@ -21,6 +22,21 @@ using namespace std;
 
 void plot_stats(const char* teamName = "Mumbai Indians") {
   string nameOfTeam = teamName;
+
+  set<string> skippedPlayers = {
+    "Devdutt Padikkal",
+    "Jacob Bethell",
+    "Kyle Jamieson",
+    "Xavier Bartlett",
+    "Yash Thakur",
+    "Lockie Ferguson",
+    "Musheer Khan",
+    "Praveen Dubey",
+    "Nuwan Thushara",
+    "Rasikh Dar Salam",
+    "Lungi Ngidi",
+    "Glenn Maxwell"
+  };
 
   gStyle->SetNumberContours(100);
 
@@ -76,6 +92,7 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
         for (const auto& player : innings[nIn]["batting"]) {
           ++position;
           string name = player["player"];
+          if (skippedPlayers.count(name)) continue;
           double runs = player["runs"];
           double balls = player["balls"];
           if (runs > 0 && balls > 0) {
@@ -92,6 +109,7 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
         for (const auto& player : innings[nIn]["bowling"]) {
           ++position;
           string name = player["player"];
+          if (skippedPlayers.count(name)) continue;
           double wickets = player["wickets"];
           double rawOvers = player["overs"];
           int completedOvers = int(rawOvers);
@@ -216,6 +234,36 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
     }
   }
 
+  // // // Compute standard deviation per player
+  // vector<pair<string, double>> playerModeScores;
+  // for (const auto& [name, scores] : combinedScores) {
+  //   map<double, int> freq;
+  //   for (double score : scores) {
+  //     if (score != 0)
+  //       freq[score]++;
+  //   }
+  //   if (!freq.empty()) {
+  //     // Find the mode: score with max frequency
+  //     double modeScore = 0;
+  //     int maxCount = 0;
+  //     for (const auto& [score, count] : freq) {
+  //       if (count > maxCount || (count == maxCount && score > modeScore)) {
+  //         maxCount = count;
+  //         modeScore = score;
+  //       }
+  //     }
+  //     playerModeScores.emplace_back(name, modeScore);
+  //   }
+  // }
+  // // Sort descending by mode score
+  // sort(playerModeScores.begin(), playerModeScores.end(), [](auto& a, auto& b) {
+  //   return a.second > b.second;
+  // });
+  // map<string, int> combinedIndex;
+  // int yIdx = 1;
+  // for (const auto& [name, _] : playerModeScores)
+  //   combinedIndex[name] = yIdx++;
+
   // Compute standard deviation per player
   vector<pair<string, double>> playerStdScores;
   for (const auto& [name, scores] : combinedScores) {
@@ -223,7 +271,6 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
     for (double v : scores)
       if (v != 0)
         nonZeroScores.push_back(v);
-
     if (!nonZeroScores.empty()) {
       double mean = accumulate(nonZeroScores.begin(), nonZeroScores.end(), 0.0) / nonZeroScores.size();
       double sq_sum = 0.0;
@@ -233,12 +280,10 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
       playerStdScores.emplace_back(name, mean / stddev);
     }
   }
-
   // Sort descending by standard deviation
   sort(playerStdScores.begin(), playerStdScores.end(), [](auto& a, auto& b) {
     return a.second > b.second;
   });
-
   map<string, int> combinedIndex;
   int yIdx = 1;
   for (const auto& [name, _] : playerStdScores)
