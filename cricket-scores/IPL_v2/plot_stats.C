@@ -13,40 +13,25 @@
 #include <set>
 #include <numeric>
 #include <algorithm>
-#include <map>
 
 #include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 using namespace std;
 
-void plot_stats(const char* teamName = "Mumbai Indians") {
-  string nameOfTeam = teamName;
+void plot_stats(const vector<string> playerNames) {
 
-  set<string> skippedPlayers = {
-    "Devdutt Padikkal",
-    "Jacob Bethell",
-    "Kyle Jamieson",
-    "Xavier Bartlett",
-    "Yash Thakur",
-    "Lockie Ferguson",
-    "Musheer Khan",
-    "Praveen Dubey",
-    "Nuwan Thushara",
-    "Rasikh Dar Salam",
-    "Lungi Ngidi",
-    "Glenn Maxwell"
-  };
+  set<string> skippedPlayers = {};
+  set<string> playingSet = playerNames;
 
   gStyle->SetNumberContours(100);
 
   vector<string> files;
   set<string> battingPlayersSet;
-  set<string> bowlingPlayersSet;
+  map<string, int> battingIndex;
 
   // Maps to track position history
   map<string, vector<int>> battingPositions;
-  map<string, vector<int>> bowlingPositions;
 
   // Scan directory for JSON files
   TSystemDirectory dir("data", "./data");
@@ -68,7 +53,6 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   sort(files.begin(), files.end());
 
   vector<map<string, double>> battingData;
-  vector<map<string, double>> bowlingData;
 
   for (const auto& filename : files) {
     ifstream f(filename);
@@ -78,55 +62,27 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
     f >> match;
     f.close();
 
-    const auto& innings = match["match"]["innings"];
-    if (innings.empty()) continue;
+    if (!match.contains("version") || match["version"] != "2") continue;
+    if (!match.contains("match") || !match["match"].contains("stat")) continue;
 
+    const auto& innings = match["match"]["stat"];
     map<string, double> runMap;
-    map<string, double> wicketMap;
 
-    bool isPresent = false;
-    for (int nIn : {0, 1}) {
-      // Batting
-      if (innings[nIn]["team_batting"] == nameOfTeam.c_str()) {
-        int position = 0;
-        for (const auto& player : innings[nIn]["batting"]) {
-          ++position;
-          string name = player["player"];
-          if (skippedPlayers.count(name)) continue;
-          double runs = player["runs"];
-          double balls = player["balls"];
-          if (runs > 0 && balls > 0) {
-            runMap[name] = runs * runs / balls;
-            battingPlayersSet.insert(name);
-            battingPositions[name].push_back(position);
-          }
-        }
-        isPresent = true;
-      }
-      // Bowling
-      if (innings[!nIn]["team_batting"] == nameOfTeam.c_str()) {
-        int position = 0;
-        for (const auto& player : innings[nIn]["bowling"]) {
-          ++position;
-          string name = player["player"];
-          if (skippedPlayers.count(name)) continue;
-          double wickets = player["wickets"];
-          double rawOvers = player["overs"];
-          int completedOvers = int(rawOvers);
-          double balls = completedOvers * 6 + (rawOvers - completedOvers) * 10;
-          double runs = player["runs_conceded"];
-          double score = wickets * 30 + (balls - runs);
-          wicketMap[name] = score;
-          bowlingPlayersSet.insert(name);
-          bowlingPositions[name].push_back(position);
-        }
-        isPresent = true;
+    for (const auto& player : innings) {
+      if (!player.contains("player") || !player.contains("score")) continue;
+      string name = player["player"];
+      if (skippedPlayers.count(name) || !playingSet.count(name)) continue;
+
+      double score = player["score"];
+      if (score > 0) {
+        runMap[name] = score;
+        battingPlayersSet.insert(name);
+        battingPositions[name].push_back(score);
       }
     }
 
-    if (isPresent) {
+    if (!runMap.empty()) {
       battingData.push_back(runMap);
-      bowlingData.push_back(wicketMap);
     }
   }
 
@@ -140,25 +96,14 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
     return a.second < b.second;
   });
 
-  vector<pair<string, double>> bowlingAvgPositions;
-  for (const auto& [name, positions] : bowlingPositions) {
-    double avgPos = accumulate(positions.begin(), positions.end(), 0.0) / positions.size();
-    bowlingAvgPositions.emplace_back(name, avgPos);
-  }
-  sort(bowlingAvgPositions.begin(), bowlingAvgPositions.end(), [](auto& a, auto& b) {
-    return a.second < b.second;
-  });
-
-  // Assign sorted indices
-  map<string, int> battingIndex, bowlingIndex;
+  // Assign index based on sorted average
   int idx = 1;
-  for (const auto& [name, _] : battingAvgPositions) battingIndex[name] = idx++;
-  idx = 1;
-  for (const auto& [name, _] : bowlingAvgPositions) bowlingIndex[name] = idx++;
+  for (const auto& [name, _] : battingAvgPositions) {
+    battingIndex[name] = idx++;
+  }
 
   int nMatches = battingData.size();
   int nBatPlayers = battingIndex.size();
-  int nBowlPlayers = bowlingIndex.size();
 
   // Plot batting stats
   TCanvas *c1 = new TCanvas("c1", "Batting Stats", 1200, 600);
@@ -166,11 +111,11 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   gPad->SetGridy(1);
   gStyle->SetPaintTextFormat(".0f");
 
-  TH2F *battingHist = new TH2F("batting", ("Runs " + nameOfTeam + "; Match Index;Player Name").c_str(), nMatches, 0.5, nMatches + 0.5, nBatPlayers, 0.5, nBatPlayers + 0.5);
+  TH2F *battingHist = new TH2F("batting", "Runs ; Match Index;Player Name", nMatches, 0.5, nMatches + 0.5, nBatPlayers, 0.5, nBatPlayers + 0.5);
 
   for (int i = 0; i < nMatches; ++i) {
     for (const auto& [name, runs] : battingData[i]) {
-      if (runs > 1)
+      if (runs > 1 && battingIndex.count(name))
         battingHist->SetBinContent(i + 1, battingIndex[name], runs);
     }
   }
@@ -185,130 +130,8 @@ void plot_stats(const char* teamName = "Mumbai Indians") {
   battingHist->Draw("COLZ TEXT");
   battingHist->SetMinimum(0);
   battingHist->SetMaximum(100);
-  c1->SaveAs(("plots/" + nameOfTeam + " Bat.pdf").c_str());
 
-  // Plot bowling stats
-  TCanvas *c2 = new TCanvas("c2", "Bowling Stats", 1200, 600);
-  c2->SetLeftMargin(0.1502504);
-  gPad->SetGridy(1);
+  gSystem->mkdir("plots", true);
+  c1->SaveAs("plots/Bat.pdf");
 
-  TH2F *bowlingHist = new TH2F("bowling", ("Bowling " + nameOfTeam + ";Match Index;Player Name").c_str(), nMatches, 0.5, nMatches + 0.5, nBowlPlayers, 0.5, nBowlPlayers + 0.5);
-
-  for (int i = 0; i < nMatches; ++i) {
-    for (const auto& [name, wkts] : bowlingData[i]) {
-      bowlingHist->SetBinContent(i + 1, bowlingIndex[name], wkts > 0 ? wkts : 0.000001);
-    }
-  }
-
-  for (const auto& [name, index] : bowlingIndex)
-    bowlingHist->GetYaxis()->SetBinLabel(index, name.c_str());
-  for (int i = 0; i < nMatches; ++i)
-    bowlingHist->GetXaxis()->SetBinLabel(i + 1, TString::Format("%d", i + 1));
-
-  c2->cd();
-  gStyle->SetOptStat(0);
-  bowlingHist->Draw("COLZ TEXT");
-  bowlingHist->SetMaximum(100);
-  c2->SaveAs(("plots/" + nameOfTeam + " Bowl.pdf").c_str());
-
-
-  // -------- Combined Stats --------
-
-  TCanvas *c3 = new TCanvas("c3", "Combined Stats", 1200, 600);
-  c3->SetLeftMargin(0.1502504);
-  gPad->SetGridy(1);
-
-  map<string, vector<double>> combinedScores;
-  set<string> allPlayers;
-
-  for (int i = 0; i < nMatches; ++i) {
-    for (const auto& [name, score] : battingData[i]) {
-      combinedScores[name].resize(nMatches, 0);
-      combinedScores[name][i] += score;
-      allPlayers.insert(name);
-    }
-    for (const auto& [name, score] : bowlingData[i]) {
-      combinedScores[name].resize(nMatches, 0);
-      combinedScores[name][i] += score;
-      allPlayers.insert(name);
-    }
-  }
-
-  // // // Compute standard deviation per player
-  // vector<pair<string, double>> playerModeScores;
-  // for (const auto& [name, scores] : combinedScores) {
-  //   map<double, int> freq;
-  //   for (double score : scores) {
-  //     if (score != 0)
-  //       freq[score]++;
-  //   }
-  //   if (!freq.empty()) {
-  //     // Find the mode: score with max frequency
-  //     double modeScore = 0;
-  //     int maxCount = 0;
-  //     for (const auto& [score, count] : freq) {
-  //       if (count > maxCount || (count == maxCount && score > modeScore)) {
-  //         maxCount = count;
-  //         modeScore = score;
-  //       }
-  //     }
-  //     playerModeScores.emplace_back(name, modeScore);
-  //   }
-  // }
-  // // Sort descending by mode score
-  // sort(playerModeScores.begin(), playerModeScores.end(), [](auto& a, auto& b) {
-  //   return a.second > b.second;
-  // });
-  // map<string, int> combinedIndex;
-  // int yIdx = 1;
-  // for (const auto& [name, _] : playerModeScores)
-  //   combinedIndex[name] = yIdx++;
-
-  // Compute standard deviation per player
-  vector<pair<string, double>> playerStdScores;
-  for (const auto& [name, scores] : combinedScores) {
-    vector<double> nonZeroScores;
-    for (double v : scores)
-      if (v != 0)
-        nonZeroScores.push_back(v);
-    if (!nonZeroScores.empty()) {
-      double mean = accumulate(nonZeroScores.begin(), nonZeroScores.end(), 0.0) / nonZeroScores.size();
-      double sq_sum = 0.0;
-      for (double v : nonZeroScores)
-        sq_sum += (v - mean) * (v - mean);
-      double stddev = sqrt(sq_sum / nonZeroScores.size());
-      playerStdScores.emplace_back(name, mean / stddev);
-    }
-  }
-  // Sort descending by standard deviation
-  sort(playerStdScores.begin(), playerStdScores.end(), [](auto& a, auto& b) {
-    return a.second > b.second;
-  });
-  map<string, int> combinedIndex;
-  int yIdx = 1;
-  for (const auto& [name, _] : playerStdScores)
-    combinedIndex[name] = yIdx++;
-
-  int nCombinedPlayers = combinedIndex.size();
-  TH2F *combinedHist = new TH2F("combined", ("Combined Score " + nameOfTeam + ";Match Index;Player Name").c_str(),
-                                nMatches, 0.5, nMatches + 0.5, nCombinedPlayers, 0.5, nCombinedPlayers + 0.5);
-
-  for (int i = 0; i < nMatches; ++i) {
-    for (const auto& [name, scores] : combinedScores) {
-      if (combinedIndex.count(name) && scores[i] != 0)
-        combinedHist->SetBinContent(i + 1, combinedIndex[name], scores[i] > 0 ? scores[i] : 0.000001);
-    }
-  }
-
-  for (const auto& [name, index] : combinedIndex)
-    combinedHist->GetYaxis()->SetBinLabel(index, name.c_str());
-  for (int i = 0; i < nMatches; ++i)
-    combinedHist->GetXaxis()->SetBinLabel(i + 1, TString::Format("%d", i + 1));
-
-  c3->cd();
-  gStyle->SetOptStat(0);
-  combinedHist->Draw("COLZ TEXT");
-  combinedHist->SetMinimum(0);
-  combinedHist->SetMaximum(100);
-  c3->SaveAs(("plots/" + nameOfTeam + " Combined.pdf").c_str());
 }
