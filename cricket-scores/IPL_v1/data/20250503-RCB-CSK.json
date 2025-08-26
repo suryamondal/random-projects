@@ -1,0 +1,50 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-03",
+        "venue": "M.Chinnaswamy Stadium, Bengaluru",
+        "result": "Royal Challengers Bengaluru won by 2 runs",
+        "innings": [
+            {
+                "team_batting": "Royal Challengers Bengaluru",
+                "batting": [
+                    { "player": "Jacob Bethell", "runs": 55, "balls": 33, "wicket": "Matheesha Pathirana" },
+                    { "player": "Virat Kohli", "runs": 62, "balls": 33, "wicket": "Sam Curran" },
+                    { "player": "Devdutt Padikkal", "runs": 17, "balls": 15, "wicket": "Matheesha Pathirana" },
+                    { "player": "Rajat Patidar", "runs": 11, "balls": 15, "wicket": "Matheesha Pathirana" },
+                    { "player": "Jitesh Sharma", "runs": 7, "balls": 8, "wicket": "Noor Ahmad" },
+                    { "player": "Tim David", "runs": 2, "balls": 3, "wicket": "" },
+                    { "player": "Romario Shepherd", "runs": 53, "balls": 14, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Khaleel Ahmed", "overs": 3, "runs_conceded": 65, "wickets": 0 },
+                    { "player": "Anshul Kamboj", "overs": 3, "runs_conceded": 25, "wickets": 0 },
+                    { "player": "Noor Ahmad", "overs": 4, "runs_conceded": 26, "wickets": 1 },
+                    { "player": "Ravindra Jadeja", "overs": 3, "runs_conceded": 26, "wickets": 1 },
+                    { "player": "Sam Curran", "overs": 3, "runs_conceded": 34, "wickets": 1 },
+                    { "player": "Matheesha Pathirana", "overs": 4, "runs_conceded": 36, "wickets": 3 }
+                ]
+            },
+            {
+                "team_batting": "Chennai Super Kings",
+                "batting": [
+                    { "player": "Ayush Mhatre", "runs": 94, "balls": 48, "wicket": "Lungi Ngidi" },
+                    { "player": "Shaik Rasheed", "runs": 14, "balls": 11, "wicket": "Krunal Pandya" },
+                    { "player": "Sam Curran", "runs": 5, "balls": 5, "wicket": "Lungi Ngidi" },
+                    { "player": "Ravindra Jadeja", "runs": 77, "balls": 45, "wicket": "" },
+                    { "player": "Dewald Brevis", "runs": 0, "balls": 1, "wicket": "Lungi Ngidi" },
+                    { "player": "MS Dhoni", "runs": 12, "balls": 8, "wicket": "Yash Dayal" },
+                    { "player": "Shivam Dube", "runs": 8, "balls": 3, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Krunal Pandya", "overs": 3, "runs_conceded": 24, "wickets": 1 },
+                    { "player": "Bhuvneshwar Kumar", "overs": 4, "runs_conceded": 55, "wickets": 0 },
+                    { "player": "Yash Dayal", "overs": 4, "runs_conceded": 41, "wickets": 1 },
+                    { "player": "Lungi Ngidi", "overs": 4, "runs_conceded": 30, "wickets": 3 },
+                    { "player": "Suyash Sharma", "overs": 4, "runs_conceded": 43, "wickets": 0 },
+                    { "player": "Romario Shepherd", "overs": 1, "runs_conceded": 8, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

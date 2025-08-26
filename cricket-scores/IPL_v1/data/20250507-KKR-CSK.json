@@ -1,0 +1,54 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-07",
+        "venue": "Eden Gardens, Kolkata",
+        "result": "Chennai Super Kings won by 2 wickets",
+        "innings": [
+            {
+                "team_batting": "Kolkata Knight Riders",
+                "batting": [
+                    { "player": "Rahmanullah Gurbaz", "runs": 11, "balls": 9, "wicket": "Anshul Kamboj" },
+                    { "player": "Sunil Narine", "runs": 26, "balls": 17, "wicket": "Noor Ahmad" },
+                    { "player": "Ajinkya Rahane", "runs": 48, "balls": 33, "wicket": "Ravindra Jadeja" },
+                    { "player": "Angkrish Raghuvanshi", "runs": 1, "balls": 2, "wicket": "Noor Ahmad" },
+                    { "player": "Manish Pandey", "runs": 36, "balls": 28, "wicket": "" },
+                    { "player": "Andre Russell", "runs": 38, "balls": 21, "wicket": "Noor Ahmad" },
+                    { "player": "Rinku Singh", "runs": 9, "balls": 6, "wicket": "Noor Ahmad" },
+                    { "player": "Ramandeep Singh", "runs": 4, "balls": 4, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Khaleel Ahmed", "overs": 2, "runs_conceded": 14, "wickets": 0 },
+                    { "player": "Anshul Kamboj", "overs": 3, "runs_conceded": 38, "wickets": 1 },
+                    { "player": "Ravichandran Ashwin", "overs": 3, "runs_conceded": 19, "wickets": 0 },
+                    { "player": "Noor Ahmad", "overs": 4, "runs_conceded": 31, "wickets": 4 },
+                    { "player": "Ravindra Jadeja", "overs": 4, "runs_conceded": 34, "wickets": 1 },
+                    { "player": "Matheesha Pathirana", "overs": 4, "runs_conceded": 39, "wickets": 0 }
+                ]
+            },
+            {
+                "team_batting": "Chennai Super Kings",
+                "batting": [
+                    { "player": "Ayush Mhatre", "runs": 0, "balls": 2, "wicket": "Vaibhav Arora" },
+                    { "player": "Devon Conway", "runs": 0, "balls": 2, "wicket": "Moeen Ali" },
+                    { "player": "Urvil Patel", "runs": 31, "balls": 11, "wicket": "Harshit Rana" },
+                    { "player": "Ravichandran Ashwin", "runs": 8, "balls": 7, "wicket": "Harshit Rana" },
+                    { "player": "Ravindra Jadeja", "runs": 19, "balls": 10, "wicket": "Varun Chakaravarthy" },
+                    { "player": "Dewald Brevis", "runs": 52, "balls": 25, "wicket": "Varun Chakaravarthy" },
+                    { "player": "Shivam Dube", "runs": 45, "balls": 40, "wicket": "Vaibhav Arora" },
+                    { "player": "MS Dhoni", "runs": 17, "balls": 8, "wicket": "" },
+                    { "player": "Noor Ahmad", "runs": 2, "balls": 2, "wicket": "Vaibhav Arora" },
+                    { "player": "Anshul Kamboj", "runs": 4, "balls": 1, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Vaibhav Arora", "overs": 3, "runs_conceded": 48, "wickets": 3 },
+                    { "player": "Moeen Ali", "overs": 2, "runs_conceded": 23, "wickets": 1 },
+                    { "player": "Harshit Rana", "overs": 4, "runs_conceded": 43, "wickets": 2 },
+                    { "player": "Varun Chakaravarthy", "overs": 4, "runs_conceded": 18, "wickets": 2 },
+                    { "player": "Sunil Narine", "overs": 4, "runs_conceded": 28, "wickets": 0 },
+                    { "player": "Andre Russell", "overs": 2.4, "runs_conceded": 22, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

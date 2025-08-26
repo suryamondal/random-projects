@@ -1,0 +1,55 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-30",
+        "venue": "MA Chidambaram Stadium, Chennai",
+        "result": "Punjab Kings won by 4 wickets",
+        "innings": [
+            {
+                "team_batting": "Chennai Super Kings",
+                "batting": [
+                    { "player": "Shaik Rasheed", "runs": 11, "balls": 12, "wicket": "Arshdeep Singh" },
+                    { "player": "Ayush Mhatre", "runs": 7, "balls": 6, "wicket": "Marco Jansen" },
+                    { "player": "Sam Curran", "runs": 88, "balls": 47, "wicket": "Marco Jansen" },
+                    { "player": "Ravindra Jadeja", "runs": 17, "balls": 12, "wicket": "Harpreet Brar" },
+                    { "player": "Dewald Brevis", "runs": 32, "balls": 26, "wicket": "Azmatullah Omarzai" },
+                    { "player": "Shivam Dube", "runs": 6, "balls": 6, "wicket": "Arshdeep Singh" },
+                    { "player": "MS Dhoni", "runs": 11, "balls": 4, "wicket": "Yuzvendra Chahal" },
+                    { "player": "Deepak Hooda", "runs": 2, "balls": 2, "wicket": "Yuzvendra Chahal" },
+                    { "player": "Anshul Kamboj", "runs": 0, "balls": 1, "wicket": "Yuzvendra Chahal" },
+                    { "player": "Noor Ahmad", "runs": 0, "balls": 1, "wicket": "Yuzvendra Chahal" },
+                    { "player": "Khaleel Ahmed", "runs": 0, "balls": 0, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Arshdeep Singh", "overs": 3.2, "runs_conceded": 25, "wickets": 2 },
+                    { "player": "Marco Jansen", "overs": 4, "runs_conceded": 30, "wickets": 2 },
+                    { "player": "Azmatullah Omarzai", "overs": 4, "runs_conceded": 39, "wickets": 1 },
+                    { "player": "Harpreet Brar", "overs": 2, "runs_conceded": 21, "wickets": 1 },
+                    { "player": "Yuzvendra Chahal", "overs": 3, "runs_conceded": 24, "wickets": 4 },
+                    { "player": "Suryansh Shedge", "overs": 3, "runs_conceded": 40, "wickets": 0 }
+                ]
+            },
+            {
+                "team_batting": "Punjab Kings",
+                "batting": [
+                    { "player": "Priyansh Arya", "runs": 23, "balls": 15, "wicket": "Khaleel Ahmed" },
+                    { "player": "Prabhsimran Singh", "runs": 54, "balls": 36, "wicket": "Noor Ahmad" },
+                    { "player": "Shreyas Iyer", "runs": 72, "balls": 41, "wicket": "Matheesha Pathirana" },
+                    { "player": "Nehal Wadhera", "runs": 5, "balls": 3, "wicket": "Matheesha Pathirana" },
+                    { "player": "Shashank Singh", "runs": 23, "balls": 12, "wicket": "Ravindra Jadeja" },
+                    { "player": "Josh Inglis", "runs": 6, "balls": 6, "wicket": "" },
+                    { "player": "Suryansh Shedge", "runs": 1, "balls": 3, "wicket": "Khaleel Ahmed" },
+                    { "player": "Marco Jansen", "runs": 4, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Khaleel Ahmed", "overs": 3.4, "runs_conceded": 28, "wickets": 2 },
+                    { "player": "Anshul Kamboj", "overs": 2, "runs_conceded": 20, "wickets": 0 },
+                    { "player": "Ravindra Jadeja", "overs": 3, "runs_conceded": 32, "wickets": 1 },
+                    { "player": "Noor Ahmad", "overs": 4, "runs_conceded": 39, "wickets": 1 },
+                    { "player": "Sam Curran", "overs": 3, "runs_conceded": 27, "wickets": 0 },
+                    { "player": "Matheesha Pathirana", "overs": 4, "runs_conceded": 45, "wickets": 2 }
+                ]
+            }
+        ]
+    }
+}

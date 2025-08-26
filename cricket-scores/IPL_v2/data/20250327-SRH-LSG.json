@@ -1,0 +1,54 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-03-27",
+        "venue": "Rajiv Gandhi International Stadium, Hyderabad",
+        "result": "Lucknow Super Giants won by 5 wickets",
+        "innings": [
+            {
+                "team_batting": "Sunrisers Hyderabad",
+                "batting": [
+                    { "player": "Travis Head", "runs": 47, "balls": 28, "wicket_by": "Prince Yadav" },
+                    { "player": "Abhishek Sharma", "runs": 6, "balls": 6, "wicket_by": "Shardul Thakur" },
+                    { "player": "Ishan Kishan", "runs": 0, "balls": 1, "wicket_by": "Shardul Thakur" },
+                    { "player": "Nitish Kumar Reddy", "runs": 32, "balls": 28, "wicket_by": "Ravi Bishnoi" },
+                    { "player": "Heinrich Klaasen", "runs": 26, "balls": 17, "wicket_by": "run out" },
+                    { "player": "Aniket Verma", "runs": 36, "balls": 13, "wicket_by": "Digvesh Singh" },
+                    { "player": "Abhinav Manohar", "runs": 2, "balls": 6, "wicket_by": "Shardul Thakur" },
+                    { "player": "Pat Cummins", "runs": 18, "balls": 4, "wicket_by": "Avesh Khan" },
+                    { "player": "Harshal Patel", "runs": 12, "balls": 11, "wicket_by": "" },
+                    { "player": "Mohammed Shami", "runs": 1, "balls": 3, "wicket_by": "Shardul Thakur" },
+                    { "player": "Simarjeet Singh", "runs": 3, "balls": 4, "wicket_by": "" }
+                ],
+                "bowling": [
+                    { "player": "Shardul Thakur", "overs": 4, "runs_conceded": 34, "wickets": 4 },
+                    { "player": "Avesh Khan", "overs": 4, "runs_conceded": 45, "wickets": 1 },
+                    { "player": "Digvesh Singh Rathi", "overs": 4, "runs_conceded": 40, "wickets": 1 },
+                    { "player": "Ravi Bishnoi", "overs": 4, "runs_conceded": 42, "wickets": 1 },
+                    { "player": "Prince Yadav", "overs": 4, "runs_conceded": 29, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Lucknow Super Giants",
+                "batting": [
+                    { "player": "Mitchell Marsh", "runs": 52, "balls": 31, "wicket_by": "Pat Cummins" },
+                    { "player": "Aiden Markram", "runs": 1, "balls": 4, "wicket_by": "Mohammed Shami" },
+                    { "player": "Nicholas Pooran", "runs": 70, "balls": 26, "wicket_by": "Pat Cummins" },
+                    { "player": "Rishabh Pant", "runs": 15, "balls": 15, "wicket_by": "Harshal Patel" },
+                    { "player": "Ayush Badoni", "runs": 6, "balls": 6, "wicket_by": "Adam Zampa" },
+                    { "player": "David Miller", "runs": 13, "balls": 7, "wicket_by": "" },
+                    { "player": "Abdul Samad", "runs": 22, "balls": 8, "wicket_by": "" }
+                ],
+                "bowling": [
+                    { "player": "Abhishek Sharma", "overs": 2, "runs_conceded": 20, "wickets": 0 },
+                    { "player": "Mohammed Shami", "overs": 3, "runs_conceded": 37, "wickets": 1 },
+                    { "player": "Simarjeet Singh", "overs": 2, "runs_conceded": 28, "wickets": 0 },
+                    { "player": "Pat Cummins", "overs": 3, "runs_conceded": 29, "wickets": 2 },
+                    { "player": "Adam Zampa", "overs": 4, "runs_conceded": 46, "wickets": 1 },
+                    { "player": "Harshal Patel", "overs": 2, "runs_conceded": 28, "wickets": 1 },
+                    { "player": "Ishan Kishan", "overs": 0.1, "runs_conceded": 4, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

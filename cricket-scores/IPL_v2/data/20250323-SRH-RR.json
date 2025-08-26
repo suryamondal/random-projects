@@ -1,0 +1,50 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-03-23",
+        "venue": "Rajiv Gandhi International Stadium, Hyderabad",
+        "innings": [
+            {
+                "team_batting": "Sunrisers Hyderabad",
+                "batting": [
+                    { "player": "Abhishek Sharma", "runs": 24, "balls": 11, "wicket_by": "Maheesh Theekshana" },
+                    { "player": "Travis Head", "runs": 67, "balls": 31, "wicket_by": "Tushar Deshpande" },
+                    { "player": "Ishan Kishan", "runs": 106, "balls": 47, "wicket_by": "" },
+                    { "player": "Nitish Kumar Reddy", "runs": 30, "balls": 15, "wicket_by": "Maheesh Theekshana" },
+                    { "player": "Heinrich Klaasen", "runs": 34, "balls": 14, "wicket_by": "Sandeep Sharma" },
+                    { "player": "Aniket Verma", "runs": 7, "balls": 3, "wicket_by": "Tushar Deshpande" },
+                    { "player": "Abhinav Manohar", "runs": 0, "balls": 1, "wicket_by": "Tushar Deshpande" },
+                    { "player": "Pat Cummins", "runs": 0, "balls": 1, "wicket_by": "" }
+                ],
+                "bowling": [
+                    { "player": "Fazalhaq Farooqi", "overs": 3, "runs_conceded": 49, "wickets": 0 },
+                    { "player": "Maheesh Theekshana", "overs": 4, "runs_conceded": 52, "wickets": 2 },
+                    { "player": "Jofra Archer", "overs": 4, "runs_conceded": 76, "wickets": 0 },
+                    { "player": "Sandeep Sharma", "overs": 4, "runs_conceded": 51, "wickets": 1 },
+                    { "player": "Nitish Rana", "overs": 1, "runs_conceded": 9, "wickets": 0 },
+                    { "player": "Tushar Deshpande", "overs": 4, "runs_conceded": 48, "wickets": 3 }
+                ]
+            },
+            {
+                "team_batting": "Rajasthan Royals",
+                "batting": [
+                    { "player": "Yashasvi Jaiswal", "runs": 1, "balls": 5, "wicket_by": "Simarjeet Singh" },
+                    { "player": "Sanju Samson", "runs": 66, "balls": 37, "wicket_by": "Harshal Patel" },
+                    { "player": "Riyan Parag", "runs": 4, "balls": 2, "wicket_by": "Simarjeet Singh" },
+                    { "player": "Dhruv Jurel", "runs": 70, "balls": 35, "wicket_by": "Adam Zampa" },
+                    { "player": "Shimron Hetmyer", "runs": 42, "balls": 23, "wicket_by": "Harshal Patel" },
+                    { "player": "Shubham Dubey", "runs": 34, "balls": 11, "wicket_by": "" },
+                    { "player": "Jofra Archer", "runs": 1, "balls": 1, "wicket_by": "" }
+                ],
+                "bowling": [
+                    { "player": "Mohammed Shami", "overs": 3, "runs_conceded": 33, "wickets": 1 },
+                    { "player": "Simarjeet Singh", "overs": 3, "runs_conceded": 46, "wickets": 2 },
+                    { "player": "Pat Cummins", "overs": 4, "runs_conceded": 60, "wickets": 0 },
+                    { "player": "Abhishek Sharma", "overs": 2, "runs_conceded": 17, "wickets": 0 },
+                    { "player": "Adam Zampa", "overs": 4, "runs_conceded": 48, "wickets": 1 },
+                    { "player": "Harshal Patel", "overs": 4, "runs_conceded": 34, "wickets": 2 }
+                ]
+            }
+        ]
+    }
+}

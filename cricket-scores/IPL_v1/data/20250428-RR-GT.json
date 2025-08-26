@@ -1,0 +1,47 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-28",
+        "venue": "Sawai Mansingh Stadium, Jaipur",
+        "result": "Rajasthan Royals won by 8 wickets",
+        "innings": [
+            {
+                "team_batting": "Gujarat Titans",
+                "batting": [
+                    { "player": "Sai Sudharsan", "runs": 39, "balls": 30, "wicket": "Maheesh Theekshana" },
+                    { "player": "Shubman Gill", "runs": 84, "balls": 50, "wicket": "Maheesh Theekshana" },
+                    { "player": "Jos Buttler", "runs": 50, "balls": 26, "wicket": "" },
+                    { "player": "Washington Sundar", "runs": 13, "balls": 8, "wicket": "Sandeep Sharma" },
+                    { "player": "Rahul Tewatia", "runs": 9, "balls": 4, "wicket": "Jofra Archer" },
+                    { "player": "Shahrukh Khan", "runs": 5, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Jofra Archer", "overs": 4, "runs_conceded": 49, "wickets": 1 },
+                    { "player": "Maheesh Theekshana", "overs": 4, "runs_conceded": 35, "wickets": 2 },
+                    { "player": "Yudhvir Singh Charak", "overs": 3, "runs_conceded": 38, "wickets": 0 },
+                    { "player": "Sandeep Sharma", "overs": 4, "runs_conceded": 33, "wickets": 1 },
+                    { "player": "Riyan Parag", "overs": 1, "runs_conceded": 14, "wickets": 0 },
+                    { "player": "Wanindu Hasaranga", "overs": 4, "runs_conceded": 39, "wickets": 0 }
+                ]
+            },
+            {
+                "team_batting": "Rajasthan Royals",
+                "batting": [
+                    { "player": "Yashasvi Jaiswal", "runs": 70, "balls": 40, "wicket": "" },
+                    { "player": "Vaibhav Suryavanshi", "runs": 101, "balls": 38, "wicket": "Prasidh Krishna" },
+                    { "player": "Nitish Rana", "runs": 4, "balls": 2, "wicket": "Rashid Khan" },
+                    { "player": "Riyan Parag", "runs": 32, "balls": 15, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mohammed Siraj", "overs": 2, "runs_conceded": 24, "wickets": 0 },
+                    { "player": "Ishant Sharma", "overs": 2, "runs_conceded": 36, "wickets": 0 },
+                    { "player": "Washington Sundar", "overs": 1.5, "runs_conceded": 34, "wickets": 0 },
+                    { "player": "Prasidh Krishna", "overs": 4, "runs_conceded": 47, "wickets": 1 },
+                    { "player": "Rashid Khan", "overs": 4, "runs_conceded": 24, "wickets": 1 },
+                    { "player": "Karim Janat", "overs": 1, "runs_conceded": 30, "wickets": 0 },
+                    { "player": "Ravisrinivasan Sai Kishore", "overs": 1, "runs_conceded": 16, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

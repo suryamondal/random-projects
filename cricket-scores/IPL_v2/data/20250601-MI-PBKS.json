@@ -1,0 +1,34 @@
+{
+    "version": "2",
+    "match": {
+        "format": "T20",
+        "date": "2025-06-03",
+        "venue": "Narendra Modi Stadium, Ahmedabad",
+        "stat": [
+            { "player": "Shreyas Iyer", "score": 177, "team": "Punjab Kings" },
+            { "player": "Josh Inglis", "score": 100, "team": "Punjab Kings" },
+            { "player": "Nehal Wadhera", "score": 96, "team": "Punjab Kings" },
+            { "player": "Suryakumar Yadav", "score": 90, "team": "Mumbai Indians" },
+            { "player": "Jonny Bairstow", "score": 82, "team": "Mumbai Indians" },
+            { "player": "Nathan Plants", "score": 79, "team": "Mumbai Indians" },
+            { "player": "Hardik Pandya", "score": 77, "team": "Mumbai Indians" },
+            { "player": "Tilak Varma", "score": 76, "team": "Mumbai Indians" },
+            { "player": "Azmatullah Omarzai", "score": 69, "team": "Punjab Kings" },
+            { "player": "Ashutosh Kumar", "score": 67, "team": "Mumbai Indians" },
+            { "player": "Priyansh Arya", "score": 52, "team": "Punjab Kings" },
+            { "player": "Marcus Stoinis", "score": 47, "team": "Punjab Kings" },
+            { "player": "Vijaykumar Vyshak", "score": 46, "team": "Punjab Kings" },
+            { "player": "Trent Boult", "score": 43, "team": "Mumbai Indians" },
+            { "player": "Kyle Jamieson", "score": 42, "team": "Punjab Kings" },
+            { "player": "Yuzvendra Chahal", "score": 41, "team": "Punjab Kings" },
+            { "player": "Rohit Sharma", "score": 16, "team": "Mumbai Indians" },
+            { "player": "Prabhsimran Singh", "score": 14, "team": "Punjab Kings" },
+            { "player": "Mitchell Santner", "score": 13, "team": "Mumbai Indians" },
+            { "player": "Angad Bawa", "score": 12, "team": "Mumbai Indians" },
+            { "player": "Reece Topley", "score": 12, "team": "Mumbai Indians" },
+            { "player": "Jasprit Bumrah", "score": 8, "team": "Mumbai Indians" },
+            { "player": "Shivam Singh", "score": 6, "team": "Punjab Kings" },
+            { "player": "Arshdeep Singh", "score": 6, "team": "Punjab Kings" }
+        ]
+    }
+}

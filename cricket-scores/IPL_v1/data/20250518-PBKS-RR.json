@@ -1,0 +1,52 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-18",
+        "venue": "Sawai Mansingh Stadium, Jaipur",
+        "result": "Punjab Kings won by 10 runs",
+        "innings": [
+            {
+                "team_batting": "Punjab Kings",
+                "batting": [
+                    { "player": "Priyansh Arya", "runs": 9, "balls": 7, "wicket": "Tushar Deshpande" },
+                    { "player": "Prabhsimran Singh", "runs": 21, "balls": 10, "wicket": "Tushar Deshpande" },
+                    { "player": "Mitchell Owen", "runs": 0, "balls": 2, "wicket": "Kwena Maphaka" },
+                    { "player": "Nehal Wadhera", "runs": 70, "balls": 37, "wicket": "Akash Madhwal" },
+                    { "player": "Shreyas Iyer", "runs": 30, "balls": 25, "wicket": "Riyan Parag" },
+                    { "player": "Shashank Singh", "runs": 59, "balls": 30, "wicket": "" },
+                    { "player": "Azmatullah Omarzai", "runs": 21, "balls": 9, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Fazalhaq Farooqi", "overs": 3, "runs_conceded": 39, "wickets": 0 },
+                    { "player": "Tushar Deshpande", "overs": 4, "runs_conceded": 37, "wickets": 2 },
+                    { "player": "Kwena Maphaka", "overs": 3, "runs_conceded": 32, "wickets": 1 },
+                    { "player": "Riyan Parag", "overs": 3, "runs_conceded": 26, "wickets": 1 },
+                    { "player": "Wanindu Hasaranga", "overs": 3, "runs_conceded": 33, "wickets": 0 },
+                    { "player": "Akash Madhwal", "overs": 4, "runs_conceded": 48, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Rajasthan Royals",
+                "batting": [
+                    { "player": "Yashasvi Jaiswal", "runs": 50, "balls": 25, "wicket": "Harpreet Brar" },
+                    { "player": "Vaibhav Suryavanshi", "runs": 40, "balls": 15, "wicket": "Harpreet Brar" },
+                    { "player": "Sanju Samson", "runs": 20, "balls": 16, "wicket": "Azmatullah Omarzai" },
+                    { "player": "Riyan Parag", "runs": 13, "balls": 11, "wicket": "Harpreet Brar" },
+                    { "player": "Dhruv Jurel", "runs": 53, "balls": 31, "wicket": "Marco Jansen" },
+                    { "player": "Shimron Hetmyer", "runs": 11, "balls": 12, "wicket": "Azmatullah Omarzai" },
+                    { "player": "Shubham Dubey", "runs": 7, "balls": 7, "wicket": "" },
+                    { "player": "Wanindu Hasaranga", "runs": 0, "balls": 1, "wicket": "Marco Jansen" },
+                    { "player": "Kwena Maphaka", "runs": 8, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Arshdeep Singh", "overs": 4, "runs_conceded": 60, "wickets": 0 },
+                    { "player": "Marco Jansen", "overs": 3, "runs_conceded": 41, "wickets": 2 },
+                    { "player": "Xavier Bartlett", "overs": 1, "runs_conceded": 12, "wickets": 0 },
+                    { "player": "Harpreet Brar", "overs": 4, "runs_conceded": 22, "wickets": 3 },
+                    { "player": "Yuzvendra Chahal", "overs": 4, "runs_conceded": 30, "wickets": 0 },
+                    { "player": "Azmatullah Omarzai", "overs": 4, "runs_conceded": 44, "wickets": 2 }
+                ]
+            }
+        ]
+    }
+}

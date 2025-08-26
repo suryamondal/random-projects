@@ -1,0 +1,55 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-23",
+        "venue": "Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",
+        "result": "Sunrisers Hyderabad won by 42 runs",
+        "innings": [
+            {
+                "team_batting": "Sunrisers Hyderabad",
+                "batting": [
+                    { "player": "Abhishek Sharma", "runs": 34, "balls": 17, "wicket": "Lungi Ngidi" },
+                    { "player": "Travis Head", "runs": 17, "balls": 10, "wicket": "Bhuvneshwar Kumar" },
+                    { "player": "Ishan Kishan", "runs": 94, "balls": 48, "wicket": "" },
+                    { "player": "Heinrich Klaasen", "runs": 24, "balls": 13, "wicket": "Suyash Sharma" },
+                    { "player": "Aniket Verma", "runs": 26, "balls": 9, "wicket": "Krunal Pandya" },
+                    { "player": "Nitish Kumar Reddy", "runs": 4, "balls": 7, "wicket": "Romario Shepherd" },
+                    { "player": "Abhinav Manohar", "runs": 12, "balls": 11, "wicket": "Romario Shepherd" },
+                    { "player": "Pat Cummins", "runs": 13, "balls": 6, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Yash Dayal", "overs": 3, "runs_conceded": 36, "wickets": 0 },
+                    { "player": "Bhuvneshwar Kumar", "overs": 4, "runs_conceded": 43, "wickets": 1 },
+                    { "player": "Lungi Ngidi", "overs": 4, "runs_conceded": 51, "wickets": 1 },
+                    { "player": "Suyash Sharma", "overs": 3, "runs_conceded": 45, "wickets": 1 },
+                    { "player": "Krunal Pandya", "overs": 4, "runs_conceded": 38, "wickets": 1 },
+                    { "player": "Romario Shepherd", "overs": 2, "runs_conceded": 14, "wickets": 2 }
+                ]
+            },
+            {
+                "team_batting": "Royal Challengers Bengaluru",
+                "batting": [
+                    { "player": "Philip Salt", "runs": 62, "balls": 32, "wicket": "Pat Cummins" },
+                    { "player": "Virat Kohli", "runs": 43, "balls": 25, "wicket": "Harsh Dubey" },
+                    { "player": "Mayank Agarwal", "runs": 11, "balls": 10, "wicket": "Nitish Kumar Reddy" },
+                    { "player": "Rajat Patidar", "runs": 18, "balls": 16, "wicket": "run out" },
+                    { "player": "Jitesh Sharma", "runs": 24, "balls": 15, "wicket": "Jaydev Unadkat" },
+                    { "player": "Romario Shepherd", "runs": 0, "balls": 1, "wicket": "Eshan Malinga" },
+                    { "player": "Krunal Pandya", "runs": 8, "balls": 6, "wicket": "Pat Cummins" },
+                    { "player": "Tim David", "runs": 1, "balls": 5, "wicket": "Eshan Malinga" },
+                    { "player": "Bhuvneshwar Kumar", "runs": 3, "balls": 2, "wicket": "Pat Cummins" },
+                    { "player": "Yash Dayal", "runs": 3, "balls": 6, "wicket": "Harshal Patel" },
+                    { "player": "Lungi Ngidi", "runs": 0, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Pat Cummins", "overs": 4, "runs_conceded": 28, "wickets": 3 },
+                    { "player": "Jaydev Unadkat", "overs": 4, "runs_conceded": 41, "wickets": 1 },
+                    { "player": "Harshal Patel", "overs": 3.5, "runs_conceded": 39, "wickets": 1 },
+                    { "player": "Eshan Malinga", "overs": 4, "runs_conceded": 37, "wickets": 2 },
+                    { "player": "Harsh Dubey", "overs": 2, "runs_conceded": 20, "wickets": 1 },
+                    { "player": "Nitish Kumar Reddy", "overs": 2, "runs_conceded": 13, "wickets": 1 }
+                ]
+            }
+        ]
+    }
+}

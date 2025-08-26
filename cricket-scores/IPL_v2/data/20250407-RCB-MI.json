@@ -1,0 +1,54 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-07",
+        "venue": "Wankhede Stadium, Mumbai",
+        "result": "Royal Challengers Bengaluru won by 12 runs",
+        "innings": [
+            {
+                "team_batting": "Royal Challengers Bengaluru",
+                "batting": [
+                    { "player": "Philip Salt", "runs": 4, "balls": 2, "wicket_by": "Trent Boult" },
+                    { "player": "Virat Kohli", "runs": 67, "balls": 42, "wicket_by": "Hardik Pandya" },
+                    { "player": "Devdutt Padikkal", "runs": 37, "balls": 22, "wicket_by": "Vignesh Puthur" },
+                    { "player": "Rajat Patidar", "runs": 64, "balls": 32, "wicket_by": "Trent Boult" },
+                    { "player": "Liam Livingstone", "runs": 0, "balls": 2, "wicket_by": "Hardik Pandya" },
+                    { "player": "Jitesh Sharma", "runs": 40, "balls": 19, "wicket_by": "" },
+                    { "player": "Tim David", "runs": 1, "balls": 1, "wicket_by": "" }
+                ],
+                "bowling": [
+                    { "player": "Trent Boult", "overs": 4, "runs_conceded": 57, "wickets": 2 },
+                    { "player": "Deepak Chahar", "overs": 2, "runs_conceded": 29, "wickets": 0 },
+                    { "player": "Jasprit Bumrah", "overs": 4, "runs_conceded": 29, "wickets": 0 },
+                    { "player": "Will Jacks", "overs": 1, "runs_conceded": 10, "wickets": 0 },
+                    { "player": "Mitchell Santner", "overs": 4, "runs_conceded": 40, "wickets": 0 },
+                    { "player": "Hardik Pandya", "overs": 4, "runs_conceded": 45, "wickets": 2 },
+                    { "player": "Vignesh Puthur", "overs": 1, "runs_conceded": 10, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Mumbai Indians",
+                "batting": [
+                    { "player": "Rohit Sharma", "runs": 17, "balls": 9, "wicket_by": "Yash Dayal" },
+                    { "player": "Ryan Rickelton", "runs": 17, "balls": 10, "wicket_by": "Josh Hazlewood" },
+                    { "player": "Will Jacks", "runs": 22, "balls": 18, "wicket_by": "Krunal Pandya" },
+                    { "player": "Suryakumar Yadav", "runs": 28, "balls": 26, "wicket_by": "Yash Dayal" },
+                    { "player": "Tilak Varma", "runs": 56, "balls": 29, "wicket_by": "Bhuvneshwar Kumar" },
+                    { "player": "Hardik Pandya", "runs": 42, "balls": 15, "wicket_by": "Josh Hazlewood" },
+                    { "player": "Naman Dhir", "runs": 11, "balls": 6, "wicket_by": "Krunal Pandya" },
+                    { "player": "Mitchell Santner", "runs": 8, "balls": 4, "wicket_by": "Krunal Pandya" },
+                    { "player": "Deepak Chahar", "runs": 0, "balls": 1, "wicket_by": "Krunal Pandya" },
+                    { "player": "Trent Boult", "runs": 1, "balls": 1, "wicket_by": "" },
+                    { "player": "Jasprit Bumrah", "runs": 0, "balls": 1, "wicket_by": "" }
+                ],
+                "bowling": [
+                    { "player": "Bhuvneshwar Kumar", "overs": 4, "runs_conceded": 48, "wickets": 1 },
+                    { "player": "Yash Dayal", "overs": 4, "runs_conceded": 46, "wickets": 2 },
+                    { "player": "Josh Hazlewood", "overs": 4, "runs_conceded": 37, "wickets": 2 },
+                    { "player": "Suyash Sharma", "overs": 4, "runs_conceded": 32, "wickets": 0 },
+                    { "player": "Krunal Pandya", "overs": 4, "runs_conceded": 45, "wickets": 4 }
+                ]
+            }
+        ]
+    }
+}

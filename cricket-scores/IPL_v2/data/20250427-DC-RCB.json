@@ -1,0 +1,51 @@
+{
+  "match": {
+    "format": "T20",
+    "date": "2025-04-27",
+    "venue": "Arun Jaitley Stadium, Delhi",
+    "result": "Royal Challengers Bengaluru won by 6 wickets",
+    "innings": [
+      {
+        "team_batting": "Delhi Capitals",
+        "batting": [
+          { "player": "Abishek Porel", "runs": 28, "balls": 11, "wicket": "Josh Hazlewood" },
+          { "player": "Faf du Plessis", "runs": 22, "balls": 26, "wicket": "Krunal Pandya" },
+          { "player": "Karun Nair", "runs": 44, "balls": 44, "wicket": "Yash Dayal" },
+          { "player": "KL Rahul", "runs": 41, "balls": 39, "wicket": "Bhuvneshwar Kumar" },
+          { "player": "Axar Patel", "runs": 15, "balls": 13, "wicket": "Josh Hazlewood" },
+          { "player": "Tristan Stubbs", "runs": 34, "balls": 18, "wicket": "Bhuvneshwar Kumar" },
+          { "player": "Ashutosh Sharma", "runs": 2, "balls": 3, "wicket": "Bhuvneshwar Kumar" },
+          { "player": "Vipraj Nigam", "runs": 12, "balls": 6, "wicket": "run out" },
+          { "player": "Mitchell Starc", "runs": 0, "balls": 0, "wicket": "" },
+          { "player": "Dushmantha Chameera", "runs": 0, "balls": 1, "wicket": "" }
+        ],
+        "bowling": [
+          { "player": "Bhuvneshwar Kumar", "overs": 4, "runs_conceded": 33, "wickets": 3 },
+          { "player": "Yash Dayal", "overs": 4, "runs_conceded": 42, "wickets": 1 },
+          { "player": "Josh Hazlewood", "overs": 4, "runs_conceded": 36, "wickets": 2 },
+          { "player": "Suyash Sharma", "overs": 4, "runs_conceded": 22, "wickets": 0 },
+          { "player": "Krunal Pandya", "overs": 4, "runs_conceded": 28, "wickets": 1 }
+        ]
+      },
+      {
+        "team_batting": "Royal Challengers Bengaluru",
+        "batting": [
+          { "player": "Jacob Bethell", "runs": 12, "balls": 6, "wicket": "Axar Patel" },
+          { "player": "Virat Kohli", "runs": 51, "balls": 47, "wicket": "Dushmantha Chameera" },
+          { "player": "Devdutt Padikkal", "runs": 0, "balls": 2, "wicket": "Axar Patel" },
+          { "player": "Rajat Patidar", "runs": 66, "balls": 66, "wicket": "run out" },
+          { "player": "Krunal Pandya", "runs": 73, "balls": 47, "wicket": "" },
+          { "player": "Tim David", "runs": 19, "balls": 5, "wicket": "" }
+        ],
+        "bowling": [
+          { "player": "Axar Patel", "overs": 4, "runs_conceded": 19, "wickets": 2 },
+          { "player": "Mitchell Starc", "overs": 3, "runs_conceded": 31, "wickets": 0 },
+          { "player": "Mukesh Kumar", "overs": 3.5, "runs_conceded": 51, "wickets": 0 },
+          { "player": "Vipraj Nigam", "overs": 1, "runs_conceded": 12, "wickets": 0 },
+          { "player": "Kuldeep Yadav", "overs": 4, "runs_conceded": 28, "wickets": 0 },
+          { "player": "Dushmantha Chameera", "overs": 3, "runs_conceded": 24, "wickets": 1 }
+        ]
+      }
+    ]
+  }
+}

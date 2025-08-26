@@ -1,0 +1,49 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-19",
+        "venue": "Sawai Mansingh Stadium, Jaipur",
+        "result": "Lucknow Super Giants won by 2 runs",
+        "innings": [
+            {
+                "team_batting": "Lucknow Super Giants",
+                "batting": [
+                    { "player": "Mitchell Marsh", "runs": 4, "balls": 6, "wicket": "Jofra Archer" },
+                    { "player": "Aiden Markram", "runs": 66, "balls": 45, "wicket": "Wanindu Hasaranga" },
+                    { "player": "Nicholas Pooran", "runs": 11, "balls": 8, "wicket": "Sandeep Sharma" },
+                    { "player": "Rishabh Pant", "runs": 3, "balls": 9, "wicket": "Wanindu Hasaranga" },
+                    { "player": "Ayush Badoni", "runs": 50, "balls": 34, "wicket": "Tushar Deshpande" },
+                    { "player": "David Miller", "runs": 7, "balls": 8, "wicket": "" },
+                    { "player": "Abdul Samad", "runs": 30, "balls": 10, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Jofra Archer", "overs": 4, "runs_conceded": 32, "wickets": 1 },
+                    { "player": "Maheesh Theekshana", "overs": 4, "runs_conceded": 32, "wickets": 0 },
+                    { "player": "Sandeep Sharma", "overs": 4, "runs_conceded": 55, "wickets": 1 },
+                    { "player": "Tushar Deshpande", "overs": 4, "runs_conceded": 26, "wickets": 1 },
+                    { "player": "Wanindu Hasaranga", "overs": 4, "runs_conceded": 31, "wickets": 2 }
+                ]
+            },
+            {
+                "team_batting": "Rajasthan Royals",
+                "batting": [
+                    { "player": "Yashasvi Jaiswal", "runs": 74, "balls": 52, "wicket": "Avesh Khan" },
+                    { "player": "Vaibhav Suryavanshi", "runs": 34, "balls": 20, "wicket": "Aiden Markram" },
+                    { "player": "Nitish Rana", "runs": 8, "balls": 7, "wicket": "Shardul Thakur" },
+                    { "player": "Riyan Parag", "runs": 39, "balls": 26, "wicket": "Avesh Khan" },
+                    { "player": "Dhruv Jurel", "runs": 6, "balls": 5, "wicket": "" },
+                    { "player": "Shimron Hetmyer", "runs": 12, "balls": 7, "wicket": "Avesh Khan" },
+                    { "player": "Shubham Dubey", "runs": 3, "balls": 3, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Shardul Thakur", "overs": 3, "runs_conceded": 34, "wickets": 1 },
+                    { "player": "Avesh Khan", "overs": 4, "runs_conceded": 37, "wickets": 3 },
+                    { "player": "Digvesh Singh Rathi", "overs": 4, "runs_conceded": 30, "wickets": 0 },
+                    { "player": "Aiden Markram", "overs": 2, "runs_conceded": 18, "wickets": 1 },
+                    { "player": "Prince Yadav", "overs": 4, "runs_conceded": 39, "wickets": 0 },
+                    { "player": "Ravi Bishnoi", "overs": 3, "runs_conceded": 19, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,54 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-25",
+        "venue": "MA Chidambaram Stadium, Chennai",
+        "result": "Sunrisers Hyderabad won by 5 wickets",
+        "innings": [
+            {
+                "team_batting": "Chennai Super Kings",
+                "batting": [
+                    { "player": "Shaik Rasheed", "runs": 0, "balls": 1, "wicket": "Abhishek Sharma" },
+                    { "player": "Ayush Mhatre", "runs": 30, "balls": 19, "wicket": "Pat Cummins" },
+                    { "player": "Sam Curran", "runs": 9, "balls": 10, "wicket": "Harshal Patel" },
+                    { "player": "Ravindra Jadeja", "runs": 21, "balls": 17, "wicket": "Kamindu Mendis" },
+                    { "player": "Dewald Brevis", "runs": 42, "balls": 25, "wicket": "Harshal Patel" },
+                    { "player": "Shivam Dube", "runs": 12, "balls": 9, "wicket": "Jaydev Unadkat" },
+                    { "player": "Deepak Hooda", "runs": 22, "balls": 21, "wicket": "Jaydev Unadkat" },
+                    { "player": "MS Dhoni", "runs": 6, "balls": 10, "wicket": "Harshal Patel" },
+                    { "player": "Anshul Kamboj", "runs": 2, "balls": 4, "wicket": "Pat Cummins" },
+                    { "player": "Noor Ahmad", "runs": 2, "balls": 3, "wicket": "Mohammed Shami" },
+                    { "player": "Khaleel Ahmed", "runs": 1, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mohammed Shami", "overs": 3, "runs_conceded": 28, "wickets": 1 },
+                    { "player": "Pat Cummins", "overs": 4, "runs_conceded": 21, "wickets": 2 },
+                    { "player": "Jaydev Unadkat", "overs": 2.5, "runs_conceded": 21, "wickets": 2 },
+                    { "player": "Harshal Patel", "overs": 4, "runs_conceded": 28, "wickets": 4 },
+                    { "player": "Zeeshan Ansari", "overs": 3, "runs_conceded": 27, "wickets": 0 },
+                    { "player": "Kamindu Mendis", "overs": 3, "runs_conceded": 26, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Sunrisers Hyderabad",
+                "batting": [
+                    { "player": "Abhishek Sharma", "runs": 0, "balls": 2, "wicket": "Khaleel Ahmed" },
+                    { "player": "Travis Head", "runs": 19, "balls": 16, "wicket": "Anshul Kamboj" },
+                    { "player": "Ishan Kishan", "runs": 44, "balls": 34, "wicket": "Noor Ahmad" },
+                    { "player": "Heinrich Klaasen", "runs": 7, "balls": 8, "wicket": "Ravindra Jadeja" },
+                    { "player": "Aniket Verma", "runs": 19, "balls": 19, "wicket": "Noor Ahmad" },
+                    { "player": "Kamindu Mendis", "runs": 32, "balls": 22, "wicket": "" },
+                    { "player": "Nitish Kumar Reddy", "runs": 19, "balls": 13, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Khaleel Ahmed", "overs": 3, "runs_conceded": 21, "wickets": 1 },
+                    { "player": "Anshul Kamboj", "overs": 3, "runs_conceded": 16, "wickets": 1 },
+                    { "player": "Noor Ahmad", "overs": 4, "runs_conceded": 42, "wickets": 2 },
+                    { "player": "Ravindra Jadeja", "overs": 3.4, "runs_conceded": 22, "wickets": 1 },
+                    { "player": "Sam Curran", "overs": 2, "runs_conceded": 25, "wickets": 0 },
+                    { "player": "Matheesha Pathirana", "overs": 3, "runs_conceded": 27, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

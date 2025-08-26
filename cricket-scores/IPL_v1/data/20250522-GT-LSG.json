@@ -1,0 +1,50 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-22",
+        "venue": "Narendra Modi Stadium, Ahmedabad",
+        "result": "Lucknow Super Giants won by 33 runs",
+        "innings": [
+            {
+                "team_batting": "Lucknow Super Giants",
+                "batting": [
+                    { "player": "Aiden Markram", "runs": 36, "balls": 24, "wicket": "Ravisrinivasan Sai Kishore" },
+                    { "player": "Mitchell Marsh", "runs": 117, "balls": 64, "wicket": "Arshad Khan" },
+                    { "player": "Nicholas Pooran", "runs": 56, "balls": 27, "wicket": "" },
+                    { "player": "Rishabh Pant", "runs": 16, "balls": 6, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mohammed Siraj", "overs": 4, "runs_conceded": 37, "wickets": 0 },
+                    { "player": "Arshad Khan", "overs": 3, "runs_conceded": 36, "wickets": 1 },
+                    { "player": "Kagiso Rabada", "overs": 4, "runs_conceded": 45, "wickets": 1 },
+                    { "player": "Prasidh Krishna", "overs": 4, "runs_conceded": 44, "wickets": 0 },
+                    { "player": "Ravisrinivasan Sai Kishore", "overs": 3, "runs_conceded": 34, "wickets": 1 },
+                    { "player": "Rashid Khan", "overs": 2, "runs_conceded": 36, "wickets": 0 }
+                ]
+            },
+            {
+                "team_batting": "Gujarat Titans",
+                "batting": [
+                    { "player": "Bharat Sai Sudharsan", "runs": 21, "balls": 16, "wicket": "William O'Rourke" },
+                    { "player": "Shubman Gill", "runs": 35, "balls": 20, "wicket": "Avesh Khan" },
+                    { "player": "Jos Buttler", "runs": 33, "balls": 18, "wicket": "Akash Maharaj Singh" },
+                    { "player": "Sherfane Rutherford", "runs": 38, "balls": 22, "wicket": "William O'Rourke" },
+                    { "player": "Shahrukh Khan", "runs": 57, "balls": 29, "wicket": "Avesh Khan" },
+                    { "player": "Rahul Tewatia", "runs": 2, "balls": 3, "wicket": "William O'Rourke" },
+                    { "player": "Arshad Khan", "runs": 1, "balls": 3, "wicket": "Shahbaz Ahmed" },
+                    { "player": "Rashid Khan", "runs": 4, "balls": 4, "wicket": "" },
+                    { "player": "Kagiso Rabada", "runs": 2, "balls": 3, "wicket": "Ayush Badoni" },
+                    { "player": "Ravisrinivasan Sai Kishore", "runs": 1, "balls": 2, "wicket": "Ayush Badoni" }
+                ],
+                "bowling": [
+                    { "player": "Akash Maharaj Singh", "overs": 3.1, "runs_conceded": 29, "wickets": 1 },
+                    { "player": "Akash Deep", "overs": 4, "runs_conceded": 49, "wickets": 0 },
+                    { "player": "William O'Rourke", "overs": 4, "runs_conceded": 27, "wickets": 3 },
+                    { "player": "Avesh Khan", "overs": 3.5, "runs_conceded": 51, "wickets": 2 },
+                    { "player": "Shahbaz Ahmed", "overs": 4, "runs_conceded": 41, "wickets": 1 },
+                    { "player": "Ayush Badoni", "overs": 1, "runs_conceded": 4, "wickets": 2 }
+                ]
+            }
+        ]
+    }
+}

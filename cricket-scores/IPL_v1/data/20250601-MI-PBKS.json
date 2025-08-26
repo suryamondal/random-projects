@@ -1,0 +1,51 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-06-01",
+        "venue": "Narendra Modi Stadium, Ahmedabad",
+        "result": "Punjab Kings won by 5 wickets",
+        "innings": [
+            {
+                "team_batting": "Mumbai Indians",
+                "batting": [
+                    { "player": "Rohit Sharma", "runs": 8, "balls": 7, "wicket": "Marcus Stoinis" },
+                    { "player": "Jonny Bairstow", "runs": 38, "balls": 24, "wicket": "Vijaykumar Vyshak" },
+                    { "player": "Tilak Varma", "runs": 44, "balls": 29, "wicket": "Kyle Jamieson" },
+                    { "player": "Suryakumar Yadav", "runs": 44, "balls": 26, "wicket": "Yuzvendra Chahal" },
+                    { "player": "Hardik Pandya", "runs": 15, "balls": 13, "wicket": "Azmatullah Omarzai" },
+                    { "player": "Naman Dhir", "runs": 37, "balls": 18, "wicket": "Azmatullah Omarzai" },
+                    { "player": "Raj Bawa", "runs": 8, "balls": 4, "wicket": "" },
+                    { "player": "Mitchell Santner", "runs": 0, "balls": 1, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Arshdeep Singh", "overs": 4, "runs_conceded": 44, "wickets": 0 },
+                    { "player": "Kyle Jamieson", "overs": 4, "runs_conceded": 30, "wickets": 1 },
+                    { "player": "Marcus Stoinis", "overs": 1, "runs_conceded": 14, "wickets": 1 },
+                    { "player": "Azmatullah Omarzai", "overs": 4, "runs_conceded": 32, "wickets": 2 },
+                    { "player": "Vijaykumar Vyshak", "overs": 3, "runs_conceded": 30, "wickets": 1 },
+                    { "player": "Yuzvendra Chahal", "overs": 4, "runs_conceded": 39, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Punjab Kings",
+                "batting": [
+                    { "player": "Priyansh Arya", "runs": 20, "balls": 10, "wicket": "Ashwani Kumar" },
+                    { "player": "Prabhsimran Singh", "runs": 6, "balls": 9, "wicket": "Trent Boult" },
+                    { "player": "Josh Inglis", "runs": 38, "balls": 21, "wicket": "Hardik Pandya" },
+                    { "player": "Shreyas Iyer", "runs": 87, "balls": 41, "wicket": "" },
+                    { "player": "Nehal Wadhera", "runs": 48, "balls": 29, "wicket": "Ashwani Kumar" },
+                    { "player": "Shashank Singh", "runs": 2, "balls": 3, "wicket": "run out" },
+                    { "player": "Marcus Stoinis", "runs": 2, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Trent Boult", "overs": 4, "runs_conceded": 38, "wickets": 1 },
+                    { "player": "Reece Topley", "overs": 3, "runs_conceded": 40, "wickets": 0 },
+                    { "player": "Jasprit Bumrah", "overs": 4, "runs_conceded": 40, "wickets": 0 },
+                    { "player": "Ashwani Kumar", "overs": 4, "runs_conceded": 55, "wickets": 2 },
+                    { "player": "Mitchell Santner", "overs": 2, "runs_conceded": 15, "wickets": 0 },
+                    { "player": "Hardik Pandya", "overs": 2, "runs_conceded": 19, "wickets": 1 }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,33 @@
+{
+    "version": "2",
+    "match": {
+        "format": "T20",
+        "date": "2025-06-03",
+        "venue": "Narendra Modi Stadium, Ahmedabad",
+        "stat": [
+            { "player": "Rishabh Pant", "score": 236, "team": "Dream Team" },
+            { "player": "Jitesh Sharma", "score": 183, "team": "Dream Team" },
+            { "player": "Mitchell Marsh", "score": 131, "team": "Dream Team" },
+            { "player": "Virat Kohli", "score": 112, "team": "Dream Team" },
+            { "player": "Mayank Agarwal", "score": 75, "team": "Dream Team" },
+            { "player": "William O'Rourke", "score": 69, "team": "Dream Team" },
+            { "player": "Philip Salt", "score": 66, "team": "Dream Team" },
+            { "player": "Nuwan Thushara", "score": 54, "team": "Dream Team" },
+            { "player": "Bhuvneshwar Kumar", "score": 38, "team": "Dream Team" },
+            { "player": "Arshdeep Singh", "score": 38, "team": "Dream Team" },
+            { "player": "Avesh Khan", "score": 37, "team": "Lucknow Super Giants" },
+            { "player": "Romario Shepherd", "score": 34, "team": "Royal Challengers Bengaluru" },
+            { "player": "Rajat Patidar", "score": 28, "team": "Royal Challengers Bengaluru" },
+            { "player": "Matthew Breetzke", "score": 28, "team": "Lucknow Super Giants" },
+            { "player": "Nicholas Pooran", "score": 23, "team": "Lucknow Super Giants" },
+            { "player": "Digvesh Singh Rathi", "score": 17, "team": "Lucknow Super Giants" },
+            { "player": "Ayush Badoni", "score": 13, "team": "Lucknow Super Giants" },
+            { "player": "Abdul Samad", "score": 13, "team": "Lucknow Super Giants" },
+            { "player": "Krunal Pandya", "score": 11, "team": "Royal Challengers Bengaluru" },
+            { "player": "Yash Dayal", "score": 9, "team": "Royal Challengers Bengaluru" },
+            { "player": "Harpreet Singh", "score": 4, "team": "Lucknow Super Giants" },
+            { "player": "Liam Livingstone", "score": 2, "team": "Royal Challengers Bengaluru" },
+            { "player": "Suyash Sharma", "score": 2, "team": "Royal Challengers Bengaluru" }
+        ]
+    }
+}

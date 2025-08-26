@@ -1,0 +1,48 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-08", "venue": "Eden Gardens, Kolkata",
+        "result": "Lucknow Super Giants won by 4 runs",
+        "innings": [
+            {
+                "team_batting": "Lucknow Super Giants",
+                "batting": [
+                    { "player": "Aiden Markram", "runs": 47, "balls": 28, "wicket": "Harshit Rana" },
+                    { "player": "Mitchell Marsh", "runs": 81, "balls": 48, "wicket": "Andre Russell" },
+                    { "player": "Nicholas Pooran", "runs": 87, "balls": 36, "wicket": "" },
+                    { "player": "Abdul Samad", "runs": 6, "balls": 4, "wicket": "Harshit Rana" },
+                    { "player": "David Miller", "runs": 4, "balls": 4, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Vaibhav Arora", "overs": 4, "runs_conceded": 35, "wickets": 0 },
+                    { "player": "Spencer Johnson", "overs": 3, "runs_conceded": 46, "wickets": 0 },
+                    { "player": "Varun Chakaravarthy", "overs": 4, "runs_conceded": 31, "wickets": 0 },
+                    { "player": "Harshit Rana", "overs": 4, "runs_conceded": 51, "wickets": 2 },
+                    { "player": "Sunil Narine", "overs": 3, "runs_conceded": 38, "wickets": 0 },
+                    { "player": "Andre Russell", "overs": 2, "runs_conceded": 32, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Kolkata Knight Riders",
+                "batting": [
+                    { "player": "Quinton de Kock", "runs": 15, "balls": 9, "wicket": "Akash Deep" },
+                    { "player": "Sunil Narine", "runs": 30, "balls": 13, "wicket": "Digvesh Singh Rathi" },
+                    { "player": "Ajinkya Rahane", "runs": 61, "balls": 35, "wicket": "Shardul Thakur" },
+                    { "player": "Venkatesh Iyer", "runs": 45, "balls": 29, "wicket": "Akash Deep" },
+                    { "player": "Ramandeep Singh", "runs": 1, "balls": 2, "wicket": "Ravi Bishnoi" },
+                    { "player": "Angkrish Raghuvanshi", "runs": 5, "balls": 4, "wicket": "Avesh Khan" },
+                    { "player": "Andre Russell", "runs": 7, "balls": 4, "wicket": "Shardul Thakur" },
+                    { "player": "Rinku Singh", "runs": 38, "balls": 15, "wicket": "" },
+                    { "player": "Harshit Rana", "runs": 10, "balls": 9, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Akash Deep", "overs": 4, "runs_conceded": 55, "wickets": 2 },
+                    { "player": "Shardul Thakur", "overs": 4, "runs_conceded": 52, "wickets": 2 },
+                    { "player": "Avesh Khan", "overs": 4, "runs_conceded": 45, "wickets": 1 },
+                    { "player": "Digvesh Singh Rathi", "overs": 4, "runs_conceded": 33, "wickets": 1 },
+                    { "player": "Ravi Bishnoi", "overs": 4, "runs_conceded": 47, "wickets": 1 }
+                ]
+            }
+        ]
+    }
+}

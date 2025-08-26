@@ -1,0 +1,51 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-01",
+        "venue": "Sawai Mansingh Stadium, Jaipur",
+        "result": "Mumbai Indians won by 100 runs",
+        "innings": [
+            {
+                "team_batting": "Mumbai Indians",
+                "batting": [
+                    { "player": "Ryan Rickelton", "runs": 61, "balls": 38, "wicket": "Maheesh Theekshana" },
+                    { "player": "Rohit Sharma", "runs": 53, "balls": 36, "wicket": "Riyan Parag" },
+                    { "player": "Suryakumar Yadav", "runs": 48, "balls": 23, "wicket": "" },
+                    { "player": "Hardik Pandya", "runs": 48, "balls": 23, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Jofra Archer", "overs": 4, "runs_conceded": 42, "wickets": 0 },
+                    { "player": "Fazalhaq Farooqi", "overs": 4, "runs_conceded": 54, "wickets": 0 },
+                    { "player": "Maheesh Theekshana", "overs": 4, "runs_conceded": 47, "wickets": 1 },
+                    { "player": "Kumar Kartikeya", "overs": 2, "runs_conceded": 22, "wickets": 0 },
+                    { "player": "Akash Madhwal", "overs": 4, "runs_conceded": 39, "wickets": 0 },
+                    { "player": "Riyan Parag", "overs": 2, "runs_conceded": 12, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Rajasthan Royals",
+                "batting": [
+                    { "player": "Yashasvi Jaiswal", "runs": 13, "balls": 6, "wicket": "Trent Boult" },
+                    { "player": "Vaibhav Suryavanshi", "runs": 0, "balls": 2, "wicket": "Deepak Chahar" },
+                    { "player": "Nitish Rana", "runs": 9, "balls": 11, "wicket": "Trent Boult" },
+                    { "player": "Riyan Parag", "runs": 16, "balls": 8, "wicket": "Jasprit Bumrah" },
+                    { "player": "Dhruv Jurel", "runs": 11, "balls": 11, "wicket": "Karn Sharma" },
+                    { "player": "Shimron Hetmyer", "runs": 0, "balls": 1, "wicket": "Jasprit Bumrah" },
+                    { "player": "Shubham Dubey", "runs": 15, "balls": 9, "wicket": "Hardik Pandya" },
+                    { "player": "Jofra Archer", "runs": 30, "balls": 27, "wicket": "Trent Boult" },
+                    { "player": "Maheesh Theekshana", "runs": 2, "balls": 9, "wicket": "Karn Sharma" },
+                    { "player": "Kumar Kartikeya", "runs": 2, "balls": 4, "wicket": "Deepak Chahar" },
+                    { "player": "Akash Madhwal", "runs": 4, "balls": 9, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Deepak Chahar", "overs": 2, "runs_conceded": 13, "wickets": 1 },
+                    { "player": "Trent Boult", "overs": 2.1, "runs_conceded": 28, "wickets": 3 },
+                    { "player": "Jasprit Bumrah", "overs": 4, "runs_conceded": 15, "wickets": 2 },
+                    { "player": "Corbin Bosch", "overs": 3, "runs_conceded": 29, "wickets": 0 },
+                    { "player": "Hardik Pandya", "overs": 1, "runs_conceded": 2, "wickets": 1 },
+                    { "player": "Karn Sharma", "overs": 4, "runs_conceded": 23, "wickets": 3 }
+                ]
+            }
+        ]
+    }
+}

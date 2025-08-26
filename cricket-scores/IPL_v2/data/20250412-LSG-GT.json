@@ -1,0 +1,50 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-12",
+        "venue": "Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",
+        "result": "Lucknow Super Giants won by 6 wickets",
+        "innings": [
+            {
+                "team_batting": "Gujarat Titans",
+                "batting": [
+                    { "player": "Sai Sudharsan", "runs": 56, "balls": 37, "wicket": "Ravi Bishnoi" },
+                    { "player": "Shubman Gill", "runs": 60, "balls": 38, "wicket": "Avesh Khan" },
+                    { "player": "Jos Buttler", "runs": 16, "balls": 14, "wicket": "Digvesh Singh Rathi" },
+                    { "player": "Washington Sundar", "runs": 2, "balls": 3, "wicket": "Ravi Bishnoi" },
+                    { "player": "Sherfane Rutherford", "runs": 22, "balls": 19, "wicket": "Shardul Thakur" },
+                    { "player": "Shahrukh Khan", "runs": 11, "balls": 6, "wicket": "" },
+                    { "player": "Rahul Tewatia", "runs": 0, "balls": 1, "wicket": "Shardul Thakur" },
+                    { "player": "Rashid Khan", "runs": 4, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Shardul Thakur", "overs": 4, "runs_conceded": 34, "wickets": 2 },
+                    { "player": "Akash Deep", "overs": 3, "runs_conceded": 33, "wickets": 0 },
+                    { "player": "Digvesh Singh Rathi", "overs": 4, "runs_conceded": 30, "wickets": 1 },
+                    { "player": "Avesh Khan", "overs": 4, "runs_conceded": 32, "wickets": 1 },
+                    { "player": "Ravi Bishnoi", "overs": 4, "runs_conceded": 32, "wickets": 2 },
+                    { "player": "Aiden Markram", "overs": 1, "runs_conceded": 15, "wickets": 0 }
+                ]
+            },
+            {
+                "team_batting": "Lucknow Super Giants",
+                "batting": [
+                    { "player": "Aiden Markram", "runs": 58, "balls": 31, "wicket": "Prasidh Krishna" },
+                    { "player": "Rishabh Pant", "runs": 21, "balls": 18, "wicket": "Prasidh Krishna" },
+                    { "player": "Nicholas Pooran", "runs": 61, "balls": 34, "wicket": "Rashid Khan" },
+                    { "player": "Ayush Badoni", "runs": 28, "balls": 20, "wicket": "" },
+                    { "player": "David Miller", "runs": 7, "balls": 11, "wicket": "Washington Sundar" },
+                    { "player": "Abdul Samad", "runs": 2, "balls": 3, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mohammed Siraj", "overs": 4, "runs_conceded": 50, "wickets": 0 },
+                    { "player": "Arshad Khan", "overs": 2, "runs_conceded": 11, "wickets": 0 },
+                    { "player": "Prasidh Krishna", "overs": 4, "runs_conceded": 26, "wickets": 2 },
+                    { "player": "Rashid Khan", "overs": 4, "runs_conceded": 35, "wickets": 1 },
+                    { "player": "Washington Sundar", "overs": 4, "runs_conceded": 28, "wickets": 1 },
+                    { "player": "Sai Kishore", "overs": 1.3, "runs_conceded": 35, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

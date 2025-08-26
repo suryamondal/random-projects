@@ -1,0 +1,43 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-20",
+        "venue": "Narendra Modi Stadium, Ahmedabad",
+        "result": "Gujarat Titans won by 10 wickets",
+        "innings": [
+            {
+                "team_batting": "Delhi Capitals",
+                "batting": [
+                    { "player": "Faf du Plessis", "runs": 5, "balls": 10, "wicket": "Arshad Khan" },
+                    { "player": "Rahul Tripathi", "runs": 112, "balls": 65, "wicket": "" },
+                    { "player": "Abishek Porel", "runs": 30, "balls": 19, "wicket": "Ravisrinivasan Sai Kishore" },
+                    { "player": "Axar Patel", "runs": 25, "balls": 16, "wicket": "Prasidh Krishna" },
+                    { "player": " Tristan Stubbs", "runs": 21, "balls": 10, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mohammed Siraj", "overs": 4, "runs_conceded": 37, "wickets": 0 },
+                    { "player": "Arshad Khan", "overs": 2, "runs_conceded": 7, "wickets": 1 },
+                    { "player": "Kagiso Rabada", "overs": 2, "runs_conceded": 34, "wickets": 0 },
+                    { "player": "Prasidh Krishna", "overs": 4, "runs_conceded": 40, "wickets": 1 },
+                    { "player": "Rashid Khan", "overs": 4, "runs_conceded": 32, "wickets": 0 },
+                    { "player": "Ravisrinivasan Sai Kishore", "overs": 4, "runs_conceded": 47, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Gujarat Titans",
+                "batting": [
+                    { "player": "Sai Sudharsan", "runs": 108, "balls": 61, "wicket": "" },
+                    { "player": "Shubman Gill", "runs": 93, "balls": 53, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Axar Patel", "overs": 3, "runs_conceded": 35, "wickets": 0 },
+                    { "player": "T. Natarajan", "overs": 3, "runs_conceded": 49, "wickets": 0 },
+                    { "player": "Mustafizur Rahman", "overs": 3, "runs_conceded": 24, "wickets": 0 },
+                    { "player": "Dushmantha Chameera", "overs": 2, "runs_conceded": 22, "wickets": 0 },
+                    { "player": "Vipraj Nigam", "overs": 4, "runs_conceded": 37, "wickets": 0 },
+                    { "player": "Kuldeep Yadav", "overs": 4, "runs_conceded": 37, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

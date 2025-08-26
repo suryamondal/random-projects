@@ -1,0 +1,55 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-25",
+        "venue": "Narendra Modi Stadium, Ahmedabad",
+        "result": "Chennai Super Kings won by 83 runs",
+        "innings": [
+            {
+                "team_batting": "Chennai Super Kings",
+                "batting": [
+                    { "player": "Ayush Mhatre", "runs": 34, "balls": 17, "wicket": "Mohammed Siraj" },
+                    { "player": "Devon Conway", "runs": 52, "balls": 35, "wicket": "Rashid Khan" },
+                    { "player": "Urvil Patel", "runs": 37, "balls": 19, "wicket": "Ravisrinivasan Sai Kishore" },
+                    { "player": "Shivam Dube", "runs": 17, "balls": 8, "wicket": "Shahrukh Khan" },
+                    { "player": "Dewald Brevis", "runs": 57, "balls": 23, "wicket": "Prasidh Krishna" },
+                    { "player": "Ravindra Jadeja", "runs": 21, "balls": 18, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mohammed Siraj", "overs": 4, "runs_conceded": 47, "wickets": 0 },
+                    { "player": "Arshad Khan", "overs": 2, "runs_conceded": 42, "wickets": 0 },
+                    { "player": "Prasidh Krishna", "overs": 4, "runs_conceded": 22, "wickets": 2 },
+                    { "player": "Gerald Coetzee", "overs": 3, "runs_conceded": 34, "wickets": 0 },
+                    { "player": "Ravisrinivasan Sai Kishore", "overs": 2, "runs_conceded": 23, "wickets": 1 },
+                    { "player": "Rashid Khan", "overs": 4, "runs_conceded": 42, "wickets": 1 },
+                    { "player": "Shahrukh Khan", "overs": 1, "runs_conceded": 13, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Gujarat Titans",
+                "batting": [
+                    { "player": "Sai Sudharsan", "runs": 41, "balls": 28, "wicket": "Ravindra Jadeja" },
+                    { "player": "Shubman Gill", "runs": 13, "balls": 9, "wicket": "Anshul Kamboj" },
+                    { "player": "Jos Buttler", "runs": 5, "balls": 7, "wicket": "Khaleel Ahmed" },
+                    { "player": "Sherfane Rutherford", "runs": 0, "balls": 4, "wicket": "Anshul Kamboj" },
+                    { "player": "Shahrukh Khan", "runs": 19, "balls": 15, "wicket": "Ravindra Jadeja" },
+                    { "player": "Rahul Tewatia", "runs": 14, "balls": 10, "wicket": "Noor Ahmad" },
+                    { "player": "Rashid Khan", "runs": 12, "balls": 8, "wicket": "Noor Ahmad" },
+                    { "player": "Gerald Coetzee", "runs": 5, "balls": 5, "wicket": "Matheesha Pathirana" },
+                    { "player": "Arshad Khan", "runs": 20, "balls": 14, "wicket": "Noor Ahmad" },
+                    { "player": "Ravisrinivasan Sai Kishore", "runs": 3, "balls": 7, "wicket": "Anshul Kamboj" },
+                    { "player": "Mohammed Siraj", "runs": 3, "balls": 4, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Ravindra Jadeja", "overs": 3, "runs_conceded": 17, "wickets": 2 },
+                    { "player": "Khaleel Ahmed", "overs": 3, "runs_conceded": 17, "wickets": 1 },
+                    { "player": "Anshul Kamboj", "overs": 2.3, "runs_conceded": 13, "wickets": 3 },
+                    { "player": "Shivam Dube", "overs": 2, "runs_conceded": 33, "wickets": 0 },
+                    { "player": "Noor Ahmad", "overs": 4, "runs_conceded": 21, "wickets": 3 },
+                    { "player": "Matheesha Pathirana", "overs": 3, "runs_conceded": 29, "wickets": 1 },
+                    { "player": "Deepak Hooda", "overs": 1, "runs_conceded": 15, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

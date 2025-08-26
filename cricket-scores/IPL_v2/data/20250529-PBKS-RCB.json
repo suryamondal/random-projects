@@ -1,0 +1,34 @@
+{
+    "version": "2",
+    "match": {
+        "format": "T20",
+        "date": "2025-06-03",
+        "venue": "Narendra Modi Stadium, Ahmedabad",
+        "stat": [
+            { "player": "Shuyash Sharma", "score": 137, "team": "Royal Challengers Bengaluru" },
+            { "player": "Phil Salt", "score": 116, "team": "Royal Challengers Bengaluru" },
+            { "player": "Josh Hazlewood", "score": 110, "team": "Royal Challengers Bengaluru" },
+            { "player": "Yash Dayal", "score": 85, "team": "Royal Challengers Bengaluru" },
+            { "player": "Marcus Stoinis", "score": 58, "team": "Punjab Kings" },
+            { "player": "Kyle Jamieson", "score": 55, "team": "Punjab Kings" },
+            { "player": "Bhuvneshwar Kumar", "score": 47, "team": "Royal Challengers Bengaluru" },
+            { "player": "Romario Shepherd", "score": 46, "team": "Royal Challengers Bengaluru" },
+            { "player": "Prabhsimran Singh", "score": 42, "team": "Punjab Kings" },
+            { "player": "Mayank Agarwal", "score": 39, "team": "Royal Challengers Bengaluru" },
+            { "player": "Azmatullah Omarzai", "score": 37, "team": "Punjab Kings" },
+            { "player": "Jitesh Sharma", "score": 32, "team": "Royal Challengers Bengaluru" },
+            { "player": "Rajat Patidar", "score": 29, "team": "Royal Challengers Bengaluru" },
+            { "player": "Masheer Khan", "score": 27, "team": "Punjab Kings" },
+            { "player": "Virat Kohli", "score": 24, "team": "Royal Challengers Bengaluru" },
+            { "player": "Josh Inglis", "score": 16, "team": "Punjab Kings" },
+            { "player": "Nehal Wadhera", "score": 16, "team": "Punjab Kings" },
+            { "player": "Priyansh Arya", "score": 15, "team": "Punjab Kings" },
+            { "player": "Krunal Pandya", "score": 14, "team": "Royal Challengers Bengaluru" },
+            { "player": "Shreyas Iyer", "score": 14, "team": "Punjab Kings" },
+            { "player": "Harpreet Brar", "score": 10, "team": "Punjab Kings" },
+            { "player": "Shashank Singh", "score": 7, "team": "Punjab Kings" },
+            { "player": "Arshdeep Singh", "score": 5, "team": "Punjab Kings" },
+            { "player": "Liam Livingstone", "score": 4, "team": "Royal Challengers Bengaluru" }
+        ]
+    }
+}

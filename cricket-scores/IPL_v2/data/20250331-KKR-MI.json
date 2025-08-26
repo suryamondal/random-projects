@@ -1,0 +1,50 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-03-31",
+        "venue": "Wankhede Stadium, Mumbai",
+        "result": "Mumbai Indians won by 8 wickets",
+        "innings": [
+            {
+                "team_batting": "Kolkata Knight Riders",
+                "batting": [
+                    { "player": "Quinton de Kock", "runs": 1, "balls": 3, "wicket_by": "Deepak Chahar" },
+                    { "player": "Sunil Narine", "runs": 0, "balls": 2, "wicket_by": "Trent Boult" },
+                    { "player": "Ajinkya Rahane", "runs": 11, "balls": 7, "wicket_by": "Ashwani Kumar" },
+                    { "player": "Angkrish Raghuvanshi", "runs": 26, "balls": 16, "wicket_by": "Hardik Pandya" },
+                    { "player": "Venkatesh Iyer", "runs": 3, "balls": 9, "wicket_by": "Deepak Chahar" },
+                    { "player": "Rinku Singh", "runs": 17, "balls": 14, "wicket_by": "Ashwani Kumar" },
+                    { "player": "Manish Pandey", "runs": 19, "balls": 14, "wicket_by": "Ashwani Kumar" },
+                    { "player": "Andre Russell", "runs": 5, "balls": 11, "wicket_by": "Ashwani Kumar" },
+                    { "player": "Ramandeep Singh", "runs": 22, "balls": 12, "wicket_by": "Mitchell Santner" },
+                    { "player": "Harshit Rana", "runs": 4, "balls": 8, "wicket_by": "Vignesh Puthur" },
+                    { "player": "Spencer Johnson", "runs": 1, "balls": 3, "wicket_by": "not out" }
+                ],
+                "bowling": [
+                    { "player": "Trent Boult", "overs": 4, "runs_conceded": 23, "wickets": 1 },
+                    { "player": "Deepak Chahar", "overs": 2, "runs_conceded": 19, "wickets": 2 },
+                    { "player": "Ashwani Kumar", "overs": 3, "runs_conceded": 24, "wickets": 4 },
+                    { "player": "Hardik Pandya", "overs": 2, "runs_conceded": 10, "wickets": 1 },
+                    { "player": "Vignesh Puthur", "overs": 2, "runs_conceded": 21, "wickets": 1 },
+                    { "player": "Mitchell Santner", "overs": 3.2, "runs_conceded": 17, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Mumbai Indians",
+                "batting": [
+                    { "player": "Rohit Sharma", "runs": 13, "balls": 12, "wicket_by": "Andre Russell" },
+                    { "player": "Ryan Rickelton", "runs": 62, "balls": 41, "wicket_by": "not out" },
+                    { "player": "Will Jacks", "runs": 16, "balls": 17, "wicket_by": "Andre Russell" },
+                    { "player": "Suryakumar Yadav", "runs": 27, "balls": 9, "wicket_by": "not out" }
+                ],
+                "bowling": [
+                    { "player": "Spencer Johnson", "overs": 2, "runs_conceded": 14, "wickets": 0 },
+                    { "player": "Harshit Rana", "overs": 2, "runs_conceded": 28, "wickets": 0 },
+                    { "player": "Varun Chakaravarthy", "overs": 3, "runs_conceded": 12, "wickets": 0 },
+                    { "player": "Andre Russell", "overs": 2.5, "runs_conceded": 35, "wickets": 2 },
+                    { "player": "Sunil Narine", "overs": 3, "runs_conceded": 33, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

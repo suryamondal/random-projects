@@ -1,0 +1,49 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-01",
+        "venue": "Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",
+        "result": "Punjab Kings won by 8 wickets",
+        "innings": [
+            {
+                "team_batting": "Lucknow Super Giants",
+                "batting": [
+                    {"player": "Aiden Markram", "runs": 28, "balls": 18, "wickets_by": "Lockie Ferguson"},
+                    {"player": "Mitchell Marsh", "runs": 0, "balls": 1, "wickets_by": "Arshdeep Singh"},
+                    {"player": "Nicholas Pooran", "runs": 44, "balls": 30, "wickets_by": "Yuzvendra Chahal"},
+                    {"player": "Rishabh Pant", "runs": 2, "balls": 5, "wickets_by": "Glenn Maxwell"},
+                    {"player": "Ayush Badoni", "runs": 41, "balls": 33, "wickets_by": "Arshdeep Singh"},
+                    {"player": "David Miller", "runs": 19, "balls": 18, "wickets_by": "Marco Jansen"},
+                    {"player": "Abdul Samad", "runs": 27, "balls": 12, "wickets_by": "Arshdeep Singh"},
+                    {"player": "Shardul Thakur", "runs": 3, "balls": 3, "wickets_by": ""},
+                    {"player": "Avesh Khan", "runs": 0, "balls": 0, "wickets_by": ""}
+                ],
+                "bowling": [
+                    {"player": "Arshdeep Singh", "overs": 4, "runs_conceded": 43, "wickets": 3},
+                    {"player": "Lockie Ferguson", "overs": 3, "runs_conceded": 26, "wickets": 1},
+                    {"player": "Glenn Maxwell", "overs": 3, "runs_conceded": 22, "wickets": 1},
+                    {"player": "Marco Jansen", "overs": 4, "runs_conceded": 28, "wickets": 1},
+                    {"player": "Marcus Stoinis", "overs": 2, "runs_conceded": 15, "wickets": 0},
+                    {"player": "Yuzvendra Chahal", "overs": 4, "runs_conceded": 36, "wickets": 1}
+                ]
+            },
+            {
+                "team_batting": "Punjab Kings",
+                "batting": [
+                    {"player": "Priyansh Arya", "runs": 8, "balls": 9, "wickets_by": "Digvesh Singh Rathi"},
+                    {"player": "Prabhsimran Singh", "runs": 69, "balls": 34, "wickets_by": "Digvesh Singh Rathi"},
+                    {"player": "Shreyas Iyer", "runs": 52, "balls": 25, "wickets_by": ""},
+                    {"player": "Nehal Wadhera", "runs": 43, "balls": 25, "wickets_by": ""}
+                ],
+                "bowling": [
+                    {"player": "Shardul Thakur", "overs": 3, "runs_conceded": 39, "wickets": 0},
+                    {"player": "Avesh Khan", "overs": 3, "runs_conceded": 30, "wickets": 0},
+                    {"player": "Digvesh Singh Rathi", "overs": 4, "runs_conceded": 30, "wickets": 2},
+                    {"player": "Ravi Bishnoi", "overs": 3, "runs_conceded": 43, "wickets": 0},
+                    {"player": "Manimaran Siddharth", "overs": 3, "runs_conceded": 28, "wickets": 0},
+                    {"player": "Abdul Samad", "overs": 0.2, "runs_conceded": 6, "wickets": 0}
+                ]
+            }
+        ]
+    }
+}

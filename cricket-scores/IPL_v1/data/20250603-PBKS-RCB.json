@@ -1,0 +1,54 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-06-03",
+        "venue": "Narendra Modi Stadium, Ahmedabad",
+        "result": "Royal Challengers Bengaluru won by 6 runs",
+        "innings": [
+            {
+                "team_batting": "Royal Challengers Bengaluru",
+                "batting": [
+                    { "player": "Philip Salt", "runs": 16, "balls": 9, "wicket": "Kyle Jamieson" },
+                    { "player": "Virat Kohli", "runs": 43, "balls": 35, "wicket": "Azmatullah Omarzai" },
+                    { "player": "Mayank Agarwal", "runs": 24, "balls": 18, "wicket": "Yuzvendra Chahal" },
+                    { "player": "Rajat Patidar", "runs": 26, "balls": 16, "wicket": "Kyle Jamieson" },
+                    { "player": "Liam Livingstone", "runs": 25, "balls": 15, "wicket": "Kyle Jamieson" },
+                    { "player": "Jitesh Sharma", "runs": 24, "balls": 10, "wicket": "Vijaykumar Vyshak" },
+                    { "player": "Romario Shepherd", "runs": 17, "balls": 9, "wicket": "Arshdeep Singh" },
+                    { "player": "Krunal Pandya", "runs": 4, "balls": 5, "wicket": "Arshdeep Singh" },
+                    { "player": "Bhuvneshwar Kumar", "runs": 1, "balls": 2, "wicket": "Arshdeep Singh" },
+                    { "player": "Yash Dayal", "runs": 1, "balls": 1, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Arshdeep Singh", "overs": 4, "runs_conceded": 30, "wickets": 3 },
+                    { "player": "Kyle Jamieson", "overs": 4, "runs_conceded": 48, "wickets": 3 },
+                    { "player": "Azmatullah Omarzai", "overs": 4, "runs_conceded": 35, "wickets": 1 },
+                    { "player": "Vijaykumar Vyshak", "overs": 4, "runs_conceded": 30, "wickets": 1 },
+                    { "player": "Yuzvendra Chahal", "overs": 4, "runs_conceded": 37, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Punjab Kings",
+                "batting": [
+                    { "player": "Priyansh Arya", "runs": 24, "balls": 19, "wicket": "Josh Hazlewood" },
+                    { "player": "Prabhsimran Singh", "runs": 26, "balls": 22, "wicket": "Krunal Pandya" },
+                    { "player": "Josh Inglis", "runs": 39, "balls": 23, "wicket": "Krunal Pandya" },
+                    { "player": "Shreyas Iyer", "runs": 1, "balls": 2, "wicket": "Romario Shepherd" },
+                    { "player": "Nehal Wadhera", "runs": 15, "balls": 8, "wicket": "Bhuvneshwar Kumar" },
+                    { "player": "Shashank Singh", "runs": 61, "balls": 30, "wicket": "" },
+                    { "player": "Marcus Stoinis", "runs": 6, "balls": 2, "wicket": "Bhuvneshwar Kumar" },
+                    { "player": "Azmatullah Omarzai", "runs": 1, "balls": 2, "wicket": "Yash Dayal" },
+                    { "player": "Kyle Jamieson", "runs": 0, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Bhuvneshwar Kumar", "overs": 4, "runs_conceded": 38, "wickets": 2 },
+                    { "player": "Yash Dayal", "overs": 3, "runs_conceded": 18, "wickets": 1 },
+                    { "player": "Josh Hazlewood", "overs": 4, "runs_conceded": 54, "wickets": 1 },
+                    { "player": "Krunal Pandya", "overs": 4, "runs_conceded": 17, "wickets": 2 },
+                    { "player": "Suyash Sharma", "overs": 2, "runs_conceded": 19, "wickets": 0 },
+                    { "player": "Romario Shepherd", "overs": 3, "runs_conceded": 30, "wickets": 1 }
+                ]
+            }
+        ]
+    }
+}

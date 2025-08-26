@@ -1,0 +1,51 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-19",
+        "venue": "Narendra Modi Stadium, Ahmedabad",
+        "result": "Gujarat Titans won by 7 wickets",
+        "innings": [
+            {
+                "team_batting": "Delhi Capitals",
+                "batting": [
+                    { "player": "Abishek Porel", "runs": 18, "balls": 9, "wicket": "Arshad Khan" },
+                    { "player": "Karun Nair", "runs": 31, "balls": 18, "wicket": "Prasidh Krishna" },
+                    { "player": "KL Rahul", "runs": 28, "balls": 14, "wicket": "Prasidh Krishna" },
+                    { "player": "Axar Patel", "runs": 39, "balls": 32, "wicket": "Prasidh Krishna" },
+                    { "player": "Tristan Stubbs", "runs": 31, "balls": 21, "wicket": "Mohammed Siraj" },
+                    { "player": "Ashutosh Sharma", "runs": 37, "balls": 19, "wicket": "Sai Kishore" },
+                    { "player": "Vipraj Nigam", "runs": 0, "balls": 1, "wicket": "Prasidh Krishna" },
+                    { "player": "Donovan Ferreira", "runs": 1, "balls": 3, "wicket": "Ishant Sharma" },
+                    { "player": "Mitchell Starc", "runs": 2, "balls": 2, "wicket": "" },
+                    { "player": "Kuldeep Yadav", "runs": 4, "balls": 1, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mohammed Siraj", "overs": 4, "runs_conceded": 47, "wickets": 1 },
+                    { "player": "Arshad Khan", "overs": 4, "runs_conceded": 46, "wickets": 1 },
+                    { "player": "Prasidh Krishna", "overs": 4, "runs_conceded": 41, "wickets": 4 },
+                    { "player": "Rashid Khan", "overs": 4, "runs_conceded": 38, "wickets": 0 },
+                    { "player": "Ishant Sharma", "overs": 3, "runs_conceded": 19, "wickets": 1 },
+                    { "player": "Sai Kishore", "overs": 1, "runs_conceded": 9, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Gujarat Titans",
+                "batting": [
+                    { "player": "Sai Sudharsan", "runs": 36, "balls": 21, "wicket": "Kuldeep Yadav" },
+                    { "player": "Shubman Gill", "runs": 7, "balls": 5, "wicket": "run out" },
+                    { "player": "Jos Buttler", "runs": 97, "balls": 54, "wicket": "" },
+                    { "player": "Sherfane Rutherford", "runs": 43, "balls": 34, "wicket": "Mukesh Kumar" },
+                    { "player": "Rahul Tewatia", "runs": 11, "balls": 3, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mitchell Starc", "overs": 3.2, "runs_conceded": 49, "wickets": 0 },
+                    { "player": "Mukesh Kumar", "overs": 4, "runs_conceded": 40, "wickets": 1 },
+                    { "player": "Axar Patel", "overs": 2, "runs_conceded": 18, "wickets": 0 },
+                    { "player": "Vipraj Nigam", "overs": 4, "runs_conceded": 34, "wickets": 0 },
+                    { "player": "Kuldeep Yadav", "overs": 4, "runs_conceded": 30, "wickets": 1 },
+                    { "player": "Mohit Sharma", "overs": 2, "runs_conceded": 30, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}

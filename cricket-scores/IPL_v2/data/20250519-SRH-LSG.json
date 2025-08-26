@@ -1,0 +1,53 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-19",
+        "venue": "Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow",
+        "result": "Sunrisers Hyderabad won by 6 wickets",
+        "innings": [
+            {
+                "team_batting": "Lucknow Super Giants",
+                "batting": [
+                    { "player": "Mitchell Marsh", "runs": 65, "balls": 39, "wicket": "Harsh Dubey" },
+                    { "player": "Aiden Markram", "runs": 61, "balls": 38, "wicket": "Harshal Patel" },
+                    { "player": "Rishabh Pant", "runs": 7, "balls": 6, "wicket": "Eshan Malinga" },
+                    { "player": "Nicholas Pooran", "runs": 45, "balls": 26, "wicket": "run out" },
+                    { "player": "Ayush Badoni", "runs": 3, "balls": 5, "wicket": "Eshan Malinga" },
+                    { "player": "Abdul Samad", "runs": 3, "balls": 6, "wicket": "Nitish Kumar Reddy" },
+                    { "player": "Shardul Thakur", "runs": 4, "balls": 1, "wicket": "run out" },
+                    { "player": "Ravi Bishnoi", "runs": 0, "balls": 0, "wicket": "" },
+                    { "player": "Akash Deep", "runs": 6, "balls": 1, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Pat Cummins", "overs": 4, "runs_conceded": 34, "wickets": 0 },
+                    { "player": "Harsh Dubey", "overs": 4, "runs_conceded": 41, "wickets": 1 },
+                    { "player": "Harshal Patel", "overs": 4, "runs_conceded": 49, "wickets": 1 },
+                    { "player": "Eshan Malinga", "overs": 4, "runs_conceded": 28, "wickets": 2 },
+                    { "player": "Zeeshan Ansari", "overs": 2, "runs_conceded": 22, "wickets": 0 },
+                    { "player": "Nitish Kumar Reddy", "overs": 2, "runs_conceded": 28, "wickets": 1 }
+                ]
+            },
+            {
+                "team_batting": "Sunrisers Hyderabad",
+                "batting": [
+                    { "player": "Atharva Taide", "runs": 13, "balls": 9, "wicket": "William O’Rourke" },
+                    { "player": "Abhishek Sharma", "runs": 59, "balls": 20, "wicket": "Digvesh Singh Rathi" },
+                    { "player": "Ishan Kishan", "runs": 35, "balls": 28, "wicket": "Digvesh Singh Rathi" },
+                    { "player": "Heinrich Klaasen", "runs": 47, "balls": 28, "wicket": "Shardul Thakur" },
+                    { "player": "Kamindu Mendis", "runs": 32, "balls": 21, "wicket": "" },
+                    { "player": "Aniket Verma", "runs": 5, "balls": 2, "wicket": "" },
+                    { "player": "Nitish Kumar Reddy", "runs": 5, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Akash Deep", "overs": 3, "runs_conceded": 33, "wickets": 0 },
+                    { "player": "William O’Rourke", "overs": 2.2, "runs_conceded": 31, "wickets": 1 },
+                    { "player": "Digvesh Rathi", "overs": 4, "runs_conceded": 37, "wickets": 2 },
+                    { "player": "Avesh Khan", "overs": 3, "runs_conceded": 25, "wickets": 0 },
+                    { "player": "Ravi Bishnoi", "overs": 1, "runs_conceded": 26, "wickets": 0 },
+                    { "player": "Aiden Markram", "overs": 1, "runs_conceded": 14, "wickets": 0 },
+                    { "player": "Shardul Thakur", "overs": 4, "runs_conceded": 39, "wickets": 1 }
+                ]
+            }
+        ]
+    }
+}

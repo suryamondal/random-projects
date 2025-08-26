@@ -1,0 +1,49 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-02",
+        "venue": "M.Chinnaswamy Stadium, Bengaluru",
+        "result": "Gujarat Titans won by 8 wickets",
+        "innings": [
+            {
+                "team_batting": "Royal Challengers Bengaluru",
+                "batting": [
+                    {"player": "Philip Salt", "runs": 14, "balls": 13, "wicket": "Mohammed Siraj"},
+                    {"player": "Virat Kohli", "runs": 7, "balls": 6, "wicket": "Arshad Khan"},
+                    {"player": "Devdutt Padikkal", "runs": 4, "balls": 3, "wicket": "Mohammed Siraj"},
+                    {"player": "Rajat Patidar", "runs": 12, "balls": 12, "wicket": "Ishant Sharma"},
+                    {"player": "Liam Livingstone", "runs": 54, "balls": 40, "wicket": "Mohammed Siraj"},
+                    {"player": "Jitesh Sharma", "runs": 33, "balls": 21, "wicket": "Sai Kishore"},
+                    {"player": "Krunal Pandya", "runs": 5, "balls": 5, "wicket": "Sai Kishore"},
+                    {"player": "Tim David", "runs": 32, "balls": 18, "wicket": "Prasidh Krishna"},
+                    {"player": "Bhuvneshwar Kumar", "runs": 1, "balls": 2, "wicket": ""}
+                ],
+                "bowling": [
+                    {"player": "Mohammed Siraj", "overs": 4, "runs_conceded": 19, "wickets": 3},
+                    {"player": "Arshad Khan", "overs": 2, "runs_conceded": 17, "wickets": 1},
+                    {"player": "Prasidh Krishna", "overs": 4, "runs_conceded": 26, "wickets": 1},
+                    {"player": "Ishant Sharma", "overs": 2, "runs_conceded": 27, "wickets": 1},
+                    {"player": "Sai Kishore", "overs": 4, "runs_conceded": 22, "wickets": 2},
+                    {"player": "Rashid Khan", "overs": 4, "runs_conceded": 54, "wickets": 0}
+                ]
+            },
+            {
+                "team_batting": "Gujarat Titans",
+                "batting": [
+                    {"player": "Sai Sudharsan", "runs": 49, "balls": 36, "wicket": "Josh Hazlewood"},
+                    {"player": "Shubman Gill", "runs": 14, "balls": 14, "wicket": "Bhuvneshwar Kumar"},
+                    {"player": "Jos Buttler", "runs": 73, "balls": 39, "wicket": ""},
+                    {"player": "Sherfane Rutherford", "runs": 30, "balls": 18, "wicket": ""}
+                ],
+                "bowling": [
+                    {"player": "Bhuvneshwar Kumar", "overs": 4, "runs_conceded": 23, "wickets": 1},
+                    {"player": "Josh Hazlewood", "overs": 3.5, "runs_conceded": 43, "wickets": 1},
+                    {"player": "Yash Dayal", "overs": 3, "runs_conceded": 20, "wickets": 0},
+                    {"player": "Rasikh Dar Salam", "overs": 3, "runs_conceded": 35, "wickets": 0},
+                    {"player": "Krunal Pandya", "overs": 3, "runs_conceded": 34, "wickets": 0},
+                    {"player": "Liam Livingstone", "overs": 1, "runs_conceded": 12, "wickets": 0}
+                ]
+            }
+        ]
+    }
+}

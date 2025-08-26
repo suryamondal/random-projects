@@ -1,0 +1,56 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-04-27",
+        "venue": "Wankhede Stadium, Mumbai",
+        "result": "Mumbai Indians won by 54 runs",
+        "innings": [
+            {
+                "team_batting": "Mumbai Indians",
+                "batting": [
+                    { "player": "Ryan Rickelton", "runs": 58, "balls": 32, "wicket": "Digvesh Singh Rathi" },
+                    { "player": "Rohit Sharma", "runs": 12, "balls": 5, "wicket": "Mayank Yadav" },
+                    { "player": "Will Jacks", "runs": 29, "balls": 21, "wicket": "Prince Yadav" },
+                    { "player": "Suryakumar Yadav", "runs": 54, "balls": 28, "wicket": "Avesh Khan" },
+                    { "player": "Tilak Varma", "runs": 6, "balls": 5, "wicket": "Ravi Bishnoi" },
+                    { "player": "Hardik Pandya", "runs": 5, "balls": 7, "wicket": "Mayank Yadav" },
+                    { "player": "Naman Dhir", "runs": 25, "balls": 11, "wicket": "" },
+                    { "player": "Corbin Bosch", "runs": 20, "balls": 10, "wicket": "Avesh Khan" },
+                    { "player": "Deepak Chahar", "runs": 1, "balls": 1, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mayank Yadav", "overs": 4, "runs_conceded": 40, "wickets": 2 },
+                    { "player": "Prince Yadav", "overs": 4, "runs_conceded": 44, "wickets": 1 },
+                    { "player": "Digvesh Singh Rathi", "overs": 4, "runs_conceded": 48, "wickets": 1 },
+                    { "player": "Ravi Bishnoi", "overs": 4, "runs_conceded": 41, "wickets": 1 },
+                    { "player": "Avesh Khan", "overs": 4, "runs_conceded": 42, "wickets": 2 }
+                ]
+            },
+            {
+                "team_batting": "Lucknow Super Giants",
+                "batting": [
+                    { "player": "Mitchell Marsh", "runs": 34, "balls": 24, "wicket": "Trent Boult" },
+                    { "player": "Aiden Markram", "runs": 9, "balls": 11, "wicket": "Jasprit Bumrah" },
+                    { "player": "Nicholas Pooran", "runs": 27, "balls": 15, "wicket": "Will Jacks" },
+                    { "player": "Rishabh Pant", "runs": 4, "balls": 2, "wicket": "Will Jacks" },
+                    { "player": "Ayush Badoni", "runs": 35, "balls": 22, "wicket": "Will Jacks" },
+                    { "player": "David Miller", "runs": 24, "balls": 16, "wicket": "Jasprit Bumrah" },
+                    { "player": "Abdul Samad", "runs": 2, "balls": 4, "wicket": "Jasprit Bumrah" },
+                    { "player": "Ravi Bishnoi", "runs": 13, "balls": 14, "wicket": "Corbin Bosch" },
+                    { "player": "Avesh Khan", "runs": 0, "balls": 1, "wicket": "Jasprit Bumrah" },
+                    { "player": "Prince Yadav", "runs": 4, "balls": 9, "wicket": "" },
+                    { "player": "Digvesh Singh Rathi", "runs": 1, "balls": 3, "wicket": "Trent Boult" }
+                ],
+                "bowling": [
+                    { "player": "Trent Boult", "overs": 4, "runs_conceded": 20, "wickets": 3 },
+                    { "player": "Deepak Chahar", "overs": 3, "runs_conceded": 38, "wickets": 0 },
+                    { "player": "Jasprit Bumrah", "overs": 4, "runs_conceded": 22, "wickets": 4 },
+                    { "player": "Will Jacks", "overs": 2, "runs_conceded": 18, "wickets": 2 },
+                    { "player": "Karn Sharma", "overs": 2, "runs_conceded": 25, "wickets": 0 },
+                    { "player": "Hardik Pandya", "overs": 1, "runs_conceded": 10, "wickets": 0 },
+                    { "player": "Corbin Bosch", "overs": 4, "runs_conceded": 26, "wickets": 1 }
+                ]
+            }
+        ]
+    }
+}

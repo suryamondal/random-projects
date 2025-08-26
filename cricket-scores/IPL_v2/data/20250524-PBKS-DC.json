@@ -1,0 +1,51 @@
+{
+    "match": {
+        "format": "T20",
+        "date": "2025-05-24",
+        "venue": "Sawai Mansingh Stadium, Jaipur",
+        "result": "Delhi Capitals won by 6 wickets",
+        "innings": [
+            {
+                "team_batting": "Punjab Kings",
+                "batting": [
+                    { "player": "Priyansh Arya", "runs": 6, "balls": 9, "wicket": "Mustafizur Rahman" },
+                    { "player": "Prabhsimran Singh", "runs": 28, "balls": 18, "wicket": "Vipraj Nigam" },
+                    { "player": "Josh Inglis", "runs": 32, "balls": 12, "wicket": "Vipraj Nigam" },
+                    { "player": "Shreyas Iyer", "runs": 53, "balls": 34, "wicket": "Kuldeep Yadav" },
+                    { "player": "Nehal Wadhera", "runs": 16, "balls": 16, "wicket": "Mukesh Kumar" },
+                    { "player": "Shashank Singh", "runs": 11, "balls": 10, "wicket": "Mustafizur Rahman" },
+                    { "player": "Marcus Stoinis", "runs": 44, "balls": 16, "wicket": "" },
+                    { "player": "Azmatullah Omarzai", "runs": 1, "balls": 3, "wicket": "Kuldeep Yadav" },
+                    { "player": "Marco Jansen", "runs": 0, "balls": 2, "wicket": "Mustafizur Rahman" },
+                    { "player": "Harpreet Brar", "runs": 7, "balls": 2, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Mukesh Kumar", "overs": 4, "runs_conceded": 49, "wickets": 1 },
+                    { "player": "Mustafizur Rahman", "overs": 4, "runs_conceded": 33, "wickets": 3 },
+                    { "player": "Mohit Sharma", "overs": 4, "runs_conceded": 47, "wickets": 0 },
+                    { "player": "Vipraj Nigam", "overs": 4, "runs_conceded": 38, "wickets": 2 },
+                    { "player": "Kuldeep Yadav", "overs": 4, "runs_conceded": 39, "wickets": 2 }
+                ]
+            },
+            {
+                "team_batting": "Delhi Capitals",
+                "batting": [
+                    { "player": "KL Rahul", "runs": 35, "balls": 21, "wicket": "Marco Jansen" },
+                    { "player": "Faf du Plessis", "runs": 23, "balls": 15, "wicket": "Harpreet Brar" },
+                    { "player": "Karun Nair", "runs": 44, "balls": 27, "wicket": "Harpreet Brar" },
+                    { "player": "Sediqullah Atal", "runs": 22, "balls": 16, "wicket": "Praveen Dubey" },
+                    { "player": "Sameer Rizvi", "runs": 58, "balls": 25, "wicket": "" },
+                    { "player": "Tristan Stubbs", "runs": 18, "balls": 14, "wicket": "" }
+                ],
+                "bowling": [
+                    { "player": "Arshdeep Singh", "overs": 4, "runs_conceded": 35, "wickets": 0 },
+                    { "player": "Azmatullah Omarzai", "overs": 4, "runs_conceded": 46, "wickets": 0 },
+                    { "player": "Harpreet Brar", "overs": 4, "runs_conceded": 41, "wickets": 2 },
+                    { "player": "Marco Jansen", "overs": 4, "runs_conceded": 41, "wickets": 1 },
+                    { "player": "Praveen Dubey", "overs": 2, "runs_conceded": 20, "wickets": 1 },
+                    { "player": "Marcus Stoinis", "overs": 1.3, "runs_conceded": 21, "wickets": 0 }
+                ]
+            }
+        ]
+    }
+}
