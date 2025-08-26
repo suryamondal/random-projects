@@ -2,12 +2,15 @@ import basf2 as b2
 import gpxpy
 import gpxpy.gpx
 import argparse
+import json
+import datetime
 
+import ROOT
 # from ROOT import TH1F
 
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument("--input-gpx", type=str, nargs="+",
-                    default=["text.gpx"], help="input GPX file(s)")
+parser.add_argument("--input-gpx", type=str, default="test.json",
+                    help="names of input GPX file(s) in json set.")
 args = parser.parse_args()
 b2.B2INFO(f"Steering file args = {args}")
 
@@ -58,9 +61,46 @@ def parse_gpx(file_paths):
         # Store padded value
         timeStampsEachSecond.append(t)  # relative seconds
         distancesEachSecond.append(last_distance)
-        print(timeStampsEachSecond[-1], distancesEachSecond[-1])
+        # print(timeStampsEachSecond[-1], distancesEachSecond[-1])
 
     return timeStampsEachSecond, distancesEachSecond
 
+with open(args.input_gpx, "r") as f:
+    input_json = json.load(f)
+track_list = input_json["Tracks"]
 
-parse_gpx(sorted(args.input_gpx))
+mg = ROOT.TMultiGraph()
+
+gcnt = 1
+for track in track_list:
+    timeStampsEachSecond, distancesEachSecond = parse_gpx(sorted(track))
+    if not timeStampsEachSecond:
+        continue
+
+    # Convert to C-style arrays
+    n = len(timeStampsEachSecond)
+    g = ROOT.TGraph(n)
+    g.SetMarkerStyle(20)
+    g.SetMarkerSize(0)
+    g.SetMarkerColor(gcnt)
+    g.SetLineWidth(2)
+    g.SetLineColor(gcnt)
+    gcnt += 1
+
+    # get midnight of first timestamp
+    first_dt = datetime.datetime.fromtimestamp(timeStampsEachSecond[0])
+    midnight = first_dt.replace(hour=0, minute=0, second=0, microsecond=0)
+    midnight_ts = int(midnight.timestamp())
+
+    # fill the graph
+    for i in range(n):
+        sec_of_day = timeStampsEachSecond[i] - midnight_ts
+        g.SetPoint(i, sec_of_day, distancesEachSecond[i])
+
+    mg.Add(g, "LP")
+
+mg.Draw("A")
+xaxis = mg.GetXaxis()
+xaxis.SetTimeDisplay(1)
+xaxis.SetTimeFormat("%H:%M:%S")
+mg.SaveAs("test.root")
