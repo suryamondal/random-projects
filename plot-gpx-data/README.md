@@ -9,3 +9,9 @@ Most working scripts are in the directory `scripts`.
 |------|---------|
 | `env.sh` | source `basf2` environment |
 | `plot-marey-chart.py` | main script for testing |
+
+## Dependencies
+
+```BASH
+pip install gpxpy
+```
