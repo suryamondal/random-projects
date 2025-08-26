@@ -65,6 +65,7 @@ def parse_gpx(file_paths):
 
     return timeStampsEachSecond, distancesEachSecond
 
+
 with open(args.input_gpx, "r") as f:
     input_json = json.load(f)
 track_list = input_json["Tracks"]
