@@ -13,13 +13,10 @@ b2.B2INFO(f"Steering file args = {args}")
 
 
 def parse_gpx(file_paths):
-    # Parse the GPX file
-
     timeStamps = []
     distances = []
 
     for file_path in file_paths:
-
         with open(file_path, 'r') as gpx_file:
             gpx = gpxpy.parse(gpx_file)
 
@@ -33,13 +30,37 @@ def parse_gpx(file_paths):
                     if prev_point:
                         # Calculate distance in meters
                         total_distance += point.distance_3d(prev_point)
-                    distances.append(total_distance / 1000)  # Convert to kilometers
-                    timeStamps.append(point.time.timestamp())
+                    if point.time:
+                        distances.append(total_distance / 1000)  # km
+                        timeStamps.append(int(point.time.timestamp()))  # round to sec
                     prev_point = point
+
+    if not timeStamps:
+        return [], []
+
+    # Align distances at each second (padding with last known value)
+    start_time = min(timeStamps)
+    end_time = max(timeStamps)
 
     timeStampsEachSecond = []
     distancesEachSecond = []
 
+    last_distance = 0.0
+    idx = 0
+    n = len(timeStamps)
+
+    for t in range(start_time, end_time + 1):
+        # Advance index while there are new measurements
+        while idx < n and timeStamps[idx] == t:
+            last_distance = distances[idx]
+            idx += 1
+
+        # Store padded value
+        timeStampsEachSecond.append(t)  # relative seconds
+        distancesEachSecond.append(last_distance)
+        print(timeStampsEachSecond[-1], distancesEachSecond[-1])
+
     return timeStampsEachSecond, distancesEachSecond
 
-parse_gpx(args.input_gpx)
+
+parse_gpx(sorted(args.input_gpx))
