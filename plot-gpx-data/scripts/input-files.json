@@ -1,12 +1,44 @@
 {
-    "Tracks" : [
-        ["../data/20250203-084852.gpx"],
-        ["../data/20250814-084103.gpx"],
-        ["../data/20250222-071621.gpx"],
-        ["../data/20250806-141941.gpx"],
-        ["../data/20241209-151406.gpx"],
-        ["../data/20250806-183746.gpx"],
-        ["../data/20250808-183542.gpx"],
-        ["../data/20250810-183631.gpx"]
-    ]
+  "Tracks" : [
+    {
+      "offset"   : 0.0,
+      "file"     : ["../data/20250203-084852.gpx"],
+      "direction": true
+    },
+    {
+      "offset"   : 0.0,
+      "file"     : ["../data/20250814-084103.gpx"],
+      "direction": true
+    },
+    {
+      "offset"   : 0.0,
+      "file"     : ["../data/20250222-071621.gpx"],
+      "direction": true
+    },
+    {
+      "offset"   : 0.0,
+      "file"     : ["../data/20250806-141941.gpx"],
+      "direction": true
+    },
+    {
+      "offset"   : 0.0,
+      "file"     : ["../data/20241209-151406.gpx"],
+      "direction": true
+    },
+    {
+      "offset"   : 0.0,
+      "file"     : ["../data/20250806-183746.gpx"],
+      "direction": true
+    },
+    {
+      "offset"   : 0.0,
+      "file"     : ["../data/20250808-183542.gpx"],
+      "direction": true
+    },
+    {
+      "offset"   : 0.0,
+      "file"     : ["../data/20250810-183631.gpx"],
+      "direction": true
+    }
+  ]
 }
