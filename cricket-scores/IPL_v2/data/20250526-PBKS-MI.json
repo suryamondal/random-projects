@@ -1,49 +1,36 @@
 {
+    "version": "2",
     "match": {
         "format": "T20",
-        "date": "2025-05-26",
-        "venue": "Sawai Mansingh Stadium, Jaipur",
-        "result": "Punjab Kings won by 7 wickets",
-        "innings": [
-            {
-                "team_batting": "Mumbai Indians",
-                "batting": [
-                    { "player": "Ryan Rickelton", "runs": 27, "balls": 20, "wicket": "Marco Jansen" },
-                    { "player": "Rohit Sharma", "runs": 24, "balls": 21, "wicket": "Harpreet Brar" },
-                    { "player": "Suryakumar Yadav", "runs": 57, "balls": 39, "wicket": "Arshdeep Singh" },
-                    { "player": "Tilak Varma", "runs": 1, "balls": 4, "wicket": "Vijaykumar Vyshak" },
-                    { "player": "Will Jacks", "runs": 17, "balls": 8, "wicket": "Vijaykumar Vyshak" },
-                    { "player": "Hardik Pandya", "runs": 26, "balls": 15, "wicket": "Marco Jansen" },
-                    { "player": "Naman Dhir", "runs": 20, "balls": 12, "wicket": "Arshdeep Singh" },
-                    { "player": "Mitchell Santner", "runs": 1, "balls": 1, "wicket": "" }
-                ],
-                "bowling": [
-                    { "player": "Arshdeep Singh", "overs": 4, "runs_conceded": 28, "wickets": 2 },
-                    { "player": "Kyle Jamieson", "overs": 4, "runs_conceded": 42, "wickets": 0 },
-                    { "player": "Marco Jansen", "overs": 4, "runs_conceded": 34, "wickets": 2 },
-                    { "player": "Harpreet Brar", "overs": 4, "runs_conceded": 36, "wickets": 1 },
-                    { "player": "Vijaykumar Vyshak", "overs": 4, "runs_conceded": 44, "wickets": 2 }
-                ]
-            },
-            {
-                "team_batting": "Punjab Kings",
-                "batting": [
-                    { "player": "Priyansh Arya", "runs": 62, "balls": 35, "wicket": "Mitchell Santner" },
-                    { "player": "Prabhsimran Singh", "runs": 13, "balls": 16, "wicket": "Jasprit Bumrah" },
-                    { "player": "Josh Inglis", "runs": 73, "balls": 42, "wicket": "Mitchell Santner" },
-                    { "player": "Shreyas Iyer", "runs": 26, "balls": 16, "wicket": "" },
-                    { "player": "Nehal Wadhera", "runs": 2, "balls": 2, "wicket": "" }
-                ],
-                "bowling": [
-                    { "player": "Trent Boult", "overs": 3.3, "runs_conceded": 36, "wickets": 0 },
-                    { "player": "Deepak Chahar", "overs": 3, "runs_conceded": 28, "wickets": 0 },
-                    { "player": "Jasprit Bumrah", "overs": 4, "runs_conceded": 23, "wickets": 1 },
-                    { "player": "Mitchell Santner", "overs": 4, "runs_conceded": 41, "wickets": 2 },
-                    { "player": "Hardik Pandya", "overs": 2, "runs_conceded": 29, "wickets": 0 },
-                    { "player": "Ashwani Kumar", "overs": 1, "runs_conceded": 6, "wickets": 0 },
-                    { "player": "Will Jacks", "overs": 1, "runs_conceded": 11, "wickets": 0 }
-                ]
-            }
+        "date": "2025-06-03",
+        "venue": "Narendra Modi Stadium, Ahmedabad",
+        "stat": [
+            { "player": "Josh Inglis", "score": 153, "team": "Punjab Kings" },
+            { "player": "Priyansh Arya", "score": 136, "team": "Punjab Kings" },
+            { "player": "Suryakumar Yadav", "score": 115, "team": "Mumbai Indians" },
+            { "player": "Arshdeep Singh", "score": 93, "team": "Punjab Kings" },
+            { "player": "Marco Jansen", "score": 84, "team": "Punjab Kings" },
+            { "player": "Mitchell Santner", "score": 78, "team": "Mumbai Indians" },
+            { "player": "Vijaykumar Vyshak", "score": 72, "team": "Punjab Kings" },
+            { "player": "Shreyas Iyer", "score": 62, "team": "Punjab Kings" },
+            { "player": "Ryan Rickelton", "score": 57, "team": "Mumbai Indians" },
+            { "player": "Hardik Pandya", "score": 55, "team": "Mumbai Indians" },
+            { "player": "Jasprit Bumrah", "score": 53, "team": "Mumbai Indians" },
+            { "player": "Rohit Sharma", "score": 42, "team": "Mumbai Indians" },
+            { "player": "Naman Dhir", "score": 40, "team": "Mumbai Indians" },
+            { "player": "Harpreet Brar", "score": 39, "team": "Punjab Kings" },
+            { "player": "Will Jacks", "score": 37, "team": "Mumbai Indians" },
+            { "player": "Prabhsimran Singh", "score": 27, "team": "Punjab Kings" },
+            { "player": "Deepak Chahar", "score": 26, "team": "Mumbai Indians" },
+            { "player": "Nehal Wadhera", "score": 14, "team": "Punjab Kings" },
+            { "player": "Bhuvneshwar Kumar", "score": 12, "team": "Mumbai Indians" },
+            { "player": "Kyle Jamieson", "score": 10, "team": "Punjab Kings" },
+            { "player": "Trent Boult", "score": 9, "team": "Mumbai Indians" },
+            { "player": "Tilak Varma", "score": 5, "team": "Mumbai Indians" },
+            { "player": "Marcus Stoinis", "score": 4, "team": "Punjab Kings" },
+            { "player": "Shashank Singh", "score": 4, "team": "Punjab Kings" }
+
         ]
     }
 }
+

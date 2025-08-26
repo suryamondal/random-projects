@@ -19,19 +19,21 @@
 using json = nlohmann::json;
 using namespace std;
 
-void plot_stats(const vector<string> playerNames) {
+void plot_stats(const vector<string>& playerNames) {
 
   set<string> skippedPlayers = {};
-  set<string> playingSet = playerNames;
+  set<string> playingSet(playerNames.begin(), playerNames.end());
+
+  cout << "✅ Players in playingSet:" << endl;
+  for (const auto& name : playingSet) cout << " - " << name << endl;
 
   gStyle->SetNumberContours(100);
 
   vector<string> files;
-  set<string> battingPlayersSet;
-  map<string, int> battingIndex;
+  map<string, int> playerIndex;
 
   // Maps to track position history
-  map<string, vector<int>> battingPositions;
+  map<string, vector<int>> scorePositions;
 
   // Scan directory for JSON files
   TSystemDirectory dir("data", "./data");
@@ -52,7 +54,7 @@ void plot_stats(const vector<string> playerNames) {
   }
   sort(files.begin(), files.end());
 
-  vector<map<string, double>> battingData;
+  vector<map<string, double>> scoreData;
 
   for (const auto& filename : files) {
     ifstream f(filename);
@@ -76,62 +78,61 @@ void plot_stats(const vector<string> playerNames) {
       double score = player["score"];
       if (score > 0) {
         runMap[name] = score;
-        battingPlayersSet.insert(name);
-        battingPositions[name].push_back(score);
+        scorePositions[name].push_back(score);
       }
     }
 
     if (!runMap.empty()) {
-      battingData.push_back(runMap);
+      scoreData.push_back(runMap);
     }
   }
 
   // Compute average positions and sort
-  vector<pair<string, double>> battingAvgPositions;
-  for (const auto& [name, positions] : battingPositions) {
+  vector<pair<string, double>> avgScores;
+  for (const auto& [name, positions] : scorePositions) {
     double avgPos = accumulate(positions.begin(), positions.end(), 0.0) / positions.size();
-    battingAvgPositions.emplace_back(name, avgPos);
+    avgScores.emplace_back(name, avgPos);
   }
-  sort(battingAvgPositions.begin(), battingAvgPositions.end(), [](auto& a, auto& b) {
-    return a.second < b.second;
+  sort(avgScores.begin(), avgScores.end(), [](auto& a, auto& b) {
+    return a.second > b.second;
   });
 
   // Assign index based on sorted average
   int idx = 1;
-  for (const auto& [name, _] : battingAvgPositions) {
-    battingIndex[name] = idx++;
+  for (const auto& [name, _] : avgScores) {
+    playerIndex[name] = idx++;
   }
 
-  int nMatches = battingData.size();
-  int nBatPlayers = battingIndex.size();
+  int nMatches = scoreData.size();
+  int nPlayers = playerIndex.size();
 
-  // Plot batting stats
-  TCanvas *c1 = new TCanvas("c1", "Batting Stats", 1200, 600);
+  // Plot scores stats
+  TCanvas *c1 = new TCanvas("c1", "Scores Stats", 1200, 600);
   c1->SetLeftMargin(0.1502504);
   gPad->SetGridy(1);
   gStyle->SetPaintTextFormat(".0f");
 
-  TH2F *battingHist = new TH2F("batting", "Runs ; Match Index;Player Name", nMatches, 0.5, nMatches + 0.5, nBatPlayers, 0.5, nBatPlayers + 0.5);
+  TH2F *scoresHist = new TH2F("scores", "Player Scores ; Match Index; Player Name", nMatches, 0.5, nMatches + 0.5, nPlayers, 0.5, nPlayers + 0.5);
 
   for (int i = 0; i < nMatches; ++i) {
-    for (const auto& [name, runs] : battingData[i]) {
-      if (runs > 1 && battingIndex.count(name))
-        battingHist->SetBinContent(i + 1, battingIndex[name], runs);
+    for (const auto& [name, runs] : scoreData[i]) {
+      if (runs > 1 && playerIndex.count(name))
+        scoresHist->SetBinContent(i + 1, playerIndex[name], runs);
     }
   }
 
-  for (const auto& [name, index] : battingIndex)
-    battingHist->GetYaxis()->SetBinLabel(index, name.c_str());
+  for (const auto& [name, index] : playerIndex)
+    scoresHist->GetYaxis()->SetBinLabel(index, name.c_str());
   for (int i = 0; i < nMatches; ++i)
-    battingHist->GetXaxis()->SetBinLabel(i + 1, TString::Format("%d", i + 1));
+    scoresHist->GetXaxis()->SetBinLabel(i + 1, TString::Format("%d", i + 1));
 
   c1->cd();
   gStyle->SetOptStat(0);
-  battingHist->Draw("COLZ TEXT");
-  battingHist->SetMinimum(0);
-  battingHist->SetMaximum(100);
+  scoresHist->Draw("COLZ TEXT");
+  scoresHist->SetMinimum(0);
+  // scoresHist->SetMaximum(100);
 
   gSystem->mkdir("plots", true);
-  c1->SaveAs("plots/Bat.pdf");
+  c1->SaveAs("plots/Scores.pdf");
 
 }
