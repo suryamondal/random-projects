@@ -71,9 +71,19 @@ track_list = input_json["Tracks"]
 
 mg = ROOT.TMultiGraph()
 
-gcnt = 1
+dataPointsToPlot = []
+first_dt = None
 for track in track_list:
-    timeStampsEachSecond, distancesEachSecond = parse_gpx(sorted(track))
+    dataPointsToPlot.append(parse_gpx(sorted(track)))
+    if not dataPointsToPlot[0]:
+        continue
+    first_time = datetime.datetime.fromtimestamp(dataPointsToPlot[-1][0][0])
+    if not first_dt or first_dt > first_time:
+        first_dt = first_time
+first_midnight = first_dt.replace(hour=0, minute=0, second=0, microsecond=0)
+
+gcnt = 1
+for timeStampsEachSecond, distancesEachSecond in dataPointsToPlot:
     if not timeStampsEachSecond:
         continue
 
@@ -88,13 +98,13 @@ for track in track_list:
     gcnt += 1
 
     # get midnight of first timestamp
-    first_dt = datetime.datetime.fromtimestamp(timeStampsEachSecond[0])
-    midnight = first_dt.replace(hour=0, minute=0, second=0, microsecond=0)
-    midnight_ts = int(midnight.timestamp())
+    this_first_dt = datetime.datetime.fromtimestamp(timeStampsEachSecond[0])
+    this_midnight = this_first_dt.replace(hour=0, minute=0, second=0, microsecond=0)
+    this_midnight_ts = int(this_midnight.timestamp())
 
     # fill the graph
     for i in range(n):
-        sec_of_day = timeStampsEachSecond[i] - midnight_ts
+        sec_of_day = timeStampsEachSecond[i] - this_midnight_ts + int(first_midnight.timestamp())
         g.SetPoint(i, sec_of_day, distancesEachSecond[i])
 
     mg.Add(g, "LP")
