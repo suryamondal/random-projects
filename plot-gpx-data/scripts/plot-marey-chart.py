@@ -108,8 +108,9 @@ for timeStampsEachSecond, distancesEachSecond in dataPointsToPlot:
         sec_of_day = timeStampsEachSecond[i] - this_midnight_ts + int(first_midnight.timestamp())
         g.SetPoint(i, sec_of_day, distancesEachSecond[i])
 
-    mg.Add(g, "LP")
+    mg.Add(g, "L")
 
+mg.SetNameTitle("marey", "marey")
 mg.Draw("A")
 xaxis = mg.GetXaxis()
 xaxis.SetTimeDisplay(1)
