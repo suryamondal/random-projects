@@ -15,26 +15,27 @@ args = parser.parse_args()
 b2.B2INFO(f"Steering file args = {args}")
 
 
-def parse_gpx(file_paths):
+def parse_gpx(track_obj):
     timeStamps = []
     distances = []
 
-    for file_path in file_paths:
+    # Extract time and calculate cumulative distance
+    total_distance = track_obj["offset"] * 1000.0
+
+    for file_path in track_obj["file"]:
         with open(file_path, 'r') as gpx_file:
             gpx = gpxpy.parse(gpx_file)
 
-        # Extract time and calculate cumulative distance
         prev_point = None
-        total_distance = 0
 
         for track in gpx.tracks:
             for segment in track.segments:
                 for point in segment.points:
                     if prev_point:
                         # Calculate distance in meters
-                        total_distance += point.distance_3d(prev_point)
+                        total_distance += track_obj["direction"] * point.distance_3d(prev_point)
                     if point.time:
-                        distances.append(total_distance / 1000)  # km
+                        distances.append(total_distance / 1000.0)  # km
                         timeStamps.append(int(point.time.timestamp()))  # round to sec
                     prev_point = point
 
@@ -75,7 +76,7 @@ mg = ROOT.TMultiGraph()
 dataPointsToPlot = []
 first_dt = None
 for track in track_list:
-    dataPointsToPlot.append(parse_gpx(sorted(track)))
+    dataPointsToPlot.append(parse_gpx(track))
     if not dataPointsToPlot[0]:
         continue
     first_time = datetime.datetime.fromtimestamp(dataPointsToPlot[-1][0][0])
