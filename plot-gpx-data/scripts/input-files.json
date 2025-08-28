@@ -1,0 +1,7 @@
+{
+  "Tracks" : [
+    { "offset" : 0.0,  "file" : ["../data/20250806-183746.gpx"], "direction": 1.0},
+    { "offset" : 0.0, "file" : ["../data/20250808-183542.gpx"], "direction": 1.0},
+    { "offset" : 0.0,  "file" : ["../data/20250810-183631.gpx"], "direction": 1.0}
+  ]
+}
