@@ -1,0 +1,12 @@
+[Unit]
+Description=Fibre Line Monitor
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/fibre_monitor/monitor.py
+WorkingDirectory=/home/pi/fibre_monitor
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
