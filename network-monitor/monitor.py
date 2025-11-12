@@ -34,19 +34,19 @@ def init_db():
 
 def set_network(ip, netmask, gateway, dns, interface):
     # Reset and apply IP configuration using dhcpcd or ip
-    subprocess.run(["sudo", "dhcpcd", "-k", interface], stderr=subprocess.DEVNULL)
+    subprocess.run(["dhcpcd", "-k", interface], stderr=subprocess.DEVNULL)
     time.sleep(2)
-    subprocess.run(["sudo", "ip", "addr", "flush", "dev", interface])
-    subprocess.run(["sudo", "ip", "addr", "add", f"{ip}/{netmask}", "dev", interface])
-    subprocess.run(["sudo", "ip", "route", "add", "default", "via", gateway])
-    with open("/etc/resolv.conf", "w") as dnsfile:
-        dnsfile.write(f"nameserver {dns}\n")
+    subprocess.run(["ip", "addr", "flush", "dev", interface])
+    subprocess.run(["ip", "addr", "add", f"{ip}/{netmask}", "dev", interface])
+    subprocess.run(["ip", "route", "add", "default", "via", gateway])
+    # with open("/etc/resolv.conf", "w") as dnsfile:
+    #     dnsfile.write(f"nameserver {dns}\n")
     time.sleep(5)
 
-def ping_host(host, count, timeout):
+def ping_host(host, count, timeout, interface):
     try:
         output = subprocess.check_output(
-            ["ping", "-c", str(count), "-W", str(timeout), host],
+            ["ping", "-I", interface, "-c", str(count), "-W", str(timeout), host],
             stderr=subprocess.STDOUT,
             universal_newlines=True
         )
@@ -58,9 +58,17 @@ def ping_host(host, count, timeout):
     except subprocess.CalledProcessError:
         return None
 
-def send_telegram(bot_token, chat_id, message):
+import subprocess
+
+def send_telegram(bot_token, chat_id, message, interface="eth0"):
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-    requests.post(url, data={"chat_id": chat_id, "text": message})
+    cmd = [
+        "curl", "--silent", "--interface", interface,
+        "-X", "POST", url,
+        "-d", f"chat_id={chat_id}",
+        "-d", f"text={message}"
+    ]
+    subprocess.run(cmd)
 
 def main():
     conn = init_db()
@@ -76,12 +84,11 @@ def main():
         threshold = float(cfg["monitor"]["latency_threshold"])
         cycle_delay = int(cfg["monitor"]["cycle_delay"])
         summary_interval = int(cfg["monitor"]["summary_interval"])
-        interface = cfg["monitor"]["interface"]
 
         for link in ip_configs:
             name = link["name"]
-            set_network(link["ip"], link["netmask"], link["gateway"], link["dns"], interface)
-            avg = ping_host(host, ping_count, timeout)
+            set_network(link["ip"], link["netmask"], link["gateway"], link["dns"], link["interface"])
+            avg = ping_host(host, ping_count, timeout, link["interface"])
             success = 1 if avg else 0
 
             conn.execute("INSERT INTO results (link_name, avg_ping, success) VALUES (?, ?, ?)", (name, avg or 0, success))
