@@ -9,7 +9,6 @@ def extract_dispatcher_json(html):
     """
     Extract the JSON object assigned to 'window.dispatcher' in the HTML.
     """
-    # Regex to extract: window.dispatcher = {...};
     pattern = r"window\.dispatcher\s*=\s*(\{.*?\});"
     match = re.search(pattern, html, re.DOTALL)
 
@@ -18,11 +17,9 @@ def extract_dispatcher_json(html):
 
     json_text = match.group(1)
 
-    # Ensure valid JSON (remove trailing semicolon if needed)
     try:
         return json.loads(json_text)
     except json.JSONDecodeError:
-        # Try fixing common issues
         try:
             return json.loads(json_text.rstrip(";"))
         except:
@@ -49,17 +46,38 @@ def fetch_aircraft_info(registration):
 
     if data is None:
         print(f"Could not extract JSON for {registration}")
-    
+
     return data
+
+
+def load_registrations(file_path):
+    """
+    Load aircraft registrations from a file.
+    Ignore lines that are empty or start with '#'.
+    """
+    registrations = []
+
+    with open(file_path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+
+            if not line:
+                continue  # skip empty lines
+
+            if line.startswith("#"):
+                continue  # skip comments
+
+            registrations.append(line)
+
+    return registrations
 
 
 def main():
     parser = argparse.ArgumentParser(description="Fetch FR24 aircraft JSON.")
     parser.add_argument(
-        "-r", "--registrations",
-        nargs="+",
+        "-f", "--file",
         required=True,
-        help="List of aircraft registration numbers (e.g., VT-IFM VT-IFL)"
+        help="Input file containing list of aircraft registrations"
     )
     parser.add_argument(
         "-o", "--output",
@@ -69,10 +87,17 @@ def main():
 
     args = parser.parse_args()
 
+    # Load registration list
+    registrations = load_registrations(args.file)
+
+    if not registrations:
+        print("No valid aircraft registrations found in the file.")
+        return
+
     # Ensure output directory exists
     os.makedirs(args.output, exist_ok=True)
 
-    for reg in args.registrations:
+    for reg in registrations:
         data = fetch_aircraft_info(reg)
 
         if data is None:

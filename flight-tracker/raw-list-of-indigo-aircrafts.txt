@@ -1,0 +1,446 @@
+	Reg	Aircraft Type	Config	Delivered	Remark	Age	
+VT-IAN	Airbus A320-200 	Y180	Mar 2014		11.8 Years	
+VT-IAO	Airbus A320-200	Y180	Apr 2014		11.8 Years	
+VT-IAQ	Airbus A320-200	Y180	Aug 2014		11.3 Years	
+VT-IAR	Airbus A320-200	Y180	Sep 2014		11.2 Years	
+VT-IAS	Airbus A320-200	Y180	Sep 2014		11.2 Years	
+VT-IAX	Airbus A320-200	Y180	Oct 2014	lsd	11.2 Years	
+VT-IFH	Airbus A320-200	Y180	Jan 2013		12.9 Years	
+VT-IFI	Airbus A320-200	Y180	Feb 2013		12.9 Years	
+VT-IFK	Airbus A320-200	Y180	Feb 2013		12.8 Years	
+VT-IFL	Airbus A320-200	Y180	Mar 2013		12.8 Years	
+VT-IFM	Airbus A320-200	Y180	Apr 2013		12.7 Years	
+VT-IFN	Airbus A320-200	Y180	May 2013		12.6 Years	
+VT-IFP	Airbus A320-200	Y180	Jul 2013		12.5 Years	
+VT-IFQ	Airbus A320-200	Y180	Jul 2013		12.5 Years	
+VT-IFR	Airbus A320-200	Y180	Aug 2013		12.4 Years	
+VT-IFS	Airbus A320-200	Y180	Aug 2013		12.3 Years	
+VT-IFV	Airbus A320-200	Y180	Oct 2013		12.1 Years	
+VT-IFZ	Airbus A320-200	Y180	Feb 2014		11.9 Years	
+VT-IKK	Airbus A320-200	Y180	Jun 2023	lsd	19.5 Years	
+VT-IKP	Airbus A320-200	Y180	Aug 2024	lsd	19.1 Years	
+VT-IKQ	Airbus A320-200	Y180	Sep 2024	lsd	16.3 Years	
+VT-IKS	Airbus A320-200	Y180	Nov 2024	lsd	14.5 Years	
+VT-IWW	Airbus A320-200	Y180	May 2024	lsd	14.6 Years	
+VT-IWX	Airbus A320-200	Y180	Nov 2024	lsd	15.4 Years	
+VT-IWY	Airbus A320-200	Y180	Jan 2025	lsd	15.2 Years	
+VT-IWZ	Airbus A320-200	Y180	Jun 2024	lsd	14.7 Years	
+VT-IIA	Airbus A320neo	Y186	Aug 2021	lsd	4.4 Years	
+VT-IIB	Airbus A320neo	Y186	Sep 2021	lsd	4.3 Years	
+VT-IID	Airbus A320neo	Y186	Sep 2021	lsd	4.3 Years	
+VT-IIE	Airbus A320neo	Y186	Oct 2021	lsd	4.3 Years	
+VT-IIF	Airbus A320neo	Y186	Sep 2021	lsd	4.3 Years	
+VT-IIG	Airbus A320neo	Y186	Oct 2021	lsd	4.3 Years	
+VT-IIH	Airbus A320neo	Y186	Oct 2021	lsd	4.2 Years	
+VT-IIJ	Airbus A320neo	Y186	Oct 2021	lsd	4.2 Years	
+VT-IIK	Airbus A320neo	Y186	Nov 2021		4.1 Years	
+VT-IIL	Airbus A320neo	Y186	Nov 2021	lsd	4.1 Years	
+VT-IIM	Airbus A320neo	Y186	Dec 2021		4.1 Years	
+VT-IIN	Airbus A320neo	Y186	Dec 2021	lsd	4.1 Years	
+VT-IIO	Airbus A320neo	Y186	Dec 2021	lsd	4 Years	
+VT-IIP	Airbus A320neo	Y186	Dec 2021	lsd	4.1 Years	
+VT-IIQ	Airbus A320neo	Y186	Jan 2022	lsd	4 Years	
+VT-IIR	Airbus A320neo	Y186	Jan 2022	lsd	4 Years	
+VT-IIS	Airbus A320neo	Y186	Feb 2022	lsd	3.8 Years	
+VT-IIU	Airbus A320neo	Y186	May 2022	lsd	3.6 Years	
+VT-IIV	Airbus A320neo	Y186	May 2022	lsd	3.6 Years	
+VT-IIW	Airbus A320neo	Y186	May 2022	lsd	3.6 Years	
+VT-IIX	Airbus A320neo	Y186	Sep 2022	lsd	3.2 Years	
+VT-IIY	Airbus A320neo	Y186	Sep 2022	lsd	3.4 Years	
+VT-IIZ	Airbus A320neo	Y186	Jul 2022	lsd	3.4 Years	
+VT-IJE	Airbus A320neo	Y186	May 2019	Parked at NAG, lsd	6.6 Years
+	Reg	Aircraft Type	Config	Delivered	Remark	Age	
+VT-IJG	Airbus A320neo 	Y186	Feb 2020		5.9 Years	
+VT-IJM	Airbus A320neo	Y186	Jul 2019	Parked at VO95, lsd	6.4 Years	
+VT-IJN	Airbus A320neo	Y186	Apr 2020	Parked at DEL, lsd	5.7 Years	
+VT-IJQ	Airbus A320neo	Y186	May 2020	lsd	5.6 Years	
+VT-IJT	Airbus A320neo	Y186	Oct 2019	Parked at IXC, lsd	6.1 Years	
+VT-IJU	Airbus A320neo	Y186	Dec 2019	Parked at BLR, lsd	6 Years	
+VT-IJV	Airbus A320neo	Y186	Dec 2019	Parked at COK, lsd	5.9 Years	
+VT-IJW	Airbus A320neo	Y186	Mar 2020	lsd	5.8 Years	
+VT-IJX	Airbus A320neo	Y186	Mar 2020	lsd	5.8 Years	
+VT-IJY	Airbus A320neo	Y186	Mar 2020	lsd	5.8 Years	
+VT-IJZ	Airbus A320neo	Y186	May 2020		5.7 Years	
+VT-IKN	Airbus A320neo	Y180	Feb 2023	lsd	9.9 Years	
+VT-IOF	Airbus A320neo	Y186	Oct 2025		0.2 Years	
+VT-IOG	Airbus A320neo	Y186	On Order			
+VT-IOH	Airbus A320neo	Y186	On Order		Brand new	
+VT-IOI	Airbus A320neo	Y186	Dec 2025		Brand new	
+VT-IPC	Airbus A320neo	Y186	Aug 2022	lsd	3.4 Years	
+VT-IPD	Airbus A320neo	Y186	Oct 2022	lsd	3.2 Years	
+VT-IPE	Airbus A320neo	Y186	Oct 2022	lsd	3.2 Years	
+VT-IPF	Airbus A320neo	Y186	Nov 2022	lsd	3.2 Years	
+VT-IPG	Airbus A320neo	Y186	Oct 2022	lsd	3.2 Years	
+VT-IPH	Airbus A320neo	Y186	Oct 2022	lsd	3.2 Years	
+VT-IPI	Airbus A320neo	Y186	Nov 2022	lsd	3.1 Years	
+VT-IPJ	Airbus A320neo	Y186	Dec 2022	Parked / Maintenance, lsd	3 Years	
+VT-IPK	Airbus A320neo	Y186	Dec 2022	lsd	3.1 Years	
+VT-IPL	Airbus A320neo	Y186	Dec 2022	lsd	3 Years	
+VT-IPM	Airbus A320neo	Y186	Dec 2022	lsd	3 Years	
+VT-IPN	Airbus A320neo	Y186	Dec 2022	lsd	3 Years	
+VT-IPO	Airbus A320neo	Y186	Dec 2022	lsd	3 Years	
+VT-IPP	Airbus A320neo	Y186	Jan 2023	lsd	2.9 Years	
+VT-IPQ	Airbus A320neo	Y186	Mar 2023	lsd	2.7 Years	
+VT-IPR	Airbus A320neo	Y186	Mar 2023	lsd	2.8 Years	
+VT-IPS	Airbus A320neo	Y186	Apr 2023	lsd	2.7 Years	
+VT-IPT	Airbus A320neo	Y186	May 2023	lsd	2.6 Years	
+VT-IPU	Airbus A320neo	Y186	Sep 2023	lsd	2.3 Years	
+VT-IPV	Airbus A320neo	Y186	Jun 2023	lsd	2.5 Years	
+VT-IPW	Airbus A320neo	Y186	Jul 2023	lsd	2.5 Years	
+VT-IPX	Airbus A320neo	Y186	Jun 2023	lsd	2.5 Years	
+VT-IPY	Airbus A320neo	Y186	Jul 2023	lsd	2.4 Years	
+VT-IPZ	Airbus A320neo	Y186	Jul 2023	lsd	2.5 Years	
+VT-IQA	Airbus A320neo	Y186	Aug 2023	lsd	2.4 Years	
+VT-IQC	Airbus A320neo	Y186	Aug 2023	lsd	2.4 Years	
+VT-IQD	Airbus A320neo	Y186	Sep 2023	lsd	2.4 Years	
+VT-IQE	Airbus A320neo	Y186	Aug 2023	lsd	2.4 Years	
+VT-IQF	Airbus A320neo	Y186	Sep 2023	lsd	2.3 Years	
+VT-IQG	Airbus A320neo	Y186	Sep 2023	lsd	2.3 Years	
+VT-IQH	Airbus A320neo	Y186	Oct 2023	lsd	2.3 Years	
+VT-IQI	Airbus A320neo	Y186	Oct 2023	lsd	2.1 Years	
+VT-IQJ	Airbus A320neo	Y186	Nov 2023	lsd	2.1 Years	
+VT-IQK	Airbus A320neo	Y186	Nov 2023	lsd	2.1 Years
+VT-IQL	Airbus A320neo 	Y186	Dec 2023	lsd	2 Years	
+VT-IQM	Airbus A320neo	Y186	Dec 2023	lsd	2.1 Years	
+VT-IQN	Airbus A320neo	Y186	Dec 2023	lsd	2 Years	
+VT-IQO	Airbus A320neo	Y186	Dec 2023	lsd	2.1 Years	
+VT-IQP	Airbus A320neo	Y186	Jan 2024	lsd	2 Years	
+VT-IQQ	Airbus A320neo	Y186	Jan 2024	lsd	1.9 Years	
+VT-IQS	Airbus A320neo	Y186	Jan 2024	lsd	1.9 Years	
+VT-IQT	Airbus A320neo	Y186	Feb 2024	lsd	1.8 Years	
+VT-IQU	Airbus A320neo	Y186	Mar 2024	lsd	1.8 Years	
+VT-IQV	Airbus A320neo	Y186	Feb 2024	lsd	1.9 Years	
+VT-IQW	Airbus A320neo	Y186	Apr 2024	lsd	1.7 Years	
+VT-IQX	Airbus A320neo	Y186	Feb 2024	lsd	1.9 Years	
+VT-IQY	Airbus A320neo	Y186	Feb 2024	lsd	1.8 Years	
+VT-IQZ	Airbus A320neo	Y186	Jul 2024	lsd	1.4 Years	
+VT-ISA	Airbus A320neo	Y186	Apr 2020	lsd	5.7 Years	
+VT-ISB	Airbus A320neo	Y186	Jun 2020	Parked at COK, lsd	5.6 Years	
+VT-ISC	Airbus A320neo	Y186	May 2020		5.6 Years	
+VT-ISD	Airbus A320neo	Y186	Jul 2020	Parked at COK, lsd	5.6 Years	
+VT-ISE	Airbus A320neo	Y186	Aug 2020	Parked at NAG, lsd	5.5 Years	
+VT-ISF	Airbus A320neo	Y186	Sep 2020	Parked at NAG, lsd	5.6 Years	
+VT-ISI	Airbus A320neo	Y186	Jul 2020	Parked at BLR, lsd	5.5 Years	
+VT-ISJ	Airbus A320neo	Y186	Jul 2020	Parked at DEL, lsd	5.5 Years	
+VT-ISK	Airbus A320neo	Y186	May 2020	lsd	5.6 Years	
+VT-ISL	Airbus A320neo	Y186	Aug 2020	lsd	5.5 Years	
+VT-ISM	Airbus A320neo	Y186	Aug 2020	lsd	5.4 Years	
+VT-ISN	Airbus A320neo	Y186	Aug 2020	Parked at JAI, lsd	5.5 Years	
+VT-ISO	Airbus A320neo	Y186	Sep 2020	lsd	5.3 Years	
+VT-ISP	Airbus A320neo	Y186	Nov 2020	lsd	5.1 Years	
+VT-ISQ	Airbus A320neo	Y186	Nov 2020	lsd	5.1 Years	
+VT-ISR	Airbus A320neo	Y186	Nov 2020	lsd	5.1 Years	
+VT-ISS	Airbus A320neo	Y186	Dec 2020	lsd	5 Years	
+VT-IST	Airbus A320neo	Y186	Apr 2021	lsd	4.7 Years	
+VT-ISU	Airbus A320neo	Y186	May 2021	lsd	4.7 Years	
+VT-ISV	Airbus A320neo	Y186	Jul 2021	lsd	4.5 Years	
+VT-ISW	Airbus A320neo	Y186	Jul 2021	lsd	4.4 Years	
+VT-ISX	Airbus A320neo	Y186	Jul 2021	lsd	4.4 Years	
+VT-ISY	Airbus A320neo	Y186	Sep 2021	lsd	4.3 Years	
+VT-ISZ	Airbus A320neo	Y186	Aug 2022	lsd	3.3 Years	
+VT-ITA	Airbus A320neo	Y180	Mar 2016	lsd	9.7 Years	
+VT-ITB	Airbus A320neo	Y180	Sep 2016	lsd	10.2 Years	
+VT-ITF	Airbus A320neo	Y180	Apr 2016	lsd	9.7 Years	
+VT-ITG	Airbus A320neo	Y180	Sep 2016	Parked at COK, lsd	9.6 Years	
+VT-ITI	Airbus A320neo	Y180	Sep 2016	lsd	9.3 Years	
+VT-ITK	Airbus A320neo	Y180	Aug 2016	Parked at COK, lsd	9.4 Years	
+VT-ITL	Airbus A320neo	Y180	Sep 2016	lsd	9.2 Years	
+VT-ITM	Airbus A320neo	Y180	Nov 2016	lsd	9.2 Years	
+VT-ITN	Airbus A320neo	Y180	Dec 2016	lsd	9 Years	
+VT-ITO	Airbus A320neo	Y180	Feb 2017	lsd	8.9 Years	
+VT-ITP	Airbus A320neo	Y180	Feb 2017	Parked at BLR, lsd	8.9 Years	
+VT-ITQ	Airbus A320neo	Y180	Mar 2017	Parked at DEL, lsd	8.8 Years
+Reg	Aircraft Type	Config	Delivered	Remark	Age	
+VT-ITR	Airbus A320neo 	Y180	Mar 2017	lsd	8.8 Years	
+VT-ITS	Airbus A320neo	Y180	Feb 2017	Parked at BLR, lsd	10 Years	
+VT-ITT	Airbus A320neo	Y180	May 2017	Parked at DEL, lsd	8.6 Years	
+VT-ITU	Airbus A320neo	Y180	May 2017	lsd	8.6 Years	
+VT-ITV	Airbus A320neo	Y180	Apr 2017	lsd	9 Years	
+VT-ITW	Airbus A320neo	Y180	Aug 2017	Parked at BLR, lsd	8.4 Years	
+VT-ITX	Airbus A320neo	Y180	Sep 2017	Parked / Maintenance, lsd	8.7 Years	
+VT-ITY	Airbus A320neo	Y180	Oct 2017	Parked at BLR, lsd	8.5 Years	
+VT-ITZ	Airbus A320neo	Y186	Nov 2017	lsd	8.1 Years	
+VT-IVA	Airbus A320neo	Y186	Nov 2017	lsd	8 Years	
+VT-IVB	Airbus A320neo	Y186	Nov 2017	lsd	8.1 Years	
+VT-IVC	Airbus A320neo	Y186	Nov 2017	Parked at NAG, lsd	8.1 Years	
+VT-IVD	Airbus A320neo	Y186	Dec 2017	Parked at BLR, lsd	8 Years	
+VT-IVE	Airbus A320neo	Y180	Dec 2017	lsd	8.3 Years	
+VT-IVF	Airbus A320neo	Y180	Dec 2017	Parked at NAG, lsd	8.3 Years	
+VT-IVK	Airbus A320neo	Y186	Dec 2018	Parked at BLR, lsd	7.2 Years	
+VT-IVP	Airbus A320neo	Y186	Jul 2018	lsd	7.4 Years	
+VT-IVQ	Airbus A320neo	Y186	Jul 2018	Parked at COK, lsd	7.4 Years	
+VT-IVX	Airbus A320neo	Y186	Sep 2018	lsd	7.3 Years	
+VT-IVY	Airbus A320neo	Y186	Sep 2018	Parked at HYD, lsd	7.3 Years	
+VT-IVZ	Airbus A320neo	Y186	Sep 2018	lsd	7.3 Years	
+VT-IXA	Airbus A320neo	Y186	May 2024	lsd	1.6 Years	
+VT-IXD	Airbus A320neo	Y186	Jun 2024	lsd	1.6 Years	
+VT-IXE	Airbus A320neo	Y186	Jun 2024	lsd	1.6 Years	
+VT-IXF	Airbus A320neo	Y186	Aug 2024	lsd	1.4 Years	
+VT-IXG	Airbus A320neo	Y186	Jul 2024	lsd	1.4 Years	
+VT-IXH	Airbus A320neo	Y186	Jul 2024	lsd	1.4 Years	
+VT-IXI	Airbus A320neo	Y186	Aug 2024	lsd	1.4 Years	
+VT-IXJ	Airbus A320neo	Y186	Sep 2024	lsd	1.2 Years	
+VT-IXK	Airbus A320neo	Y186	Sep 2024	lsd	1.3 Years	
+VT-IXL	Airbus A320neo	Y186	Oct 2024	lsd	1.2 Years	
+VT-IXM	Airbus A320neo	Y186	Oct 2024	lsd	1.2 Years	
+VT-IXN	Airbus A320neo	Y186	Oct 2024	lsd	1.2 Years	
+VT-IXO	Airbus A320neo	Y186	Oct 2024	lsd	1.2 Years	
+VT-IXP	Airbus A320neo	Y186	Nov 2024	lsd	1.1 Years	
+VT-IXQ	Airbus A320neo	Y186	Nov 2025		Brand new	
+VT-IXT	Airbus A320neo	Y186	Oct 2025		0.2 Years	
+VT-IZB	Airbus A320neo	Y186	Oct 2018	lsd	7.2 Years	
+VT-IZC	Airbus A320neo	Y186	Oct 2018	Parked at CCU, lsd	7.2 Years	
+VT-IZD	Airbus A320neo	Y186	Oct 2018	lsd	7.2 Years	
+VT-IZE	Airbus A320neo	Y186	Oct 2018	lsd	7.1 Years	
+VT-IZF	Airbus A320neo	Y186	Nov 2018	lsd	7.1 Years	
+VT-IZH	Airbus A320neo	Y186	Nov 2018		7.2 Years	
+VT-IZK	Airbus A320neo	Y186	Dec 2018		7 Years	
+VT-IZL	Airbus A320neo	Y186	Dec 2018	Parked at COK, lsd	7 Years	
+VT-IZM	Airbus A320neo	Y186	Dec 2018	lsd	7.1 Years	
+VT-IZN	Airbus A320neo	Y186	Dec 2018	lsd	7 Years	
+VT-IZV	Airbus A320neo	Y186	Dec 2019	Parked at DEL, lsd	6 Years	
+VT-	Airbus A320neo		On Order			
+VT-	Airbus A320neo		On Order		Brand new
+VT-	Airbus A320neo 		On Order		Brand new	
+VT-	Airbus A320neo		On Order			
+VT-IKW	Airbus A321-200(F)	Cargo	Oct 2022	lsd	18.2 Years	
+VT-IKX	Airbus A321-200(F)	Cargo	Dec 2022	lsd	18 Years	
+VT-IKY	Airbus A321-200(F)	Cargo	Oct 2023	lsd	16.5 Years	
+A7-AJD	Airbus A321neo	Y236	Nov 2025	lsf Qatar Airways	0.2 Years	
+VT-IAZ	Airbus A321neo	Y232	Aug 2024	lsd	1.3 Years	
+VT-IBB	Airbus A321neo	Y232	Nov 2022	lsd	3.1 Years	
+VT-IBC	Airbus A321neo	Y232	Nov 2022	lsd	3.1 Years	
+VT-IBD	Airbus A321neo	Y232	Nov 2022	lsd	3.1 Years	
+VT-IBE	Airbus A321neo	Y232	Dec 2022	lsd	3.1 Years	
+VT-IBF	Airbus A321neo	Y232	Dec 2022	lsd	3 Years	
+VT-IBH	Airbus A321neo	Y232	Dec 2022	lsd	3 Years	
+VT-IBI	Airbus A321neo	Y232	Feb 2023	lsd	2.9 Years	
+VT-IBJ	Airbus A321neo	Y232	Dec 2022	Parked / Maintenance, lsd	3 Years	
+VT-IBK	Airbus A321neo	Y232	Apr 2023	lsd	2.8 Years	
+VT-IBL	Airbus A321neo	Y232	Apr 2023	lsd	2.7 Years	
+VT-IBM	Airbus A321neo	Y232	May 2023	lsd	2.6 Years	
+VT-IBN	Airbus A321neo	Y232	May 2023	lsd	2.6 Years	
+VT-IBO	Airbus A321neo	Y232	May 2023	Parked / Maintenance, lsd	2.6 Years	
+VT-IBQ	Airbus A321neo	Y232	Jun 2023	lsd	2.6 Years	
+VT-IBT	Airbus A321neo	Y232	May 2023	lsd	2.6 Years	
+VT-IBU	Airbus A321neo	Y232	Jun 2023	lsd	2.5 Years	
+VT-IBV	Airbus A321neo	Y232	Jul 2023		2.5 Years	
+VT-IBW	Airbus A321neo	Y232	Aug 2023	lsd	2.4 Years	
+VT-IBX	Airbus A321neo	Y232	Jul 2023	lsd	2.4 Years	
+VT-IBY	Airbus A321neo	Y232	Aug 2023	lsd	2.4 Years	
+VT-IBZ	Airbus A321neo	Y232	Aug 2023	lsd	2.4 Years	
+VT-ICB	Airbus A321neo	Y232	Sep 2024	lsd	1.3 Years	
+VT-ICC	Airbus A321neo	Y232	Sep 2024	lsd	1.2 Years	
+VT-ICD	Airbus A321neo	Y232	Oct 2024	lsd	1.2 Years	
+VT-ICF	Airbus A321neo	C12Y208	Oct 2024	lsd	1.2 Years	
+VT-ICG	Airbus A321neo	Y232	Nov 2024	lsd	1.1 Years	
+VT-ICH	Airbus A321neo	C12Y208	Dec 2024	lsd	1 Years	
+VT-ICI	Airbus A321neo	Y232	Nov 2024	lsd	1.1 Years	
+VT-ICK	Airbus A321neo	Y232	Nov 2024	lsd	1.1 Years	
+VT-ICL	Airbus A321neo	Y232	Nov 2024	lsd	1.1 Years	
+VT-ICM	Airbus A321neo	C12Y208	Nov 2024	Stored at DEL after incident, lsd	1.1 Years	
+VT-ICN	Airbus A321neo	Y232	Sep 2023	lsd	2.2 Years	
+VT-ICO	Airbus A321neo	Y232	Oct 2023	lsd	2.2 Years	
+VT-ICP	Airbus A321neo	Y232	May 2024	Parked / Maintenance, lsd	1.6 Years	
+VT-ICQ	Airbus A321neo	Y232	Jun 2024	lsd	1.5 Years	
+VT-ICR	Airbus A321neo	Y232	Jun 2024	lsd	1.5 Years	
+VT-ICS	Airbus A321neo	Y232	Jul 2024	lsd	1.6 Years	
+VT-ICT	Airbus A321neo	Y232	Jul 2024	lsd	1.5 Years	
+VT-ICV	Airbus A321neo	Y232	Jul 2024	lsd	1.4 Years	
+VT-ICW	Airbus A321neo	Y232	Nov 2024	lsd	1.1 Years	
+VT-ICX	Airbus A321neo	Y232	Jul 2024	lsd	1.4 Years	
+VT-ICY	Airbus A321neo	Y232	Dec 2024	lsd	1 Years	
+VT-ICZ	Airbus A321neo	Y232	Dec 2024	lsd	1 Years
+VT-IKT	Airbus A321neo 	Y232	Oct 2025		0.2 Years	
+VT-IKU	Airbus A321neo	Y232	Oct 2025		Brand new	
+VT-ILB	Airbus A321neo	Y232	Nov 2020	lsd	5.1 Years	
+VT-ILC	Airbus A321neo	Y232	Nov 2020	lsd	5.1 Years	
+VT-ILD	Airbus A321neo	Y232	Feb 2021	lsd	4.8 Years	
+VT-ILE	Airbus A321neo	Y232	Mar 2021	lsd	4.8 Years	
+VT-ILF	Airbus A321neo	Y232	Mar 2021	lsd	4.8 Years	
+VT-ILG	Airbus A321neo	Y232	Mar 2021	lsd	4.8 Years	
+VT-ILH	Airbus A321neo	Y232	Feb 2021	lsd	4.8 Years	
+VT-ILI	Airbus A321neo	Y232	Mar 2021	lsd	4.8 Years	
+VT-ILJ	Airbus A321neo	Y232	Dec 2020	lsd	5 Years	
+VT-ILL	Airbus A321neo	Y232	Apr 2021	lsd	4.7 Years	
+VT-ILM	Airbus A321neo	Y232	Jan 2021	lsd	5 Years	
+VT-ILN	Airbus A321neo	Y232	Feb 2021	lsd	4.9 Years	
+VT-ILO	Airbus A321neo	Y232	Apr 2021	lsd	4.7 Years	
+VT-ILP	Airbus A321neo	Y232	Jul 2021	lsd	4.5 Years	
+VT-ILQ	Airbus A321neo	Y232	Apr 2021	lsd	4.7 Years	
+VT-ILR	Airbus A321neo	Y232	Aug 2021	lsd	4.3 Years	
+VT-ILS	Airbus A321neo	Y232	Sep 2021	lsd	4.3 Years	
+VT-ILT	Airbus A321neo	Y232	Oct 2021	lsd	4.2 Years	
+VT-ILU	Airbus A321neo	Y232	Sep 2021	lsd	4.3 Years	
+VT-ILV	Airbus A321neo	Y232	Apr 2022	lsd	3.7 Years	
+VT-ILW	Airbus A321neo	Y232	Nov 2021	lsd	4.1 Years	
+VT-ILX	Airbus A321neo	Y232	Dec 2021	lsd	4 Years	
+VT-ILY	Airbus A321neo	Y232	Dec 2021	lsd	4.1 Years	
+VT-ILZ	Airbus A321neo	Y232	Dec 2021	lsd	4 Years	
+VT-IMB	Airbus A321neo	Y232	Jan 2022	lsd	4 Years	
+VT-IMC	Airbus A321neo	Y232	Dec 2021	lsd	4 Years	
+VT-IMD	Airbus A321neo	Y232	Jan 2022	lsd	3.9 Years	
+VT-IME	Airbus A321neo	Y232	Dec 2021	lsd	4 Years	
+VT-IMG	Airbus A321neo	Y232	Feb 2022	lsd	3.9 Years	
+VT-IMH	Airbus A321neo	Y232	Apr 2022	lsd	3.7 Years	
+VT-IMI	Airbus A321neo	Y232	Mar 2022	lsd	3.8 Years	
+VT-IMJ	Airbus A321neo	Y232	May 2022	lsd	3.6 Years	
+VT-IMK	Airbus A321neo	Y232	Jun 2022		3.6 Years	
+VT-IML	Airbus A321neo	Y232	Apr 2022	lsd	3.7 Years	
+VT-IMM	Airbus A321neo	Y232	May 2022	lsd	3.6 Years	
+VT-IMN	Airbus A321neo	Y232	Jun 2022		3.5 Years	
+VT-IMQ	Airbus A321neo	Y232	Jun 2022	lsf Golden Eagle Leasing	3.5 Years	
+VT-IMR	Airbus A321neo	Y232	May 2022	lsd	3.6 Years	
+VT-IMS	Airbus A321neo	Y232	Jun 2022	lsd	3.5 Years	
+VT-IMU	Airbus A321neo	Y232	Sep 2022	lsd	3.3 Years	
+VT-IMV	Airbus A321neo	Y232	Sep 2022	lsd	3.3 Years	
+VT-IMW	Airbus A321neo	Y232	Oct 2022	lsd	3.1 Years	
+VT-IMX	Airbus A321neo	Y232	Dec 2022	lsd	3.1 Years	
+VT-IMY	Airbus A321neo	Y232	Sep 2022	lsd	3.2 Years	
+VT-IMZ	Airbus A321neo	Y232	Oct 2022	lsd	3.1 Years	
+VT-IRV	Airbus A321neo	Y232	Aug 2024	lsd	1.4 Years	
+VT-IRW	Airbus A321neo	Y232	Aug 2024	lsd	1.3 Years	
+VT-IRX	Airbus A321neo	Y232	Sep 2024	lsd	1.3 Years
+VT-IRY	Airbus A321neo 	Y232	Sep 2024	lsd	1.2 Years	
+VT-IRZ	Airbus A321neo	Y232	Aug 2024	lsd	1.3 Years	
+VT-IUF	Airbus A321neo	Y222	Dec 2019	Parked / Maintenance, lsd	6 Years	
+VT-IUH	Airbus A321neo	Y222	Oct 2019	Parked at HYD, lsd	6.2 Years	
+VT-IUI	Airbus A321neo	Y222	Apr 2020	Parked at DEL, lsd	5.8 Years	
+VT-IUJ	Airbus A321neo	Y222	Dec 2019	Parked / Maintenance, lsd	6 Years	
+VT-IUK	Airbus A321neo	Y222	Feb 2020	lsd	5.8 Years	
+VT-IUL	Airbus A321neo	Y222	Dec 2019	Parked at DEL, lsd	6 Years	
+VT-IUM	Airbus A321neo	Y222	Feb 2020	lsd	5.9 Years	
+VT-IUN	Airbus A321neo	Y222	Mar 2020	Parked at DEL, lsd	5.8 Years	
+VT-IUO	Airbus A321neo	Y232	May 2020	Parked at DEL, lsd	5.7 Years	
+VT-IUP	Airbus A321neo	Y222	Jul 2020	lsd	5.4 Years	
+VT-IUQ	Airbus A321neo	Y232	May 2020	lsd	5.7 Years	
+VT-IUR	Airbus A321neo	Y232	Aug 2020	Parked at DEL, lsd	5.7 Years	
+VT-IUS	Airbus A321neo	Y232	Oct 2020		5.7 Years	
+VT-IUT	Airbus A321neo	Y232	Jun 2020	Parked at DEL	5.6 Years	
+VT-IUU	Airbus A321neo	Y222	Oct 2020	Parked at DEL, lsd	5.5 Years	
+VT-IUV	Airbus A321neo	Y232	Mar 2020	lsd	5.8 Years	
+VT-IUW	Airbus A321neo	Y232	Aug 2020	Parked at BLR, lsd	5.7 Years	
+VT-IUX	Airbus A321neo	Y232	Oct 2020	Parked at BLR, lsd	5.3 Years	
+VT-IUY	Airbus A321neo	Y232	Oct 2020	Parked at DEL, lsd	5.4 Years	
+VT-IUZ	Airbus A321neo	Y232	Dec 2020	lsd	5.1 Years	
+VT-IWM	Airbus A321neo	Y232	Sep 2024	lsd	1.3 Years	
+VT-IWN	Airbus A321neo	Y232	Aug 2024	lsd	1.4 Years	
+VT-IWQ	Airbus A321neo	C12Y208	Dec 2024	lsd	1 Years	
+VT-IWR	Airbus A321neo	Y232	Dec 2024	lsd	1 Years	
+VT-IWS	Airbus A321neo	C12Y208	Dec 2024	lsd	1 Years	
+VT-IWT	Airbus A321neo	C12Y208	Dec 2024	lsd	1 Years	
+VT-IWU	Airbus A321neo	C12Y208	Jan 2025		0.9 Years	
+VT-IWV	Airbus A321neo	C12Y208	Dec 2024	lsd	1 Years	
+VT-NCA	Airbus A321neo	C12Y208	Dec 2024	lsd	1 Years	
+VT-NCB	Airbus A321neo	C12Y208	Jan 2025		0.9 Years	
+VT-NCC	Airbus A321neo	C12Y208	Feb 2025		0.9 Years	
+VT-NCD	Airbus A321neo	C12Y208	Jan 2025		0.9 Years	
+VT-NCE	Airbus A321neo	C12Y208	Mar 2025		0.7 Years	
+VT-NCF	Airbus A321neo	C12Y208	Feb 2025		0.8 Years	
+VT-NCG	Airbus A321neo	C12Y208	Apr 2025		0.7 Years	
+VT-NCH	Airbus A321neo	C12Y208	Apr 2025		0.7 Years	
+VT-NCI	Airbus A321neo	C12Y208	Mar 2025		0.8 Years	
+VT-NCJ	Airbus A321neo	C12Y208	Mar 2025		0.8 Years	
+VT-NCK	Airbus A321neo	C12Y208	Apr 2025		0.7 Years	
+VT-NCL	Airbus A321neo	C12Y208	Apr 2025		0.7 Years	
+VT-NCM	Airbus A321neo	C12Y208	Apr 2025		0.7 Years	
+VT-NCN	Airbus A321neo	C12Y208	Jun 2025		0.5 Years	
+VT-NCO	Airbus A321neo	C12Y208	Apr 2025		0.7 Years	
+VT-NCP	Airbus A321neo	C12Y208	Jul 2025		0.4 Years	
+VT-NCQ	Airbus A321neo	C12Y208	Jul 2025		0.5 Years	
+VT-NCR	Airbus A321neo	C12Y208	May 2025		0.6 Years	
+VT-NCS	Airbus A321neo	C12Y208	Aug 2025		0.4 Years	
+VT-NCT	Airbus A321neo	C12Y208	Aug 2025		0.4 Years
+Reg	Aircraft Type	Config	Delivered	Remark	Age	
+VT-NCU	Airbus A321neo 	C12Y208	Aug 2025		0.3 Years	
+VT-NCV	Airbus A321neo	C12Y208	Sep 2025		0.3 Years	
+VT-NCW	Airbus A321neo	C12Y208	Jul 2025		0.4 Years	
+VT-NCX	Airbus A321neo	C12Y208	Aug 2025		0.4 Years	
+VT-NCY	Airbus A321neo	C12Y208	Oct 2025		0.2 Years	
+VT-NCZ	Airbus A321neo	C12Y208	Sep 2025		0.4 Years	
+VT-NHA	Airbus A321neo	C12Y208	Sep 2025		0.3 Years	
+VT-NHB	Airbus A321neo	C12Y208	Sep 2025		0.3 Years	
+VT-NHC	Airbus A321neo	C12Y208	Sep 2025		0.2 Years	
+VT-NHD	Airbus A321neo	C12Y208	Sep 2025		0.2 Years	
+VT-NHE	Airbus A321neo	C12Y208	Sep 2025		0.2 Years	
+VT-NHF	Airbus A321neo	C12Y208	Oct 2025		Brand new	
+VT-NHG	Airbus A321neo	C12Y208	Sep 2025		0.3 Years	
+VT-NHH	Airbus A321neo	C12Y208	Nov 2025		Brand new	
+VT-NHI	Airbus A321neo	C12Y208	Oct 2025		0.2 Years	
+VT-NHJ	Airbus A321neo	Y232	On Order		Brand new	
+VT-NHK	Airbus A321neo	C12Y208	On Order		Brand new	
+VT-NHL	Airbus A321neo	C12Y208	On Order		Brand new	
+VT-NHM	Airbus A321neo	Y232	Nov 2025		Brand new	
+VT-NHN	Airbus A321neo	Y232	On Order			
+VT-NHO	Airbus A321neo	C12Y208	On Order			
+VT-NHP	Airbus A321neo	Y232	On Order		Brand new	
+VT-NHQ	Airbus A321neo	Y232	On Order		Brand new	
+VT-NHR	Airbus A321neo	Y232	On Order			
+VT-	Airbus A321neo		On Order			
+VT-	Airbus A321neo		On Order			
+VT-	Airbus A321neo	C12Y208	On Order			
+VT-	Airbus A321neo		On Order			
+VT-	Airbus A321neo	C12Y208	On Order			
+VT-	Airbus A321neo	C12Y208	On Order			
+VT-	Airbus A321 XLR	C12Y183	On Order			
+VT-	Airbus A321neo	C12Y208	On Order			
+VT-	Airbus A321neo		On Order			
+VT-IRA	ATR 72	Y78	Sep 2021	lsd	5.4 Years	
+VT-IRB	ATR 72	Y78	Dec 2021		4 Years	
+VT-IRD	ATR 72	Y78	Nov 2021		5 Years	
+VT-IRE	ATR 72	Y78	Dec 2022	lsd	3.1 Years	
+VT-IRF	ATR 72	Y78	Jan 2023	lsd	3 Years	
+VT-IRG	ATR 72	Y78	Jan 2023	lsd	3 Years	
+VT-IRH	ATR 72	Y78	Jan 2023	lsd	2.9 Years	
+VT-IRI	ATR 72	Y78	Jul 2023	lsd	2.4 Years	
+VT-IRJ	ATR 72	Y78	Sep 2023	lsd	2.3 Years	
+VT-IRK	ATR 72	Y78	Oct 2023	lsd	2.2 Years	
+VT-IRL	ATR 72	Y78	Dec 2023		2.1 Years	
+VT-IRM	ATR 72	Y78	Jan 2024		2 Years	
+VT-IRN	ATR 72	Y78	Feb 2024		1.9 Years	
+VT-IRO	ATR 72	Y78	Jan 2025		1 Years	
+VT-IRP	ATR 72	Y78	Jan 2025		0.9 Years	
+VT-IRQ	ATR 72	Y78	Jan 2025		0.9 Years	
+VT-IRR	ATR 72	Y78	Jan 2025		0.9 Years
+Reg	Aircraft Type	Config	Delivered	Remark	Age	
+VT-IRS	ATR 72 	Y78	Jan 2025		0.9 Years	
+VT-IXS	ATR 72	Y78	Jun 2021		6.4 Years	
+VT-IXV	ATR 72	Y78	Jun 2021		6.1 Years	
+VT-IXW	ATR 72	Y78	Jul 2021		5.8 Years	
+VT-IXX	ATR 72	Y78	Aug 2021	lsd	5.7 Years	
+VT-IXY	ATR 72	Y78	Sep 2021	lsd	5.6 Years	
+VT-IXZ	ATR 72	Y78	Sep 2021	lsd	5.5 Years	
+VT-IYA	ATR 72	Y78	Nov 2017	lsd	8.1 Years	
+VT-IYB	ATR 72	Y78	Dec 2017		8 Years	
+VT-IYC	ATR 72	Y78	Dec 2017		8 Years	
+VT-IYD	ATR 72	Y78	Feb 2018		7.8 Years	
+VT-IYE	ATR 72	Y78	Mar 2018		7.8 Years	
+VT-IYF	ATR 72	Y78	Mar 2018		7.7 Years	
+VT-IYG	ATR 72	Y78	May 2018		7.7 Years	
+VT-IYH	ATR 72	Y78	May 2018		7.6 Years	
+VT-IYI	ATR 72	Y78	Jun 2018		7.6 Years	
+VT-IYJ	ATR 72	Y78	Jul 2018		7.6 Years	
+VT-IYK	ATR 72	Y78	Sep 2018		7.6 Years	
+VT-IYL	ATR 72	Y78	Sep 2018	Parked / Maintenance	7.4 Years	
+VT-IYO	ATR 72	Y78	Mar 2019	lsd	7.2 Years	
+VT-IYP	ATR 72	Y78	Apr 2019	lsd	7.2 Years	
+VT-IYQ	ATR 72	Y78	May 2019	lsd	7.1 Years	
+VT-IYS	ATR 72	Y78	Jun 2021		4.8 Years	
+VT-IYT	ATR 72	Y78	Nov 2019	lsd	6.9 Years	
+VT-IYU	ATR 72	Y78	Dec 2019	lsd	6.8 Years	
+VT-IYW	ATR 72	Y78	Oct 2019	Parked / Maintenance, lsd	6.8 Years	
+VT-IYX	ATR 72	Y78	Dec 2019	lsd	6.8 Years	
+VT-IYY	ATR 72	Y78	Sep 2019	lsd	6.6 Years	
+VT-IYZ	ATR 72	Y78	Aug 2019	lsd	6.5 Years	
+TC-COE	Boeing 737-800	Y189	Nov 2025	lsf Corendon Airlines	14.5 Years	
+TC-CON	Boeing 737-800	Y189	Nov 2025	lsf Corendon Airlines	14.8 Years	
+TC-COR	Boeing 737-800	Y189	Nov 2025	lsf Corendon Airlines	8.6 Years	
+TC-TJR	Boeing 737-800	Y189	Nov 2025	lsf Corendon Airlines	14.7 Years	
+TC-MKB	Boeing 737 MAX 8	Y189	Nov 2025	lsf Corendon Airlines	3.6 Years	
+TC-LKD	Boeing 777-300ER	C7Y524	May 2023	lsf Turkish Airlines	16.6 Years	
+TC-LKE	Boeing 777-300ER	C7Y524	Jun 2023	lsf Turkish Airlines	18.8 Years	
+LN-FNB	Boeing 787-9 Dreamliner	W56Y282	Oct 2025	lsf Norse Atlantic Airways	6.4 Years	
+LN-FNC	Boeing 787-9 Dreamliner	W56Y282	Feb 2025	lsf Norse Atlantic Airways	7.6 Years	
+LN-FNL	Boeing 787-9 Dreamliner	W56Y282	Oct 2025	lsf Norse Atlantic Airways	6.7 Years	
+LN-LNO	Boeing 787-9 Dreamliner	W56Y282	Nov 2025	lsf Norse Atlantic Airways	8.5 Years	
+LN-LNR	Boeing 787-9 Dreamliner	W56Y282	Sep 2025	lsf Norse Atlantic Airways	8.4 Years	
