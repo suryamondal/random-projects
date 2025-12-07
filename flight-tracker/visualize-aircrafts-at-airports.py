@@ -1,73 +1,139 @@
 #!/usr/bin/env python3
+"""
+Debugging + final visualization script.
+- Robust iata & time parsing
+- Detailed debug prints (counts & samples) to diagnose why presence/last_loc may be empty
+- Option B: track aircraft through foreign airports but plot only Indian coords
+"""
 import argparse
 import sqlite3
+import re
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import geopandas as gpd
+# FAST India outline (hard-coded bounding box polygon)
+import shapely.geometry as geom
 
-# -----------------------------
-# Airport coordinates (extend as needed)
-# -----------------------------
-AIRPORTS = {
-    "DEL": (28.5562, 77.1000),
-    "BOM": (19.0896, 72.8656),
-    "BLR": (13.1986, 77.7066),
-    "MAA": (12.9941, 80.1709),
-    "HYD": (17.24, 78.43),
-    "CCU": (22.6547, 88.4467),
-}
+india_poly = geom.Polygon([
+    (68, 6), (98, 6), (98, 38), (68, 38)
+])
+india_map = gpd.GeoDataFrame({'geometry':[india_poly]}, crs="EPSG:4326")
+
+from airport_coords import AIRPORT_COORDS
+
+
 
 DB_FILE = "database/flights.db"
 
+# # Coordinates for major Indian airports (add more if you want plotted)
+# AIRPORT_COORDS = {
+#     "DEL": (28.5562, 77.1000),
+#     "BOM": (19.0896, 72.8656),
+#     "BLR": (13.1986, 77.7066),
+#     "MAA": (12.9941, 80.1709),
+#     "HYD": (17.2403, 78.4294),
+#     "CCU": (22.6547, 88.4467),
+#     "TRV": (8.4821, 76.9206),
+#     "COK": (10.1556, 76.3910),
+#     "PNQ": (18.5800, 73.9200),
+#     "GOI": (15.3800, 73.8300),
+#     "JAI": (26.8242, 75.8122),
+#     "LKO": (26.7606, 80.8893),
+#     "GAU": (26.1061, 91.5859),
+#     "VNS": (25.4524, 82.8613),
+# }
 
-# ---------------------------------------
-# Parse time for "YYYY-MM-DD HH:MM"
-# ---------------------------------------
-def parse_time(date, t):
-    if not t or t.strip() == "":
+INDIAN_IATA = set(AIRPORT_COORDS.keys())
+
+# -------------------------
+# Robust IATA extraction
+# -------------------------
+def extract_iata(raw):
+    if raw is None:
         return None
-    try:
-        return datetime.strptime(date + " " + t, "%Y-%m-%d %H:%M")
-    except:
-        return None
+    if not isinstance(raw, str):
+        raw = str(raw)
 
+    # normalize common unicode parentheses and whitespace characters
+    raw_norm = raw.replace("（", "(").replace("）", ")") \
+                  .replace("﹙", "(").replace("﹚", ")") \
+                  .replace("\u00A0", " ")  # NBSP
+    raw_norm = raw_norm.strip()
 
-# -----------------------------------------------------
-# Option A: Determine arrival using ATD + flight_time
-# Fallback to STA + day rollover
-# -----------------------------------------------------
-def compute_arrival(date, std, sta, atd, flight_time):
-    # 1) Try using ATD + flight_time
-    if atd and flight_time:
-        dep = parse_time(date, atd)
-        if dep:
-            try:
-                h, m = map(int, flight_time.split(":"))
-                arr = dep + timedelta(hours=h, minutes=m)
-                return arr
-            except:
-                pass
+    # find all occurrences like "(ABC)" case-insensitive
+    matches = re.findall(r"\(([A-Za-z0-9]{3})\)", raw_norm)
+    if matches:
+        return matches[-1].upper()
 
-    # 2) STA fallback with rollover
-    arr = parse_time(date, sta)
-    dep_std = parse_time(date, std)
-
-    if arr and dep_std:
-        # If STA < STD, it's next day
-        if arr.time() < dep_std.time():
-            arr += timedelta(days=1)
-        return arr
+    # fallback: find last 3 alnum chars (useful for "CITY ABC" or "CITY (ABC" broken)
+    s = re.sub(r"[^A-Za-z0-9]", "", raw_norm)  # remove punctuation
+    if len(s) >= 3:
+        cand = s[-3:]
+        if cand.isalnum():
+            return cand.upper()
 
     return None
 
+# -------------------------
+# Robust time parser
+# -------------------------
+def clean_time_str(t):
+    if t is None:
+        return None
+    if not isinstance(t, str):
+        t = str(t)
+    # normalize NBSP and non-printables, strip
+    t = t.replace("\u00A0", " ").replace("\u200B", "").strip()
+    # sometimes values like '05:57 ' or '\n05:57' exist
+    if t == "" or t.lower() == "null":
+        return None
+    return t
 
-# -----------------------------------------------------
-# Build presence windows for aircraft at airports
-# -----------------------------------------------------
-def compute_presence_windows(conn, airline):
+def parse_time(date, t):
+    t = clean_time_str(t)
+    if not t:
+        return None
+    # Accept "H:MM" or "HH:MM"
+    try:
+        return datetime.strptime(f"{date} {t}", "%Y-%m-%d %H:%M")
+    except Exception:
+        # as a last resort, try to parse if date already included
+        try:
+            return datetime.strptime(t, "%Y-%m-%d %H:%M")
+        except Exception:
+            return None
+
+# -------------------------
+# Arrival logic (Option A)
+# -------------------------
+def compute_arrival(date, std, sta, atd, flight_time):
+    # Try ATD + flight_time first
+    atd_c = clean_time_str(atd)
+    ft_c = clean_time_str(flight_time)
+    if atd_c and ft_c:
+        dep = parse_time(date, atd_c)
+        if dep:
+            try:
+                hh, mm = map(int, ft_c.split(":"))
+                return dep + timedelta(hours=hh, minutes=mm)
+            except Exception:
+                pass
+
+    # Fallback to STA with rollover
+    arr = parse_time(date, sta)
+    dep_std = parse_time(date, std)
+    if arr and dep_std:
+        if arr.time() < dep_std.time():
+            arr = arr + timedelta(days=1)
+        return arr
+    return None
+
+# -------------------------
+# Read DB + build presence & last_loc with debug logging
+# -------------------------
+def compute_presence_windows(conn, airline, debug_samples=20):
     cur = conn.cursor()
-
     cur.execute("""
         SELECT a.registration, f.date, f.from_airport, f.to_airport,
                f.std, f.atd, f.sta, f.flight_time, f.status
@@ -76,124 +142,172 @@ def compute_presence_windows(conn, airline):
         WHERE a.operator = ?
         ORDER BY a.registration, f.date, f.std
     """, (airline,))
-
     rows = cur.fetchall()
+    total_rows = len(rows)
 
-    presence = []      # (start_time, end_time, airport)
-    last_loc = {}      # reg -> (arrival_time, airport)
+    presence = []
+    last_loc = {}
 
-    for reg, date, from_ap, to_ap, std, atd, sta, flight_time, status in rows:
+    # debug counters
+    skipped_unknown = 0
+    skipped_no_airport = 0
+    skipped_no_time = 0
+    added_presence = 0
+    added_lastloc = 0
 
-        # Skip flights with unknown status
-        if status and status.lower() == "unknown":
+    skip_examples = []
+
+    for idx, (reg, date, from_raw, to_raw, std, atd, sta, flight_time, status) in enumerate(rows):
+        reason = None
+
+        # normalize status
+        status_s = (status or "").strip().lower()
+        if status_s == "unknown":
+            skipped_unknown += 1
+            reason = "unknown-status"
+            if len(skip_examples) < debug_samples:
+                skip_examples.append((reg, date, from_raw, to_raw, std, atd, sta, flight_time, status, reason))
             continue
 
-        # Departure time (ATD preferred)
-        dep = parse_time(date, atd) or parse_time(date, std)
+        # extract iata
+        from_iata = extract_iata(from_raw)
+        to_iata = extract_iata(to_raw)
 
+        # compute times
+        dep = parse_time(date, atd) or parse_time(date, std)
         arr = compute_arrival(date, std, sta, atd, flight_time)
 
-        # If both times exist, create "presence at origin airport before dep"
-        if dep and from_ap:
-            presence.append((
-                dep - timedelta(minutes=30),  # assume 30 min ground before ATD
-                dep,
-                from_ap
-            ))
+        # If neither airport present, skip for presence/lastloc but record reason
+        if (from_iata is None) and (to_iata is None):
+            skipped_no_airport += 1
+            reason = "no-airport"
+            if len(skip_examples) < debug_samples:
+                skip_examples.append((reg, date, from_raw, to_raw, std, atd, sta, flight_time, status, reason))
+            continue
 
-        # After arrival → presence at destination until next departure
-        if arr and to_ap:
-            last_loc[reg] = (arr, to_ap)
+        # If no times can be parsed, skip but keep examples
+        if dep is None and arr is None:
+            skipped_no_time += 1
+            reason = "no-times"
+            if len(skip_examples) < debug_samples:
+                skip_examples.append((reg, date, from_raw, to_raw, std, atd, sta, flight_time, status, reason))
+            continue
 
-    return presence, last_loc
+        # add presence window for origin if dep exists and origin IATA extracted
+        if dep and from_iata:
+            presence.append((dep - timedelta(minutes=30), dep, from_iata))
+            added_presence += 1
 
+        # record destination as last known location if arr exists and to_iata exists
+        if arr and to_iata:
+            last_loc[reg] = (arr, to_iata)
+            added_lastloc += 1
 
-# -----------------------------------------------------
-# Build timeline for frames
-# -----------------------------------------------------
+    # debug summary
+    debug = {
+        "total_rows": total_rows,
+        "skipped_unknown": skipped_unknown,
+        "skipped_no_airport": skipped_no_airport,
+        "skipped_no_time": skipped_no_time,
+        "presence_count": len(presence),
+        "lastloc_count": len(last_loc),
+        "added_presence": added_presence,
+        "added_lastloc": added_lastloc,
+        "skip_examples": skip_examples[:debug_samples],
+        "rows_sample": rows[:debug_samples],
+    }
+
+    return presence, last_loc, debug
+
+# -------------------------
+# timeline builder, counter, plotting (same ideas as before)
+# -------------------------
 def build_time_range(presence, last_loc, interval_min):
-    all_times = [t for win in presence for t in win[:2]]
-
-    # Add last known arrival times
-    for t, _ap in last_loc.values():
-        all_times.append(t)
+    all_times = []
+    for s, e, _ in presence:
+        all_times.append(s)
+        all_times.append(e)
+    for arr, _ in last_loc.values():
+        all_times.append(arr)
 
     if not all_times:
-        raise RuntimeError("No timestamp data available after filtering.")
+        raise RuntimeError("No timestamp data after filtering (presence and last_loc empty).")
 
     t_min = min(all_times)
-    t_max = max(all_times)
-
-    # Extend plot window slightly
-    t_max += timedelta(hours=6)
+    t_max = max(all_times) + timedelta(hours=6)
 
     times = []
-    step = timedelta(minutes=interval_min)
     t = t_min
+    step = timedelta(minutes=interval_min)
     while t <= t_max:
         times.append(t)
         t += step
-
     return times
 
-
-# -----------------------------------------------------
-# Count aircraft at a timestamp
-# -----------------------------------------------------
 def count_aircraft_at_time(t, presence, last_loc):
     counts = {}
-
-    # From presence windows
-    for start, end, ap in presence:
-        if start <= t <= end:
+    for s, e, ap in presence:
+        if s <= t <= e:
             counts[ap] = counts.get(ap, 0) + 1
-
-    # From last known location (aircraft stays after arrival)
     for arr, ap in last_loc.values():
         if t >= arr:
             counts[ap] = counts.get(ap, 0) + 1
-
     return counts
 
-
-# -----------------------------------------------------
-# Plot one page
-# -----------------------------------------------------
 def plot_frame(ax, india_map, t, counts):
     india_map.plot(ax=ax, color="white", edgecolor="black")
+    ax.set_title(f"Aircraft at Indian Airports — {t.strftime('%Y-%m-%d %H:%M')}", fontsize=14)
 
-    ax.set_title(f"Aircraft at airports — {t}", fontsize=14)
-
-    for ap, count in counts.items():
-        if ap not in AIRPORTS:
-            continue
-        lat, lon = AIRPORTS[ap]
-        ax.scatter(lon, lat, s=40 + 20 * count)
-        ax.text(lon, lat, f"{ap}\n{count}", fontsize=8)
+    # plot only airports with coords
+    for ap, (lat, lon) in AIRPORT_COORDS.items():
+        cnt = counts.get(ap, 0)
+        if cnt > 0:
+            ax.scatter(lon, lat, s=40 + 20*cnt)
+            ax.text(lon, lat, f"{ap}\n{cnt}", fontsize=8, ha='center', va='bottom')
+        else:
+            ax.scatter(lon, lat, s=8, alpha=0.2)
 
     ax.set_xlim(68, 98)
     ax.set_ylim(6, 38)
 
-
-# -----------------------------------------------------
-# MAIN
-# -----------------------------------------------------
+# -------------------------
+# Main
+# -------------------------
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--airline", required=True)
-    parser.add_argument("--interval", type=int, default=30)
-    parser.add_argument("--output", default="airline_map.pdf")
-    args = parser.parse_args()
+    p = argparse.ArgumentParser()
+    p.add_argument("--airline", required=True)
+    p.add_argument("--interval", type=int, default=30)
+    p.add_argument("--output", default="output.pdf")
+    args = p.parse_args()
 
     conn = sqlite3.connect(DB_FILE)
-
-    presence, last_loc = compute_presence_windows(conn, args.airline)
+    presence, last_loc, debug = compute_presence_windows(conn, args.airline)
     conn.close()
+
+    # Print full debug summary — paste this if it still fails
+    print("=== DEBUG SUMMARY ===")
+    print(f"Total rows read for operator '{args.airline}': {debug['total_rows']}")
+    print(f"Skipped (status=='unknown'): {debug['skipped_unknown']}")
+    print(f"Skipped (no airport extracted both ends): {debug['skipped_no_airport']}")
+    print(f"Skipped (no parsable times both ends): {debug['skipped_no_time']}")
+    print(f"Presence windows created: {debug['presence_count']} (added_presence={debug['added_presence']})")
+    print(f"Last-known locations recorded: {debug['lastloc_count']} (added_lastloc={debug['added_lastloc']})")
+    print("\nSample rows (first 10):")
+    for r in debug["rows_sample"][:10]:
+        print(r)
+    print("\nSample skipped examples and reasons (up to 20):")
+    for ex in debug["skip_examples"]:
+        print(ex)
+    print("======================\n")
+
+    # If nothing to plot, stop with informative message
+    if debug["presence_count"] == 0 and debug["lastloc_count"] == 0:
+        raise RuntimeError("No usable presence or last-locations found — see debug summary above.")
 
     times = build_time_range(presence, last_loc, args.interval)
 
-    india_map = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
-    india_map = india_map[india_map["name"] == "India"]
+    # india_map = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
+    # india_map = india_map[india_map["name"] == "India"]
 
     with PdfPages(args.output) as pdf:
         for t in times:
@@ -203,8 +317,7 @@ def main():
             pdf.savefig(fig)
             plt.close(fig)
 
-    print(f"[DONE] Saved {args.output}")
-
+    print(f"[DONE] saved {args.output}")
 
 if __name__ == "__main__":
     main()
