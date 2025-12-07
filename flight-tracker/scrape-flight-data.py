@@ -14,6 +14,28 @@ import os
 import time
 import random
 import re
+import time
+from statistics import mean
+import signal
+import sys
+
+interrupted = False
+
+def handle_sigint(signum, frame):
+    global interrupted
+    interrupted = True
+    print("\n\n[CTRL-C] Graceful stop requested… finishing current task.")
+signal.signal(signal.SIGINT, handle_sigint)
+
+
+def format_time(sec):
+    if sec < 60:
+        return f"{sec:.1f}s"
+    elif sec < 3600:
+        return f"{sec/60:.1f}m"
+    else:
+        return f"{sec/3600:.1f}h"
+
 
 def human_sleep():
     # mostly between 2–7 seconds, but occasionally a long break
@@ -28,6 +50,18 @@ def human_sleep():
     else:
         print(f"[PAUSE] Sleeping {delay:.1f}s")
     time.sleep(delay)
+
+
+def show_progress(done, total, avg_sleep):
+    percent = (done / total) * 100
+    est_left = (total - done) * avg_sleep
+    bar_len = 30
+    filled = int(bar_len * done / total)
+    bar = "#" * filled + "-" * (bar_len - filled)
+
+    print(f"\r[{bar}] {percent:5.1f}%  {done}/{total}",
+          end="\n", flush=True)
+
 
 # --------------------------
 # Run lynx and return text
@@ -284,21 +318,38 @@ def scrape(reg):
 # --------------------------
 # CLI
 # --------------------------
-def load_registrations(path):
-    with open(path, "r", encoding="utf-8") as fh:
-        return [l.strip() for l in fh if l.strip() and not l.strip().startswith("#")]
+def load_registrations_from_files(paths):
+    regs = []
+    for path in paths:
+        with open(path, "r", encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if not line or line.startswith("#"):
+                    continue
+                regs.append(line)
+    return regs
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--file", required=True, help="File with registration numbers")
+    parser.add_argument("-f", "--files", nargs="+", required=True,
+                        help="One or more files containing registration numbers")
     parser.add_argument("-o", "--output", required=True, help="Output directory")
     args = parser.parse_args()
 
-    regs = load_registrations(args.file)
+    regs = load_registrations_from_files(args.files)
     os.makedirs(args.output, exist_ok=True)
 
+    times = []
+    total = len(regs)
+    done = 0
+
     for reg in regs:
-        print(f"Scraping {reg} ...")
+        start = time.time()
+
+        if interrupted:
+            break
+
+        print(f"\nScraping {reg} ...")
         data = scrape(reg)
 
         out_path = os.path.join(args.output, f"{reg.upper()}.json")
@@ -306,7 +357,26 @@ def main():
             json.dump(data, f, indent=2, ensure_ascii=False)
 
         print(f"Saved → {out_path}  (flights: {len(data['flight_history'])})")
-        human_sleep()
+
+        # timing
+        elapsed = time.time() - start
+        times.append(elapsed)
+        avg_sleep = mean(times) if times else 5
+
+        done += 1
+        show_progress(done, total, avg_sleep)
+
+        if done < total:
+            human_sleep()   # your existing sleep function
+
+    print("\n\n=== SUMMARY ===")
+    print(f"Total aircraft: {total}")
+    print(f"Completed:      {done}")
+    print(f"Skipped:        {total - done}")
+    if interrupted:
+        print("Interrupted by user.")
+    else:
+        print("Finished normally.")
 
 if __name__ == "__main__":
     main()

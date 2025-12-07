@@ -1,0 +1,32 @@
+Reg	Aircraft Type	Config	Delivered	Remark	Age	
+VT-YAA	Boeing 737 MAX 8 	Y189	Jun 2022	lsd	6.4 Years	
+VT-YAB	Boeing 737 MAX 8	Y189	Jul 2022	lsd	6.3 Years	
+VT-YAC	Boeing 737 MAX 8	Y189	Aug 2022	lsd	6.2 Years	
+VT-YAD	Boeing 737 MAX 8	Y189	Sep 2022	lsd	5.9 Years	
+VT-YAE	Boeing 737 MAX 8	Y189	Aug 2022	lsd	6.5 Years	
+VT-YAF	Boeing 737 MAX 8	Y189	Sep 2022	lsd	6.3 Years	
+VT-YAG	Boeing 737 MAX 8	Y189	Nov 2022	lsd	6.3 Years	
+VT-YAH	Boeing 737 MAX 8	Y189	Nov 2022	lsd	6.7 Years	
+VT-YAI	Boeing 737 MAX 8	Y189	Oct 2022	lsd	6.5 Years	
+VT-YAJ	Boeing 737 MAX 8	Y189	Dec 2022	lsd	6.7 Years	
+VT-YAK	Boeing 737 MAX 8	Y189	Dec 2022	lsd	6.5 Years	
+VT-YAL	Boeing 737 MAX 8	Y189	Dec 2022	lsd	6.4 Years	
+VT-YAM	Boeing 737 MAX 8	Y189	Dec 2022	lsd	6.3 Years	
+VT-YAO	Boeing 737 MAX 8	Y189	Jan 2023	lsd	6.6 Years	
+VT-YAP	Boeing 737 MAX 8	Y189	Jan 2023	lsd	6.2 Years	
+VT-YAQ	Boeing 737 MAX 8	Y189	Dec 2022	lsd	6 Years	
+VT-YAR	Boeing 737 MAX 8	Y189	Jan 2023	lsd	6.6 Years	
+VT-YAS	Boeing 737 MAX 8	Y189	Feb 2023	lsd	6.1 Years	
+VT-YAT	Boeing 737 MAX 8	Y189	Mar 2023	lsd	6 Years	
+VT-YAU	Boeing 737 MAX 8	C8Y177	Dec 2023	lsd	4.8 Years	
+VT-YAV	Boeing 737 MAX 8	Y197	Jul 2023	lsd	2.7 Years	
+VT-YAW	Boeing 737 MAX 8	C8Y177	Dec 2023	lsd	3.7 Years	
+VT-YAX	Boeing 737 MAX 8	Y186	Feb 2024	lsd	3.8 Years	
+VT-YBA	Boeing 737 MAX 8	Y186	Jan 2024	lsd	3.6 Years	
+VT-YBB	Boeing 737 MAX 8	Y197	Sep 2024	lsd	1.5 Years	
+VT-YBC	Boeing 737 MAX 8	Y197	Oct 2024	lsd	1.4 Years	
+VT-YBD	Boeing 737 MAX 8	Y197	Jan 2025		1 Years	
+VT-YBE	Boeing 737 MAX 8	Y197	Apr 2025		0.7 Years	
+VT-YBF	Boeing 737 MAX 8	Y197	Jun 2025		0.6 Years	
+VT-YBG	Boeing 737 MAX 8	Y197	Jun 2025		0.6 Years	
+VT-YBH	Boeing 737 MAX 8	Y197	Dec 2025		0.5 Years	

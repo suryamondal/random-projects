@@ -1,4 +1,4 @@
-	Reg	Aircraft Type	Config	Delivered	Remark	Age	
+Reg	Aircraft Type	Config	Delivered	Remark	Age	
 VT-IAN	Airbus A320-200 	Y180	Mar 2014		11.8 Years	
 VT-IAO	Airbus A320-200	Y180	Apr 2014		11.8 Years	
 VT-IAQ	Airbus A320-200	Y180	Aug 2014		11.3 Years	
@@ -49,7 +49,6 @@ VT-IIX	Airbus A320neo	Y186	Sep 2022	lsd	3.2 Years
 VT-IIY	Airbus A320neo	Y186	Sep 2022	lsd	3.4 Years	
 VT-IIZ	Airbus A320neo	Y186	Jul 2022	lsd	3.4 Years	
 VT-IJE	Airbus A320neo	Y186	May 2019	Parked at NAG, lsd	6.6 Years
-	Reg	Aircraft Type	Config	Delivered	Remark	Age	
 VT-IJG	Airbus A320neo 	Y186	Feb 2020		5.9 Years	
 VT-IJM	Airbus A320neo	Y186	Jul 2019	Parked at VO95, lsd	6.4 Years	
 VT-IJN	Airbus A320neo	Y186	Apr 2020	Parked at DEL, lsd	5.7 Years	
@@ -150,7 +149,6 @@ VT-ITN	Airbus A320neo	Y180	Dec 2016	lsd	9 Years
 VT-ITO	Airbus A320neo	Y180	Feb 2017	lsd	8.9 Years	
 VT-ITP	Airbus A320neo	Y180	Feb 2017	Parked at BLR, lsd	8.9 Years	
 VT-ITQ	Airbus A320neo	Y180	Mar 2017	Parked at DEL, lsd	8.8 Years
-Reg	Aircraft Type	Config	Delivered	Remark	Age	
 VT-ITR	Airbus A320neo 	Y180	Mar 2017	lsd	8.8 Years	
 VT-ITS	Airbus A320neo	Y180	Feb 2017	Parked at BLR, lsd	10 Years	
 VT-ITT	Airbus A320neo	Y180	May 2017	Parked at DEL, lsd	8.6 Years	
@@ -199,10 +197,6 @@ VT-IZL	Airbus A320neo	Y186	Dec 2018	Parked at COK, lsd	7 Years
 VT-IZM	Airbus A320neo	Y186	Dec 2018	lsd	7.1 Years	
 VT-IZN	Airbus A320neo	Y186	Dec 2018	lsd	7 Years	
 VT-IZV	Airbus A320neo	Y186	Dec 2019	Parked at DEL, lsd	6 Years	
-VT-	Airbus A320neo		On Order			
-VT-	Airbus A320neo		On Order		Brand new
-VT-	Airbus A320neo 		On Order		Brand new	
-VT-	Airbus A320neo		On Order			
 VT-IKW	Airbus A321-200(F)	Cargo	Oct 2022	lsd	18.2 Years	
 VT-IKX	Airbus A321-200(F)	Cargo	Dec 2022	lsd	18 Years	
 VT-IKY	Airbus A321-200(F)	Cargo	Oct 2023	lsd	16.5 Years	
@@ -351,7 +345,6 @@ VT-NCQ	Airbus A321neo	C12Y208	Jul 2025		0.5 Years
 VT-NCR	Airbus A321neo	C12Y208	May 2025		0.6 Years	
 VT-NCS	Airbus A321neo	C12Y208	Aug 2025		0.4 Years	
 VT-NCT	Airbus A321neo	C12Y208	Aug 2025		0.4 Years
-Reg	Aircraft Type	Config	Delivered	Remark	Age	
 VT-NCU	Airbus A321neo 	C12Y208	Aug 2025		0.3 Years	
 VT-NCV	Airbus A321neo	C12Y208	Sep 2025		0.3 Years	
 VT-NCW	Airbus A321neo	C12Y208	Jul 2025		0.4 Years	
@@ -376,15 +369,6 @@ VT-NHO	Airbus A321neo	C12Y208	On Order
 VT-NHP	Airbus A321neo	Y232	On Order		Brand new	
 VT-NHQ	Airbus A321neo	Y232	On Order		Brand new	
 VT-NHR	Airbus A321neo	Y232	On Order			
-VT-	Airbus A321neo		On Order			
-VT-	Airbus A321neo		On Order			
-VT-	Airbus A321neo	C12Y208	On Order			
-VT-	Airbus A321neo		On Order			
-VT-	Airbus A321neo	C12Y208	On Order			
-VT-	Airbus A321neo	C12Y208	On Order			
-VT-	Airbus A321 XLR	C12Y183	On Order			
-VT-	Airbus A321neo	C12Y208	On Order			
-VT-	Airbus A321neo		On Order			
 VT-IRA	ATR 72	Y78	Sep 2021	lsd	5.4 Years	
 VT-IRB	ATR 72	Y78	Dec 2021		4 Years	
 VT-IRD	ATR 72	Y78	Nov 2021		5 Years	
@@ -402,7 +386,6 @@ VT-IRO	ATR 72	Y78	Jan 2025		1 Years
 VT-IRP	ATR 72	Y78	Jan 2025		0.9 Years	
 VT-IRQ	ATR 72	Y78	Jan 2025		0.9 Years	
 VT-IRR	ATR 72	Y78	Jan 2025		0.9 Years
-Reg	Aircraft Type	Config	Delivered	Remark	Age	
 VT-IRS	ATR 72 	Y78	Jan 2025		0.9 Years	
 VT-IXS	ATR 72	Y78	Jun 2021		6.4 Years	
 VT-IXV	ATR 72	Y78	Jun 2021		6.1 Years	
