@@ -15,13 +15,36 @@ import time
 import random
 import re
 
+def human_sleep():
+    # mostly between 2–7 seconds, but occasionally a long break
+    base = random.normalvariate(4.5, 1.8)
+    long_pause = False
+    if random.random() < 0.03:  # 3% chance of long safety pause
+        base += random.uniform(12, 25)
+        long_pause = True
+    delay = max(1.2, base)
+    if long_pause:
+        print(f"[PAUSE] Long safety sleep: {delay:.1f}s (simulating human idle)")
+    else:
+        print(f"[PAUSE] Sleeping {delay:.1f}s")
+    time.sleep(delay)
+
 # --------------------------
 # Run lynx and return text
 # --------------------------
+UAS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+    "Mozilla/5.0 (X11; Linux x86_64)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)",
+]
 def lynx_dump(url):
     try:
+        ua = random.choice(UAS)
         out = subprocess.check_output(
-            ["lynx", "-dump", "-nolist", url],
+            ["lynx", "-dump", "-nolist",
+             f"-useragent={ua}",
+             url],
             stderr=subprocess.STDOUT
         ).decode("utf-8", errors="ignore")
         return out
@@ -269,8 +292,6 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--file", required=True, help="File with registration numbers")
     parser.add_argument("-o", "--output", required=True, help="Output directory")
-    parser.add_argument("--min-sleep", type=float, default=2.0)
-    parser.add_argument("--max-sleep", type=float, default=6.0)
     args = parser.parse_args()
 
     regs = load_registrations(args.file)
@@ -285,7 +306,7 @@ def main():
             json.dump(data, f, indent=2, ensure_ascii=False)
 
         print(f"Saved → {out_path}  (flights: {len(data['flight_history'])})")
-        time.sleep(random.uniform(args.min_sleep, args.max_sleep))
+        human_sleep()
 
 if __name__ == "__main__":
     main()
