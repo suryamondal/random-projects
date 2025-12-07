@@ -1,212 +1,159 @@
 #!/usr/bin/env python3
 import argparse
+import subprocess
+import json
 import os
 import time
 import random
-import json
 import re
-import requests
-from bs4 import BeautifulSoup
 
-# ---------------------------
-# Global user-agent
-# ---------------------------
-HEADERS = {
-    "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/123.0 Safari/537.36"
-}
+# ------------------------------
+# Run lynx and get plain text
+# ------------------------------
+def lynx_dump(url):
+    try:
+        out = subprocess.check_output(
+            ["lynx", "-dump", "-nolist", url],
+            stderr=subprocess.STDOUT
+        ).decode("utf-8", errors="ignore")
+        return out
+    except Exception as e:
+        print("ERROR running lynx:", e)
+        return ""
 
-# ---------------------------
-# Read registrations
-# ---------------------------
-def load_registrations(path):
-    regs = []
-    with open(path, "r", encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith("#"):
+# ------------------------------
+# Parse flight history from text
+# ------------------------------
+def parse_flights(text):
+    lines = text.splitlines()
+    flights = []
+
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+
+        # Flight numbers look like: 6E1234 / IGO123 / etc.
+        if re.match(r"^[A-Z0-9]{2,3}\d{2,4}$", line):
+            try:
+                flight = line
+                date = lines[i+1].strip()
+                flight_time = lines[i+2].strip()
+                status = lines[i+3].strip()
+                # Expect STD block
+                std = lines[i+5].strip()
+                atd = lines[i+7].strip()
+                sta = lines[i+9].strip()
+
+                # FROM/TO
+                from_city = lines[i+11].strip()
+                to_city = lines[i+13].strip()
+
+                flights.append({
+                    "date": date,
+                    "from": clean_field(from_city, "FROM "),
+                    "to": clean_field(to_city, "TO "),
+                    "flight": flight,
+                    "flight_time": flight_time if flight_time != "-" else None,
+                    "std": clean_field(std, "STD "),
+                    "atd": clean_field(atd, "ATD "),
+                    "sta": clean_field(sta, "STA "),
+                    "status": status
+                })
+
+                # advance by pattern size
+                i += 14
                 continue
-            regs.append(line)
-    return regs
 
-# ---------------------------
-# Extract label/value for OPERATOR / AIRCRAFT
-# ---------------------------
-def get_label_value(soup, label):
+            except IndexError:
+                break
+
+        i += 1
+
+    # Reverse chronology (earliest first)
+    flights.reverse()
+    return flights
+
+# ------------------------------
+# Extract operator and aircraft type
+# ------------------------------
+def clean_field(value, prefix):
     """
-    FR24 renders "AIRCRAFT", "AIRLINE", "OPERATOR" in many layouts.
-    This function searches for text 'AIRLINE', then pulls the value next to it.
+    Removes prefixes like 'FROM ', 'TO ', 'STD ', 'ATD ', 'STA '.
     """
-    # Try exact match first
-    node = soup.find(string=re.compile(rf"^{label}\s*$", re.I))
-    if not node:
-        # Try partial (sometimes extra whitespace)
-        node = soup.find(string=re.compile(label, re.I))
+    value = value.replace("\u2014", "-")  # normalize long-dash
+    if value.startswith(prefix):
+        return value[len(prefix):].strip()
+    return value.strip()
 
-    if not node:
-        return None
+def extract_meta(text):
+    operator = None
+    aircraft_type = None
 
-    # Value often appears in the sibling element
-    parent = node.parent
-    if not parent:
-        return None
+    lines = [l.strip() for l in text.splitlines()]
 
-    # Try next sibling first
-    nxt = parent.find_next_sibling()
-    if nxt and nxt.get_text(strip=True):
-        txt = nxt.get_text(strip=True)
-        if txt and txt.lower() != label.lower():
-            return txt
+    for idx, line in enumerate(lines):
+        if line == "AIRCRAFT":
+            aircraft_type = lines[idx+1].strip()
+        if line == "AIRLINE":
+            # AIRLINE may appear as: AIRLINE [4]IndiGo
+            operator = re.sub(r"\[\d+\]", "", lines[idx+1]).strip()
+        if line == "OPERATOR":
+            operator = lines[idx+1].strip()
 
-    # Try searching nearby nodes
-    count = 0
-    cur = parent
-    while count < 5 and cur:
-        cur = cur.find_next()
-        count += 1
-        if not cur:
-            break
-        txt = cur.get_text(strip=True)
-        if txt and txt.lower() != label.lower():
-            return txt
+    return operator, aircraft_type
 
+    return operator, aircraft
+
+def next_nonempty(current_line, full_text):
+    lines = full_text.splitlines()
+    idx = lines.index(current_line)
+    for j in range(idx+1, len(lines)):
+        if lines[j].strip():
+            return lines[j].strip()
     return None
 
-# ---------------------------
-# Parse a single flight row
-# ---------------------------
-def parse_flight_row(row):
-    cols = row.find_all("td")
+# ------------------------------
+# Main single-aircraft scrape
+# ------------------------------
+def scrape(reg):
+    url = f"https://www.flightradar24.com/data/aircraft/{reg.lower()}"
+    text = lynx_dump(url)
 
-    # Desktop rows have >= 10 columns
-    if len(cols) < 10:
-        return None
-
-    def t(i):
-        return cols[i].get_text(" ", strip=True)
-
-    # Column meaning:
-    # 0 DATE
-    # 1 FROM
-    # 2 TO
-    # 3 FLIGHT
-    # 4 FLIGHT TIME
-    # 5 STD
-    # 6 ATD
-    # 7 STA
-    # 8 ICON (ignore)
-    # 9 STATUS
+    operator, aircraft_type = extract_meta(text)
+    flights = parse_flights(text)
 
     return {
-        "date": t(0),
-        "from": t(1),
-        "to": t(2),
-        "flight": t(3),
-        "flight_time": t(4),
-        "std": t(5),
-        "atd": t(6),
-        "sta": t(7),
-        "status": t(9)
-    }
-
-# ---------------------------
-# Parse the full aircraft page HTML
-# ---------------------------
-def parse_aircraft_page(html, registration):
-    soup = BeautifulSoup(html, "html.parser")
-
-    # Operator / Aircraft Type
-    operator = get_label_value(soup, "OPERATOR")
-    if not operator:
-        operator = get_label_value(soup, "AIRLINE")
-
-    aircraft_type = get_label_value(soup, "AIRCRAFT")
-
-    # Flight history table
-    flights = []
-    table = soup.find("table", id="tbl-datatable")
-
-    if table:
-        rows = table.find_all("tr")
-        for r in rows:
-            cls = r.get("class") or []
-            # Skip upgrade rows
-            if any("row-upgrade" in c for c in cls):
-                continue
-
-            parsed = parse_flight_row(r)
-            if parsed:
-                flights.append(parsed)
-
-    # FR24 lists most recent first → reverse to earliest first
-    flights.reverse()
-
-    return {
-        "registration": registration.upper(),
+        "registration": reg.upper(),
         "operator": operator,
         "type": aircraft_type,
         "flight_history": flights
     }
 
-# ---------------------------
-# Fetch the aircraft HTML
-# ---------------------------
-def fetch_html(url):
-    res = requests.get(url, headers=HEADERS, timeout=20)
-    res.raise_for_status()
-    return res.text
-
-# ---------------------------
-# Handle one aircraft scrape
-# ---------------------------
-def scrape_aircraft(reg):
-    url = f"https://www.flightradar24.com/data/aircraft/{reg.lower()}"
-    try:
-        html = fetch_html(url)
-    except Exception as e:
-        print(f"[ERROR] Could not fetch {reg}: {e}")
-        return None
-
-    return parse_aircraft_page(html, reg)
-
-# ---------------------------
-# Main
-# ---------------------------
+# ------------------------------
+# CLI main
+# ------------------------------
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--file", required=True, help="File with registration numbers")
-    parser.add_argument("-o", "--output", required=True, help="Directory to save JSON files")
-    parser.add_argument("--min-sleep", type=float, default=2.0)
-    parser.add_argument("--max-sleep", type=float, default=6.0)
+    parser.add_argument("-f", "--file", required=True)
+    parser.add_argument("-o", "--output", required=True)
     args = parser.parse_args()
 
-    regs = load_registrations(args.file)
-    if not regs:
-        print("No valid registrations found.")
-        return
+    with open(args.file, "r") as f:
+        regs = [l.strip() for l in f if l.strip() and not l.startswith("#")]
 
     os.makedirs(args.output, exist_ok=True)
 
     for reg in regs:
         print(f"Scraping {reg} ...")
+        data = scrape(reg)
 
-        data = scrape_aircraft(reg)
-        if not data:
-            print(f"Skipping {reg} due to read/parse error.")
-            continue
+        out = os.path.join(args.output, f"{reg.upper()}.json")
+        with open(out, "w", encoding="utf-8") as fp:
+            json.dump(data, fp, indent=2)
 
-        out_path = os.path.join(args.output, f"{reg.upper()}.json")
-        with open(out_path, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
+        print(f"Saved → {out}")
 
-        print(f"Saved → {out_path}")
-
-        # Random polite delay
-        delay = random.uniform(args.min_sleep, args.max_sleep)
-        print(f"Sleeping {delay:.2f}s ...")
-        time.sleep(delay)
+        time.sleep(random.uniform(2, 6))
 
 if __name__ == "__main__":
     main()
