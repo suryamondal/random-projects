@@ -333,8 +333,17 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--files", nargs="+", required=True,
                         help="One or more files containing registration numbers")
-    parser.add_argument("-o", "--output", required=True, help="Output directory")
+    parser.add_argument("-o", "--output", default="database/data", help="Output directory")
     args = parser.parse_args()
+
+    # ------------------------------------------
+    # BACKUP EXISTING OUTPUT DIRECTORY (if any)
+    # ------------------------------------------
+    if os.path.isdir(args.output):
+        ts = time.strftime("%Y%m%d_%H%M%S")
+        backup_dir = f"{args.output}_backup_{ts}"
+        print(f"[BACKUP] Existing directory detected. Backup to → {backup_dir}")
+        os.rename(args.output, backup_dir)
 
     regs = load_registrations_from_files(args.files)
     os.makedirs(args.output, exist_ok=True)

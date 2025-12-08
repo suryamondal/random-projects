@@ -5,7 +5,7 @@ import sqlite3
 from datetime import datetime
 import shutil
 
-DATA_DIR = "data"
+DATA_DIR = "database/data"
 # -----------------------------
 # Database directory + file
 # -----------------------------
