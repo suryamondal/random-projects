@@ -1,40 +1,48 @@
 #!/usr/bin/env python3
 """
 String-line diagram generator for a single airline operator.
-One PDF page per day.
-
-Reuses the same DB-reading and time/IATA parsing logic as the visualization script.
+Improved with:
+- Progress summaries
+- Ctrl+C handling to avoid corrupting PDF
+- Clear reporting of steps
 """
 
 import argparse
 import sqlite3
+import signal
+import sys
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
-
-# ============================================================
-#  IMPORT / COPY THESE FROM YOUR ORIGINAL SCRIPT  (VERBATIM)
-#  extract_iata
-#  clean_time_str
-#  parse_date
-#  parse_time
-#  compute_arrival
-# ============================================================
 
 from helper_utils import (
     extract_iata, clean_time_str, parse_date,
     parse_time, compute_arrival
 )
-# If you do not want a separate file, paste directly instead.
-
 
 DB_FILE = "database/flights.db"
+
+
+# ------------------------------------------------------------
+# Graceful Ctrl+C handling
+# ------------------------------------------------------------
+abort_flag = False
+
+def handle_sigint(signum, frame):
+    global abort_flag
+    abort_flag = True
+    print("\n[INFO] Ctrl+C detected — finishing current page and closing PDF safely...")
+
+
+signal.signal(signal.SIGINT, handle_sigint)
 
 
 # ------------------------------------------------------------
 # Read DB flights grouped by day
 # ------------------------------------------------------------
 def load_flights(conn, airline):
+    print("[INFO] Loading flights from database...")
+
     cur = conn.cursor()
     cur.execute("""
         SELECT a.registration, f.date, f.from_airport, f.to_airport,
@@ -45,12 +53,16 @@ def load_flights(conn, airline):
         ORDER BY f.date, f.std
     """, (airline,))
 
-    flights_by_day = {}
+    rows = cur.fetchall()
+    print(f"[INFO] Total DB rows fetched: {len(rows)}")
 
-    for (reg, date, from_raw, to_raw, std, atd, sta, flight_time, status) in cur.fetchall():
+    flights_by_day = {}
+    valid_count = 0
+
+    for (reg, date, from_raw, to_raw, std, atd, sta, flight_time, status) in rows:
 
         if (status or "").strip().lower() == "unknown":
-            continue  # identical logic to your script
+            continue
 
         day = parse_date(date)
         if not day:
@@ -58,16 +70,15 @@ def load_flights(conn, airline):
 
         from_iata = extract_iata(from_raw)
         to_iata   = extract_iata(to_raw)
-
         if not from_iata or not to_iata:
             continue
 
         dep = parse_time(date, atd) or parse_time(date, std)
         arr = compute_arrival(date, std, sta, atd, flight_time)
-
-        # Only flights that actually "exist"
         if not dep or not arr:
             continue
+
+        valid_count += 1
 
         flights_by_day.setdefault(day, []).append({
             "reg": reg,
@@ -77,6 +88,9 @@ def load_flights(conn, airline):
             "arr": arr,
         })
 
+    print(f"[INFO] Valid flights after filtering: {valid_count}")
+    print(f"[INFO] Days with at least one flight: {len(flights_by_day)}")
+
     return flights_by_day
 
 
@@ -84,21 +98,19 @@ def load_flights(conn, airline):
 # Plot a string-line diagram for a given day
 # ------------------------------------------------------------
 def plot_day(ax, day, flights):
-    # ---- Collect all airports touched ----
     airports = sorted({f["from"] for f in flights} | {f["to"] for f in flights})
-
     y_pos = {ap: i for i, ap in enumerate(airports)}
 
-    # ---- Draw dotted horizontal lines ----
+    # horizontal dotted lines
     for ap in airports:
-        ax.hlines(y_pos[ap], 0, 24*60, linestyles="dotted", linewidth=0.8, alpha=0.4)
+        ax.hlines(y_pos[ap], 0, 24*60,
+                  linestyles="dotted", linewidth=0.8, alpha=0.4)
         ax.text(-40, y_pos[ap], ap, va="center", fontsize=9)
 
-    # ---- Plot each flight ----
+    # plot segments
     for f in flights:
         y1 = y_pos[f["from"]]
         y2 = y_pos[f["to"]]
-
         t1 = f["dep"].hour*60 + f["dep"].minute
         t2 = f["arr"].hour*60 + f["arr"].minute
 
@@ -123,18 +135,35 @@ def main():
     p.add_argument("--output", default="stringline.pdf")
     args = p.parse_args()
 
+    print("[INFO] Starting string-line diagram generation...")
+
     conn = sqlite3.connect(DB_FILE)
     flights_by_day = load_flights(conn, args.airline)
     conn.close()
 
+    print(f"[INFO] Writing PDF: {args.output}")
+
     with PdfPages(args.output) as pdf:
-        for day, flights in sorted(flights_by_day.items()):
-            fig, ax = plt.subplots(figsize=(11, 8))  # landscape fits time better
+
+        total_days = len(flights_by_day)
+        for idx, (day, flights) in enumerate(sorted(flights_by_day.items()), start=1):
+
+            print(f"[INFO] Page {idx}/{total_days} — {day} — {len(flights)} flights")
+
+            fig, ax = plt.subplots(figsize=(11, 8))
+
             plot_day(ax, day, flights)
+
             pdf.savefig(fig)
             plt.close(fig)
 
-    print(f"[INFO] String-line PDF written to {args.output}")
+            if abort_flag:
+                break
+
+    if abort_flag:
+        print("[INFO] PDF closed safely. Partial output preserved.")
+    else:
+        print(f"[INFO] PDF generation complete: {args.output}")
 
 
 if __name__ == "__main__":
