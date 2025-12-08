@@ -5,6 +5,9 @@ Debugging + final visualization script.
 - Detailed debug prints (counts & samples) to diagnose why presence/last_loc may be empty
 - Option B: track aircraft through foreign airports but plot only Indian coords
 """
+
+import signal
+import sys
 import argparse
 import sqlite3
 import re
@@ -25,6 +28,16 @@ india_map = gpd.GeoDataFrame({'geometry':[india_poly]}, crs="EPSG:4326")
 DB_FILE = "database/flights.db"
 
 INDIAN_IATA = set(AIRPORT_COORDS.keys())
+
+# -------------------------
+# Graceful Ctrl+C handling
+# -------------------------
+def handle_sigint(signum, frame):
+    print("\n[INFO] Caught Ctrl+C — exiting cleanly.")
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, handle_sigint)
+
 
 # -------------------------
 # Robust IATA extraction
@@ -70,19 +83,33 @@ def clean_time_str(t):
         return None
     return t
 
+def parse_date(date_str):
+    # Try ISO format first
+    try:
+        return datetime.strptime(date_str, "%Y-%m-%d").date()
+    except:
+        pass
+
+    # Try "DD Mon YYYY"
+    try:
+        return datetime.strptime(date_str, "%d %b %Y").date()
+    except:
+        return None
+
 def parse_time(date, t):
     t = clean_time_str(t)
     if not t:
         return None
-    # Accept "H:MM" or "HH:MM"
+
+    d = parse_date(date)
+    if not d:
+        return None
+
     try:
-        return datetime.strptime(f"{date} {t}", "%Y-%m-%d %H:%M")
-    except Exception:
-        # as a last resort, try to parse if date already included
-        try:
-            return datetime.strptime(t, "%Y-%m-%d %H:%M")
-        except Exception:
-            return None
+        hh, mm = map(int, t.split(":"))
+        return datetime(d.year, d.month, d.day, hh, mm)
+    except:
+        return None
 
 # -------------------------
 # Arrival logic (Option A)
@@ -290,14 +317,34 @@ def main():
     # india_map = india_map[india_map["name"] == "India"]
 
     with PdfPages(args.output) as pdf:
-        for t in times:
-            fig, ax = plt.subplots(figsize=(8, 10))
-            counts = count_aircraft_at_time(t, presence, last_loc)
-            plot_frame(ax, india_map, t, counts)
-            pdf.savefig(fig)
-            plt.close(fig)
 
-    print(f"[DONE] saved {args.output}")
+        total = len(times)
+        bar_width = 30  # characters
+
+        for i, t in enumerate(times, start=1):
+            try:
+                # ----- Build progress bar -----
+                filled = int(bar_width * i / total)
+                bar = "#" * filled + "-" * (bar_width - filled)
+                percent = (i / total) * 100
+
+                sys.stdout.write(
+                    f"\r[{bar}] {percent:5.1f}%  ({t.strftime('%Y-%m-%d %H:%M')})"
+                )
+                sys.stdout.flush()
+
+                # ----- Generate frame -----
+                fig, ax = plt.subplots(figsize=(8, 10))
+                counts = count_aircraft_at_time(t, presence, last_loc)
+                plot_frame(ax, india_map, t, counts)
+                pdf.savefig(fig)
+                plt.close(fig)
+
+            except KeyboardInterrupt:
+                print("\n[INFO] Stopping early — PDF written so far is valid.")
+                break
+
+        print("\n[INFO] PDF generation complete.")
 
 if __name__ == "__main__":
     main()
