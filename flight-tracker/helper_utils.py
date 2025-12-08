@@ -105,31 +105,35 @@ def parse_time(date, t):
 # ---------------------------------------------------------
 def compute_arrival(date, std, sta, atd, flight_time):
     """
-    Strategy:
-    1) If ATD + flight_time available → use that.
-    2) Otherwise fall back to STA, with next-day rollover logic.
+    New logic:
+    - Requires flight_time to be present.
+    - Computes arrival solely as ATD + flight_time (with rollover handling).
     """
-    atd_c = clean_time_str(atd)
-    ft_c  = clean_time_str(flight_time)
 
-    # --- Primary: ATD + flight_time ---
-    if atd_c and ft_c:
-        dep = parse_time(date, atd_c)
-        if dep:
-            try:
-                hh, mm = map(int, ft_c.split(":"))
-                return dep + timedelta(hours=hh, minutes=mm)
-            except Exception:
-                pass
+    ft = clean_time_str(flight_time)
+    if not ft:
+        return None  # redundant but safe
 
-    # --- Fallback: use STA ---
-    arr = parse_time(date, sta)
-    dep_std = parse_time(date, std)
+    # Parse STD and ATD
+    dep = parse_time(date, atd) or parse_time(date, std)
+    if not dep:
+        return None
 
-    if arr and dep_std:
-        # Rollover: arrival past midnight
-        if arr.time() < dep_std.time():
-            arr = arr + timedelta(days=1)
-        return arr
+    std_dt = parse_time(date, std)
+    if not std_dt:
+        return None
 
-    return None
+    # If actual takeoff time is earlier than STD → next day rollover
+    if dep < std_dt:
+        dep = dep + timedelta(days=1)
+
+    # Parse duration HH:MM
+    try:
+        hh, mm = map(int, ft.split(":"))
+        duration = timedelta(hours=hh, minutes=mm)
+    except:
+        return None
+
+    # Compute arrival
+    arr = dep + duration
+    return arr
