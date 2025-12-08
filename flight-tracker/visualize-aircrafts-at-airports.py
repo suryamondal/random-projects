@@ -14,35 +14,15 @@ from matplotlib.backends.backend_pdf import PdfPages
 import geopandas as gpd
 # FAST India outline (hard-coded bounding box polygon)
 import shapely.geometry as geom
+from airport_coords import AIRPORT_COORDS
 
 india_poly = geom.Polygon([
     (68, 6), (98, 6), (98, 38), (68, 38)
 ])
 india_map = gpd.GeoDataFrame({'geometry':[india_poly]}, crs="EPSG:4326")
 
-from airport_coords import AIRPORT_COORDS
-
-
 
 DB_FILE = "database/flights.db"
-
-# # Coordinates for major Indian airports (add more if you want plotted)
-# AIRPORT_COORDS = {
-#     "DEL": (28.5562, 77.1000),
-#     "BOM": (19.0896, 72.8656),
-#     "BLR": (13.1986, 77.7066),
-#     "MAA": (12.9941, 80.1709),
-#     "HYD": (17.2403, 78.4294),
-#     "CCU": (22.6547, 88.4467),
-#     "TRV": (8.4821, 76.9206),
-#     "COK": (10.1556, 76.3910),
-#     "PNQ": (18.5800, 73.9200),
-#     "GOI": (15.3800, 73.8300),
-#     "JAI": (26.8242, 75.8122),
-#     "LKO": (26.7606, 80.8893),
-#     "GAU": (26.1061, 91.5859),
-#     "VNS": (25.4524, 82.8613),
-# }
 
 INDIAN_IATA = set(AIRPORT_COORDS.keys())
 
