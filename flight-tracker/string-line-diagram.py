@@ -97,68 +97,45 @@ def load_flights(conn, airline):
 # ------------------------------------------------------------
 # Plot a string-line diagram for a given day
 # ------------------------------------------------------------
-def plot_day(ax, day, flights):
-    # ---- Collect all airports touched ----
-    airports = sorted({f["from"] for f in flights} | {f["to"] for f in flights})
+def plot_day(ax, day, flights, all_airports):
+    airports = all_airports
     y_pos = {ap: i for i, ap in enumerate(airports)}
 
-    # ---- Remove y-axis tick labels (cosmetic #1) ----
     ax.set_yticks([])
 
-    # ---- Draw dotted horizontal lines ----
+    # dotted horizontal lines
     for ap in airports:
         ax.hlines(
-            y_pos[ap],
-            0, 24*60,
+            y_pos[ap], 0, 24*60,
             linestyles="dotted",
             linewidth=0.3,
             alpha=0.4
         )
-        # small airport names (cosmetic #2)
         ax.text(
-            -25,                  # slightly left of plot
+            -25,
             y_pos[ap],
             ap,
             va="center",
-            fontsize=3,           # very small (cosmetic #2)
+            fontsize=3,
         )
 
-    # ---- Plot each flight ----
+    # plot flights
     for f in flights:
         y1 = y_pos[f["from"]]
         y2 = y_pos[f["to"]]
         t1 = f["dep"].hour*60 + f["dep"].minute
         t2 = f["arr"].hour*60 + f["arr"].minute
 
-        # very thin lines (cosmetic #3)
-        ax.plot(
-            [t1, t2],
-            [y1, y2],
-            linewidth=0.1,
-            # color="black"
-        )
-
-        # tiny circle bubbles (cosmetic #4)
-        ax.scatter(
-            [t1, t2],
-            [y1, y2],
-            s=1,              # tiny size
-            marker='o',
-            # color="black"
-        )
+        ax.plot([t1, t2], [y1, y2], linewidth=0.1)
+        ax.scatter([t1, t2], [y1, y2], s=1, marker='o')
 
     ax.set_ylim(-1, len(airports))
     ax.set_xlim(0, 24*60)
-
-    # small x-axis tick labels (cosmetic #2)
     ax.set_xticks(range(0, 24*60 + 1, 60))
-    ax.set_xticklabels(
-        [f"{h:02d}:00" for h in range(25)],
-        fontsize=5
-    )
+    ax.set_xticklabels([f"{h:02d}:00" for h in range(25)], fontsize=5)
 
     ax.set_title(f"String Line Diagram — {day}", fontsize=8)
-    ax.set_ylabel("")   # remove label
+    ax.set_ylabel("")
     ax.set_xlabel("Time of day", fontsize=6)
 
 
@@ -175,6 +152,14 @@ def main():
 
     conn = sqlite3.connect(DB_FILE)
     flights_by_day = load_flights(conn, args.airline)
+    # ---- Build a global airport list shared across all days ----
+    all_airports = sorted({
+        ap
+        for flights in flights_by_day.values()
+        for f in flights
+        for ap in (f["from"], f["to"])
+    })
+    print(f"[INFO] Total unique airports across all days: {len(all_airports)}")
     conn.close()
 
     print(f"[INFO] Writing PDF: {args.output}")
@@ -188,7 +173,7 @@ def main():
 
             fig, ax = plt.subplots(figsize=(11, 8))
 
-            plot_day(ax, day, flights)
+            plot_day(ax, day, flights, all_airports)
 
             pdf.savefig(fig)
             plt.close(fig)
