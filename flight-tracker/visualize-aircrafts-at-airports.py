@@ -100,21 +100,21 @@ def compute_presence_windows(conn, airline, debug_samples=20):
                 skip_examples.append((reg, date, from_raw, to_raw, std, atd, sta, flight_time, status, reason))
             continue
 
-        # If no times can be parsed, skip but keep examples
-        if dep is None and arr is None:
-            skipped_no_time += 1
-            reason = "no-times"
+        # We only use flights that actually LANDED
+        if arr is None:
+            # Either no "Landed" in status OR inconsistent arrival
+            reason = "not-landed-or-invalid"
             if len(skip_examples) < debug_samples:
                 skip_examples.append((reg, date, from_raw, to_raw, std, atd, sta, flight_time, status, reason))
             continue
 
-        # add presence window for origin if dep exists and origin IATA extracted
+        # add presence window (only for flights that landed)
         if dep and from_iata:
             presence.append((dep - timedelta(minutes=30), dep, from_iata))
             added_presence += 1
 
-        # record destination as last known location if arr exists and to_iata exists
-        if arr and to_iata:
+        # landed → record last known location
+        if to_iata:
             last_loc[reg] = (arr, to_iata)
             added_lastloc += 1
 
