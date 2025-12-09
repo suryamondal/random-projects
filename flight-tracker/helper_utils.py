@@ -103,37 +103,78 @@ def parse_time(date, t):
 # ---------------------------------------------------------
 # Compute arrival time with rollover
 # ---------------------------------------------------------
-def compute_arrival(date, std, sta, atd, flight_time):
+def compute_arrival(date, std, sta, atd, flight_time, status):
     """
-    New logic:
-    - Requires flight_time to be present.
-    - Computes arrival solely as ATD + flight_time (with rollover handling).
+    Compute actual arrival ONLY if flight has a valid 'Landed HH:MM' status.
+    Otherwise return None.
     """
 
-    ft = clean_time_str(flight_time)
-    if not ft:
-        return None  # redundant but safe
+    # ---------------------------------------------------------
+    # Extract landing time from status
+    # ---------------------------------------------------------
+    def extract_landing_time(status_str):
+        if not status_str:
+            return None
+        s = status_str.strip().lower()
+        if "landed" not in s:
+            return None
+        try:
+            t = s.split("landed")[-1].strip()
+            return clean_time_str(t)
+        except:
+            return None
 
-    # Parse STD and ATD
-    dep = parse_time(date, atd) or parse_time(date, std)
-    if not dep:
+    # Get landing time
+    landing_t = extract_landing_time(status)
+    if not landing_t:
+        # REQUIRED: discard if no Landed HH:MM
         return None
 
+    # ---------------------------------------------------------
+    # Require flight_time
+    # ---------------------------------------------------------
+    ft = clean_time_str(flight_time)
+    if not ft:
+        return None
+
+    # ---------------------------------------------------------
+    # Parse times
+    # ---------------------------------------------------------
     std_dt = parse_time(date, std)
+    atd_dt = parse_time(date, atd) if atd else None
     if not std_dt:
         return None
 
-    # If actual takeoff time is earlier than STD → next day rollover
-    if dep < std_dt:
-        dep = dep + timedelta(days=1)
+    dep = atd_dt or std_dt
 
-    # Parse duration HH:MM
-    try:
-        hh, mm = map(int, ft.split(":"))
-        duration = timedelta(hours=hh, minutes=mm)
-    except:
-        return None
+    # ---------------------------------------------------------
+    # Rollover check
+    # ---------------------------------------------------------
+    if atd_dt and atd_dt < std_dt:
+        delta = std_dt - atd_dt
+        if delta > timedelta(hours=2):
+            dep += timedelta(days=1)
 
+    # ---------------------------------------------------------
     # Compute arrival
-    arr = dep + duration
-    return arr
+    # ---------------------------------------------------------
+    hh, mm = map(int, ft.split(":"))
+    duration = timedelta(hours=hh, minutes=mm)
+    computed_arrival = dep + duration
+
+    # ---------------------------------------------------------
+    # Parse actual reported landing time
+    # ---------------------------------------------------------
+    reported_arr = parse_time(date, landing_t)
+    if reported_arr and reported_arr < dep:
+        reported_arr += timedelta(days=1)
+
+    # Validate consistency
+    if reported_arr:
+        diff = abs((reported_arr - computed_arrival).total_seconds())
+        # Allow small operational differences (20 min)
+        if diff > 20 * 60:
+            return None
+        return reported_arr
+
+    return None  # Should not reach here but safe

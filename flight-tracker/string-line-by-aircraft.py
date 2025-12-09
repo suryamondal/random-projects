@@ -80,7 +80,7 @@ def load_flights_by_aircraft(conn, airline):
             continue
 
         dep = parse_time(date, atd) or parse_time(date, std)
-        arr = compute_arrival(date, std, sta, atd, flight_time)
+        arr = compute_arrival(date, std, sta, atd, flight_time, status)
         if not dep or not arr:
             continue
 

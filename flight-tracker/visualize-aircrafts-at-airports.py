@@ -19,6 +19,11 @@ import geopandas as gpd
 import shapely.geometry as geom
 from airport_coords import AIRPORT_COORDS
 
+from helper_utils import (
+    extract_iata, clean_time_str, parse_date,
+    parse_time, compute_arrival
+)
+
 india_poly = geom.Polygon([
     (68, 6), (98, 6), (98, 38), (68, 38)
 ])
@@ -38,103 +43,6 @@ def handle_sigint(signum, frame):
 
 signal.signal(signal.SIGINT, handle_sigint)
 
-
-# -------------------------
-# Robust IATA extraction
-# -------------------------
-def extract_iata(raw):
-    if raw is None:
-        return None
-    if not isinstance(raw, str):
-        raw = str(raw)
-
-    # normalize common unicode parentheses and whitespace characters
-    raw_norm = raw.replace("（", "(").replace("）", ")") \
-                  .replace("﹙", "(").replace("﹚", ")") \
-                  .replace("\u00A0", " ")  # NBSP
-    raw_norm = raw_norm.strip()
-
-    # find all occurrences like "(ABC)" case-insensitive
-    matches = re.findall(r"\(([A-Za-z0-9]{3})\)", raw_norm)
-    if matches:
-        return matches[-1].upper()
-
-    # fallback: find last 3 alnum chars (useful for "CITY ABC" or "CITY (ABC" broken)
-    s = re.sub(r"[^A-Za-z0-9]", "", raw_norm)  # remove punctuation
-    if len(s) >= 3:
-        cand = s[-3:]
-        if cand.isalnum():
-            return cand.upper()
-
-    return None
-
-# -------------------------
-# Robust time parser
-# -------------------------
-def clean_time_str(t):
-    if t is None:
-        return None
-    if not isinstance(t, str):
-        t = str(t)
-    # normalize NBSP and non-printables, strip
-    t = t.replace("\u00A0", " ").replace("\u200B", "").strip()
-    # sometimes values like '05:57 ' or '\n05:57' exist
-    if t == "" or t.lower() == "null":
-        return None
-    return t
-
-def parse_date(date_str):
-    # Try ISO format first
-    try:
-        return datetime.strptime(date_str, "%Y-%m-%d").date()
-    except:
-        pass
-
-    # Try "DD Mon YYYY"
-    try:
-        return datetime.strptime(date_str, "%d %b %Y").date()
-    except:
-        return None
-
-def parse_time(date, t):
-    t = clean_time_str(t)
-    if not t:
-        return None
-
-    d = parse_date(date)
-    if not d:
-        return None
-
-    try:
-        hh, mm = map(int, t.split(":"))
-        return datetime(d.year, d.month, d.day, hh, mm)
-    except:
-        return None
-
-# -------------------------
-# Arrival logic (Option A)
-# -------------------------
-def compute_arrival(date, std, sta, atd, flight_time):
-    # Try ATD + flight_time first
-    atd_c = clean_time_str(atd)
-    ft_c = clean_time_str(flight_time)
-    if atd_c and ft_c:
-        dep = parse_time(date, atd_c)
-        if dep:
-            try:
-                hh, mm = map(int, ft_c.split(":"))
-                return dep + timedelta(hours=hh, minutes=mm)
-            except Exception:
-                pass
-
-    # Fallback to STA with rollover
-    arr = parse_time(date, sta)
-    dep_std = parse_time(date, std)
-    if arr and dep_std:
-        if arr.time() < dep_std.time():
-            arr = arr + timedelta(days=1)
-        return arr
-    return None
 
 # -------------------------
 # Read DB + build presence & last_loc with debug logging
@@ -182,7 +90,7 @@ def compute_presence_windows(conn, airline, debug_samples=20):
 
         # compute times
         dep = parse_time(date, atd) or parse_time(date, std)
-        arr = compute_arrival(date, std, sta, atd, flight_time)
+        arr = compute_arrival(date, std, sta, atd, flight_time, status)
 
         # If neither airport present, skip for presence/lastloc but record reason
         if (from_iata is None) and (to_iata is None):
