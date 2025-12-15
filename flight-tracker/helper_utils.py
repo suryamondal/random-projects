@@ -178,3 +178,99 @@ def compute_arrival(date, std, sta, atd, flight_time, status):
         return reported_arr
 
     return None  # Should not reach here but safe
+
+
+# ---------------------------------------------------------
+# Aircraft path validation utilities
+# ---------------------------------------------------------
+
+def validate_and_segment_path(legs, min_turnaround_minutes=20):
+    """
+    Validate continuity of aircraft path.
+
+    Returns:
+        segments: list of lists of legs (continuous paths)
+        breaks: list of dicts describing discontinuities
+    """
+
+    if not legs:
+        return [], []
+
+    # Sort by departure time
+    legs = sorted(legs, key=lambda x: x["dep"])
+
+    segments = []
+    current_segment = [legs[0]]
+    breaks = []
+
+    for prev, curr in zip(legs, legs[1:]):
+        ok = True
+        reason = None
+
+        # continuity check
+        if prev["to"] != curr["from"]:
+            ok = False
+            reason = "airport_mismatch"
+
+        # time order check
+        elif curr["dep"] < prev["arr"]:
+            ok = False
+            reason = "time_overlap"
+
+        # turnaround check
+        elif (curr["dep"] - prev["arr"]).total_seconds() < min_turnaround_minutes * 60:
+            ok = False
+            reason = "insufficient_turnaround"
+
+        if ok:
+            current_segment.append(curr)
+        else:
+            breaks.append({
+                "reason": reason,
+                "prev": prev,
+                "curr": curr,
+            })
+            segments.append(current_segment)
+            current_segment = [curr]
+
+    segments.append(current_segment)
+
+    return segments, breaks
+
+
+def build_airline_paths(conn, airline):
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT a.registration, f.date, f.from_airport, f.to_airport,
+               f.std, f.atd, f.sta, f.flight_time, f.status
+        FROM flights f
+        JOIN aircraft a ON a.registration = f.registration
+        WHERE a.operator = ?
+        ORDER BY a.registration, f.date, f.std
+    """, (airline,))
+
+    paths = {}
+
+    for (reg, date, from_raw, to_raw, std, atd, sta, flight_time, status) in cur.fetchall():
+
+        if "landed" not in (status or "").lower():
+            continue
+
+        from_iata = extract_iata(from_raw)
+        to_iata = extract_iata(to_raw)
+        if not from_iata or not to_iata:
+            continue
+
+        dep = parse_time(date, atd) or parse_time(date, std)
+        arr = compute_arrival(date, std, sta, atd, flight_time, status)
+        if not dep or not arr:
+            continue
+
+        paths.setdefault(reg, []).append({
+            "from": from_iata,
+            "to": to_iata,
+            "dep": dep,
+            "arr": arr,
+        })
+
+    return paths

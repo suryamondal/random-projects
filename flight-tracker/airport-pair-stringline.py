@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 """
-Airport-pair string line diagram.
+Airport-pair string line diagram (path-validated).
 
 For each airport pair (A, B):
 - One PDF page
 - X-axis: absolute time (shared across all plots)
-- Y-axis: two airports only
+- Y-axis: exactly two airports
 - Red: A -> B
 - Blue: B -> A
+
+IMPORTANT:
+Uses validated aircraft paths from helper_utils.
+No teleporting aircraft allowed.
 """
 
 import argparse
@@ -19,10 +23,8 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
 from helper_utils import (
-    extract_iata,
-    parse_date,
-    parse_time,
-    compute_arrival,
+    build_airline_paths,
+    validate_and_segment_path,
 )
 
 DB_FILE = "database/flights.db"
@@ -43,49 +45,33 @@ signal.signal(signal.SIGINT, handle_sigint)
 
 
 # ------------------------------------------------------------
-# Load and validate flights
+# Flatten validated segments into flight legs
 # ------------------------------------------------------------
-def load_flights(conn, airline):
-    cur = conn.cursor()
-    cur.execute("""
-        SELECT f.date, f.from_airport, f.to_airport,
-               f.std, f.atd, f.sta, f.flight_time, f.status
-        FROM flights f
-        JOIN aircraft a ON a.registration = f.registration
-        WHERE a.operator = ?
-        ORDER BY f.date, f.std
-    """, (airline,))
+def collect_valid_legs(paths):
+    """
+    paths:
+        {registration: [leg, leg, ...]}
 
-    rows = cur.fetchall()
-    flights = []
+    Returns:
+        list of validated flight legs
+    """
+    valid_legs = []
+    broken_aircraft = {}
 
-    for (date, from_raw, to_raw, std, atd, sta, flight_time, status) in rows:
+    for reg, legs in paths.items():
+        segments, breaks = validate_and_segment_path(legs)
 
-        if (status or "").strip().lower() == "unknown":
-            continue
+        if breaks:
+            broken_aircraft[reg] = breaks
 
-        from_iata = extract_iata(from_raw)
-        to_iata   = extract_iata(to_raw)
-        if not from_iata or not to_iata:
-            continue
+        for seg in segments:
+            valid_legs.extend(seg)
 
-        dep = parse_time(date, atd) or parse_time(date, std)
-        arr = compute_arrival(date, std, sta, atd, flight_time, status)
-        if not dep or not arr:
-            continue
-
-        flights.append({
-            "from": from_iata,
-            "to": to_iata,
-            "dep": dep,
-            "arr": arr,
-        })
-
-    return flights
+    return valid_legs, broken_aircraft
 
 
 # ------------------------------------------------------------
-# Group flights by airport-pair
+# Group flights by airport pair
 # ------------------------------------------------------------
 def group_by_pairs(flights):
     pairs = {}
@@ -124,10 +110,18 @@ def plot_pair(ax, pair, flights, t_min, t_max):
 
         color = "red" if (f["from"] == a and f["to"] == b) else "blue"
 
-        ax.plot([f["dep"], f["arr"]], [y1, y2],
-                linewidth=0.3, color=color)
-        ax.scatter([f["dep"], f["arr"]], [y1, y2],
-                   s=4, color=color)
+        ax.plot(
+            [f["dep"], f["arr"]],
+            [y1, y2],
+            linewidth=0.3,
+            color=color,
+        )
+        ax.scatter(
+            [f["dep"], f["arr"]],
+            [y1, y2],
+            s=4,
+            color=color,
+        )
 
     ax.set_xlim(t_min, t_max)
     ax.set_title(f"{a} ⇄ {b}", fontsize=8)
@@ -143,17 +137,24 @@ def main():
     p.add_argument("--output", default="airport-pairs.pdf")
     args = p.parse_args()
 
+    print("[INFO] Loading and validating aircraft paths...")
+
     conn = sqlite3.connect(DB_FILE)
-    flights = load_flights(conn, args.airline)
+    airline_paths = build_airline_paths(conn, args.airline)
     conn.close()
 
+    flights, broken = collect_valid_legs(airline_paths)
+
     if not flights:
-        raise RuntimeError("No valid landed flights found.")
+        raise RuntimeError("No valid continuous flight paths found.")
+
+    print(f"[INFO] Aircraft processed: {len(airline_paths)}")
+    print(f"[INFO] Aircraft with breaks: {len(broken)}")
+    print(f"[INFO] Valid flight legs used: {len(flights)}")
 
     pairs = group_by_pairs(flights)
     t_min, t_max = compute_time_bounds(flights)
 
-    print(f"[INFO] Valid flights: {len(flights)}")
     print(f"[INFO] Airport pairs: {len(pairs)}")
     print(f"[INFO] Time span: {t_min} → {t_max}")
     print(f"[INFO] Writing PDF: {args.output}")
@@ -161,8 +162,10 @@ def main():
     with PdfPages(args.output) as pdf:
         for idx, (pair, pair_flights) in enumerate(sorted(pairs.items()), start=1):
 
-            print(f"[INFO] Page {idx}/{len(pairs)} — {pair[0]}-{pair[1]} "
-                  f"({len(pair_flights)} flights)")
+            print(
+                f"[INFO] Page {idx}/{len(pairs)} — "
+                f"{pair[0]}-{pair[1]} ({len(pair_flights)} flights)"
+            )
 
             fig, ax = plt.subplots(figsize=(11, 3))
             plot_pair(ax, pair, pair_flights, t_min, t_max)
