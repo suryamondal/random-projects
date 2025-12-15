@@ -2,16 +2,11 @@
 """
 Airport-pair string line diagram (path-validated).
 
-For each airport pair (A, B):
-- One PDF page
-- X-axis: absolute time (shared across all plots)
-- Y-axis: exactly two airports
-- Red: A -> B
-- Blue: B -> A
-
-IMPORTANT:
-Uses validated aircraft paths from helper_utils.
-No teleporting aircraft allowed.
+Enhancements:
+1. Airport pairs sorted by total flights (descending)
+2. 4 plots per page
+3. Single-column layout (4x1)
+4. Per-page status summary restored
 """
 
 import argparse
@@ -48,13 +43,6 @@ signal.signal(signal.SIGINT, handle_sigint)
 # Flatten validated segments into flight legs
 # ------------------------------------------------------------
 def collect_valid_legs(paths):
-    """
-    paths:
-        {registration: [leg, leg, ...]}
-
-    Returns:
-        list of validated flight legs
-    """
     valid_legs = []
     broken_aircraft = {}
 
@@ -91,7 +79,7 @@ def compute_time_bounds(flights):
 
 
 # ------------------------------------------------------------
-# Plot one airport-pair page
+# Plot one airport-pair subplot
 # ------------------------------------------------------------
 def plot_pair(ax, pair, flights, t_min, t_max):
     a, b = pair
@@ -101,8 +89,8 @@ def plot_pair(ax, pair, flights, t_min, t_max):
     ax.set_ylim(-0.5, 1.5)
 
     # airport labels
-    ax.text(t_min - timedelta(hours=2), 1, a, va="center", fontsize=6)
-    ax.text(t_min - timedelta(hours=2), 0, b, va="center", fontsize=6)
+    ax.text(t_min - timedelta(hours=1), 1, a, va="center", fontsize=6)
+    ax.text(t_min - timedelta(hours=1), 0, b, va="center", fontsize=6)
 
     for f in flights:
         y1 = y_pos[f["from"]]
@@ -124,8 +112,8 @@ def plot_pair(ax, pair, flights, t_min, t_max):
         )
 
     ax.set_xlim(t_min, t_max)
-    ax.set_title(f"{a} ⇄ {b}", fontsize=8)
-    ax.set_xlabel("Time", fontsize=6)
+    ax.set_title(f"{a} ⇄ {b} ({len(flights)})", fontsize=7)
+    ax.tick_params(axis="x", labelsize=6)
 
 
 # ------------------------------------------------------------
@@ -148,32 +136,56 @@ def main():
     if not flights:
         raise RuntimeError("No valid continuous flight paths found.")
 
-    print(f"[INFO] Aircraft processed: {len(airline_paths)}")
-    print(f"[INFO] Aircraft with breaks: {len(broken)}")
-    print(f"[INFO] Valid flight legs used: {len(flights)}")
-
     pairs = group_by_pairs(flights)
+
+    # ---- Sort by total flights (descending) ----
+    sorted_pairs = sorted(
+        pairs.items(),
+        key=lambda x: len(x[1]),
+        reverse=True,
+    )
+
     t_min, t_max = compute_time_bounds(flights)
 
-    print(f"[INFO] Airport pairs: {len(pairs)}")
-    print(f"[INFO] Time span: {t_min} → {t_max}")
+    print(f"[INFO] Aircraft processed: {len(airline_paths)}")
+    print(f"[INFO] Aircraft with breaks: {len(broken)}")
+    print(f"[INFO] Airport pairs: {len(sorted_pairs)}")
     print(f"[INFO] Writing PDF: {args.output}")
 
     with PdfPages(args.output) as pdf:
-        for idx, (pair, pair_flights) in enumerate(sorted(pairs.items()), start=1):
+        page_pairs = []
+        page_no = 0
 
-            print(
-                f"[INFO] Page {idx}/{len(pairs)} — "
-                f"{pair[0]}-{pair[1]} ({len(pair_flights)} flights)"
-            )
+        for idx, (pair, pair_flights) in enumerate(sorted_pairs, start=1):
+            page_pairs.append((pair, pair_flights))
 
-            fig, ax = plt.subplots(figsize=(11, 3))
-            plot_pair(ax, pair, pair_flights, t_min, t_max)
-            pdf.savefig(fig)
-            plt.close(fig)
+            # ---- Emit page when full or last ----
+            if len(page_pairs) == 4 or idx == len(sorted_pairs):
+                page_no += 1
 
-            if abort_flag:
-                break
+                # ---- Page summary print ----
+                summary = ", ".join(
+                    f"{p[0]}-{p[1]}({len(f)})" for p, f in page_pairs
+                )
+                print(f"[INFO] Page {page_no}: {summary}")
+
+                fig, axes = plt.subplots(4, 1, figsize=(18, 12))
+                axes = list(axes)
+
+                for ax, (p, flts) in zip(axes, page_pairs):
+                    plot_pair(ax, p, flts, t_min, t_max)
+
+                # turn off unused axes (last page)
+                for ax in axes[len(page_pairs):]:
+                    ax.axis("off")
+
+                pdf.savefig(fig)
+                plt.close(fig)
+
+                page_pairs = []
+
+                if abort_flag:
+                    break
 
     if abort_flag:
         print("[INFO] PDF closed safely (partial output preserved).")
