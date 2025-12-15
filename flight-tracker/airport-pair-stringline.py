@@ -85,7 +85,7 @@ def compute_time_bounds(flights):
 # ------------------------------------------------------------
 # Registration summary per direction
 # ------------------------------------------------------------
-def summarize_registrations(pair, flights, limit=6):
+def summarize_registrations(pair, flights, limit=25):
     a, b = pair
     ab = Counter()
     ba = Counter()
@@ -98,9 +98,18 @@ def summarize_registrations(pair, flights, limit=6):
             ba[reg] += 1
 
     def fmt(counter):
-        return ", ".join(
-            f"{r}({n})" for r, n in counter.most_common(limit)
-        )
+        total_regs = len(counter)
+        items = counter.most_common(limit)
+
+        text = ", ".join(f"{r}({n})" for r, n in items)
+
+        hidden = total_regs - len(items)
+        if hidden > 0:
+            if text:
+                text += ", "
+            text += f"Others ({hidden})"
+
+        return text
 
     return fmt(ab), fmt(ba)
 
@@ -209,7 +218,7 @@ def main():
                 )
                 print(f"[INFO] Page {page_no}: {summary}")
 
-                fig, axes = plt.subplots(4, 1, figsize=(20, 12))
+                fig, axes = plt.subplots(4, 1, figsize=(24, 12))
                 axes = list(axes)
 
                 for i, (ax, (p, flts)) in enumerate(zip(axes, page_pairs)):
