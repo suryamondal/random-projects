@@ -72,19 +72,26 @@ UAS = [
     "Mozilla/5.0 (X11; Linux x86_64)",
     "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)",
 ]
-def lynx_dump(url):
+def lynx_dump(url, timeout=25):
     try:
         ua = random.choice(UAS)
         out = subprocess.check_output(
             ["lynx", "-dump", "-nolist",
              f"-useragent={ua}",
              url],
-            stderr=subprocess.STDOUT
+            stderr=subprocess.STDOUT,
+            timeout=timeout   # <-- HARD TIMEOUT (seconds)
         ).decode("utf-8", errors="ignore")
         return out
+
+    except subprocess.TimeoutExpired:
+        print(f"[TIMEOUT] lynx exceeded {timeout}s → skipping")
+        return ""
+
     except subprocess.CalledProcessError as e:
         print(f"[ERROR] lynx failed: {e}")
         return ""
+
     except FileNotFoundError:
         print("[ERROR] lynx not found. Install lynx or use another method.")
         return ""
@@ -294,9 +301,9 @@ def parse_flights(text):
 # --------------------------
 # Scrape single registration
 # --------------------------
-def scrape(reg):
+def scrape(reg, timeout):
     url = f"https://www.flightradar24.com/data/aircraft/{reg.lower()}"
-    txt = lynx_dump(url)
+    txt = lynx_dump(url, timeout=timeout)
     if not txt:
         return {
             "registration": reg.upper(),
@@ -334,6 +341,8 @@ def main():
     parser.add_argument("-f", "--files", nargs="+", required=True,
                         help="One or more files containing registration numbers")
     parser.add_argument("-o", "--output", default="database/data", help="Output directory")
+    parser.add_argument("--timeout", type=int, default=25,
+                        help="Max seconds per aircraft scrape (default: 25)")
     args = parser.parse_args()
 
     # ------------------------------------------
@@ -359,7 +368,7 @@ def main():
             break
 
         print(f"\nScraping {reg} ...")
-        data = scrape(reg)
+        data = scrape(reg, args.timeout)
 
         out_path = os.path.join(args.output, f"{reg.upper()}.json")
         with open(out_path, "w", encoding="utf-8") as f:
