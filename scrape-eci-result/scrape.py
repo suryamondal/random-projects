@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Scrape current TMC/BJP seat lead + vote% from the ECI WB 2026 partywise page
-and append a row to results.csv (columns: time,tmc,bjp,tmc_vote_pct,bjp_vote_pct)."""
+"""Scrape current TMC/BJP seat won/lead + vote% from the ECI WB 2026 partywise page
+and append a row to results.csv (columns: time,tmc_won,tmc_lead,bjp_won,bjp_lead,
+tmc_vote_pct,bjp_vote_pct)."""
 
 import csv
 import datetime
@@ -30,15 +31,19 @@ def fetch(url: str) -> str:
         return r.read().decode("utf-8", errors="replace")
 
 
-def seat_total(html: str, party_name: str) -> int | None:
-    """Return the 'Total' column value for a party row in the Party Wise Results table."""
+def seat_won_lead(html: str, party_name: str) -> tuple[int, int] | None:
+    """Return (won, leading) for a party row in the Party Wise Results table.
+
+    The row's three numeric cells are Won, Leading (wrapped in <a>), Total.
+    """
+    cell = r'<td[^>]*>\s*(?:<a[^>]*>)?\s*([0-9]+)\s*(?:</a>)?\s*</td>'
     pat = re.compile(
-        r'<tr class="tr">\s*<td[^>]*>\s*' + re.escape(party_name)
-        + r'\s*</td>.*?<td[^>]*>\s*([0-9]+)\s*</td>\s*</tr>',
+        r'<tr class="tr">\s*<td[^>]*>\s*' + re.escape(party_name) + r'\s*</td>\s*'
+        + cell + r'\s*' + cell,
         re.S,
     )
     m = pat.search(html)
-    return int(m.group(1)) if m else None
+    return (int(m.group(1)), int(m.group(2))) if m else None
 
 
 def vote_pct(html: str, label: str) -> float | None:
@@ -63,25 +68,31 @@ def page_timestamp(html: str) -> str:
 def main() -> int:
     html = fetch(URL)
 
-    bjp = seat_total(html, "Bharatiya Janata Party - BJP")
-    tmc = seat_total(html, "All India Trinamool Congress - AITC")
+    bjp = seat_won_lead(html, "Bharatiya Janata Party - BJP")
+    tmc = seat_won_lead(html, "All India Trinamool Congress - AITC")
     tmc_vp = vote_pct(html, "AITC")
     bjp_vp = vote_pct(html, "BJP")
     time_str = page_timestamp(html)
 
+    tmc_won, tmc_lead = tmc if tmc is not None else ("", "")
+    bjp_won, bjp_lead = bjp if bjp is not None else ("", "")
+
     row = [
         time_str,
-        tmc if tmc is not None else "",
-        bjp if bjp is not None else "",
+        tmc_won, tmc_lead,
+        bjp_won, bjp_lead,
         f"{tmc_vp:.2f}" if tmc_vp is not None else "",
         f"{bjp_vp:.2f}" if bjp_vp is not None else "",
     ]
 
     new_file = not os.path.exists(CSV_PATH)
     with open(CSV_PATH, "a", newline="") as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator="\n")
         if new_file:
-            w.writerow(["time", "tmc", "bjp", "tmc_vote_pct", "bjp_vote_pct"])
+            w.writerow([
+                "time", "tmc_won", "tmc_lead", "bjp_won", "bjp_lead",
+                "tmc_vote_pct", "bjp_vote_pct",
+            ])
         w.writerow(row)
 
     print("appended:", row)

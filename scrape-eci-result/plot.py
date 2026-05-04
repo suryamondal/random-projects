@@ -22,10 +22,15 @@ def load():
     with open(CSV_PATH) as f:
         for r in csv.DictReader(f):
             t = datetime.combine(TODAY.date(), datetime.strptime(r["time"], "%H:%M").time())
+            def i(k):
+                v = r.get(k, "")
+                return int(v) if v else None
             rows.append({
                 "time": t,
-                "tmc": int(r["tmc"]),
-                "bjp": int(r["bjp"]),
+                "tmc_won": i("tmc_won"),
+                "tmc_lead": i("tmc_lead"),
+                "bjp_won": i("bjp_won"),
+                "bjp_lead": i("bjp_lead"),
                 "tmc_vp": float(r["tmc_vote_pct"]) if r["tmc_vote_pct"] else None,
                 "bjp_vp": float(r["bjp_vote_pct"]) if r["bjp_vote_pct"] else None,
             })
@@ -38,9 +43,20 @@ def main():
 
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(11, 8), sharex=True)
 
-    ax1.plot(times, [r["tmc"] for r in rows], "o-", color=TMC_COLOR, label="TMC (AITC)")
-    ax1.plot(times, [r["bjp"] for r in rows], "o-", color=BJP_COLOR, label="BJP")
-    ax1.set_ylabel("Seats (won + leading)")
+    def total(r, p):
+        w, l = r[f"{p}_won"], r[f"{p}_lead"]
+        return w + l if w is not None and l is not None else None
+
+    tmc_total = [total(r, "tmc") for r in rows]
+    bjp_total = [total(r, "bjp") for r in rows]
+    tmc_won = [r["tmc_won"] for r in rows]
+    bjp_won = [r["bjp_won"] for r in rows]
+
+    ax1.plot(times, tmc_total, "o-", color=TMC_COLOR, label="TMC total (won + leading)")
+    ax1.plot(times, bjp_total, "o-", color=BJP_COLOR, label="BJP total (won + leading)")
+    ax1.plot(times, tmc_won, "--", color=TMC_COLOR, alpha=0.7, label="TMC declared (won)")
+    ax1.plot(times, bjp_won, "--", color=BJP_COLOR, alpha=0.7, label="BJP declared (won)")
+    ax1.set_ylabel("Seats")
     ax1.set_title("West Bengal 2026 — Seats over time")
     ax1.legend(loc="center right")
     ax1.grid(True, alpha=0.3)
