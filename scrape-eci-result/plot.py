@@ -58,7 +58,7 @@ def main():
     ax1.plot(times, bjp_won, "--", color=BJP_COLOR, alpha=0.7, label="BJP declared (won)")
     ax1.set_ylabel("Seats")
     ax1.set_title("West Bengal 2026 — Seats over time")
-    ax1.legend(loc="center right")
+    ax1.legend(loc="center right", bbox_to_anchor=(1, 0.60))
     ax1.grid(True, alpha=0.3)
 
     vp_times = [r["time"] for r in rows if r["tmc_vp"] is not None]
@@ -73,7 +73,7 @@ def main():
     ax2.grid(True, alpha=0.3)
 
     ax2.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
-    ax2.xaxis.set_major_locator(mdates.MinuteLocator(interval=15))
+    ax2.xaxis.set_major_locator(mdates.MinuteLocator(interval=30))
     fig.autofmt_xdate()
 
     fig.tight_layout()
