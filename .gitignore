@@ -33,3 +33,10 @@
 **.exe
 **.out
 **.app
+
+# traffic-prediction generated data & plots
+traffic-prediction/data/
+traffic-prediction/plots/
+**/__pycache__/
+traffic-prediction/.env
+traffic-prediction/run_daily.log

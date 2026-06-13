@@ -1,0 +1,9 @@
+{
+  "route_name": "office-to-home",
+  "origin":      {"lat": 12.784910, "lon": 77.651253, "name": "office"},
+  "destination": {"lat": 12.841213, "lon": 77.648539, "name": "stay"},
+  "timezone_offset": "+05:30",
+  "sweep":  {"start": "17:00", "end": "19:30", "step_min": 15},
+  "skip_weekends": true,
+  "pocket_speed_kmh": 10
+}
