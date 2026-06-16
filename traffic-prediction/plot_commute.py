@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Visualise your own recorded commute history into plots/:
 
-  travel_history.png  actual travel time vs departure clock time, one dot per
+  travel_history.svg  actual travel time vs departure clock time, one dot per
                       recorded drive, coloured by weekday -> your home-grown
                       "when to leave" model, which sharpens as you log more.
-  pocket_map.png      every recorded GPS pocket, plotted by location and sized
+  pocket_map.svg      every recorded GPS pocket, plotted by location and sized
                       by time stuck -> shows *where* the jams are.
 
 Built entirely from your GPS traces (no online prediction).
@@ -74,9 +74,9 @@ def plot_travel_history() -> None:
     ax.annotate(f"{n} trace{'' if n == 1 else 's'} logged — sharpens as you add more",
                 xy=(0.02, 0.96), xycoords="axes fraction", fontsize=9,
                 bbox=dict(boxstyle="round", fc="#e8f5e9"))
-    out = os.path.join(PLOTS, "travel_history.png")
+    out = os.path.join(PLOTS, "travel_history.svg")
     fig.tight_layout()
-    fig.savefig(out, dpi=120)
+    fig.savefig(out)
     plt.close(fig)
     print(f"wrote {out}")
 
@@ -107,9 +107,9 @@ def plot_pocket_map() -> None:
     ax.set_title("Where the pockets are (from your GPS traces)")
     ax.set_aspect("equal", adjustable="datalim")
     ax.grid(True, alpha=0.2)
-    out = os.path.join(PLOTS, "pocket_map.png")
+    out = os.path.join(PLOTS, "pocket_map.svg")
     fig.tight_layout()
-    fig.savefig(out, dpi=120)
+    fig.savefig(out)
     plt.close(fig)
     print(f"wrote {out}")
 

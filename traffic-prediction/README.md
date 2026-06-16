@@ -7,10 +7,10 @@ Hosur Road / Electronic City corridor) to dodge the jam pockets — built from
 The idea: record the drive home each day, and let the history slowly become its
 own model:
 
-- **When to leave** — `travel_history.png` plots actual travel time against
+- **When to leave** — `travel_history.svg` plots actual travel time against
   departure time across every recorded day. The pattern sharpens as days
   accumulate.
-- **Where the pockets are** — `pocket_map.png` plots every spot you actually
+- **Where the pockets are** — `pocket_map.svg` plots every spot you actually
   crawled, sized/coloured by how long you were stuck.
 
 ## Setup
@@ -31,8 +31,8 @@ python3 ingest_gpx.py gps/20260616-190353.gpx
 
 # redraw the plots whenever you want to look
 python3 plot_commute.py
-#    -> plots/travel_history.png  (travel time vs departure time, per weekday)
-#    -> plots/pocket_map.png      (where you got stuck)
+#    -> plots/travel_history.svg  (travel time vs departure time, per weekday)
+#    -> plots/pocket_map.svg      (where you got stuck)
 ```
 
 Drop traces into `gps/` (git-ignored) and ingest them in a batch any time:
