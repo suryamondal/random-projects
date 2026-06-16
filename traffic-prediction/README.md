@@ -1,81 +1,68 @@
 # traffic-prediction
 
 Time the evening **office → home** commute (south Bengaluru, ~9 km up the
-Hosur Road / Electronic City corridor) to dodge the jam pockets.
+Hosur Road / Electronic City corridor) to dodge the jam pockets — built from
+**your own recorded GPS traces**, no online prediction service.
 
-Two data sources that reinforce each other:
+The idea: record the drive home each day, and let the history slowly become its
+own model:
 
-- **TomTom predictive sweep** (`log_commute.py`) — asks "if I leave at 17:00,
-  17:15, … 19:30, how long does it take?" You can't answer that from your own
-  driving because you only commute once a day. This tells you **when to leave**.
-- **Your GPS traces** (`ingest_gpx.py`) — your actual recorded drive is
-  ground truth: real travel time and the exact spots where you crawled. This
-  tells you **where the pockets are** and validates the predictions.
-
-`plot_commute.py` merges both into `plots/`.
+- **When to leave** — `travel_history.png` plots actual travel time against
+  departure time across every recorded day. The pattern sharpens as days
+  accumulate.
+- **Where the pockets are** — `pocket_map.png` plots every spot you actually
+  crawled, sized/coloured by how long you were stuck.
 
 ## Setup
 
 ```bash
-pip install -r requirements.txt
-# free key, 2,500 req/day, no credit card: https://developer.tomtom.com
-export TOMTOM_API_KEY=...
+pip install -r requirements.txt        # or: sudo apt install python3-gpxpy python3-matplotlib
 ```
 
-Route, sweep window and pocket threshold live in `config.json` (origin/dest are
-already your office and stay).
+Route and pocket threshold live in `config.json` (origin/dest are already your
+office and stay; `timezone_offset` localises the UTC GPS timestamps).
 
 ## Daily workflow
 
 ```bash
-# 1. predictive sweep — run any time, ideally once a day (e.g. cron at 09:00)
-python3 log_commute.py
-#    -> appends data/eta_log.csv + data/pockets_log.csv
-
-# 2. after the drive home, feed the day's GPS trace (GPX from your recorder)
-python3 ingest_gpx.py ~/gps/20260613-173000.gpx
+# after the drive home, feed the day's GPS trace (GPX from your recorder)
+python3 ingest_gpx.py gps/20260616-190353.gpx
 #    -> appends data/gpx_summary.csv + data/gpx_pockets.csv
 
-# 3. redraw the plots whenever you want to look
+# redraw the plots whenever you want to look
 python3 plot_commute.py
-#    -> plots/eta_curve.png  (best departure window, per weekday)
-#    -> plots/pocket_map.png (where jams happen: predicted vs actual)
+#    -> plots/travel_history.png  (travel time vs departure time, per weekday)
+#    -> plots/pocket_map.png      (where you got stuck)
 ```
 
-A one-off "should I leave right now?" check:
+Drop traces into `gps/` (git-ignored) and ingest them in a batch any time:
 
 ```bash
-python3 log_commute.py --now
+python3 ingest_gpx.py gps/*.gpx
 ```
 
-Let it accumulate for ~1–2 weeks before trusting the weekday curves — a single
-day is weather/incident noise.
+Record **from the office** so each trace covers the full route — a drive that
+starts mid-route undercounts distance, time and the early pockets.
 
-## Automate the daily sweep
-
-`run_daily.sh` loads the key from `.env`, runs the sweep, and logs to
-`run_daily.log` so cron failures are visible.
-
-```bash
-cp .env.example .env        # then put your TOMTOM_API_KEY in .env
-chmod +x run_daily.sh
-./run_daily.sh              # test it once by hand
-
-# install: weekdays at 09:00
-( crontab -l 2>/dev/null; echo "0 9 * * 1-5 $(pwd)/run_daily.sh" ) | crontab -
-```
+Let it accumulate for a couple of weeks before reading too much into the
+pattern; a single day is weather/incident noise.
 
 ## Data files (git-ignored)
 
 | file | written by | meaning |
 |------|-----------|---------|
-| `data/eta_log.csv`     | log_commute | predicted travel time per departure time |
-| `data/pockets_log.csv` | log_commute | predicted congested sections |
-| `data/gpx_summary.csv` | ingest_gpx  | actual travel time per trace |
-| `data/gpx_pockets.csv` | ingest_gpx  | actual slow stretches |
+| `data/gpx_summary.csv` | ingest_gpx | actual travel time per trace |
+| `data/gpx_pockets.csv` | ingest_gpx | actual slow stretches |
 
 ## GPS recorder
 
 Any app that exports timestamped GPX works (e.g. BasicAirData GPS Logger or
-GPSLogger for Android). A 1 s logging interval gives the cleanest speed
-profile.
+GPSLogger for Android). A 1 s logging interval gives the cleanest speed profile.
+
+## Optional: online prediction (parked)
+
+`log_commute.py` can query TomTom's traffic-aware API across a sweep of
+departure times to estimate a typical-traffic curve without waiting for your
+own data to build up. It needs a free `TOMTOM_API_KEY` (in `.env`) and is run
+via `run_daily.sh`. Not part of the core, GPS-first workflow above — kept around
+in case it's useful as a sanity check.

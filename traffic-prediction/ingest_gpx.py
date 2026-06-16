@@ -15,6 +15,7 @@ Usage:
 
 import argparse
 import csv
+import datetime as dt
 import json
 import os
 import sys
@@ -40,8 +41,19 @@ def load_cfg() -> dict:
         return json.load(f)
 
 
-def read_points(path: str) -> list[tuple]:
-    """Flatten a GPX file to (time, lat, lon, cum_dist_m) tuples."""
+def parse_offset(off: str) -> dt.timezone:
+    """'+05:30' -> tzinfo, so UTC GPS timestamps display in local time."""
+    sign = 1 if off[0] == "+" else -1
+    h, m = int(off[1:3]), int(off[4:6])
+    return dt.timezone(sign * dt.timedelta(hours=h, minutes=m))
+
+
+def read_points(path: str, tz: dt.timezone) -> list[tuple]:
+    """Flatten a GPX file to (time, lat, lon, cum_dist_m) tuples.
+
+    GPS loggers stamp points in UTC; convert to tz so the date and clock
+    times we report match the local commute, not UTC.
+    """
     with open(path) as f:
         gpx = gpxpy.parse(f)
     pts, prev, cum = [], None, 0.0
@@ -52,7 +64,7 @@ def read_points(path: str) -> list[tuple]:
                     continue
                 if prev is not None:
                     cum += p.distance_2d(prev) or 0.0
-                pts.append((p.time, p.latitude, p.longitude, cum))
+                pts.append((p.time.astimezone(tz), p.latitude, p.longitude, cum))
                 prev = p
     return pts
 
@@ -131,9 +143,10 @@ def main() -> int:
 
     cfg = load_cfg()
     max_kmh = cfg.get("pocket_speed_kmh", 10)
+    tz = parse_offset(cfg["timezone_offset"])
 
     for path in args.gpx:
-        pts = read_points(path)
+        pts = read_points(path, tz)
         if len(pts) < 2:
             print(f"skip {path}: no timed points", file=sys.stderr)
             continue

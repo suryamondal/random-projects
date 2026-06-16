@@ -40,3 +40,4 @@ traffic-prediction/plots/
 **/__pycache__/
 traffic-prediction/.env
 traffic-prediction/run_daily.log
+traffic-prediction/gps/
