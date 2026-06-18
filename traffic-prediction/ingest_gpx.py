@@ -1,22 +1,34 @@
 #!/usr/bin/env python3
-"""Turn a recorded GPX trace of the actual commute into ground-truth data:
-real travel time, a speed-vs-distance profile, and the locations where you
-actually crawled (the "pockets"). Appends to two CSVs:
+"""Turn recorded GPX traces of the actual commute into ground-truth data:
+real travel time, and the locations where you actually crawled (the "pockets").
 
-  data/gpx_summary.csv  one row per trace (date, duration, mean speed, #pockets)
-  data/gpx_pockets.csv  one row per slow stretch (location, duration, speed)
+Each trace is auto-classified by direction from where it *starts*:
+
+  evening  office -> home   (start nearer the office)
+  morning  home -> office   (start nearer home)
+
+so you can just throw the whole folder at it and the two commutes stay in
+separate pipelines. Per direction it appends two CSVs:
+
+  data/<dir>_summary.csv  one row per trace (date, duration, #pockets, ...)
+  data/<dir>_pockets.csv  one row per slow stretch (location, duration, speed)
+
+A trace that starts more than partial_gap_m from its origin (you forgot to
+record from the start) is flagged partial=True — kept, but excluded from the
+travel-time plot since its duration is an undercount.
 
 A pocket is a contiguous run slower than pocket_speed_kmh (config.json) lasting
 at least --min-pocket-sec seconds, so brief signal stops don't all count.
 
 Usage:
-    python3 ingest_gpx.py path/to/20260613-173000.gpx [more.gpx ...]
+    python3 ingest_gpx.py gps/*.gpx
 """
 
 import argparse
 import csv
 import datetime as dt
 import json
+import math
 import os
 import sys
 
@@ -27,8 +39,9 @@ DATA = os.path.join(DIR, "data")
 CFG_PATH = os.path.join(DIR, "config.json")
 
 SUMMARY_FIELDS = [
-    "date", "start_time", "end_time", "duration_min", "distance_km",
-    "mean_speed_kmh", "slow_time_min", "n_pockets", "gpx_file",
+    "date", "start_time", "end_time", "direction", "partial",
+    "duration_min", "distance_km", "mean_speed_kmh",
+    "slow_time_min", "n_pockets", "gpx_file",
 ]
 POCKET_FIELDS = [
     "date", "dist_km_along", "lat", "lon",
@@ -46,6 +59,29 @@ def parse_offset(off: str) -> dt.timezone:
     sign = 1 if off[0] == "+" else -1
     h, m = int(off[1:3]), int(off[4:6])
     return dt.timezone(sign * dt.timedelta(hours=h, minutes=m))
+
+
+def haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    """Great-circle distance in metres."""
+    r = 6371000
+    p1, p2 = math.radians(lat1), math.radians(lat2)
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = math.sin(dlat / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dlon / 2) ** 2
+    return r * 2 * math.asin(math.sqrt(a))
+
+
+def classify(lat: float, lon: float, cfg: dict) -> tuple[str, float]:
+    """Return (direction, metres-from-origin) for a trace starting at lat,lon.
+
+    Nearer the office -> 'evening' (office->home); nearer home -> 'morning'.
+    """
+    o, d = cfg["origin"], cfg["destination"]
+    d_office = haversine(lat, lon, o["lat"], o["lon"])
+    d_home = haversine(lat, lon, d["lat"], d["lon"])
+    if d_office <= d_home:
+        return "evening", d_office
+    return "morning", d_home
 
 
 def read_points(path: str, tz: dt.timezone) -> list[tuple]:
@@ -105,7 +141,8 @@ def find_pockets(pts: list[tuple], max_kmh: float, min_sec: float) -> list[dict]
     return pockets
 
 
-def summarize(pts: list[tuple], pockets: list[dict], path: str) -> dict:
+def summarize(pts: list[tuple], pockets: list[dict], path: str,
+              direction: str, partial: bool) -> dict:
     start, end = pts[0][0], pts[-1][0]
     dur_s = (end - start).total_seconds()
     dist_km = pts[-1][3] / 1000
@@ -114,6 +151,8 @@ def summarize(pts: list[tuple], pockets: list[dict], path: str) -> dict:
         "date": start.strftime("%Y-%m-%d"),
         "start_time": start.strftime("%H:%M:%S"),
         "end_time": end.strftime("%H:%M:%S"),
+        "direction": direction,
+        "partial": partial,
         "duration_min": round(dur_s / 60, 1),
         "distance_km": round(dist_km, 2),
         "mean_speed_kmh": round(dist_km / (dur_s / 3600), 1) if dur_s else 0.0,
@@ -143,6 +182,7 @@ def main() -> int:
 
     cfg = load_cfg()
     max_kmh = cfg.get("pocket_speed_kmh", 10)
+    partial_gap = cfg.get("partial_gap_m", 400)
     tz = parse_offset(cfg["timezone_offset"])
 
     for path in args.gpx:
@@ -150,12 +190,15 @@ def main() -> int:
         if len(pts) < 2:
             print(f"skip {path}: no timed points", file=sys.stderr)
             continue
+        direction, origin_gap = classify(pts[0][1], pts[0][2], cfg)
+        partial = origin_gap > partial_gap
         pockets = find_pockets(pts, max_kmh, args.min_pocket_sec)
-        summary = summarize(pts, pockets, path)
-        append(os.path.join(DATA, "gpx_summary.csv"), SUMMARY_FIELDS, [summary])
-        append(os.path.join(DATA, "gpx_pockets.csv"), POCKET_FIELDS,
+        summary = summarize(pts, pockets, path, direction, partial)
+        append(os.path.join(DATA, f"{direction}_summary.csv"), SUMMARY_FIELDS, [summary])
+        append(os.path.join(DATA, f"{direction}_pockets.csv"), POCKET_FIELDS,
                [{"date": summary["date"], **p} for p in pockets])
-        print(f"{summary['date']} {summary['start_time']}: "
+        flag = " [PARTIAL]" if partial else ""
+        print(f"{summary['date']} {summary['start_time']} {direction}{flag}: "
               f"{summary['duration_min']} min, {summary['distance_km']} km, "
               f"{summary['n_pockets']} pockets ({summary['slow_time_min']} min slow)")
     return 0

@@ -1,17 +1,23 @@
 # traffic-prediction
 
-Time the evening **office → home** commute (south Bengaluru, ~9 km up the
-Hosur Road / Electronic City corridor) to dodge the jam pockets — built from
-**your own recorded GPS traces**, no online prediction service.
+Time the daily commute (south Bengaluru, ~9 km up the Hosur Road / Electronic
+City corridor) to dodge the jam pockets — built from **your own recorded GPS
+traces**, no online prediction service.
 
-The idea: record the drive home each day, and let the history slowly become its
-own model:
+Both legs are tracked as separate pipelines, auto-classified by where each
+trace starts:
 
-- **When to leave** — `travel_history.svg` plots actual travel time against
-  departure time across every recorded day. The pattern sharpens as days
-  accumulate.
-- **Where the pockets are** — `pocket_map.svg` plots every spot you actually
-  crawled, sized/coloured by how long you were stuck.
+- **evening** — office → home
+- **morning** — home → office
+
+The idea: record each drive, and let the history slowly become its own model.
+Per direction you get:
+
+- **When to leave** — `<dir>_travel_history.svg` plots actual travel time
+  against departure time across every recorded day. The pattern sharpens as
+  days accumulate. (Partial traces are excluded — their time undercounts.)
+- **Where the pockets are** — `<dir>_pocket_map.svg` plots every spot you
+  actually crawled, sized/coloured by how long you were stuck.
 
 ## Setup
 
@@ -24,35 +30,35 @@ office and stay; `timezone_offset` localises the UTC GPS timestamps).
 
 ## Daily workflow
 
-```bash
-# after the drive home, feed the day's GPS trace (GPX from your recorder)
-python3 ingest_gpx.py gps/20260616-190353.gpx
-#    -> appends data/gpx_summary.csv + data/gpx_pockets.csv
-
-# redraw the plots whenever you want to look
-python3 plot_commute.py
-#    -> plots/travel_history.svg  (travel time vs departure time, per weekday)
-#    -> plots/pocket_map.svg      (where you got stuck)
-```
-
-Drop traces into `gps/` (git-ignored) and ingest them in a batch any time:
+Drop traces into `gps/` (git-ignored) and ingest — direction is detected
+automatically, so you can pass both legs (or the whole folder) at once:
 
 ```bash
 python3 ingest_gpx.py gps/*.gpx
+#    -> appends data/{evening,morning}_summary.csv + _pockets.csv
+
+# redraw the plots whenever you want to look
+python3 plot_commute.py
+#    -> plots/evening_travel_history.svg + evening_pocket_map.svg
+#    -> plots/morning_travel_history.svg + morning_pocket_map.svg
 ```
 
-Record **from the office** so each trace covers the full route — a drive that
-starts mid-route undercounts distance, time and the early pockets.
+Record **from the start point** (office for the evening leg, home for the
+morning leg) so each trace covers the full route. A drive that starts more than
+`partial_gap_m` (config.json, default 400 m) from its origin is flagged
+`partial=True` — still logged, but excluded from the travel-time plot.
 
 Let it accumulate for a couple of weeks before reading too much into the
 pattern; a single day is weather/incident noise.
 
 ## Data files (git-ignored)
 
+One pair per direction (`evening_*`, `morning_*`):
+
 | file | written by | meaning |
 |------|-----------|---------|
-| `data/gpx_summary.csv` | ingest_gpx | actual travel time per trace |
-| `data/gpx_pockets.csv` | ingest_gpx | actual slow stretches |
+| `data/<dir>_summary.csv` | ingest_gpx | actual travel time per trace (with direction, partial flag) |
+| `data/<dir>_pockets.csv` | ingest_gpx | actual slow stretches |
 
 ## GPS recorder
 
