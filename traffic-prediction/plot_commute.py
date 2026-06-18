@@ -10,8 +10,10 @@ direction (onward = home->office, return = office->home):
                               stuck -> shows *where* the jams are.
   <dir>_section_profile.svg   2D heatmap: x = distance along route (200 m bins),
                               y = departure time (10 min bins), colour = seconds
-                              to cross that section, moving-window smoothed ->
-                              *where and when* the route is slow.
+                              to cross that section (moving-window smoothed), with
+                              the measured seconds printed in each cell and each
+                              row's total time in the right margin -> *where and
+                              when* the route is slow.
 
 Built entirely from your GPS traces (no online prediction).
 Reads whatever exists under data/; missing files are skipped.
@@ -165,26 +167,49 @@ def plot_section_profile(direction: str, label: str) -> None:
 
     taxis = list(range(min(tset), max(tset) + tbin, tbin))
     daxis = list(range(0, dmax + dbin, dbin))
-    M = np.full((len(taxis), len(daxis)), np.nan)
+    raw = np.full((len(taxis), len(daxis)), np.nan)   # measured per-bin seconds
     for i, tb in enumerate(taxis):
         for j, db in enumerate(daxis):
             v = cells.get((tb, db))
             if v:
-                M[i, j] = sum(v) / len(v)
-    M = _nan_movavg(M, wt, wd)
+                raw[i, j] = sum(v) / len(v)
+    M = _nan_movavg(raw, wt, wd)                       # smoothed, for colour only
 
     xedges = np.array(daxis + [daxis[-1] + dbin]) / 1000.0
     yedges = np.array(taxis + [taxis[-1] + tbin], dtype=float)
-    fig, ax = plt.subplots(figsize=(12, max(3.0, 0.45 * len(taxis) + 2)))
+    fig, ax = plt.subplots(figsize=(13, max(3.0, 0.5 * len(taxis) + 2)))
     vmax = np.nanpercentile(M, 97) if np.isfinite(M).any() else None
-    pcm = ax.pcolormesh(xedges, yedges, M, cmap="YlOrRd", vmax=vmax, shading="flat")
-    fig.colorbar(pcm, ax=ax, label=f"seconds to cross {dbin} m")
+    ax.pcolormesh(xedges, yedges, M, cmap="YlOrRd", vmax=vmax, shading="flat")
+
+    # the seconds in each measured bin, written vertically
+    for i, tb in enumerate(taxis):
+        yc = tb + tbin / 2
+        for j, db in enumerate(daxis):
+            v = raw[i, j]
+            if np.isnan(v):
+                continue
+            shade = "white" if vmax and v > 0.6 * vmax else "black"
+            ax.text((db + dbin / 2) / 1000.0, yc, f"{v:.0f}", rotation=90,
+                    ha="center", va="center", fontsize=5, color=shade)
+
+    # per-row total time (sum of that row's bin times) in the right margin
+    pad = dbin / 1000.0
+    x_tot = xedges[-1] + pad
+    ax.text(x_tot, yedges[0] - tbin * 0.35, "Σ min", fontsize=7,
+            ha="left", va="center", fontweight="bold")
+    for i, tb in enumerate(taxis):
+        row = raw[i][~np.isnan(raw[i])]
+        if row.size:
+            ax.text(x_tot, tb + tbin / 2, f"{row.sum() / 60:.1f}", fontsize=7,
+                    ha="left", va="center")
+    ax.set_xlim(0, x_tot + 6 * pad)
+
     ax.set_xlabel("distance along route (km)")
     ax.set_ylabel("departure time")
     ax.yaxis.set_major_formatter(
         plt.FuncFormatter(lambda v, _: f"{int(v) // 60:02d}:{int(v) % 60:02d}"))
     ax.invert_yaxis()
-    ax.set_title(f"{label}: section travel time by distance & departure time")
+    ax.set_title(f"{label}: section travel time (s) by distance & departure time")
     out = os.path.join(PLOTS, f"{direction}_section_profile.svg")
     fig.tight_layout()
     fig.savefig(out)

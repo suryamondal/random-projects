@@ -20,9 +20,10 @@ Per direction you get:
   actually crawled, sized/coloured by how long you were stuck.
 - **Where *and* when** — `<dir>_section_profile.svg` is a 2D heatmap:
   x = distance along the route (200 m bins), y = departure time (10 min bins),
-  colour = seconds to cross that section, moving-window smoothed. A vertical red
-  band is a fixed bottleneck; a band that reddens at certain departure times is
-  a rush-hour pocket.
+  colour = seconds to cross that section (moving-window smoothed). The measured
+  seconds are printed in each cell, and each row's total time (sum of its bin
+  times) is in the right margin. A vertical red band is a fixed bottleneck; a
+  band that reddens at certain departure times is a rush-hour pocket.
 
 ### Reference route axis
 
