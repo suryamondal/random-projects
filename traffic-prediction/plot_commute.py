@@ -166,8 +166,8 @@ def _profile_grid(direction: str):
     return {"taxis": taxis, "daxis": daxis, "raw": raw, "tbin": tbin, "dbin": dbin}
 
 
-def _render_profile(ax, grid: dict, title: str, x_tot: float, reverse: bool,
-                    route_total_m, x_offset: float = 0.0,
+def _render_profile(ax, grid: dict, title: str, x_tot: float, xlim_right: float,
+                    reverse: bool, route_total_m, x_offset: float = 0.0,
                     vmin=None, vmax=None) -> None:
     """Draw one profile panel: colour = section seconds, the seconds printed in
     each bin, row totals at x_tot. If reverse, the office-origin distance axis is
@@ -208,7 +208,7 @@ def _render_profile(ax, grid: dict, title: str, x_tot: float, reverse: bool,
         if row.size:
             ax.text(x_tot, tb + tbin / 2, f"{row.sum() / 60:.1f}", fontsize=11,
                     ha="left", va="center")
-    ax.set_xlim(0, x_tot + 6 * (dbin / 1000.0))
+    ax.set_xlim(0, xlim_right)
     ax.set_ylabel("departure time")
     ax.yaxis.set_major_formatter(
         plt.FuncFormatter(lambda v, _: f"{int(v) // 60:02d}:{int(v) % 60:02d}"))
@@ -231,9 +231,11 @@ def plot_combined_profile() -> None:
     ext_r = rt_r / 1000.0 if (gr and rt_r) else (
         (gr["daxis"][-1] + gr["dbin"]) / 1000.0 if gr else 0)
     pad = dbin / 1000.0
-    x_tot = max(ext_o, ext_r) + pad
     # the reversed return grid sits at (route_total mod dbin); shift onward to match
     offset = (rt_r % dbin) / 1000.0 if rt_r else 0.0
+    # totals in a shared right-side column past the longest panel; trim the blank
+    x_tot = max(ext_o + offset, ext_r) + pad
+    xlim_right = x_tot + 0.9                       # room for the "Σ min" numbers
 
     # one colour scale for both panels so the same colour means the same seconds
     allvals = np.concatenate([g["raw"][np.isfinite(g["raw"])].ravel()
@@ -248,11 +250,11 @@ def plot_combined_profile() -> None:
         gridspec_kw={"height_ratios": [max(2, no), max(2, nr)]})
 
     if go:
-        _render_profile(axes[0], go, "onward: home → office", x_tot, False, None,
-                        x_offset=offset, vmin=vmin, vmax=vmax)
+        _render_profile(axes[0], go, "onward: home → office", x_tot, xlim_right,
+                        False, None, x_offset=offset, vmin=vmin, vmax=vmax)
     if gr:
         _render_profile(axes[1], gr, "return: office → home (reversed)", x_tot,
-                        True, rt_r, vmin=vmin, vmax=vmax)
+                        xlim_right, True, rt_r, vmin=vmin, vmax=vmax)
     axes[1].set_xlabel("distance from home (km)   →   office")
     fig.suptitle("section travel time (s): onward over return, shared distance axis",
                  fontsize=13)
