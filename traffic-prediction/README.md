@@ -48,6 +48,16 @@ morning leg) so each trace covers the full route. A drive that starts more than
 `partial_gap_m` (config.json, default 400 m) from its origin is flagged
 `partial=True` — still logged, but excluded from the travel-time plot.
 
+### End-trimming
+
+Idle time before you pull away, a late stop, and the walk to/from the car all
+inflate the numbers, so each trace is clipped to just the driving part: keep
+only from the first to the last point moving at >= `drive_speed_kmh`
+(config.json, default 10), and re-zero distance to that start. The **interior is
+never trimmed**, so mid-route traffic crawls are preserved. How much got clipped
+is recorded per trace as `trim_head_s` / `trim_tail_s` — audit those; if a big
+tail trim was actually slow traffic (not idle/walk), tune `drive_speed_kmh`.
+
 Let it accumulate for a couple of weeks before reading too much into the
 pattern; a single day is weather/incident noise.
 

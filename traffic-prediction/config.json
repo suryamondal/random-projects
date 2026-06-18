@@ -5,5 +5,8 @@
   "timezone_offset": "+05:30",
   "sweep":  {"start": "17:00", "end": "19:30", "step_min": 15},
   "skip_weekends": true,
-  "pocket_speed_kmh": 10
+  "pocket_speed_kmh": 10,
+  "partial_gap_m": 400,
+  "drive_speed_kmh": 10,
+  "trim_smooth_points": 5
 }

@@ -41,7 +41,7 @@ CFG_PATH = os.path.join(DIR, "config.json")
 SUMMARY_FIELDS = [
     "date", "start_time", "end_time", "direction", "partial",
     "duration_min", "distance_km", "mean_speed_kmh",
-    "slow_time_min", "n_pockets", "gpx_file",
+    "slow_time_min", "n_pockets", "trim_head_s", "trim_tail_s", "gpx_file",
 ]
 POCKET_FIELDS = [
     "date", "dist_km_along", "lat", "lon",
@@ -105,6 +105,49 @@ def read_points(path: str, tz: dt.timezone) -> list[tuple]:
     return pts
 
 
+def smoothed_speeds(pts: list[tuple], smooth_n: int) -> list[float]:
+    """Per-point speed in km/h, smoothed over a centred window to ride out GPS
+    noise (so a single jittery fix during the walk doesn't look like driving)."""
+    n = len(pts)
+    raw = [0.0] * n
+    for i in range(1, n):
+        sec = (pts[i][0] - pts[i - 1][0]).total_seconds()
+        raw[i] = (pts[i][3] - pts[i - 1][3]) / sec * 3.6 if sec > 0 else raw[i - 1]
+    half = max(0, smooth_n // 2)
+    sm = [0.0] * n
+    for i in range(n):
+        lo, hi = max(0, i - half), min(n, i + half + 1)
+        sm[i] = sum(raw[lo:hi]) / (hi - lo)
+    return sm
+
+
+def trim_to_drive(pts: list[tuple], drive_kmh: float,
+                  smooth_n: int) -> tuple[list[tuple], dict]:
+    """Clip leading/trailing non-driving points (idle before starting, a late
+    stop, the walk to/from the car) by keeping only from the first to the last
+    point moving at >= drive_kmh. The interior is untouched, so mid-route
+    traffic crawls are preserved. Cumulative distance is re-zeroed to the new
+    start so distance/pockets measure the drive only.
+    """
+    zero = {"head_s": 0, "tail_s": 0, "head_m": 0, "tail_m": 0}
+    if len(pts) < 3:
+        return pts, zero
+    sm = smoothed_speeds(pts, smooth_n)
+    driving = [i for i, s in enumerate(sm) if s >= drive_kmh]
+    if not driving:
+        return pts, zero  # nothing looked like driving; leave it alone
+    a, b = driving[0], driving[-1]
+    info = {
+        "head_s": round((pts[a][0] - pts[0][0]).total_seconds()),
+        "tail_s": round((pts[-1][0] - pts[b][0]).total_seconds()),
+        "head_m": round(pts[a][3] - pts[0][3]),
+        "tail_m": round(pts[-1][3] - pts[b][3]),
+    }
+    off = pts[a][3]
+    trimmed = [(t, la, lo, cum - off) for (t, la, lo, cum) in pts[a:b + 1]]
+    return trimmed, info
+
+
 def find_pockets(pts: list[tuple], max_kmh: float, min_sec: float) -> list[dict]:
     """Return contiguous slow stretches as pocket dicts."""
     pockets: list[dict] = []
@@ -142,7 +185,7 @@ def find_pockets(pts: list[tuple], max_kmh: float, min_sec: float) -> list[dict]
 
 
 def summarize(pts: list[tuple], pockets: list[dict], path: str,
-              direction: str, partial: bool) -> dict:
+              direction: str, partial: bool, trim: dict) -> dict:
     start, end = pts[0][0], pts[-1][0]
     dur_s = (end - start).total_seconds()
     dist_km = pts[-1][3] / 1000
@@ -158,6 +201,8 @@ def summarize(pts: list[tuple], pockets: list[dict], path: str,
         "mean_speed_kmh": round(dist_km / (dur_s / 3600), 1) if dur_s else 0.0,
         "slow_time_min": round(slow_s / 60, 1),
         "n_pockets": len(pockets),
+        "trim_head_s": trim["head_s"],
+        "trim_tail_s": trim["tail_s"],
         "gpx_file": os.path.basename(path),
     }
 
@@ -183,6 +228,8 @@ def main() -> int:
     cfg = load_cfg()
     max_kmh = cfg.get("pocket_speed_kmh", 10)
     partial_gap = cfg.get("partial_gap_m", 400)
+    drive_kmh = cfg.get("drive_speed_kmh", 10)
+    smooth_n = cfg.get("trim_smooth_points", 5)
     tz = parse_offset(cfg["timezone_offset"])
 
     for path in args.gpx:
@@ -190,17 +237,23 @@ def main() -> int:
         if len(pts) < 2:
             print(f"skip {path}: no timed points", file=sys.stderr)
             continue
+        pts, trim = trim_to_drive(pts, drive_kmh, smooth_n)
+        if len(pts) < 2:
+            print(f"skip {path}: nothing above {drive_kmh} km/h", file=sys.stderr)
+            continue
         direction, origin_gap = classify(pts[0][1], pts[0][2], cfg)
         partial = origin_gap > partial_gap
         pockets = find_pockets(pts, max_kmh, args.min_pocket_sec)
-        summary = summarize(pts, pockets, path, direction, partial)
+        summary = summarize(pts, pockets, path, direction, partial, trim)
         append(os.path.join(DATA, f"{direction}_summary.csv"), SUMMARY_FIELDS, [summary])
         append(os.path.join(DATA, f"{direction}_pockets.csv"), POCKET_FIELDS,
                [{"date": summary["date"], **p} for p in pockets])
         flag = " [PARTIAL]" if partial else ""
         print(f"{summary['date']} {summary['start_time']} {direction}{flag}: "
               f"{summary['duration_min']} min, {summary['distance_km']} km, "
-              f"{summary['n_pockets']} pockets ({summary['slow_time_min']} min slow)")
+              f"{summary['n_pockets']} pockets ({summary['slow_time_min']} min slow) "
+              f"| trimmed {trim['head_s']}s/{trim['head_m']}m head, "
+              f"{trim['tail_s']}s/{trim['tail_m']}m tail")
     return 0
 
 
