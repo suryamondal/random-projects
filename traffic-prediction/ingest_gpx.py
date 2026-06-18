@@ -4,14 +4,16 @@ real travel time, and the locations where you actually crawled (the "pockets").
 
 Each trace is auto-classified by direction from where it *starts*:
 
-  evening  office -> home   (start nearer the office)
-  morning  home -> office   (start nearer home)
+  return  office -> home   (start nearer the office)
+  onward  home -> office   (start nearer home)
 
 so you can just throw the whole folder at it and the two commutes stay in
-separate pipelines. Per direction it appends two CSVs:
+separate pipelines. Per direction it appends three CSVs:
 
-  data/<dir>_summary.csv  one row per trace (date, duration, #pockets, ...)
-  data/<dir>_pockets.csv  one row per slow stretch (location, duration, speed)
+  data/<dir>_summary.csv   one row per trace (date, duration, #pockets, ...)
+  data/<dir>_pockets.csv   one row per slow stretch (location, duration, speed)
+  data/<dir>_sections.csv  one row per 200 m section of each full trace
+                           (date, start_time, dist_m, sec) for the 2D profile
 
 A trace that starts more than partial_gap_m from its origin (you forgot to
 record from the start) is flagged partial=True — kept, but excluded from the
@@ -33,6 +35,7 @@ import os
 import sys
 
 import gpxpy
+import numpy as np
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(DIR, "data")
@@ -47,6 +50,7 @@ POCKET_FIELDS = [
     "date", "dist_km_along", "lat", "lon",
     "duration_s", "mean_speed_kmh",
 ]
+SECTION_FIELDS = ["date", "start_time", "dist_m", "sec"]
 
 
 def load_cfg() -> dict:
@@ -74,14 +78,67 @@ def haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
 def classify(lat: float, lon: float, cfg: dict) -> tuple[str, float]:
     """Return (direction, metres-from-origin) for a trace starting at lat,lon.
 
-    Nearer the office -> 'evening' (office->home); nearer home -> 'morning'.
+    Nearer the office -> 'return' (office->home); nearer home -> 'onward'.
     """
     o, d = cfg["origin"], cfg["destination"]
     d_office = haversine(lat, lon, o["lat"], o["lon"])
     d_home = haversine(lat, lon, d["lat"], d["lon"])
     if d_office <= d_home:
-        return "evening", d_office
-    return "morning", d_home
+        return "return", d_office
+    return "onward", d_home
+
+
+def _local_xy(lat, lon, lat0, lon0):
+    """Equirectangular projection to metres about (lat0, lon0)."""
+    k = math.cos(math.radians(lat0))
+    x = (np.asarray(lon) - lon0) * k * 111320.0
+    y = (np.asarray(lat) - lat0) * 111320.0
+    return x, y
+
+
+def build_route(pts: list[tuple]) -> dict:
+    """A reference route axis from a trace: vertices + cumulative arc-length (m).
+    Every trace's points get projected onto this so the same physical place maps
+    to the same x, independent of per-trip GPS noise and path wiggle.
+    """
+    lat = [p[1] for p in pts]
+    lon = [p[2] for p in pts]
+    lat0, lon0 = sum(lat) / len(lat), sum(lon) / len(lon)
+    x, y = _local_xy(lat, lon, lat0, lon0)
+    s = np.concatenate([[0.0], np.cumsum(np.hypot(np.diff(x), np.diff(y)))])
+    return {"lat": lat, "lon": lon, "lat0": lat0, "lon0": lon0,
+            "x": x.tolist(), "y": y.tolist(), "s": s.tolist()}
+
+
+def project_arc_length(route: dict, pts: list[tuple]) -> np.ndarray:
+    """Constrain each GPS point to the route axis: its along-route position is
+    the arc-length of the nearest route vertex. Forced non-decreasing so forward
+    progress (not GPS jitter) defines position."""
+    rx, ry, rs = np.array(route["x"]), np.array(route["y"]), np.array(route["s"])
+    px, py = _local_xy([p[1] for p in pts], [p[2] for p in pts],
+                       route["lat0"], route["lon0"])
+    s = np.empty(len(pts))
+    for i in range(len(pts)):
+        s[i] = rs[np.argmin((rx - px[i]) ** 2 + (ry - py[i]) ** 2)]
+    return np.maximum.accumulate(s)
+
+
+def compute_sections(pts: list[tuple], route: dict, bin_m: float) -> list[dict]:
+    """Time to cross each fixed-length section, measured along the reference
+    route axis (not raw path length). A section only counts where this trace
+    actually covers the route, so partial coverage at the ends is skipped.
+    A stop inside a section is absorbed (position flat while time runs) = a jam.
+    """
+    s = project_arc_length(route, pts)
+    t = np.array([(p[0] - pts[0][0]).total_seconds() for p in pts], dtype=float)
+    edges = np.arange(0, route["s"][-1], bin_m)
+    enter = np.interp(edges, s, t)
+    out = []
+    for k in range(len(edges) - 1):
+        if edges[k] >= s[0] and edges[k + 1] <= s[-1]:  # within this trace's span
+            out.append({"dist_m": int(edges[k]),
+                        "sec": round(enter[k + 1] - enter[k], 1)})
+    return out
 
 
 def read_points(path: str, tz: dt.timezone) -> list[tuple]:
@@ -217,12 +274,19 @@ def append(path: str, fields: list[str], rows: list[dict]) -> None:
         w.writerows(rows)
 
 
+def route_path(direction: str) -> str:
+    return os.path.join(DATA, f"{direction}_route.json")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("gpx", nargs="+", help="GPX trace file(s)")
     ap.add_argument("--min-pocket-sec", type=float, default=30,
                     help="ignore slow runs shorter than this (default 30s)")
+    ap.add_argument("--rebuild-route", action="store_true",
+                    help="rebuild each direction's reference route axis from the "
+                         "longest trace in this batch")
     args = ap.parse_args()
 
     cfg = load_cfg()
@@ -230,24 +294,55 @@ def main() -> int:
     partial_gap = cfg.get("partial_gap_m", 400)
     drive_kmh = cfg.get("drive_speed_kmh", 10)
     smooth_n = cfg.get("trim_smooth_points", 5)
+    section_bin = cfg.get("section_bin_m", 200)
     tz = parse_offset(cfg["timezone_offset"])
 
+    # pass 1: read, trim, classify
+    recs = []
     for path in args.gpx:
         pts = read_points(path, tz)
+        if len(pts) >= 2:
+            pts, trim = trim_to_drive(pts, drive_kmh, smooth_n)
         if len(pts) < 2:
-            print(f"skip {path}: no timed points", file=sys.stderr)
-            continue
-        pts, trim = trim_to_drive(pts, drive_kmh, smooth_n)
-        if len(pts) < 2:
-            print(f"skip {path}: nothing above {drive_kmh} km/h", file=sys.stderr)
+            print(f"skip {path}: not enough driving", file=sys.stderr)
             continue
         direction, origin_gap = classify(pts[0][1], pts[0][2], cfg)
-        partial = origin_gap > partial_gap
+        recs.append({"path": path, "pts": pts, "trim": trim,
+                     "direction": direction, "partial": origin_gap > partial_gap})
+
+    # establish the reference route axis per direction (the longest full trace),
+    # reused once built so the distance axis stays stable as new traces arrive
+    os.makedirs(DATA, exist_ok=True)
+    routes = {}
+    for direction in {r["direction"] for r in recs}:
+        if not args.rebuild_route and os.path.exists(route_path(direction)):
+            with open(route_path(direction)) as f:
+                routes[direction] = json.load(f)
+            continue
+        full = [r for r in recs if r["direction"] == direction and not r["partial"]]
+        if not full:
+            continue
+        ref = max(full, key=lambda r: r["pts"][-1][3])
+        routes[direction] = build_route(ref["pts"])
+        with open(route_path(direction), "w") as f:
+            json.dump(routes[direction], f)
+        print(f"built {direction} route axis "
+              f"({routes[direction]['s'][-1] / 1000:.2f} km) from "
+              f"{os.path.basename(ref['path'])}")
+
+    # pass 2: summarise, pockets, sections
+    for r in recs:
+        pts, direction, partial, trim = r["pts"], r["direction"], r["partial"], r["trim"]
         pockets = find_pockets(pts, max_kmh, args.min_pocket_sec)
-        summary = summarize(pts, pockets, path, direction, partial, trim)
+        summary = summarize(pts, pockets, r["path"], direction, partial, trim)
         append(os.path.join(DATA, f"{direction}_summary.csv"), SUMMARY_FIELDS, [summary])
         append(os.path.join(DATA, f"{direction}_pockets.csv"), POCKET_FIELDS,
                [{"date": summary["date"], **p} for p in pockets])
+        if not partial and direction in routes:
+            sections = compute_sections(pts, routes[direction], section_bin)
+            append(os.path.join(DATA, f"{direction}_sections.csv"), SECTION_FIELDS,
+                   [{"date": summary["date"], "start_time": summary["start_time"], **s}
+                    for s in sections])
         flag = " [PARTIAL]" if partial else ""
         print(f"{summary['date']} {summary['start_time']} {direction}{flag}: "
               f"{summary['duration_min']} min, {summary['distance_km']} km, "

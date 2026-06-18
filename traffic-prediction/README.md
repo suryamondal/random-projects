@@ -7,8 +7,8 @@ traces**, no online prediction service.
 Both legs are tracked as separate pipelines, auto-classified by where each
 trace starts:
 
-- **evening** — office → home
-- **morning** — home → office
+- **onward** — home → office
+- **return** — office → home
 
 The idea: record each drive, and let the history slowly become its own model.
 Per direction you get:
@@ -18,6 +18,20 @@ Per direction you get:
   days accumulate. (Partial traces are excluded — their time undercounts.)
 - **Where the pockets are** — `<dir>_pocket_map.svg` plots every spot you
   actually crawled, sized/coloured by how long you were stuck.
+- **Where *and* when** — `<dir>_section_profile.svg` is a 2D heatmap:
+  x = distance along the route (200 m bins), y = departure time (10 min bins),
+  colour = seconds to cross that section, moving-window smoothed. A vertical red
+  band is a fixed bottleneck; a band that reddens at certain departure times is
+  a rush-hour pocket.
+
+### Reference route axis
+
+The section profile's distance axis is **not** raw path length (which would
+drift between trips with GPS noise). The first full trace per direction becomes
+a fixed reference route (`data/<dir>_route.json`); every trace's GPS points are
+projected onto it, so the same physical place always lands at the same x. The
+axis is built once and reused; pass `--rebuild-route` to rebuild it from the
+longest trace in the batch.
 
 ## Setup
 
@@ -35,18 +49,18 @@ automatically, so you can pass both legs (or the whole folder) at once:
 
 ```bash
 python3 ingest_gpx.py gps/*.gpx
-#    -> appends data/{evening,morning}_summary.csv + _pockets.csv
+#    -> appends data/{onward,return}_summary.csv + _pockets.csv + _sections.csv
 
 # redraw the plots whenever you want to look
 python3 plot_commute.py
-#    -> plots/evening_travel_history.svg + evening_pocket_map.svg
-#    -> plots/morning_travel_history.svg + morning_pocket_map.svg
+#    -> plots/<dir>_travel_history.svg + <dir>_pocket_map.svg + <dir>_section_profile.svg
 ```
 
-Record **from the start point** (office for the evening leg, home for the
-morning leg) so each trace covers the full route. A drive that starts more than
+Record **from the start point** (home for the onward leg, office for the return
+leg) so each trace covers the full route. A drive that starts more than
 `partial_gap_m` (config.json, default 400 m) from its origin is flagged
-`partial=True` — still logged, but excluded from the travel-time plot.
+`partial=True` — still logged, but excluded from the travel-time and section
+plots.
 
 ### End-trimming
 
@@ -63,12 +77,14 @@ pattern; a single day is weather/incident noise.
 
 ## Data files (git-ignored)
 
-One pair per direction (`evening_*`, `morning_*`):
+One set per direction (`onward_*`, `return_*`):
 
 | file | written by | meaning |
 |------|-----------|---------|
-| `data/<dir>_summary.csv` | ingest_gpx | actual travel time per trace (with direction, partial flag) |
+| `data/<dir>_summary.csv` | ingest_gpx | actual travel time per trace (with direction, partial flag, trim) |
 | `data/<dir>_pockets.csv` | ingest_gpx | actual slow stretches |
+| `data/<dir>_sections.csv` | ingest_gpx | time to cross each 200 m route section (full traces) |
+| `data/<dir>_route.json` | ingest_gpx | reference route axis the sections project onto |
 
 ## GPS recorder
 

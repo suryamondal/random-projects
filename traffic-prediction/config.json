@@ -8,5 +8,9 @@
   "pocket_speed_kmh": 10,
   "partial_gap_m": 400,
   "drive_speed_kmh": 10,
-  "trim_smooth_points": 5
+  "trim_smooth_points": 5,
+  "section_bin_m": 200,
+  "time_bin_min": 10,
+  "profile_smooth_dist_m": 600,
+  "profile_smooth_time_min": 30
 }

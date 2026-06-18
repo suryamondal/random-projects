@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 """Visualise your own recorded commute history into plots/, one set per
-direction (evening = office->home, morning = home->office):
+direction (onward = home->office, return = office->home):
 
-  <dir>_travel_history.svg  actual travel time vs departure clock time, one dot
-                            per drive, coloured by weekday -> your home-grown
-                            "when to leave" model, sharpens as you log more.
-                            Partial traces are excluded (their time undercounts).
-  <dir>_pocket_map.svg      every recorded pocket, plotted by location and sized
-                            by time stuck -> shows *where* the jams are.
+  <dir>_travel_history.svg    actual travel time vs departure clock time, one
+                              dot per drive, coloured by weekday -> your
+                              home-grown "when to leave" model. Partial traces
+                              excluded (their time undercounts).
+  <dir>_pocket_map.svg        every recorded pocket, by location, sized by time
+                              stuck -> shows *where* the jams are.
+  <dir>_section_profile.svg   2D heatmap: x = distance along route (200 m bins),
+                              y = departure time (10 min bins), colour = seconds
+                              to cross that section, moving-window smoothed ->
+                              *where and when* the route is slow.
 
 Built entirely from your GPS traces (no online prediction).
 Reads whatever exists under data/; missing files are skipped.
@@ -18,6 +22,7 @@ Usage:
 
 import csv
 import datetime as dt
+import json
 import os
 from collections import defaultdict
 
@@ -25,13 +30,17 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import numpy as np
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(DIR, "data")
 PLOTS = os.path.join(DIR, "plots")
 
-DIRECTIONS = {"evening": "office → home", "morning": "home → office"}
+DIRECTIONS = {"onward": "home → office", "return": "office → home"}
 WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+with open(os.path.join(DIR, "config.json")) as _f:
+    CFG = json.load(_f)
 
 
 def read_csv(name: str) -> list[dict]:
@@ -120,11 +129,75 @@ def plot_pocket_map(direction: str, label: str) -> None:
     print(f"wrote {out}")
 
 
+def _nan_movavg(M, wt: int, wd: int):
+    """Separable nan-aware moving-window average over a (time x distance) grid."""
+    nt, nd = M.shape
+    out = np.full_like(M, np.nan)
+    ht, hd = wt // 2, wd // 2
+    for i in range(nt):
+        for j in range(nd):
+            sub = M[max(0, i - ht):i + ht + 1, max(0, j - hd):j + hd + 1]
+            vals = sub[~np.isnan(sub)]
+            if vals.size:
+                out[i, j] = vals.mean()
+    return out
+
+
+def plot_section_profile(direction: str, label: str) -> None:
+    rows = read_csv(f"{direction}_sections.csv")
+    if not rows:
+        print(f"no {direction} section data; skipping {direction}_section_profile")
+        return
+
+    tbin = CFG.get("time_bin_min", 10)
+    dbin = CFG.get("section_bin_m", 200)
+    wt = max(1, round(CFG.get("profile_smooth_time_min", 30) / tbin))
+    wd = max(1, round(CFG.get("profile_smooth_dist_m", 600) / dbin))
+
+    cells = defaultdict(list)
+    tset, dmax = set(), 0
+    for r in rows:
+        tb = (_clock_to_min(r["start_time"]) // tbin) * tbin
+        db = int(float(r["dist_m"]))
+        cells[(tb, db)].append(float(r["sec"]))
+        tset.add(tb)
+        dmax = max(dmax, db)
+
+    taxis = list(range(min(tset), max(tset) + tbin, tbin))
+    daxis = list(range(0, dmax + dbin, dbin))
+    M = np.full((len(taxis), len(daxis)), np.nan)
+    for i, tb in enumerate(taxis):
+        for j, db in enumerate(daxis):
+            v = cells.get((tb, db))
+            if v:
+                M[i, j] = sum(v) / len(v)
+    M = _nan_movavg(M, wt, wd)
+
+    xedges = np.array(daxis + [daxis[-1] + dbin]) / 1000.0
+    yedges = np.array(taxis + [taxis[-1] + tbin], dtype=float)
+    fig, ax = plt.subplots(figsize=(12, max(3.0, 0.45 * len(taxis) + 2)))
+    vmax = np.nanpercentile(M, 97) if np.isfinite(M).any() else None
+    pcm = ax.pcolormesh(xedges, yedges, M, cmap="YlOrRd", vmax=vmax, shading="flat")
+    fig.colorbar(pcm, ax=ax, label=f"seconds to cross {dbin} m")
+    ax.set_xlabel("distance along route (km)")
+    ax.set_ylabel("departure time")
+    ax.yaxis.set_major_formatter(
+        plt.FuncFormatter(lambda v, _: f"{int(v) // 60:02d}:{int(v) % 60:02d}"))
+    ax.invert_yaxis()
+    ax.set_title(f"{label}: section travel time by distance & departure time")
+    out = os.path.join(PLOTS, f"{direction}_section_profile.svg")
+    fig.tight_layout()
+    fig.savefig(out)
+    plt.close(fig)
+    print(f"wrote {out}")
+
+
 def main() -> int:
     os.makedirs(PLOTS, exist_ok=True)
     for direction, label in DIRECTIONS.items():
         plot_travel_history(direction, label)
         plot_pocket_map(direction, label)
+        plot_section_profile(direction, label)
     return 0
 
 
