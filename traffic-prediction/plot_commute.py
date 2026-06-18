@@ -190,17 +190,17 @@ def plot_section_profile(direction: str, label: str) -> None:
                 continue
             shade = "white" if vmax and v > 0.6 * vmax else "black"
             ax.text((db + dbin / 2) / 1000.0, yc, f"{v:.0f}", rotation=90,
-                    ha="center", va="center", fontsize=5, color=shade)
+                    ha="center", va="center", fontsize=8, color=shade)
 
     # per-row total time (sum of that row's bin times) in the right margin
     pad = dbin / 1000.0
     x_tot = xedges[-1] + pad
-    ax.text(x_tot, yedges[0] - tbin * 0.35, "Σ min", fontsize=7,
+    ax.text(x_tot, yedges[0] - tbin * 0.35, "Σ min", fontsize=11,
             ha="left", va="center", fontweight="bold")
     for i, tb in enumerate(taxis):
         row = raw[i][~np.isnan(raw[i])]
         if row.size:
-            ax.text(x_tot, tb + tbin / 2, f"{row.sum() / 60:.1f}", fontsize=7,
+            ax.text(x_tot, tb + tbin / 2, f"{row.sum() / 60:.1f}", fontsize=11,
                     ha="left", va="center")
     ax.set_xlim(0, x_tot + 6 * pad)
 
