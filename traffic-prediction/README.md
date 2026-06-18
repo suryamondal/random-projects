@@ -18,12 +18,15 @@ Per direction you get:
   days accumulate. (Partial traces are excluded — their time undercounts.)
 - **Where the pockets are** — `<dir>_pocket_map.svg` plots every spot you
   actually crawled, sized/coloured by how long you were stuck.
-- **Where *and* when** — `<dir>_section_profile.svg` is a 2D heatmap:
-  x = distance along the route (200 m bins), y = departure time (10 min bins),
-  colour = seconds to cross that section (moving-window smoothed). The measured
-  seconds are printed in each cell, and each row's total time (sum of its bin
-  times) is in the right margin. A vertical red band is a fixed bottleneck; a
-  band that reddens at certain departure times is a rush-hour pocket.
+- **Where *and* when** — `combined_section_profile.svg` stacks both directions
+  on one tall canvas: onward on top, return on the bottom with its x-axis
+  *reversed* so both share a **distance-from-home** axis (home left, office
+  right) — they're the same road in opposite directions. Each panel is a 2D
+  heatmap: x = distance (200 m bins), y = departure time (10 min bins), colour =
+  seconds to cross that section, with the seconds printed in each cell and each
+  row's total time in the right margin. A vertical red band is a fixed
+  bottleneck; a band that reddens at certain departure times is a rush-hour
+  pocket — and aligned panels show whether a spot bites in both directions.
 
 ### Reference route axis
 
