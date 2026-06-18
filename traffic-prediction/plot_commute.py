@@ -233,9 +233,9 @@ def plot_combined_profile() -> None:
     pad = dbin / 1000.0
     # the reversed return grid sits at (route_total mod dbin); shift onward to match
     offset = (rt_r % dbin) / 1000.0 if rt_r else 0.0
-    # totals in a shared right-side column past the longest panel; trim the blank
-    x_tot = max(ext_o + offset, ext_r) + pad
-    xlim_right = x_tot + 0.9                       # room for the "Σ min" numbers
+    # totals in a shared right-side column, nudged right and the blank trimmed
+    x_tot = max(ext_o + offset, ext_r) + 0.55
+    xlim_right = x_tot + 0.6                       # room for the "Σ min" numbers
 
     # one colour scale for both panels so the same colour means the same seconds
     allvals = np.concatenate([g["raw"][np.isfinite(g["raw"])].ravel()
