@@ -2,6 +2,10 @@
   "route_name": "office-to-home",
   "origin":      {"lat": 12.784910, "lon": 77.651253, "name": "office"},
   "destination": {"lat": 12.841213, "lon": 77.648539, "name": "stay"},
+  "stations": {
+    "office": {"lat": 12.785222, "lon": 77.651072},
+    "home":   {"lat": 12.840008, "lon": 77.649078}
+  },
   "timezone_offset": "+05:30",
   "sweep":  {"start": "17:00", "end": "19:30", "step_min": 15},
   "skip_weekends": true,
@@ -9,6 +13,7 @@
   "partial_gap_m": 400,
   "drive_speed_kmh": 10,
   "trim_smooth_points": 5,
+  "pullaway_min_pts": 4,
   "section_bin_m": 200,
   "time_bin_min": 10,
   "profile_smooth_dist_m": 600,

@@ -178,6 +178,50 @@ def smoothed_speeds(pts: list[tuple], smooth_n: int) -> list[float]:
     return sm
 
 
+def stations_for(direction: str, stations: dict) -> tuple[dict, dict]:
+    """(origin station, destination station) for a direction."""
+    if direction == "onward":            # home -> office
+        return stations["home"], stations["office"]
+    return stations["office"], stations["home"]   # return: office -> home
+
+
+def clamp_to_stations(pts: list[tuple], origin: dict, dest: dict, drive_kmh: float,
+                      smooth_n: int, pullaway_pts: int) -> tuple[list[tuple], dict]:
+    """Clamp a trace to the route between its two terminating stations: start at
+    the genuine pull-away from the origin station, end at the closest approach to
+    the destination station — which is reached just *before* the final complete
+    stop, so the parking tail is cut.
+
+    The start is the first point where a sustained window (pullaway_pts) averages
+    >= drive_kmh after the closest approach to the origin station, so the
+    stationary helmet-up / idle time at the station is excluded and a brief GPS
+    wobble during it doesn't count as the start. origin_gap/dest_gap report how
+    far the trace got from each station (used to flag a non-terminating trace).
+    """
+    do = [haversine(p[1], p[2], origin["lat"], origin["lon"]) for p in pts]
+    dd = [haversine(p[1], p[2], dest["lat"], dest["lon"]) for p in pts]
+    io = int(np.argmin(do))
+    idd = int(np.argmin(dd))
+    info = {"origin_gap": round(do[io]), "dest_gap": round(dd[idd])}
+    if io >= idd:                         # degenerate ordering; don't clamp
+        io, idd = 0, len(pts) - 1
+    sm = smoothed_speeds(pts, smooth_n)
+    k = max(1, pullaway_pts)
+    start = io
+    while start < idd - k and sum(sm[start:start + k]) / k < drive_kmh:
+        start += 1                        # skip helmet-up / idle to the pull-away
+    end = idd
+    info.update({
+        "head_s": round((pts[start][0] - pts[0][0]).total_seconds()),
+        "tail_s": round((pts[-1][0] - pts[end][0]).total_seconds()),
+        "head_m": round(pts[start][3] - pts[0][3]),
+        "tail_m": round(pts[-1][3] - pts[end][3]),
+    })
+    off = pts[start][3]
+    clamped = [(t, la, lo, cum - off) for (t, la, lo, cum) in pts[start:end + 1]]
+    return clamped, info
+
+
 def trim_to_drive(pts: list[tuple], drive_kmh: float,
                   smooth_n: int) -> tuple[list[tuple], dict]:
     """Clip leading/trailing non-driving points (idle before starting, a late
@@ -295,20 +339,31 @@ def main() -> int:
     drive_kmh = cfg.get("drive_speed_kmh", 10)
     smooth_n = cfg.get("trim_smooth_points", 5)
     section_bin = cfg.get("section_bin_m", 200)
+    stations = cfg.get("stations")
+    pullaway_pts = cfg.get("pullaway_min_pts", 4)
     tz = parse_offset(cfg["timezone_offset"])
 
-    # pass 1: read, trim, classify
+    # pass 1: read, clamp/trim, classify
     recs = []
     for path in args.gpx:
-        pts = read_points(path, tz)
-        if len(pts) >= 2:
-            pts, trim = trim_to_drive(pts, drive_kmh, smooth_n)
+        raw = read_points(path, tz)
+        if len(raw) < 2:
+            print(f"skip {path}: no timed points", file=sys.stderr)
+            continue
+        direction = classify(raw[0][1], raw[0][2], cfg)[0]
+        if stations:
+            o_st, d_st = stations_for(direction, stations)
+            pts, trim = clamp_to_stations(raw, o_st, d_st, drive_kmh,
+                                          smooth_n, pullaway_pts)
+            partial = max(trim["origin_gap"], trim["dest_gap"]) > partial_gap
+        else:
+            pts, trim = trim_to_drive(raw, drive_kmh, smooth_n)
+            partial = classify(pts[0][1], pts[0][2], cfg)[1] > partial_gap
         if len(pts) < 2:
             print(f"skip {path}: not enough driving", file=sys.stderr)
             continue
-        direction, origin_gap = classify(pts[0][1], pts[0][2], cfg)
         recs.append({"path": path, "pts": pts, "trim": trim,
-                     "direction": direction, "partial": origin_gap > partial_gap})
+                     "direction": direction, "partial": partial})
 
     # establish the reference route axis per direction (the longest full trace),
     # reused once built so the distance axis stays stable as new traces arrive
