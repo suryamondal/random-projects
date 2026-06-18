@@ -253,7 +253,7 @@ def plot_combined_profile() -> None:
         _render_profile(axes[0], go, "onward: home → office", x_tot, xlim_right,
                         False, None, x_offset=offset, vmin=vmin, vmax=vmax)
     if gr:
-        _render_profile(axes[1], gr, "return: office → home (reversed)", x_tot,
+        _render_profile(axes[1], gr, "return: home ← office", x_tot,
                         xlim_right, True, rt_r, vmin=vmin, vmax=vmax)
     axes[1].set_xlabel("distance from home (km)   →   office")
     fig.suptitle("section travel time (s): onward over return, shared distance axis",
