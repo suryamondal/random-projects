@@ -186,31 +186,49 @@ def stations_for(direction: str, stations: dict) -> tuple[dict, dict]:
 
 
 def clamp_to_stations(pts: list[tuple], origin: dict, dest: dict, drive_kmh: float,
-                      smooth_n: int, pullaway_pts: int) -> tuple[list[tuple], dict]:
-    """Clamp a trace to the route between its two terminating stations: start at
-    the genuine pull-away from the origin station, end at the closest approach to
-    the destination station — which is reached just *before* the final complete
-    stop, so the parking tail is cut.
+                      smooth_n: int, pullaway_pts: int,
+                      station_radius: float) -> tuple[list[tuple], dict]:
+    """Clamp a trace to the ride between its two terminating stations using
+    movement near the stations (no fixed head/tail trim):
 
-    The start is the first point where a sustained window (pullaway_pts) averages
-    >= drive_kmh after the closest approach to the origin station, so the
-    stationary helmet-up / idle time at the station is excluded and a brief GPS
-    wobble during it doesn't count as the start. origin_gap/dest_gap report how
-    far the trace got from each station (used to flag a non-terminating trace).
+      start = the FIRST real movement leaving the origin station
+      end   = the LAST real movement near the destination station
+
+    "Real movement" is a sustained window (pullaway_pts) averaging >= drive_kmh,
+    and "near" is within station_radius of the station. So the walk to the bike,
+    helmet-up, idling and the final creep-to-stop / parking are all excluded,
+    while the moving ride (including any jam just outside the station) is kept.
+    origin_gap/dest_gap report how close the trace got to each station.
     """
     do = [haversine(p[1], p[2], origin["lat"], origin["lon"]) for p in pts]
     dd = [haversine(p[1], p[2], dest["lat"], dest["lon"]) for p in pts]
-    io = int(np.argmin(do))
-    idd = int(np.argmin(dd))
+    io, idd = int(np.argmin(do)), int(np.argmin(dd))
     info = {"origin_gap": round(do[io]), "dest_gap": round(dd[idd])}
-    if io >= idd:                         # degenerate ordering; don't clamp
-        io, idd = 0, len(pts) - 1
     sm = smoothed_speeds(pts, smooth_n)
     k = max(1, pullaway_pts)
-    start = io
-    while start < idd - k and sum(sm[start:start + k]) / k < drive_kmh:
-        start += 1                        # skip helmet-up / idle to the pull-away
-    end = idd
+    n = len(pts)
+
+    def fwd(i):  # sustained movement starting at i
+        return sum(sm[i:i + k]) / len(sm[i:i + k]) >= drive_kmh
+
+    def back(i):  # sustained movement ending at i
+        lo = max(0, i - k + 1)
+        return sum(sm[lo:i + 1]) / (i + 1 - lo) >= drive_kmh
+
+    moving_o = [i for i in range(n) if do[i] <= station_radius and fwd(i)]
+    moving_d = [i for i in range(n) if dd[i] <= station_radius and back(i)]
+    # first movement leaving origin; if none within radius, the pull-away after
+    # the closest approach (covers a slow start that clears the radius first)
+    if moving_o:
+        start = moving_o[0]
+    else:
+        start = io
+        while start < n - 1 and not fwd(start):
+            start += 1
+    end = moving_d[-1] if moving_d else idd
+    if start >= end:                      # degenerate; keep the whole thing
+        start, end = 0, n - 1
+
     info.update({
         "head_s": round((pts[start][0] - pts[0][0]).total_seconds()),
         "tail_s": round((pts[-1][0] - pts[end][0]).total_seconds()),
@@ -341,6 +359,7 @@ def main() -> int:
     section_bin = cfg.get("section_bin_m", 200)
     stations = cfg.get("stations")
     pullaway_pts = cfg.get("pullaway_min_pts", 4)
+    station_radius = cfg.get("station_radius_m", 150)
     tz = parse_offset(cfg["timezone_offset"])
 
     # pass 1: read, clamp/trim, classify
@@ -354,7 +373,7 @@ def main() -> int:
         if stations:
             o_st, d_st = stations_for(direction, stations)
             pts, trim = clamp_to_stations(raw, o_st, d_st, drive_kmh,
-                                          smooth_n, pullaway_pts)
+                                          smooth_n, pullaway_pts, station_radius)
             partial = max(trim["origin_gap"], trim["dest_gap"]) > partial_gap
         else:
             pts, trim = trim_to_drive(raw, drive_kmh, smooth_n)
@@ -393,7 +412,7 @@ def main() -> int:
         append(os.path.join(DATA, f"{direction}_summary.csv"), SUMMARY_FIELDS, [summary])
         append(os.path.join(DATA, f"{direction}_pockets.csv"), POCKET_FIELDS,
                [{"date": summary["date"], **p} for p in pockets])
-        if not partial and direction in routes:
+        if direction in routes:  # partials still cover valid sections of the axis
             sections = compute_sections(pts, routes[direction], section_bin)
             append(os.path.join(DATA, f"{direction}_sections.csv"), SECTION_FIELDS,
                    [{"date": summary["date"], "start_time": summary["start_time"], **s}

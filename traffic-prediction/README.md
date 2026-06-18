@@ -65,22 +65,29 @@ plots.
 ### Station clamping
 
 Each route runs between two fixed **terminating stations** (`config.json →
-stations`, one near the office, one near home). Every trace is clamped to the
-ride between them:
+stations`, one near the office, one near home). There is no fixed head/tail
+trim — the ends are defined purely by **movement near the stations**:
 
-- **Start** = the genuine pull-away from the origin station — the first point
-  where a sustained window (`pullaway_min_pts`) averages >= `drive_speed_kmh`,
-  measured from the closest approach to that station. This drops the walk to the
-  bike, **helmet-up time, and idling** before you ride.
-- **End** = the closest approach to the destination station, which you reach
-  just *before* the final complete stop — so the parking/walk tail is cut.
+- **Start** = the *first* real movement leaving the origin station.
+- **End** = the *last* real movement near the destination station.
 
-The **interior is never trimmed**, so mid-route traffic crawls are preserved.
-How much got clipped is recorded per trace as `trim_head_s` / `trim_tail_s`. A
-trace that never gets within `partial_gap_m` of a station (you forgot to record
-from the start, or stopped short) is flagged `partial=True` and kept out of the
-travel-time and section plots. If no `stations` are configured, it falls back to
-a plain speed-based trim of both ends.
+"Real movement" is a sustained window (`pullaway_min_pts`) averaging
+>= `drive_speed_kmh`; "near" is within `station_radius_m` of the station. So the
+walk to the bike, **helmet-up, idling, and the final creep-to-stop / parking**
+are all excluded, while the moving ride — including a jam just *outside* the
+station — is kept. The **interior is never trimmed**. How much got clipped is
+recorded per trace as `trim_head_s` / `trim_tail_s`.
+
+If no `stations` are configured it falls back to a plain speed-based trim.
+
+### Partial traces are recovered
+
+A trace that never gets within `partial_gap_m` of a station (you forgot to
+record from the start, or stopped short) is flagged `partial=True`. Its *total*
+travel time is an undercount, so it stays out of the travel-time plot — but
+because every section is projected onto the shared route axis, the stretch it
+*did* drive still contributes valid section times to the 2D profile. A trace
+that joins at 2 km still informs everything from 2 km onward.
 
 Let it accumulate for a couple of weeks before reading too much into the
 pattern; a single day is weather/incident noise.

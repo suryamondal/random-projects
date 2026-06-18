@@ -14,6 +14,7 @@
   "drive_speed_kmh": 10,
   "trim_smooth_points": 5,
   "pullaway_min_pts": 4,
+  "station_radius_m": 150,
   "section_bin_m": 200,
   "time_bin_min": 10,
   "profile_smooth_dist_m": 600,
