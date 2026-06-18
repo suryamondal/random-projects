@@ -166,11 +166,14 @@ def _profile_grid(direction: str):
     return {"taxis": taxis, "daxis": daxis, "raw": raw, "tbin": tbin, "dbin": dbin}
 
 
-def _render_profile(ax, grid: dict, title: str, x_tot: float,
-                    reverse: bool, route_total_m) -> None:
+def _render_profile(ax, grid: dict, title: str, x_tot: float, reverse: bool,
+                    route_total_m, x_offset: float = 0.0,
+                    vmin=None, vmax=None) -> None:
     """Draw one profile panel: colour = section seconds, the seconds printed in
     each bin, row totals at x_tot. If reverse, the office-origin distance axis is
     flipped to a home-origin one so both directions share a distance-from-home x.
+    x_offset shifts the grid so both panels' bin edges line up; vmin/vmax fix a
+    shared colour scale.
     """
     taxis, daxis, raw, tbin, dbin = (grid["taxis"], grid["daxis"], grid["raw"],
                                      grid["tbin"], grid["dbin"])
@@ -179,12 +182,14 @@ def _render_profile(ax, grid: dict, title: str, x_tot: float,
         xedges = (route_total_m - edges_m)[::-1] / 1000.0
         rawc = raw[:, ::-1]
     else:
-        xedges = edges_m / 1000.0
+        xedges = edges_m / 1000.0 + x_offset
         rawc = raw
     xcent = (xedges[:-1] + xedges[1:]) / 2
     yedges = np.array(taxis + [taxis[-1] + tbin], dtype=float)
-    vmax = np.nanpercentile(rawc, 97) if np.isfinite(rawc).any() else None
-    ax.pcolormesh(xedges, yedges, rawc, cmap="YlOrRd", vmax=vmax, shading="flat")
+    if vmax is None:
+        vmax = np.nanpercentile(rawc, 97) if np.isfinite(rawc).any() else None
+    ax.pcolormesh(xedges, yedges, rawc, cmap="YlOrRd", vmin=vmin, vmax=vmax,
+                  shading="flat")
 
     for i, tb in enumerate(taxis):
         yc = tb + tbin / 2
@@ -221,11 +226,20 @@ def plot_combined_profile() -> None:
         return
 
     rt_r = _route_total_m("return")
+    dbin = (go or gr)["dbin"]
     ext_o = (go["daxis"][-1] + go["dbin"]) / 1000.0 if go else 0
     ext_r = rt_r / 1000.0 if (gr and rt_r) else (
         (gr["daxis"][-1] + gr["dbin"]) / 1000.0 if gr else 0)
-    pad = (go or gr)["dbin"] / 1000.0
+    pad = dbin / 1000.0
     x_tot = max(ext_o, ext_r) + pad
+    # the reversed return grid sits at (route_total mod dbin); shift onward to match
+    offset = (rt_r % dbin) / 1000.0 if rt_r else 0.0
+
+    # one colour scale for both panels so the same colour means the same seconds
+    allvals = np.concatenate([g["raw"][np.isfinite(g["raw"])].ravel()
+                              for g in (go, gr) if g])
+    vmin = float(allvals.min()) if allvals.size else None
+    vmax = float(np.percentile(allvals, 97)) if allvals.size else None
 
     no = len(go["taxis"]) if go else 1
     nr = len(gr["taxis"]) if gr else 1
@@ -234,10 +248,11 @@ def plot_combined_profile() -> None:
         gridspec_kw={"height_ratios": [max(2, no), max(2, nr)]})
 
     if go:
-        _render_profile(axes[0], go, "onward: home → office", x_tot, False, None)
+        _render_profile(axes[0], go, "onward: home → office", x_tot, False, None,
+                        x_offset=offset, vmin=vmin, vmax=vmax)
     if gr:
         _render_profile(axes[1], gr, "return: office → home (reversed)", x_tot,
-                        True, rt_r)
+                        True, rt_r, vmin=vmin, vmax=vmax)
     axes[1].set_xlabel("distance from home (km)   →   office")
     fig.suptitle("section travel time (s): onward over return, shared distance axis",
                  fontsize=13)
