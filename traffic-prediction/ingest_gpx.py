@@ -110,13 +110,13 @@ def build_route(pts: list[tuple]) -> dict:
             "x": x.tolist(), "y": y.tolist(), "s": s.tolist()}
 
 
-def project_arc_length(route: dict, pts: list[tuple]) -> np.ndarray:
+def project_arc_length(route: dict, pts: list[tuple], max_kmh: float) -> np.ndarray:
     """Constrain each GPS point to the route axis: its along-route position is
     the arc-length of the nearest route vertex, searched only within a window
-    that advances forward by at most a plausible distance (speed x elapsed time)
-    from the previous point. This keeps progress monotonic AND stops a point from
-    snapping to a spatially-close but far-along leg where the route nearly meets
-    itself (e.g. a U-turn), which would otherwise teleport the arc-length."""
+    that advances forward by at most a plausible distance (max_kmh x elapsed
+    time) from the previous point. This keeps progress monotonic AND stops a
+    point from snapping to a spatially-close but far-along leg where the route
+    nearly meets itself (e.g. a U-turn), which would teleport the arc-length."""
     rx, ry, rs = np.array(route["x"]), np.array(route["y"]), np.array(route["s"])
     px, py = _local_xy([p[1] for p in pts], [p[2] for p in pts],
                        route["lat0"], route["lon0"])
@@ -124,7 +124,7 @@ def project_arc_length(route: dict, pts: list[tuple]) -> np.ndarray:
     s_prev = 0.0
     for i in range(len(pts)):
         dt = (pts[i][0] - pts[i - 1][0]).total_seconds() if i else 1.0
-        adv = 25.0 * max(dt, 1.0) + 40.0     # ~90 km/h ceiling + slack (metres)
+        adv = max_kmh / 3.6 * max(dt, 1.0) + 40.0    # speed ceiling + slack (m)
         idx = np.where((rs >= s_prev - 10) & (rs <= s_prev + adv))[0]
         if len(idx) == 0:
             idx = np.array([int(np.argmin(np.abs(rs - s_prev)))])
@@ -134,13 +134,14 @@ def project_arc_length(route: dict, pts: list[tuple]) -> np.ndarray:
     return s
 
 
-def compute_sections(pts: list[tuple], route: dict, bin_m: float) -> list[dict]:
+def compute_sections(pts: list[tuple], route: dict, bin_m: float,
+                     max_kmh: float) -> list[dict]:
     """Time to cross each fixed-length section, measured along the reference
     route axis (not raw path length). A section only counts where this trace
     actually covers the route, so partial coverage at the ends is skipped.
     A stop inside a section is absorbed (position flat while time runs) = a jam.
     """
-    s = project_arc_length(route, pts)
+    s = project_arc_length(route, pts, max_kmh)
     t = np.array([(p[0] - pts[0][0]).total_seconds() for p in pts], dtype=float)
     edges = np.arange(0, route["s"][-1], bin_m)
     enter = np.interp(edges, s, t)
@@ -360,6 +361,7 @@ def main() -> int:
     drive_kmh = cfg.get("drive_speed_kmh", 10)
     smooth_n = cfg.get("trim_smooth_points", 5)
     section_bin = cfg.get("section_bin_m", 200)
+    sanity_max_kmh = cfg.get("sanity_max_kmh", 90)
     stations = cfg.get("stations")
     station_radius = cfg.get("station_radius_m", 150)
     tz = parse_offset(cfg["timezone_offset"])
@@ -414,7 +416,14 @@ def main() -> int:
         append(os.path.join(DATA, f"{direction}_pockets.csv"), POCKET_FIELDS,
                [{"date": summary["date"], **p} for p in pockets])
         if direction in routes:  # partials still cover valid sections of the axis
-            sections = compute_sections(pts, routes[direction], section_bin)
+            sections = compute_sections(pts, routes[direction], section_bin,
+                                         sanity_max_kmh)
+            for s in sections:  # flag physically impossible sections (bad projection)
+                kmh = section_bin / s["sec"] * 3.6 if s["sec"] > 0 else float("inf")
+                if kmh > sanity_max_kmh:
+                    print(f"  warn {summary['date']} {direction}: {s['dist_m']}m section "
+                          f"= {s['sec']}s ({kmh:.0f} km/h > {sanity_max_kmh}), likely a "
+                          f"projection artifact", file=sys.stderr)
             append(os.path.join(DATA, f"{direction}_sections.csv"), SECTION_FIELDS,
                    [{"date": summary["date"], "start_time": summary["start_time"], **s}
                     for s in sections])
