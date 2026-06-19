@@ -66,21 +66,23 @@ leg) so each trace covers the full route. A drive that starts more than
 `partial=True` — still logged, but excluded from the travel-time and section
 plots.
 
-### Station clamping
+### Station clamping (gate crossings)
 
 Each route runs between two fixed **terminating stations** (`config.json →
-stations`, one near the office, one near home). There is no fixed head/tail
-trim — the ends are defined purely by **movement near the stations**:
+stations`, one near the office, one near home), each treated as a circular
+**gate** of `station_radius_m`. A trace is clamped by where it crosses the gates:
 
-- **Start** = the *first* real movement leaving the origin station.
-- **End** = the *last* real movement near the destination station.
+- **Start** = the *first departure* from the origin gate (exit of the first time
+  the trace is inside the radius). Drops the parking/helmet/idle and the
+  society-interior crawl, but keeps the whole route.
+- **End** = the *arrival* at the destination gate (first time inside its radius).
+  Drops the in-society / parking maneuvers at the end.
 
-"Real movement" is a sustained window (`pullaway_min_pts`) averaging
->= `drive_speed_kmh`; "near" is within `station_radius_m` of the station. So the
-walk to the bike, **helmet-up, idling, and the final creep-to-stop / parking**
-are all excluded, while the moving ride — including a jam just *outside* the
-station — is kept. The **interior is never trimmed**. How much got clipped is
-recorded per trace as `trim_head_s` / `trim_tail_s`.
+Because the start is the *first* origin departure (not a later pass-by), a return
+that loops out, **U-turns and comes back past the office** still starts at the
+original departure — so its distance rightly exceeds the onward leg. The
+interior between gates is never trimmed. `trim_head_s` / `trim_tail_s` record how
+much was clipped; `station_radius_m` (default 50) sets the gate size.
 
 If no `stations` are configured it falls back to a plain speed-based trim.
 

@@ -185,48 +185,40 @@ def stations_for(direction: str, stations: dict) -> tuple[dict, dict]:
     return stations["office"], stations["home"]   # return: office -> home
 
 
-def clamp_to_stations(pts: list[tuple], origin: dict, dest: dict, drive_kmh: float,
-                      smooth_n: int, pullaway_pts: int,
+def clamp_to_stations(pts: list[tuple], origin: dict, dest: dict,
                       station_radius: float) -> tuple[list[tuple], dict]:
-    """Clamp a trace to the ride between its two terminating stations using
-    movement near the stations (no fixed head/tail trim):
+    """Clamp a trace to the ride between its two terminating stations by where it
+    crosses each station's gate (a circle of station_radius), not by speed:
 
-      start = the FIRST real movement leaving the origin station
-      end   = the LAST real movement near the destination station
+      start = the FIRST departure from the origin gate (exit of the first time
+              the trace is within the radius) -> excludes parking/helmet/idle but
+              keeps the whole route, including a U-turn taken further along.
+      end   = the arrival at the destination gate (first time within its radius)
+              -> excludes the in-society / parking maneuvers at the end.
 
-    "Real movement" is a sustained window (pullaway_pts) averaging >= drive_kmh,
-    and "near" is within station_radius of the station. So the walk to the bike,
-    helmet-up, idling and the final creep-to-stop / parking are all excluded,
-    while the moving ride (including any jam just outside the station) is kept.
+    A return that loops out, U-turns and comes back past the office still starts
+    at the original office departure (not the later pass-by), so its distance
+    rightly exceeds the onward leg.
     origin_gap/dest_gap report how close the trace got to each station.
     """
     do = [haversine(p[1], p[2], origin["lat"], origin["lon"]) for p in pts]
     dd = [haversine(p[1], p[2], dest["lat"], dest["lon"]) for p in pts]
     io, idd = int(np.argmin(do)), int(np.argmin(dd))
     info = {"origin_gap": round(do[io]), "dest_gap": round(dd[idd])}
-    sm = smoothed_speeds(pts, smooth_n)
-    k = max(1, pullaway_pts)
     n = len(pts)
 
-    def fwd(i):  # sustained movement starting at i
-        return sum(sm[i:i + k]) / len(sm[i:i + k]) >= drive_kmh
-
-    def back(i):  # sustained movement ending at i
-        lo = max(0, i - k + 1)
-        return sum(sm[lo:i + 1]) / (i + 1 - lo) >= drive_kmh
-
-    moving_o = [i for i in range(n) if do[i] <= station_radius and fwd(i)]
-    moving_d = [i for i in range(n) if dd[i] <= station_radius and back(i)]
-    # first movement leaving origin; if none within radius, the pull-away after
-    # the closest approach (covers a slow start that clears the radius first)
-    if moving_o:
-        start = moving_o[0]
+    near_o = [i for i in range(n) if do[i] <= station_radius and i < idd]
+    if near_o:                                       # exit of the FIRST cluster
+        start = near_o[0]
+        for a, b in zip(near_o, near_o[1:]):
+            if b - a > 20:                           # big gap = left the gate
+                break
+            start = b
     else:
         start = io
-        while start < n - 1 and not fwd(start):
-            start += 1
-    end = moving_d[-1] if moving_d else idd
-    if start >= end:                      # degenerate; keep the whole thing
+    cand_d = [i for i in range(n) if dd[i] <= station_radius and i > start]
+    end = min(cand_d) if cand_d else (idd if idd > start else n - 1)  # arrival
+    if start >= end:                                 # degenerate; keep it all
         start, end = 0, n - 1
 
     info.update({
@@ -358,7 +350,6 @@ def main() -> int:
     smooth_n = cfg.get("trim_smooth_points", 5)
     section_bin = cfg.get("section_bin_m", 200)
     stations = cfg.get("stations")
-    pullaway_pts = cfg.get("pullaway_min_pts", 4)
     station_radius = cfg.get("station_radius_m", 150)
     tz = parse_offset(cfg["timezone_offset"])
 
@@ -372,8 +363,7 @@ def main() -> int:
         direction = classify(raw[0][1], raw[0][2], cfg)[0]
         if stations:
             o_st, d_st = stations_for(direction, stations)
-            pts, trim = clamp_to_stations(raw, o_st, d_st, drive_kmh,
-                                          smooth_n, pullaway_pts, station_radius)
+            pts, trim = clamp_to_stations(raw, o_st, d_st, station_radius)
             partial = max(trim["origin_gap"], trim["dest_gap"]) > partial_gap
         else:
             pts, trim = trim_to_drive(raw, drive_kmh, smooth_n)
