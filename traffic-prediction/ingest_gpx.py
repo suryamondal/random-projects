@@ -112,15 +112,26 @@ def build_route(pts: list[tuple]) -> dict:
 
 def project_arc_length(route: dict, pts: list[tuple]) -> np.ndarray:
     """Constrain each GPS point to the route axis: its along-route position is
-    the arc-length of the nearest route vertex. Forced non-decreasing so forward
-    progress (not GPS jitter) defines position."""
+    the arc-length of the nearest route vertex, searched only within a window
+    that advances forward by at most a plausible distance (speed x elapsed time)
+    from the previous point. This keeps progress monotonic AND stops a point from
+    snapping to a spatially-close but far-along leg where the route nearly meets
+    itself (e.g. a U-turn), which would otherwise teleport the arc-length."""
     rx, ry, rs = np.array(route["x"]), np.array(route["y"]), np.array(route["s"])
     px, py = _local_xy([p[1] for p in pts], [p[2] for p in pts],
                        route["lat0"], route["lon0"])
     s = np.empty(len(pts))
+    s_prev = 0.0
     for i in range(len(pts)):
-        s[i] = rs[np.argmin((rx - px[i]) ** 2 + (ry - py[i]) ** 2)]
-    return np.maximum.accumulate(s)
+        dt = (pts[i][0] - pts[i - 1][0]).total_seconds() if i else 1.0
+        adv = 25.0 * max(dt, 1.0) + 40.0     # ~90 km/h ceiling + slack (metres)
+        idx = np.where((rs >= s_prev - 10) & (rs <= s_prev + adv))[0]
+        if len(idx) == 0:
+            idx = np.array([int(np.argmin(np.abs(rs - s_prev)))])
+        k = idx[int(np.argmin((rx[idx] - px[i]) ** 2 + (ry[idx] - py[i]) ** 2))]
+        s_prev = max(float(rs[k]), s_prev)
+        s[i] = s_prev
+    return s
 
 
 def compute_sections(pts: list[tuple], route: dict, bin_m: float) -> list[dict]:
