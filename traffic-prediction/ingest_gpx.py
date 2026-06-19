@@ -121,7 +121,9 @@ def project_arc_length(route: dict, pts: list[tuple], max_kmh: float) -> np.ndar
     px, py = _local_xy([p[1] for p in pts], [p[2] for p in pts],
                        route["lat0"], route["lon0"])
     s = np.empty(len(pts))
-    s_prev = 0.0
+    # seed at the first point's nearest vertex so a partial trace that begins
+    # mid-route isn't pinned to s=0 by the forward-only window
+    s_prev = float(rs[int(np.argmin((rx - px[0]) ** 2 + (ry - py[0]) ** 2))])
     for i in range(len(pts)):
         dt = (pts[i][0] - pts[i - 1][0]).total_seconds() if i else 1.0
         adv = max_kmh / 3.6 * max(dt, 1.0) + 40.0    # speed ceiling + slack (m)
