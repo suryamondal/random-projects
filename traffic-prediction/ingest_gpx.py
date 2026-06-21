@@ -42,7 +42,7 @@ DATA = os.path.join(DIR, "data")
 CFG_PATH = os.path.join(DIR, "config.json")
 
 SUMMARY_FIELDS = [
-    "date", "start_time", "end_time", "direction", "partial",
+    "date", "start_time", "end_time", "direction", "bike", "partial",
     "duration_min", "distance_km", "mean_speed_kmh",
     "slow_time_min", "n_pockets", "trim_head_s", "trim_tail_s", "gpx_file",
 ]
@@ -50,7 +50,15 @@ POCKET_FIELDS = [
     "date", "dist_km_along", "lat", "lon",
     "duration_s", "mean_speed_kmh",
 ]
-SECTION_FIELDS = ["date", "start_time", "dist_m", "sec"]
+SECTION_FIELDS = ["date", "start_time", "bike", "dist_m", "sec"]
+
+
+def bike_of(path: str) -> str:
+    """Bike slug from a `YYYYMMDD-HHMMSS-<bike>.gpx` filename, else 'unknown'."""
+    base = os.path.basename(path)
+    base = base[:-4] if base.endswith(".gpx") else base
+    parts = base.split("-", 2)
+    return parts[2] if len(parts) >= 3 else "unknown"
 
 
 def load_cfg() -> dict:
@@ -320,6 +328,7 @@ def summarize(pts: list[tuple], pockets: list[dict], path: str,
         "start_time": start.strftime("%H:%M:%S"),
         "end_time": end.strftime("%H:%M:%S"),
         "direction": direction,
+        "bike": bike_of(path),
         "partial": partial,
         "duration_min": round(dur_s / 60, 1),
         "distance_km": round(dist_km, 2),
@@ -427,8 +436,8 @@ def main() -> int:
                           f"= {s['sec']}s ({kmh:.0f} km/h > {sanity_max_kmh}), likely a "
                           f"projection artifact", file=sys.stderr)
             append(os.path.join(DATA, f"{direction}_sections.csv"), SECTION_FIELDS,
-                   [{"date": summary["date"], "start_time": summary["start_time"], **s}
-                    for s in sections])
+                   [{"date": summary["date"], "start_time": summary["start_time"],
+                     "bike": summary["bike"], **s} for s in sections])
         flag = " [PARTIAL]" if partial else ""
         print(f"{summary['date']} {summary['start_time']} {direction}{flag}: "
               f"{summary['duration_min']} min, {summary['distance_km']} km, "

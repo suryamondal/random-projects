@@ -140,9 +140,23 @@ def _route_total_m(direction: str):
     return None
 
 
-def _profile_grid(direction: str):
-    """Build the (departure-time x distance) grid of measured section seconds."""
+def _bikes() -> list:
+    """Distinct bikes present across the section data, in stable order."""
+    seen = []
+    for direction in DIRECTIONS:
+        for r in read_csv(f"{direction}_sections.csv"):
+            b = r.get("bike", "unknown")
+            if b not in seen:
+                seen.append(b)
+    return seen
+
+
+def _profile_grid(direction: str, bike=None):
+    """Build the (departure-time x distance) grid of measured section seconds,
+    optionally restricted to one bike."""
     rows = read_csv(f"{direction}_sections.csv")
+    if bike is not None:
+        rows = [r for r in rows if r.get("bike") == bike]
     if not rows:
         return None
     tbin = CFG.get("time_bin_min", 10)
@@ -216,13 +230,15 @@ def _render_profile(ax, grid: dict, title: str, x_tot: float, xlim_right: float,
     ax.set_title(title)
 
 
-def plot_combined_profile() -> None:
+def plot_combined_profile(bike=None, vmin=None, vmax=None) -> None:
     """onward (top) over return (bottom, x reversed) on a shared distance-from-home
-    axis, since they are the same road in opposite directions."""
-    go = _profile_grid("onward")
-    gr = _profile_grid("return")
+    axis, since they are the same road in opposite directions. Restricted to one
+    bike if given; vmin/vmax let callers share a colour scale across bikes."""
+    go = _profile_grid("onward", bike)
+    gr = _profile_grid("return", bike)
+    tag = f"_{bike}" if bike else ""
     if not go and not gr:
-        print("no section data; skipping combined_section_profile")
+        print(f"no section data for {bike or 'all'}; skipping combined_section_profile{tag}")
         return
 
     rt_r = _route_total_m("return")
@@ -237,11 +253,11 @@ def plot_combined_profile() -> None:
     x_tot = max(ext_o + offset, ext_r) + 0.55
     xlim_right = x_tot + 0.6                       # room for the "Σ min" numbers
 
-    # one colour scale for both panels so the same colour means the same seconds
-    allvals = np.concatenate([g["raw"][np.isfinite(g["raw"])].ravel()
-                              for g in (go, gr) if g])
-    vmin = float(allvals.min()) if allvals.size else None
-    vmax = float(np.percentile(allvals, 97)) if allvals.size else None
+    if vmin is None or vmax is None:              # self-scale if not given one
+        allvals = np.concatenate([g["raw"][np.isfinite(g["raw"])].ravel()
+                                  for g in (go, gr) if g])
+        vmin = float(allvals.min()) if allvals.size else None
+        vmax = float(np.percentile(allvals, 97)) if allvals.size else None
 
     no = len(go["taxis"]) if go else 1
     nr = len(gr["taxis"]) if gr else 1
@@ -249,20 +265,31 @@ def plot_combined_profile() -> None:
         2, 1, figsize=(13, max(2.5, 0.5 * no + 1.5) + max(2.5, 0.5 * nr + 1.5)),
         gridspec_kw={"height_ratios": [max(2, no), max(2, nr)]})
 
+    who = f"  [{bike}]" if bike else ""
     if go:
-        _render_profile(axes[0], go, "onward: home → office", x_tot, xlim_right,
+        _render_profile(axes[0], go, f"onward: home → office{who}", x_tot, xlim_right,
                         False, None, x_offset=offset, vmin=vmin, vmax=vmax)
     if gr:
-        _render_profile(axes[1], gr, "return: home ← office", x_tot,
+        _render_profile(axes[1], gr, f"return: home ← office{who}", x_tot,
                         xlim_right, True, rt_r, vmin=vmin, vmax=vmax)
     axes[1].set_xlabel("distance from home (km)   →   office")
-    fig.suptitle("section travel time (s): onward over return, shared distance axis",
-                 fontsize=13)
-    out = os.path.join(PLOTS, "combined_section_profile.svg")
+    out = os.path.join(PLOTS, f"combined_section_profile{tag}.svg")
     fig.tight_layout()
     fig.savefig(out)
     plt.close(fig)
     print(f"wrote {out}")
+
+
+def _global_scale():
+    """Shared (vmin, vmax) across all section data so per-bike plots compare."""
+    vals = []
+    for direction in DIRECTIONS:
+        for r in read_csv(f"{direction}_sections.csv"):
+            vals.append(float(r["sec"]))
+    if not vals:
+        return None, None
+    a = np.array(vals)
+    return float(a.min()), float(np.percentile(a, 97))
 
 
 def main() -> int:
@@ -270,7 +297,10 @@ def main() -> int:
     for direction, label in DIRECTIONS.items():
         plot_travel_history(direction, label)
         plot_pocket_map(direction, label)
-    plot_combined_profile()
+    vmin, vmax = _global_scale()                       # shared so bikes compare
+    plot_combined_profile(vmin=vmin, vmax=vmax)        # all bikes together
+    for bike in _bikes():                              # one profile per bike
+        plot_combined_profile(bike, vmin=vmin, vmax=vmax)
     return 0
 
 

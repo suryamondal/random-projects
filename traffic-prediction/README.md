@@ -21,7 +21,10 @@ Per direction you get:
 - **Where *and* when** — `combined_section_profile.svg` stacks both directions
   on one tall canvas: onward on top, return on the bottom with its x-axis
   *reversed* so both share a **distance-from-home** axis (home left, office
-  right) — they're the same road in opposite directions. Each panel is a 2D
+  right) — they're the same road in opposite directions. A per-bike copy is
+  also written (`combined_section_profile_<bike>.svg`, e.g. `ktm-duke-390`,
+  `re-hunter-350`), all on one shared colour scale so bikes/riders compare
+  directly. The bike is parsed from the `...-<bike>.gpx` filename. Each panel is a 2D
   heatmap: x = distance (200 m bins), y = departure time (10 min bins), colour =
   seconds to cross that section, with the seconds printed in each cell and each
   row's total time in the right margin. A vertical red band is a fixed
