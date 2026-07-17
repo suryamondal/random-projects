@@ -13,6 +13,10 @@ open plots/svd_timegroups.pdf                      # one page per event
 
 Already set up the shell? Skip straight to the `basf2 ...` line.
 
+> **`setup.sh` is for a LOCAL basf2 install only.** On a CVMFS release you must
+> edit it (swap the local paths for `source /cvmfs/belle2.cern.ch/tools/b2setup`
+> + `b2setup <release>`). See the banner at the top of `basf2/setup.sh`.
+
 ## Knobs you'll actually use
 
 ```bash
