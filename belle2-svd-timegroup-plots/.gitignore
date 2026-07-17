@@ -1,0 +1,20 @@
+# basf2 local-build artifacts
+basf2/build/
+basf2/lib/
+basf2/bin/
+basf2/include/
+basf2/modules/
+basf2/site_scons
+basf2/SConstruct
+basf2/.sconf_temp/
+basf2/.sconsign.dblite
+basf2/config.log
+
+# python
+**/__pycache__/
+
+# generated output
+plots/*.pdf
+plots/*.png
+plots/*.root
+plots/*.log
