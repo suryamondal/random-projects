@@ -1,68 +1,68 @@
 # SVD Time-Grouping Event Plots
 
-A small Belle II project that produces, **one PDF page per event**, the SVD
-time-grouping histogram overlaid with the fitted per-group Gaussians (all groups,
-or a selected subset of signal groups). Simulation only for now.
+One PDF page per event: the SVD time-grouping histogram with every group's fitted
+Gaussian drawn on top. That's it.
 
-## What it does
-
-The production `SVDTimeGrouping` module builds a cluster-time histogram (each
-cluster smeared by its time resolution), fits Gaussian peaks, and stamps every
-`SVDCluster` with its group id and the group's Gaussian parameters
-`(integral, center, sigma)`.
-
-This project adds a local module, **`SVDTimeGroupingPlotter`**, that runs *after*
-grouping. For each event it:
-
-1. rebuilds the same cluster-time histogram (reusing the grouping module's
-   shaping helpers, so it matches bin-for-bin);
-2. reads back the per-group Gaussian parameters from the clusters;
-3. draws the histogram (black) with each selected group's Gaussian overlaid in a
-   distinct colour, plus a legend (group id, peak time, cluster count);
-4. appends the canvas as a page to a multi-page PDF.
-
-## Layout
-
-```
-basf2/                                    local basf2 analysis directory
-  setup.sh                                sources b2setup, links site_scons, sets paths
-  svd/modules/SVDTimeGroupingPlotter/     the local C++ module
-    include/  src/  SConscript
-scripts/
-  plot_timegroups.py                      simulate -> cluster -> group -> plot steering
-plots/                                    output PDFs land here
-```
-
-## Build & run
+## Run it
 
 ```bash
-cd basf2
-source setup.sh          # sets up basf2; needs the belle2 environment
-scons                    # compiles the local SVDTimeGroupingPlotter module
-cd ..
+cd basf2 && source setup.sh && scons && cd ..     # once
 basf2 scripts/plot_timegroups.py -- --numEvents 10
-# -> plots/svd_timegroups.pdf, one page per event
+open plots/svd_timegroups.pdf                      # one page per event
 ```
 
-Useful options:
+Already set up the shell? Skip straight to the `basf2 ...` line.
 
-- `--groups 0 1 2` — overlay only these group ids (default: all). Group `0` is
-  the most signal-like after the grouping module's sort.
-- `--bkgDir <dir>` — overlay beam-background `BGOverlay` ROOT files; this is what
-  creates the out-of-time groups the algorithm is built to separate.
-- `--process mumu` — use `e+e- -> mu+mu-` instead of `Y(4S) -> BB`.
-- `--numEvents`, `--seed`, `--output`.
+## Knobs you'll actually use
 
-The module also takes `useFullRange` (default `True`): it draws the full
-`[tRangeLow, tRangeHigh]` window (±160 ns) so out-of-time background groups are
-seen in context. Set it `False` to shrink the x-axis to the populated span, as
-the grouping module does internally for its fit.
+```bash
+--groups 0 1 2      # only these groups (default: all). 0 = signal.
+--bkgDir <dir>      # overlay beam background -> lots of groups to look at
+--numEvents 10      # how many events/pages
+--output plots/x.pdf
+```
 
-## Notes
+## What you're looking at
 
-- The plotter runs grouping with `useParamFromDB=False` so both grouping and
-  plotting use the compiled default resolutions — that is what makes the redrawn
-  histogram exact. If you run grouping from DB payloads instead, the overlay is
-  still close but not guaranteed bin-identical.
-- Grouping is skipped by the production module for events with `< 10` clusters;
-  those pages are drawn with a "no time groups" note.
+- **Black** = cluster-time histogram (what the grouping algorithm fits).
+- **Coloured curves** = each group's fitted Gaussian, id tagged over its peak.
+- **Red = group 0 = signal.** Everything else is beam background.
+- Full ±160 ns range so out-of-time groups stay in frame.
+
+## If something's off
+
+- **Blank / "no time groups" page** — event had < 10 clusters; grouping is skipped
+  by design.
+- **Only one group** — you ran without `--bkgDir`; that's expected, signal only.
+- **Nothing plots** — the plotter runs *after* `SVDTimeGrouping`; the steering
+  already wires that up. Don't reorder it.
+
+---
+
+<details>
+<summary>The rest (only if you care)</summary>
+
+The module `SVDTimeGroupingPlotter` runs after `SVDTimeGrouping`. Each event it
+rebuilds the exact histogram the algorithm fitted — reusing that module's own
+shaping helpers and the per-group `(integral, center, sigma)` stamped onto every
+`SVDCluster` — then overlays each group's Gaussian and appends a PDF page.
+
+Layout:
+
+```
+basf2/                                    local basf2 analysis dir
+  setup.sh
+  svd/modules/SVDTimeGroupingPlotter/     the C++ module (include/ src/ SConscript)
+scripts/plot_timegroups.py                simulate -> cluster -> group -> plot
+plots/                                    output PDFs
+```
+
+Extra module params: `useFullRange` (default `True`; set `False` to crop the
+x-axis to the populated span), `maxPages`, and histogram-shape knobs
+(`tRangeLow/High`, `rebinningFactor`, `fillSigmaN`) kept identical to
+`SVDTimeGrouping`.
+
+The steering runs grouping with `useParamFromDB=False` so grouping and plotting
+share the same compiled resolutions — that's what makes the overlay exact. Run
+grouping from DB payloads instead and it's close but not bin-identical.
+</details>
