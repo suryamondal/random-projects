@@ -190,15 +190,18 @@ void SVDTimeGroupingPlotterModule::event()
                                };
   const int nColours = sizeof(palette) / sizeof(palette[0]);
 
-  // With many groups a full legend is unreadable, so it lists per-group detail
-  // (time, cluster count) only for a handful of selected groups; otherwise each
-  // peak is tagged with its group id in the group's colour.
-  const bool showFullLegend = (groupsToDraw.size() <= 8);
+  // Full per-group legend (time, cluster count for every group), kept small so
+  // that even ~20 groups fit without overlapping. Its height grows with the
+  // number of entries; each peak is additionally tagged with its id (below).
+  double legTop = 0.90;
+  double legRow = 0.030;
+  double legBot = legTop - (groupsToDraw.size() + 1) * legRow;
+  if (legBot < 0.12) legBot = 0.12;
 
-  TLegend leg(0.70, 0.74, 0.89, 0.88);
+  TLegend leg(0.68, legBot, 0.90, legTop);
   leg.SetBorderSize(0);
   leg.SetFillStyle(0);
-  leg.SetTextSize(0.022);
+  leg.SetTextSize(0.016);
   leg.AddEntry(&hist, "cluster-time histogram", "l");
 
   // keep the TF1s / labels alive until after Print()
@@ -221,12 +224,9 @@ void SVDTimeGroupingPlotterModule::event()
     f->SetLineWidth(2);
     f->Draw("same");
 
-    if (showFullLegend)
-      leg.AddEntry(f.get(),
-                   Form("group %d%s: t=%.1f ns, n=%d", id, isSignal ? " (signal)" : "",
-                        center, groupCounts[id]), "l");
-    else if (isSignal)
-      leg.AddEntry(f.get(), "group 0 (signal)", "l");
+    leg.AddEntry(f.get(),
+                 Form("group %d%s: t=%.0f ns, n=%d", id, isSignal ? " (signal)" : "",
+                      center, groupCounts[id]), "l");
 
     // tag the group id just above the head of its Gaussian, in the group's colour
     double apex = integral / (sigma * 2.50662827); // peak height = integral / (sigma*sqrt(2pi))
