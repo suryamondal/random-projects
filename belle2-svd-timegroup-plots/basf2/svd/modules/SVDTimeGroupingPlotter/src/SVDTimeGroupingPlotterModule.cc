@@ -11,6 +11,9 @@
 // framework
 #include <framework/logging/Logger.h>
 
+// mdst
+#include <mdst/dataobjects/MCParticle.h>
+
 // std
 #include <algorithm>
 #include <limits>
@@ -23,6 +26,7 @@
 #include <TLegend.h>
 #include <TText.h>
 #include <TLatex.h>
+#include <TLine.h>
 #include <TStyle.h>
 #include <TPad.h>
 #include <TVirtualPad.h>
@@ -201,6 +205,30 @@ void SVDTimeGroupingPlotterModule::event()
       if (groupParams.count(id)) groupsToDraw.push_back(id);
   }
 
+  // Identify the true signal clusters from MC truth and find which group wins
+  // them. A cluster is signal if it is related to an MCParticle; beam-background
+  // overlay clusters carry no MC relation. The signal group -- NOT assumed to be
+  // group 0 -- is the fitted group holding the most signal clusters. The mean
+  // time of the signal clusters is marked with a dotted line.
+  int    signalGroupId  = -999; // group tagged as signal (none by default)
+  double signalMeanTime = 0.;
+  bool   haveSignal     = false;
+  {
+    std::map<int, int> signalPerGroup;
+    double sumT = 0.;
+    int    nSig = 0;
+    for (int ij = 0; ij < totClusters; ij++) {
+      if (!m_svdClusters[ij]->getRelatedTo<MCParticle>()) continue; // background overlay
+      nSig++;
+      sumT += m_svdClusters[ij]->getClsTime();
+      for (int id : m_svdClusters[ij]->getTimeGroupId()) signalPerGroup[id]++;
+    }
+    if (nSig > 0) { signalMeanTime = sumT / nSig; haveSignal = true; }
+    int best = 0;
+    for (const auto& kv : signalPerGroup)
+      if (groupParams.count(kv.first) && kv.second > best) { best = kv.second; signalGroupId = kv.first; }
+  }
+
   // distinct colours cycled across the drawn groups
   static const int palette[] = {kRed + 1, kBlue + 1, kGreen + 2, kMagenta + 1, kOrange + 7,
                                 kCyan + 2, kViolet - 1, kSpring + 4, kPink + 7, kAzure + 1
@@ -214,6 +242,7 @@ void SVDTimeGroupingPlotterModule::event()
   std::vector<std::unique_ptr<TLatex>>  labels;
   std::vector<std::unique_ptr<TLegend>> legends;
   std::vector<std::unique_ptr<TText>>   notes;
+  std::vector<std::unique_ptr<TLine>>   lines;
 
   // draw a single pad: base histogram + the per-group Gaussian overlays. gScale
   // rescales each group's stored integral to the pad's y-units: 1 for the
@@ -234,8 +263,9 @@ void SVDTimeGroupingPlotterModule::event()
     h.DrawCopy("hist");
 
     // full per-group legend, kept small so ~20 groups fit; box grows with entries
+    // (+2 rows for the histogram and signal-mean entries)
     double legTop = 0.90, legRow = 0.030;
-    double legBot = legTop - (groupsToDraw.size() + 1) * legRow;
+    double legBot = legTop - (groupsToDraw.size() + 2) * legRow;
     if (legBot < 0.12) legBot = 0.12;
     auto leg = std::make_unique<TLegend>(0.66, legBot, 0.90, legTop);
     leg->SetBorderSize(0);
@@ -251,7 +281,7 @@ void SVDTimeGroupingPlotterModule::event()
       auto [integral, center, sigma] = groupParams[id];
       if (sigma <= 0.) continue;
       const int colour = palette[k % nColours];
-      const bool isSignal = (id == 0); // group 0 is most signal-like after the grouping sort
+      const bool isSignal = (id == signalGroupId); // the group that won the true signal clusters
       const double scaledIntegral = integral * gScale;
 
       auto f = std::make_unique<TF1>(Form("g_%s_%d", h.GetName(), id), myGaus, xmin, xmax, 3);
@@ -278,6 +308,17 @@ void SVDTimeGroupingPlotterModule::event()
 
       curves.push_back(std::move(f));
       labels.push_back(std::move(lab));
+    }
+
+    // dotted vertical line at the mean time of the true signal clusters
+    if (haveSignal) {
+      auto line = std::make_unique<TLine>(signalMeanTime, 0., signalMeanTime, yplot);
+      line->SetLineStyle(3);   // dotted
+      line->SetLineWidth(2);
+      line->SetLineColor(kBlack);
+      line->Draw();
+      leg->AddEntry(line.get(), Form("signal mean: t=%.0f ns", signalMeanTime), "l");
+      lines.push_back(std::move(line));
     }
 
     leg->Draw();
