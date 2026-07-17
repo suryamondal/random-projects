@@ -3,6 +3,22 @@
 One PDF page per event: the SVD time-grouping histogram with every group's fitted
 Gaussian drawn on top. That's it.
 
+## Get only this directory
+
+This lives inside the `random-projects` monorepo. To pull **only** this folder
+(sparse checkout, no other projects):
+
+```bash
+git clone --filter=blob:none --sparse https://github.com/suryamondal/random-projects.git
+cd random-projects
+git sparse-checkout set belle2-svd-timegroup-plots
+cd belle2-svd-timegroup-plots
+```
+
+If it lives on a branch rather than the default one, add `--branch <branch>` to
+the `git clone`. Already cloned the repo? Just run the `git sparse-checkout set`
+line from its root.
+
 ## Run it
 
 ```bash
@@ -20,7 +36,7 @@ Already set up the shell? Skip straight to the `basf2 ...` line.
 ## Knobs you'll actually use
 
 ```bash
---groups 0 1 2      # only these groups (default: all). 0 = signal.
+--groups 0 1 2      # only these groups (default: all). group ids, not the signal tag
 --bkgDir <dir>      # overlay beam background -> lots of groups to look at
 --numEvents 10      # how many events/pages
 --output plots/x.pdf
@@ -28,9 +44,14 @@ Already set up the shell? Skip straight to the `basf2 ...` line.
 
 ## What you're looking at
 
-- **Black** = cluster-time histogram (what the grouping algorithm fits).
+Two pads per page, same event:
+
+- **Left** raw cluster-time histogram (0.5 ns bins, one count per cluster).
+- **Right** the Gaussian-weighted distribution the grouping algorithm fits.
 - **Coloured curves** = each group's fitted Gaussian, id tagged over its peak.
-- **Red = group 0 = signal.** Everything else is beam background.
+- **`(signal)` group + dotted line** = the group that wins the true (MC-truth)
+  signal clusters, and those clusters' mean time. Everything else is beam
+  background. (Signal isn't always group 0 — it's decided from truth.)
 - Full ±160 ns range so out-of-time groups stay in frame.
 
 ## If something's off
