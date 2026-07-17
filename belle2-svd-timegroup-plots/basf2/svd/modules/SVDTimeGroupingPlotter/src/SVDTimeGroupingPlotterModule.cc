@@ -97,7 +97,7 @@ void SVDTimeGroupingPlotterModule::initialize()
   m_padL = new TPad("padL", "", 0.00, 0.00, 0.50, 1.00);
   m_padR = new TPad("padR", "", 0.50, 0.00, 1.00, 1.00);
   for (TPad* p : {m_padL, m_padR}) {
-    p->SetLeftMargin(0.11);
+    p->SetLeftMargin(0.15);   // room for the y-axis title + labels (was clipping the page edge)
     p->SetRightMargin(0.03);
     p->SetTopMargin(0.09);
     p->SetBottomMargin(0.10);
@@ -260,6 +260,9 @@ void SVDTimeGroupingPlotterModule::event()
     h.SetLineWidth(2);
     h.SetTitle(Form("run %d, event %d - %s  (%d clusters, %d groups);cluster time [ns];%s",
                     run, evt, subtitle, totClusters, int(groupParams.size()), ytitle));
+    h.GetYaxis()->SetTitleOffset(1.15); // keep the title inside the pad margin
+    h.GetYaxis()->SetTitleSize(0.040);
+    h.GetYaxis()->SetLabelSize(0.035);
     h.DrawCopy("hist");
 
     // full per-group legend, kept small so ~20 groups fit; box grows with entries
