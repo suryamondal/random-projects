@@ -12,9 +12,11 @@
 #include <framework/logging/Logger.h>
 
 // std
+#include <algorithm>
 #include <limits>
 #include <map>
 #include <memory>
+#include <string>
 
 // root
 #include <TF1.h>
@@ -22,6 +24,8 @@
 #include <TText.h>
 #include <TLatex.h>
 #include <TStyle.h>
+#include <TPad.h>
+#include <TVirtualPad.h>
 #include <TROOT.h>
 #include <TColor.h>
 
@@ -77,8 +81,24 @@ void SVDTimeGroupingPlotterModule::initialize()
   gStyle->SetTitleFontSize(0.038);   // smaller pad title
   gStyle->SetTitleX(0.5);            // centre it
   gStyle->SetTitleAlign(23);
+  gStyle->SetPaperSize(29.7, 21.0);  // A4 landscape, so the printed page matches the wide canvas
 
-  m_canvas = new TCanvas("svdTimeGroupCanvas", "SVD time grouping", 1200, 800);
+  // two columns: left = raw cluster-time histogram, right = Gaussian-weighted.
+  // Aspect ~A4 landscape (1.41:1) so the two pads fill the printed PDF page.
+  m_canvas = new TCanvas("svdTimeGroupCanvas", "SVD time grouping", 1700, 1200);
+
+  // Explicit pads spanning the full canvas height, with our own margins, so the
+  // plots fill the page edge-to-edge (no Divide() whitespace).
+  m_canvas->cd();
+  m_padL = new TPad("padL", "", 0.00, 0.00, 0.50, 1.00);
+  m_padR = new TPad("padR", "", 0.50, 0.00, 1.00, 1.00);
+  for (TPad* p : {m_padL, m_padR}) {
+    p->SetLeftMargin(0.11);
+    p->SetRightMargin(0.03);
+    p->SetTopMargin(0.09);
+    p->SetBottomMargin(0.10);
+    p->Draw();
+  }
 
   // open the multi-page PDF ("[" opens without emitting a page).
   m_canvas->Print((m_outputFileName + "[").c_str());
@@ -88,7 +108,7 @@ void SVDTimeGroupingPlotterModule::initialize()
 }
 
 
-void SVDTimeGroupingPlotterModule::fillHistogram(TH1D& hist)
+void SVDTimeGroupingPlotterModule::fillHistogram(TH1D& hist, bool gaussFill)
 {
   const int totClusters = m_svdClusters.getEntries();
 
@@ -116,17 +136,26 @@ void SVDTimeGroupingPlotterModule::fillHistogram(TH1D& hist)
   nBin *= m_rebinningFactor;
   if (nBin < 2) nBin = 2;
 
-  hist = TH1D("h_clsTime", "h_clsTime", nBin, tRangeLow, tRangeHigh);
+  const char* name = gaussFill ? "h_weighted" : "h_raw";
+  hist = TH1D(name, name, nBin, tRangeLow, tRangeHigh);
   hist.GetXaxis()->SetLimits(tRangeLow, tRangeHigh);
 
   for (int ij = 0; ij < totClusters; ij++) {
+    double gCenter = m_svdClusters[ij]->getClsTime();
+
+    if (!gaussFill) {
+      // raw: one count per cluster at its cluster time, no smearing
+      hist.Fill(gCenter);
+      continue;
+    }
+
+    // Gaussian-weighted: smear each cluster with its hard-coded time resolution
     double clsSize = m_svdClusters[ij]->getSize();
     bool   isUcls  = m_svdClusters[ij]->isUCluster();
     int    sType   = getSensorType(m_svdClusters[ij]->getSensorID());
     double gSigma  = (clsSize >= int(m_clsSigma[sType][isUcls].size()) ?
                       m_clsSigma[sType][isUcls].back() :
                       m_clsSigma[sType][isUcls][clsSize - 1]);
-    double gCenter = m_svdClusters[ij]->getClsTime();
 
     addGausToHistogram(hist, 1., gCenter, gSigma, m_fillSigmaN);
   }
@@ -141,9 +170,12 @@ void SVDTimeGroupingPlotterModule::event()
   const int evt = m_eventMetaData->getEvent();
   const int totClusters = m_svdClusters.getEntries();
 
-  // rebuild the histogram the grouping algorithm fitted
-  TH1D hist;
-  fillHistogram(hist);
+  // build both histograms; identical binning, they differ only in the fill:
+  //   weighted -> the distribution the grouping algorithm fits (right pad)
+  //   raw      -> one count per cluster, no smearing        (left pad)
+  TH1D histWeighted, histRaw;
+  fillHistogram(histWeighted, /*gaussFill=*/true);
+  fillHistogram(histRaw,      /*gaussFill=*/false);
 
   // read back the per-group Gaussian parameters that SVDTimeGrouping stamped
   // onto the clusters. timeGroupId and timeGroupInfo run in parallel; leftover
@@ -169,91 +201,106 @@ void SVDTimeGroupingPlotterModule::event()
       if (groupParams.count(id)) groupsToDraw.push_back(id);
   }
 
-  // draw
-  m_canvas->cd();
-  m_canvas->Clear();
-
-  double ymax  = hist.GetMaximum();
-  double yplot = (ymax > 0 ? ymax * 1.25 : 1.);
-  hist.SetMaximum(yplot);
-  hist.SetMinimum(0.);
-  hist.SetLineColor(kBlack);
-  hist.SetLineWidth(2);
-  hist.SetTitle(Form("SVD time grouping - run %d, event %d  (%d clusters, %d groups);"
-                     "cluster time [ns];Gaussian-weighted entries",
-                     run, evt, totClusters, int(groupParams.size())));
-  hist.DrawCopy("hist");
-
   // distinct colours cycled across the drawn groups
   static const int palette[] = {kRed + 1, kBlue + 1, kGreen + 2, kMagenta + 1, kOrange + 7,
                                 kCyan + 2, kViolet - 1, kSpring + 4, kPink + 7, kAzure + 1
                                };
   const int nColours = sizeof(palette) / sizeof(palette[0]);
 
-  // Full per-group legend (time, cluster count for every group), kept small so
-  // that even ~20 groups fit without overlapping. Its height grows with the
-  // number of entries; each peak is additionally tagged with its id (below).
-  double legTop = 0.90;
-  double legRow = 0.030;
-  double legBot = legTop - (groupsToDraw.size() + 1) * legRow;
-  if (legBot < 0.12) legBot = 0.12;
+  const double binWidth = 1.0 / std::max(1, m_rebinningFactor); // ns per bin (0.5 by default)
 
-  TLegend leg(0.68, legBot, 0.90, legTop);
-  leg.SetBorderSize(0);
-  leg.SetFillStyle(0);
-  leg.SetTextSize(0.016);
-  leg.AddEntry(&hist, "cluster-time histogram", "l");
+  // objects that must stay alive until Print() renders the whole canvas
+  std::vector<std::unique_ptr<TF1>>     curves;
+  std::vector<std::unique_ptr<TLatex>>  labels;
+  std::vector<std::unique_ptr<TLegend>> legends;
+  std::vector<std::unique_ptr<TText>>   notes;
 
-  // keep the TF1s / labels alive until after Print()
-  std::vector<std::unique_ptr<TF1>> curves;
-  std::vector<std::unique_ptr<TLatex>> labels;
-  double xmin = hist.GetXaxis()->GetXmin();
-  double xmax = hist.GetXaxis()->GetXmax();
+  // draw a single pad: base histogram + the per-group Gaussian overlays. gScale
+  // rescales each group's stored integral to the pad's y-units: 1 for the
+  // Gaussian-weighted pad, binWidth for the raw count histogram (its bins hold
+  // counts, so a group of n clusters has area n*binWidth in x).
+  auto drawPad = [&](TPad * pad, TH1D & h, double gScale, const char* subtitle, const char* ytitle) {
+    pad->cd();
+    pad->Clear();
 
-  for (size_t k = 0; k < groupsToDraw.size(); k++) {
-    int id = groupsToDraw[k];
-    auto [integral, center, sigma] = groupParams[id];
-    if (sigma <= 0.) continue;
-    const int colour = palette[k % nColours];
-    const bool isSignal = (id == 0); // group 0 is most signal-like after the grouping sort
+    double ymax  = h.GetMaximum();
+    double yplot = (ymax > 0 ? ymax * 1.25 : 1.);
+    h.SetMaximum(yplot);
+    h.SetMinimum(0.);
+    h.SetLineColor(kBlack);
+    h.SetLineWidth(2);
+    h.SetTitle(Form("run %d, event %d - %s  (%d clusters, %d groups);cluster time [ns];%s",
+                    run, evt, subtitle, totClusters, int(groupParams.size()), ytitle));
+    h.DrawCopy("hist");
 
-    auto f = std::make_unique<TF1>(Form("group_%d", id), myGaus, xmin, xmax, 3);
-    f->SetParameters(integral, center, sigma);
-    f->SetNpx(500);
-    f->SetLineColor(colour);
-    f->SetLineWidth(2);
-    f->Draw("same");
+    // full per-group legend, kept small so ~20 groups fit; box grows with entries
+    double legTop = 0.90, legRow = 0.030;
+    double legBot = legTop - (groupsToDraw.size() + 1) * legRow;
+    if (legBot < 0.12) legBot = 0.12;
+    auto leg = std::make_unique<TLegend>(0.66, legBot, 0.90, legTop);
+    leg->SetBorderSize(0);
+    leg->SetFillStyle(0);
+    leg->SetTextSize(0.016);
+    leg->AddEntry(&h, "cluster-time histogram", "l");
 
-    leg.AddEntry(f.get(),
-                 Form("group %d%s: t=%.0f ns, n=%d", id, isSignal ? " (signal)" : "",
-                      center, groupCounts[id]), "l");
+    double xmin = h.GetXaxis()->GetXmin();
+    double xmax = h.GetXaxis()->GetXmax();
 
-    // tag the group id just above the head of its Gaussian, in the group's colour
-    double apex = integral / (sigma * 2.50662827); // peak height = integral / (sigma*sqrt(2pi))
-    double ylab = apex + 0.015 * yplot;
-    if (ylab > 0.97 * yplot) ylab = 0.97 * yplot;
-    auto lab = std::make_unique<TLatex>(center, ylab, Form("%d", id));
-    lab->SetTextColor(colour);
-    lab->SetTextSize(0.016);
-    lab->SetTextFont(62);  // bold, for legibility at small size
-    lab->SetTextAlign(21); // horizontally centred over the peak, anchored at its bottom
-    lab->Draw();
+    for (size_t k = 0; k < groupsToDraw.size(); k++) {
+      int id = groupsToDraw[k];
+      auto [integral, center, sigma] = groupParams[id];
+      if (sigma <= 0.) continue;
+      const int colour = palette[k % nColours];
+      const bool isSignal = (id == 0); // group 0 is most signal-like after the grouping sort
+      const double scaledIntegral = integral * gScale;
 
-    curves.push_back(std::move(f));
-    labels.push_back(std::move(lab));
-  }
+      auto f = std::make_unique<TF1>(Form("g_%s_%d", h.GetName(), id), myGaus, xmin, xmax, 3);
+      f->SetParameters(scaledIntegral, center, sigma);
+      f->SetNpx(500);
+      f->SetLineColor(colour);
+      f->SetLineWidth(2);
+      f->Draw("same");
 
-  leg.Draw();
+      leg->AddEntry(f.get(),
+                    Form("group %d%s: t=%.0f ns, n=%d", id, isSignal ? " (signal)" : "",
+                         center, groupCounts[id]), "l");
 
-  if (groupParams.empty()) {
-    // grouping is skipped for events with <10 clusters -- say so on the page.
-    TText* note = new TText(0.5, 0.5, "no time groups (grouping needs >=10 clusters)");
-    note->SetNDC();
-    note->SetTextAlign(22);
-    note->SetTextColor(kGray + 2);
-    note->Draw();
-  }
+      // tag the group id just above the head of its Gaussian, in the group's colour
+      double apex = scaledIntegral / (sigma * 2.50662827); // peak height = integral / (sigma*sqrt(2pi))
+      double ylab = apex + 0.015 * yplot;
+      if (ylab > 0.97 * yplot) ylab = 0.97 * yplot;
+      auto lab = std::make_unique<TLatex>(center, ylab, Form("%d", id));
+      lab->SetTextColor(colour);
+      lab->SetTextSize(0.016);
+      lab->SetTextFont(62);  // bold, for legibility at small size
+      lab->SetTextAlign(21); // horizontally centred over the peak, anchored at its bottom
+      lab->Draw();
 
+      curves.push_back(std::move(f));
+      labels.push_back(std::move(lab));
+    }
+
+    leg->Draw();
+    legends.push_back(std::move(leg));
+
+    if (groupParams.empty()) {
+      // grouping is skipped for events with <10 clusters -- say so on the pad.
+      auto note = std::make_unique<TText>(0.5, 0.5, "no time groups (grouping needs >=10 clusters)");
+      note->SetNDC();
+      note->SetTextAlign(22);
+      note->SetTextColor(kGray + 2);
+      note->Draw();
+      notes.push_back(std::move(note));
+    }
+  };
+
+  const std::string rawSub   = Form("raw cluster time (%.2g ns bins)", binWidth);
+  const std::string rawYaxis = Form("clusters / %.2g ns", binWidth);
+
+  drawPad(m_padL, histRaw, binWidth, rawSub.c_str(), rawYaxis.c_str());
+  drawPad(m_padR, histWeighted, 1.0, "Gaussian-weighted (fitted)", "Gaussian-weighted entries");
+
+  m_canvas->cd();
   m_canvas->Print(m_outputFileName.c_str()); // emit one page
   m_pageCount++;
 }

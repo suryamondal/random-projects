@@ -61,13 +61,15 @@ namespace Belle2 {
 
   private:
 
-    /** Rebuild the grouping histogram from the current event's clusters.
+    /** Rebuild the cluster-time histogram from the current event's clusters.
      *
-     * Replicates SVDTimeGroupingModule::createAndFillHistorgram: the range is
-     * shrunk to the populated cluster-time span and each cluster is smeared with
-     * its hard-coded time resolution.
+     * The binning/range logic is shared by both pads. With @c gaussFill true it
+     * replicates SVDTimeGroupingModule::createAndFillHistorgram (each cluster
+     * smeared with its hard-coded time resolution) -- the distribution the
+     * algorithm actually fits. With @c gaussFill false each cluster contributes a
+     * single count at its cluster time -- the raw data, no smearing.
      */
-    void fillHistogram(TH1D& hist);
+    void fillHistogram(TH1D& hist, bool gaussFill);
 
     // parameters
     std::string m_svdClustersName;   /**< SVDCluster collection name. */
@@ -85,6 +87,8 @@ namespace Belle2 {
     StoreObjPtr<EventMetaData> m_eventMetaData; /**< for run/event numbers in page titles. */
 
     TCanvas* m_canvas = nullptr;  /**< canvas reused for every page. */
+    TPad*    m_padL = nullptr;     /**< left pad: raw cluster-time histogram. */
+    TPad*    m_padR = nullptr;     /**< right pad: Gaussian-weighted histogram. */
     int  m_pageCount = 0;         /**< number of pages written so far. */
     bool m_pdfOpened = false;     /**< whether the multi-page PDF has been opened. */
 
