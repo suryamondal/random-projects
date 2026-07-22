@@ -147,19 +147,28 @@ def project_arc_length(route: dict, pts: list[tuple], max_kmh: float) -> np.ndar
 def compute_sections(pts: list[tuple], route: dict, bin_m: float,
                      max_kmh: float) -> list[dict]:
     """Time to cross each fixed-length section, measured along the reference
-    route axis (not raw path length). A section only counts where this trace
-    actually covers the route, so partial coverage at the ends is skipped.
-    A stop inside a section is absorbed (position flat while time runs) = a jam.
+    route axis (not raw path length). A stop inside a section is absorbed
+    (position flat while time runs) = a jam.
+
+    A bin counts when the trace covers at least half of it; the observed time
+    over the covered part is scaled up to the full bin width. This keeps the
+    boundary bins where a trace joins/leaves the route axis part-way through a
+    bin (e.g. a drive that started recording ~30 m past the route's start would
+    otherwise lose its whole first 200 m section), instead of dropping the bin.
+    Fully-covered bins are unaffected (the scale factor is 1); scaling can only
+    lengthen a bin's time, so it never fabricates an implausibly fast section.
     """
     s = project_arc_length(route, pts, max_kmh)
     t = np.array([(p[0] - pts[0][0]).total_seconds() for p in pts], dtype=float)
     edges = np.arange(0, route["s"][-1], bin_m)
-    enter = np.interp(edges, s, t)
     out = []
     for k in range(len(edges) - 1):
-        if edges[k] >= s[0] and edges[k + 1] <= s[-1]:  # within this trace's span
-            out.append({"dist_m": int(edges[k]),
-                        "sec": round(enter[k + 1] - enter[k], 1)})
+        lo, hi = edges[k], edges[k + 1]
+        clo, chi = max(lo, s[0]), min(hi, s[-1])       # covered span of this bin
+        if chi - clo >= 0.5 * bin_m:                   # at least half covered
+            t_lo, t_hi = np.interp([clo, chi], s, t)
+            sec = (t_hi - t_lo) * bin_m / (chi - clo)  # scale coverage to full width
+            out.append({"dist_m": int(lo), "sec": round(sec, 1)})
     return out
 
 
