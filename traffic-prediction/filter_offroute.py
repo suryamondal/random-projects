@@ -32,6 +32,7 @@ Usage:
 """
 
 import argparse
+import datetime as dt
 import json
 import os
 import shutil
@@ -94,9 +95,10 @@ def on_route_runs(n, det_ranges):
     return runs
 
 
-def write_gpx(seg_pts, path):
-    """Write gpxpy track points to a minimal GPX track, preserving elevation
-    and the original (untouched) timestamps."""
+def write_gpx(seg_pts, path, shift=None):
+    """Write gpxpy track points to a minimal GPX track, preserving elevation.
+    If shift (a timedelta) is given, it is subtracted from every timestamp —
+    a constant offset, so durations and speeds are untouched."""
     gpx = gpxpy.gpx.GPX()
     trk = gpxpy.gpx.GPXTrack()
     gpx.tracks.append(trk)
@@ -104,7 +106,8 @@ def write_gpx(seg_pts, path):
     trk.segments.append(seg)
     for p in seg_pts:
         seg.points.append(gpxpy.gpx.GPXTrackPoint(
-            p.latitude, p.longitude, elevation=p.elevation, time=p.time))
+            p.latitude, p.longitude, elevation=p.elevation,
+            time=p.time - shift if shift else p.time))
     with open(path, "w") as f:
         f.write(gpx.to_xml())
 
@@ -178,12 +181,32 @@ def main() -> int:
         spans = ", ".join(f"{abs(s[b-1]-s[a])/1000:.1f}km" for a, b in kept)
         print(f"{base} {direction}: {len(det)} detour(s), split into "
               f"{len(kept)} segment(s) [{spans}], {dropped} detour pts removed")
-        for a, b in kept:
-            hhmmss = pts[a].time.astimezone(tz).strftime("%H%M%S")
-            day = pts[a].time.astimezone(tz).strftime("%Y%m%d")
+
+        # One journey = one departure: the section profile bins by the clamped
+        # (gate-exit) start time, so every later segment is re-stamped to the
+        # journey's departure (+i s to keep names/times distinct). A constant
+        # shift per segment — durations and speeds are untouched — but all the
+        # pieces now land in the same departure-time bin instead of the later
+        # segment binning by when it happened to rejoin the route.
+        raw = ig.read_points(path, tz)
+        clamped, _ = ig.clamp_to_stations(
+            raw, *ig.stations_for(direction, stations),
+            cfg.get("station_radius_m", 50))
+        t0 = clamped[0][0]                               # journey departure
+
+        for i, (a, b) in enumerate(kept):
+            shift = None
+            if pts[a].time != pts[0].time:               # a later segment
+                shift = pts[a].time - (t0 + dt.timedelta(seconds=i))
+            t_out = (pts[a].time - shift if shift else pts[a].time).astimezone(tz)
+            hhmmss = t_out.strftime("%H%M%S")
+            day = t_out.strftime("%Y%m%d")
             out = os.path.join(args.out, f"{day}-{hhmmss}-{args.bike}.gpx")
+            if shift is not None:
+                print(f"   segment {i}: re-stamped {pts[a].time.astimezone(tz):%H:%M:%S}"
+                      f" -> {t_out:%H:%M:%S} (journey departure)")
             if not args.dry_run:
-                write_gpx(pts[a:b], out)
+                write_gpx(pts[a:b], out, shift)
                 written += 1
     if not args.dry_run:
         print(f"\nwrote {written} file(s) to {args.out}")
