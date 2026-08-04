@@ -160,6 +160,8 @@ def _profile_grid(direction: str, bike=None):
     if not rows:
         return None
     tbin = CFG.get("time_bin_min", 10)
+    if bike is not None:            # a bike with many traces can afford finer bins
+        tbin = CFG.get("time_bin_min_per_bike", {}).get(bike, tbin)
     dbin = CFG.get("section_bin_m", 200)
     cells = defaultdict(list)
     tset, dmax = set(), 0

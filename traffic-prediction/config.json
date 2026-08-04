@@ -17,6 +17,7 @@
   "section_bin_m": 200,
   "sanity_max_kmh": 150,
   "time_bin_min": 10,
+  "time_bin_min_per_bike": {"honda-jazz": 3},
   "profile_smooth_dist_m": 200,
   "profile_smooth_time_min": 10
 }
