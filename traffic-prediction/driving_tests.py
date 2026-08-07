@@ -70,7 +70,7 @@ def collect():
               for d in ("onward", "return")}
     bends = _bends(routes["onward"])
     rows = []
-    for f in glob.glob(os.path.join(DIR, "gps", "*.gpx")):
+    for f in glob.glob(os.path.join(DIR, "gps", "office-route", "*.gpx")):
         bike = ig.bike_of(f)
         if bike == "unknown":
             continue

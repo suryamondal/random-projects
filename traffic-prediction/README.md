@@ -51,11 +51,17 @@ office and stay; `timezone_offset` localises the UTC GPS timestamps).
 
 ## Daily workflow
 
-Drop traces into `gps/` (git-ignored) and ingest — direction is detected
+`gps/` (git-ignored) is organised as:
+
+- `gps/raw/` — the zips/exports as delivered, untouched
+- `gps/office-route/` — tagged commute traces (`...-<bike>.gpx`); the ingest source
+- `gps/others/` — journeys that aren't the office commute (kept, not ingested)
+
+Drop commute traces into `gps/office-route/` and ingest — direction is detected
 automatically, so you can pass both legs (or the whole folder) at once:
 
 ```bash
-python3 ingest_gpx.py gps/*.gpx
+python3 ingest_gpx.py gps/office-route/*.gpx
 #    -> appends data/{onward,return}_summary.csv + _pockets.csv + _sections.csv
 
 # redraw the plots whenever you want to look
