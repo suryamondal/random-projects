@@ -41,3 +41,5 @@ traffic-prediction/plots/
 traffic-prediction/.env
 traffic-prediction/run_daily.log
 traffic-prediction/gps/
+traffic-prediction/sensors/
+traffic-prediction/tmp/

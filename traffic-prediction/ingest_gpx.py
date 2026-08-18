@@ -83,14 +83,25 @@ def haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     return r * 2 * math.asin(math.sqrt(a))
 
 
-def classify(lat: float, lon: float, cfg: dict) -> tuple[str, float]:
+def classify(lat: float, lon: float, cfg: dict,
+             end_lat: float | None = None,
+             end_lon: float | None = None) -> tuple[str, float]:
     """Return (direction, metres-from-origin) for a trace starting at lat,lon.
 
-    Nearer the office -> 'return' (office->home); nearer home -> 'onward'.
+    With only a start point: nearer the office -> 'return' (office->home),
+    nearer home -> 'onward'. If the trace's END point is also given, use the
+    direction of travel instead — moving toward home is 'return' — which also
+    classifies mid-route partial pieces correctly (a fragment that starts near
+    home but heads home is a return, not an onward).
     """
     o, d = cfg["origin"], cfg["destination"]
     d_office = haversine(lat, lon, o["lat"], o["lon"])
     d_home = haversine(lat, lon, d["lat"], d["lon"])
+    if end_lat is not None and end_lon is not None:
+        d_home_end = haversine(end_lat, end_lon, d["lat"], d["lon"])
+        if d_home_end < d_home:
+            return "return", d_office
+        return "onward", d_home
     if d_office <= d_home:
         return "return", d_office
     return "onward", d_home
@@ -393,7 +404,8 @@ def main() -> int:
         if len(raw) < 2:
             print(f"skip {path}: no timed points", file=sys.stderr)
             continue
-        direction = classify(raw[0][1], raw[0][2], cfg)[0]
+        direction = classify(raw[0][1], raw[0][2], cfg,
+                             raw[-1][1], raw[-1][2])[0]
         if stations:
             o_st, d_st = stations_for(direction, stations)
             pts, trim = clamp_to_stations(raw, o_st, d_st, station_radius)
