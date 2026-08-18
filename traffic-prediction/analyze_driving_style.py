@@ -35,10 +35,12 @@ PLOTS = os.path.join(DIR, "plots")
 
 COL = {"honda-jazz": "#d1495b",      # learner — warm
        "ktm-duke-390": "#2e4a62",    # veteran — deep blue
-       "re-hunter-350": "#8a8d91"}   # reference — grey
+       "re-hunter-350": "#8a8d91",   # reference — grey
+       "honda-brio": "#2a9d8f"}      # colleague — teal
 LABEL = {"honda-jazz": "Honda Jazz (1st car, learning)",
          "ktm-duke-390": "KTM Duke 390 (10-yr veteran)",
-         "re-hunter-350": "RE Hunter 350 (sedate ref.)"}
+         "re-hunter-350": "RE Hunter 350 (sedate ref.)",
+         "honda-brio": "Honda Brio (colleague, lapsed-trained)"}
 
 
 def trace_metrics(pts):
@@ -73,8 +75,10 @@ def collect():
         if len(raw) < 20:
             continue
         direction = ig.classify(raw[0][1], raw[0][2], cfg)[0]
-        pts, _ = ig.clamp_to_stations(raw, *ig.stations_for(direction, st), R)
-        if len(pts) < 20:
+        pts, tr = ig.clamp_to_stations(raw, *ig.stations_for(direction, st), R)
+        # full gate-to-gate office traces only: fragments and partial pieces
+        # aren't style samples (ends must be within 1 km of the gates)
+        if len(pts) < 20 or max(tr["origin_gap"], tr["dest_gap"]) > 1000:
             continue
         m = trace_metrics(pts)
         if m:
@@ -93,7 +97,7 @@ def main():
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(11, 9), sharex=True)
 
     # ---- panel 1: free-flow confidence on the onward (flowing) leg ----
-    for bike in ("ktm-duke-390", "re-hunter-350", "honda-jazz"):
+    for bike in ("ktm-duke-390", "re-hunter-350", "honda-jazz", "honda-brio"):
         pts = [r for r in rows if r["bike"] == bike and r["direction"] == "onward"]
         if not pts:
             continue
@@ -120,7 +124,7 @@ def main():
     ax1.margins(x=0.08)
 
     # ---- panel 2: assertiveness (accel std), all legs ----
-    for bike in ("ktm-duke-390", "re-hunter-350", "honda-jazz"):
+    for bike in ("ktm-duke-390", "re-hunter-350", "honda-jazz", "honda-brio"):
         pts = [r for r in rows if r["bike"] == bike]
         if not pts:
             continue

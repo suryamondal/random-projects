@@ -31,9 +31,10 @@ import ingest_gpx as ig
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 PLOTS = os.path.join(DIR, "plots")
-COL = {"honda-jazz": "#d1495b", "ktm-duke-390": "#2e4a62", "re-hunter-350": "#8a8d91"}
+COL = {"honda-jazz": "#d1495b", "ktm-duke-390": "#2e4a62", "re-hunter-350": "#8a8d91",
+       "honda-brio": "#2a9d8f"}
 SHORT = {"honda-jazz": "Jazz\n(learner)", "ktm-duke-390": "Duke\n(veteran)",
-         "re-hunter-350": "Hunter\n(ref.)"}
+         "re-hunter-350": "Hunter\n(ref.)", "honda-brio": "Brio\n(colleague)"}
 
 
 def _speed_s(pts, route, mx):
@@ -78,8 +79,10 @@ def collect():
         if len(raw) < 20:
             continue
         d = ig.classify(raw[0][1], raw[0][2], cfg)[0]
-        pts, _ = ig.clamp_to_stations(raw, *ig.stations_for(d, st), R)
-        if len(pts) < 20:
+        pts, tr = ig.clamp_to_stations(raw, *ig.stations_for(d, st), R)
+        # full gate-to-gate office traces only: fragments and partial pieces
+        # aren't style samples (ends must be within 1 km of the gates)
+        if len(pts) < 20 or max(tr["origin_gap"], tr["dest_gap"]) > 1000:
             continue
         s, vs, t = _speed_s(pts, routes[d], mx)
         rec = {"bike": bike, "dir": d, "date": pts[0][0].date()}
@@ -170,7 +173,7 @@ def traffic_control(ax, rows):
 
 
 def _strip(ax, rows, key, ylabel, title, note):
-    order = ["honda-jazz", "ktm-duke-390", "re-hunter-350"]
+    order = ["honda-jazz", "honda-brio", "ktm-duke-390", "re-hunter-350"]
     rng = np.random.default_rng(0)
     for xi, bike in enumerate(order):
         vals = [r[key] for r in rows if r["bike"] == bike and not np.isnan(r[key])]
