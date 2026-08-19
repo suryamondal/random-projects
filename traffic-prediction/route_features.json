@@ -1,0 +1,63 @@
+{
+  "_comment": "Curated physical features of the commute route (km_from_home frame). Sources: pooled p90-speed detection cross-confirmed by both directions + Suryanarayan's ground truth (2026-08-19). Speed-breaker coords are medians of the detected dip locations. broken_stretches/hard_corners are stored for analysis use but not drawn on the map.",
+  "speed_breakers": [
+    {
+      "km_from_home": 0.9,
+      "lat": 12.83886,
+      "lon": 77.64482,
+      "note": "society approach"
+    },
+    {
+      "km_from_home": 3.2,
+      "lat": 12.81971,
+      "lon": 77.6507,
+      "note": "the 'hat over a hat' double-stacked breaker; deepest dip in both directions inside the broken stretch"
+    },
+    {
+      "km_from_home": 4.39,
+      "lat": 12.80931,
+      "lon": 77.65122,
+      "note": "double breaker, first hump; 65->26 km/h forced drop"
+    },
+    {
+      "km_from_home": 4.54,
+      "lat": 12.80801,
+      "lon": 77.65122,
+      "note": "double breaker, second hump"
+    },
+    {
+      "km_from_home": 4.82,
+      "lat": 12.80561,
+      "lon": 77.65152,
+      "note": ""
+    }
+  ],
+  "broken_stretches": [
+    {
+      "from_km": 2.5,
+      "to_km": 3.85,
+      "note": "broken surface the whole way (p90 ceiling ~44 vs 54-62 elsewhere); contains the 3.2 km breaker and ends at the 3.8 km hard corner"
+    },
+    {
+      "from_km": 6.8,
+      "to_km": 7.3,
+      "note": "super broken patch with double 90-degree bend (bends at ~7.09 and ~7.43)"
+    },
+    {
+      "from_km": 7.55,
+      "to_km": 8.1,
+      "note": "super broken patch; unprotected junction at 7.8; stall slope hummock (~8 m rise, 5-6% grade) at 7.5-7.6"
+    }
+  ],
+  "hard_corners_km": [
+    0.07,
+    0.53,
+    3.73,
+    5.11,
+    5.96,
+    6.12,
+    7.09,
+    7.43,
+    7.65
+  ]
+}

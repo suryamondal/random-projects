@@ -12,6 +12,11 @@ physical spot are upgraded to "confirmed" — opposite-direction traffic agreein
 on a coordinate is strong evidence of a physical bump.
 
 Output: printed table + plots/speed_breakers_map.svg (route path with markers).
+
+If route_features.json exists (curated ground truth: confirmed breakers,
+broken-surface stretches, junctions — detection cross-checked against the
+owner's knowledge), the map is drawn from IT rather than from raw candidates;
+the detector still prints its candidates so the two can be compared.
 """
 
 import argparse
@@ -121,19 +126,32 @@ def main():
     fig, ax = plt.subplots(figsize=(11, 9))
     ax.plot(rt_on["lon"], rt_on["lat"], color="#bbbbbb", lw=3, zorder=1,
             label="route")
-    seen = []
-    for r in on + re_:
-        dup = any(ig.haversine(r["lat"], r["lon"], la, lo) < 40 for la, lo in seen)
-        if r["match"] and dup:
-            continue
-        seen.append((r["lat"], r["lon"]))
-        if r["match"]:
-            ax.plot(r["lon"], r["lat"], "^", ms=11, color="#b2182b", zorder=3)
-        else:
-            ax.plot(r["lon"], r["lat"], "^", ms=9, mfc="none", mec="#e08e45",
-                    zorder=3)
-        ax.annotate(f"{r['km_from_home']:.1f}", (r["lon"], r["lat"]),
-                    xytext=(6, 4), textcoords="offset points", fontsize=8)
+    feat_path = os.path.join(DIR, "route_features.json")
+    if os.path.exists(feat_path):
+        feat = json.load(open(feat_path))
+        srt = np.array(rt_on["s"]) / 1000.0
+        rlat, rlon = np.array(rt_on["lat"]), np.array(rt_on["lon"])
+        for b in feat.get("speed_breakers", []):
+            ax.plot(b["lon"], b["lat"], "^", ms=11, color="#b2182b", zorder=4)
+            ax.annotate(f"{b['km_from_home']:.1f}", (b["lon"], b["lat"]),
+                        xytext=(6, 4), textcoords="offset points", fontsize=8)
+        title = ("Speed breakers (curated) — labels = km from home")
+    else:
+        seen = []
+        for r in on + re_:
+            dup = any(ig.haversine(r["lat"], r["lon"], la, lo) < 40 for la, lo in seen)
+            if r["match"] and dup:
+                continue
+            seen.append((r["lat"], r["lon"]))
+            if r["match"]:
+                ax.plot(r["lon"], r["lat"], "^", ms=11, color="#b2182b", zorder=3)
+            else:
+                ax.plot(r["lon"], r["lat"], "^", ms=9, mfc="none", mec="#e08e45",
+                        zorder=3)
+            ax.annotate(f"{r['km_from_home']:.1f}", (r["lon"], r["lat"]),
+                        xytext=(6, 4), textcoords="offset points", fontsize=8)
+        title = ("Guessed speed breakers — filled red = confirmed by both "
+                 "directions, hollow = one direction\nlabels = km from home")
     ax.plot(cfg["stations"]["home"]["lon"], cfg["stations"]["home"]["lat"],
             "ks", ms=8)
     ax.annotate("home", (cfg["stations"]["home"]["lon"],
@@ -147,8 +165,7 @@ def main():
     ax.set_aspect(1 / np.cos(np.radians(12.81)))
     ax.set_xlabel("longitude")
     ax.set_ylabel("latitude")
-    ax.set_title("Guessed speed breakers — filled red = confirmed by both "
-                 "directions, hollow = one direction\nlabels = km from home")
+    ax.set_title(title)
     ax.grid(alpha=0.25)
     out = os.path.join(DIR, "plots", "speed_breakers_map.svg")
     fig.tight_layout()
