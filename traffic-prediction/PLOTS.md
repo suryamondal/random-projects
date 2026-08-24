@@ -109,6 +109,13 @@ energy into the suspension in the first place.
 | `--vmax` | `50` | full scale of the speed background |
 | `--nbin` | `2600` | envelope columns |
 
+A fifth panel at the bottom holds the **distribution of the per-second std**,
+both drives overlaid as step outlines on identical bins, normalised to % of
+seconds so different drive lengths do not bias it. The panel-2/4 traces show
+*where* on the route the activity is; this one shows *how it is distributed* —
+a low, peaky profile (discrete inputs with quiet holds) against a raised floor
+(continuous adjustment).
+
 Residual is drawn as a per-pixel min/max envelope, not decimated — decimation
 would alias the amplitude downward. Residual and std y-scales are shared between
 the two cars, so the panels can be compared by eye.

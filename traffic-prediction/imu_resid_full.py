@@ -266,9 +266,11 @@ def main():
     feat = json.load(open(feat_p)) if os.path.exists(feat_p) else {}
 
     fig = plt.figure(figsize=(16, 9))
-    gs = fig.add_gridspec(4, 1, hspace=0.30, left=0.06, right=0.985,
-                          top=0.925, bottom=0.065)
+    gs = fig.add_gridspec(5, 1, hspace=0.42, left=0.06, right=0.985,
+                          top=0.905, bottom=0.055,
+                          height_ratios=[1, 1, 1, 1, 0.85])
     axes = [fig.add_subplot(gs[i]) for i in range(4)]
+    axh = fig.add_subplot(gs[4])
     panels = ((axes[0], xa, ra, va, args.a_label, "resid"),
               (axes[1], sxa, sda, None, args.a_label, "std"),
               (axes[2], xb, rb, vb_, args.b_label, "resid"),
@@ -302,6 +304,22 @@ def main():
             for bs in feat.get("broken_stretches", []):
                 ax.axvspan(bs["from_km"], bs["to_km"], color="#a6761d",
                            alpha=.10, lw=0)
+    # ---- panel 5: distribution of the per-second std, both drives, shared bins
+    hi_ = float(np.percentile(np.r_[sda, sdb], 99.5))
+    bins = np.linspace(0.0, hi_, 61)
+    for X, lab, col in ((sda, args.a_label, "#d1495b"),
+                        (sdb, args.b_label, "#2a9d8f")):
+        axh.hist(X, bins=bins, histtype="step", lw=1.6, color=col,
+                 weights=np.full(len(X), 100.0 / len(X)), label=lab)
+    axh.set_xlim(0, hi_)
+    axh.set_xlabel("per-second std (m/s²)")
+    axh.set_ylabel("% of seconds", fontsize=8)
+    axh.set_title("distribution of the per-second std — identical bins, both drives",
+                  fontsize=10, loc="left")
+    axh.legend(fontsize=8)
+    axh.grid(alpha=.25)
+    axh.tick_params(labelsize=7)
+
     for ax in axes[:3]:
         ax.tick_params(labelbottom=False)
     axes[3].set_xlabel("position (km from home)" if args.x == "position"
@@ -317,15 +335,15 @@ def main():
     elif didA and didB:
         tag = "rotation-coupled component removed from both"
     elif didA or didB:
-        tag = (f"rotation removed from "
-               f"{args.a_label if didA else args.b_label} only")
+        tag = f"rotation removed from {args.a_label if didA else args.b_label} only"
     else:
-        tag = "rotation coupling below 5% in both — nothing removed"
+        tag = "rotation coupling <5% in both, nothing removed"
     what = ("residual" if args.signal == "resid" else "moving average")
-    fig.suptitle(f"{args.channel.capitalize()} {what} and its per-second spread — "
-                 f"{args.a_label} vs {args.b_label}    "
-                 f"(dotted = speed breakers, shaded = broken stretches; {tag})",
-                 fontsize=12, y=0.975)
+    # two lines: the long-form caveats overflowed the canvas on one
+    fig.suptitle(f"{args.channel.capitalize()} {what} and its per-second spread"
+                 f" — {args.a_label} vs {args.b_label}\n"
+                 f"dotted = speed breakers · shaded = broken stretches · {tag}",
+                 fontsize=11, y=0.985, linespacing=1.4)
     out = args.out or os.path.join(
         DIR, "plots",
         f"imu_{args.channel}_{'resid' if args.signal == 'resid' else 'movavg'}_full.svg")
