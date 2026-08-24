@@ -172,7 +172,10 @@ detour (`--corridor 60 --min-detour 300 --min-depth 200`).
 ## Conventions
 
 - **Plots are `.svg`.** PDFs only for multi-page flipbooks.
-- Colours: Jazz `#d1495b` · Brio `#2a9d8f` · Duke 390 `#2e4a62` · Hunter 350 `#8a8d91`. Do not change these between plots.
+- Colours, vehicles: Jazz `#d1495b` · Brio `#2a9d8f` · Duke 390 `#2e4a62` · Hunter 350 `#8a8d91`. Do not change these between plots.
+- Colours, data channels: vertical `#4c956c` · forward `#b2182b` · lateral `#7b5aa6` · **speed `#1f6fbf`**.
+  Speed must not reuse `#2e4a62` — that is the Duke 390. The IMU flipbooks
+  (§6, §7) still draw speed in `#2e4a62` and have not been migrated.
 - Per-100 m section-time step plots: cap y at **12 s/100 m**.
 - Breaker sync defaults to **4.39 km**; constant-pace reference **24 km/h**.
 - Style metrics use full gate-to-gate traces only (both ends within 1 km).

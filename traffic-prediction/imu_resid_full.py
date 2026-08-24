@@ -44,6 +44,10 @@ from imu_compare_pdf import load_drive
 DIR = os.path.dirname(os.path.abspath(__file__))
 VERT = 2
 RES_COL, STD_COL = "#4c956c", "#b2182b"
+# speed gets its own colour: #2e4a62 is the KTM Duke 390 in this project's
+# vehicle palette, so reusing it for a data channel is a clash waiting to
+# confuse a plot that does include the Duke.
+SPD_COL = "#1f6fbf"
 
 
 def series(d, xmode):
@@ -89,12 +93,12 @@ def speed_bg(ax, x, v, nbin, lo, hi, ylim, vmax):
     """
     c, vb = bin_mean(x, v, nbin, lo, hi)
     sv = np.clip(vb, 0, vmax) / vmax * (2 * ylim) - ylim
-    ax.fill_between(c, -ylim, sv, color="#2e4a62", alpha=0.10, zorder=0)
-    ax.plot(c, sv, color="#2e4a62", lw=0.9, alpha=0.55, zorder=1)
+    ax.fill_between(c, -ylim, sv, color=SPD_COL, alpha=0.12, zorder=0)
+    ax.plot(c, sv, color=SPD_COL, lw=1.0, alpha=0.75, zorder=1)
     axs = ax.twinx()
     axs.set_ylim(0, vmax)
-    axs.set_ylabel("km/h", color="#2e4a62", fontsize=8)
-    axs.tick_params(colors="#2e4a62", labelsize=7)
+    axs.set_ylabel("km/h", color=SPD_COL, fontsize=8)
+    axs.tick_params(colors=SPD_COL, labelsize=7)
     ax.set_zorder(axs.get_zorder() + 1)
     ax.patch.set_visible(False)
     return axs
