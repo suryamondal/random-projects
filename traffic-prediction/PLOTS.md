@@ -82,6 +82,10 @@ No arguments. Both filter to full gate-to-gate traces (both ends within 1 km).
 ## 5. Whole-drive IMU residual, one page
 
 **Answers:** how hard the road worked each car, over the whole commute.
+Run it twice — `--signal resid` and `--signal ma` — and the pair separates a
+soft suspension from a harsh one: soft springs give MORE low-frequency body
+motion and LESS high-frequency harshness. Measured here, Brio vs Jazz:
+**1.17x** on the moving average, **0.96x** on the residual.
 
 ```bash
 python3 imu_resid_full.py \
@@ -99,6 +103,7 @@ energy into the suspension in the first place.
 | option | default | note |
 |---|---|---|
 | `--x` | `position` | `position` is the only x that puts both cars over the same tarmac; `time` gives each drive its own clock |
+| `--signal` | `resid` | `resid` = raw − the 25-sample MA: above ~4 Hz, suspension and tyre response. `ma` = the moving average itself: below ~4 Hz, body motion and primary ride. Output file is named after the choice. |
 | `--no-deroll` | *off* | keep the roll-coupled component. **Leave it off** — see gotcha 6; with it in, a phone wedged off the roll axis reads as a rougher car (1.35x vs 1.03x here) |
 | `--vmax` | `50` | full scale of the speed background |
 | `--nbin` | `2600` | envelope columns |

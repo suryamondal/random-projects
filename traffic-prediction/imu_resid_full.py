@@ -52,7 +52,14 @@ RES_COL, STD_COL = "#4c956c", "#b2182b"
 SPD_COL = "#1f6fbf"
 
 
-def deroll(d, rec, smooth):
+def target(d, which, smooth):
+    """The signal being plotted: the residual, or the moving average itself."""
+    if which == "resid":
+        return d["Vf"][VERT] - d["MA"][VERT]
+    return d["MA"][VERT]
+
+
+def deroll(d, rec, smooth, which="resid"):
     """Remove the roll-coupled part of the vertical residual.
 
     A phone offset laterally from the roll axis sees body ROLL as apparent
@@ -78,7 +85,12 @@ def deroll(d, rec, smooth):
     fs = 1.0 / np.median(np.diff(d["t"]))
     bb, aa = butter(4, [0.5 / (fs / 2), 15.0 / (fs / 2)], btype="band")
     rd = filtfilt(bb, aa, alpha)
-    r = d["Vf"][VERT] - d["MA"][VERT]
+    # put the regressor in the SAME band as the target, or the fit is diluted by
+    # frequencies the target does not contain
+    ker = np.ones(smooth) / smooth
+    rd = (rd - np.convolve(rd, ker, mode="same") if which == "resid"
+          else np.convolve(rd, ker, mode="same"))
+    r = target(d, which, smooth)
     # FIT ON THE DRIVE ONLY. The recordings run several minutes past their GPX
     # at both ends (phone being placed and picked up); that handling noise is
     # uncorrelated with roll and swamps the regression — it drags the measured
@@ -99,10 +111,10 @@ def deroll(d, rec, smooth):
     return r - c * rd, c, ve, True
 
 
-def series(d, xmode, resid=None):
+def series(d, xmode, resid=None, which="resid", smooth=25):
     """(x, residual, speed, per-second std x, per-second std) for the whole drive."""
     ok = np.isfinite(d["ikm"]) if xmode == "position" else np.ones(len(d["t"]), bool)
-    r = (d["Vf"][VERT] - d["MA"][VERT])[ok] if resid is None else resid[ok]
+    r = target(d, which, smooth)[ok] if resid is None else resid[ok]
     v = d["v"][ok]
     t = d["t"][ok]
     x = d["ikm"][ok] if xmode == "position" else t
@@ -183,14 +195,18 @@ def main():
     ap.add_argument("--hp", type=float, default=0.1)
     ap.add_argument("--smooth", type=int, default=25)
     ap.add_argument("--nbin", type=int, default=2600, help="envelope columns")
+    ap.add_argument("--signal", choices=("resid", "ma"), default="resid",
+                    help="'resid' (default): raw minus the 25-sample moving "
+                         "average — above ~4 Hz, suspension and tyre response. "
+                         "'ma': the moving average itself — below ~4 Hz, body "
+                         "motion and primary ride.")
     ap.add_argument("--no-deroll", action="store_true",
                     help="keep the roll-coupled component. Off by default: with "
                          "it in, a phone wedged off the roll axis reads as a "
                          "rougher car and the two panels are not comparable.")
     ap.add_argument("--vmax", type=float, default=50.0,
                     help="full scale of the speed background (km/h)")
-    ap.add_argument("--out", default=os.path.join(DIR, "plots",
-                                                  "imu_resid_full.svg"))
+    ap.add_argument("--out", default=None)
     args = ap.parse_args()
 
     cfg = ig.load_cfg()
@@ -202,15 +218,15 @@ def main():
         resA = resB = None
         rA = rB = float("nan")
     else:
-        resA, cA, veA, okA_ = deroll(A, args.a, args.smooth)
-        resB, cB, veB, okB_ = deroll(B, args.b, args.smooth)
+        resA, cA, veA, okA_ = deroll(A, args.a, args.smooth, args.signal)
+        resB, cB, veB, okB_ = deroll(B, args.b, args.smooth, args.signal)
         for lab, c_, ve_, did in ((args.a_label, cA, veA, okA_),
                                   (args.b_label, cB, veB, okB_)):
             print(f"  roll: lateral offset {c_:+.3f} m, explains {100*ve_:4.1f}% "
                   f"of the residual -> {'removed' if did else 'LEFT ALONE (below 5%)'}"
                   f"   [{lab}]")
-    xa, ra, va, sxa, sda = series(A, args.x, resA)
-    xb, rb, vb_, sxb, sdb = series(B, args.x, resB)
+    xa, ra, va, sxa, sda = series(A, args.x, resA, args.signal, args.smooth)
+    xb, rb, vb_, sxb, sdb = series(B, args.x, resB, args.signal, args.smooth)
 
     rlim = float(np.percentile(np.abs(np.r_[ra, rb]), 99.9))
     slim = float(np.percentile(np.r_[sda, sdb], 99.5))
@@ -233,15 +249,19 @@ def main():
             speed_bg(ax, X, V, args.nbin, xlo, xhi, rlim, args.vmax)
             envelope(ax, X, Y, args.nbin, RES_COL)
             ax.set_ylim(-rlim, rlim)
-            ax.set_ylabel(f"raw − {args.smooth}-sample MA\n(m/s²)", fontsize=8)
-            ax.set_title(f"{lab} — vertical residual", fontsize=10, loc="left")
+            ax.set_ylabel((f"raw − {args.smooth}-sample MA" if args.signal == "resid"
+                           else f"{args.smooth}-sample MA") + "\n(m/s²)", fontsize=8)
+            ax.set_title(f"{lab} — vertical "
+                         + ("residual" if args.signal == "resid"
+                            else "moving average"), fontsize=10, loc="left")
         else:
             ax.fill_between(X, 0, Y, color=STD_COL, lw=0, alpha=.30, step="mid")
             ax.plot(X, Y, color=STD_COL, lw=0.6, drawstyle="steps-mid")
             ax.set_ylim(0, slim)
             ax.set_ylabel("std per second\n(m/s²)", fontsize=8)
-            ax.set_title(f"{lab} — per-second std of that residual",
-                         fontsize=10, loc="left")
+            ax.set_title(f"{lab} — per-second std of that "
+                         + ("residual" if args.signal == "resid"
+                            else "moving average"), fontsize=10, loc="left")
         ax.set_xlim(xlo, xhi)
         ax.grid(alpha=.25)
         ax.tick_params(labelsize=7)
@@ -263,13 +283,16 @@ def main():
                          rotation=90, va="top")
     tag = ("roll-coupled component REMOVED"
            if not args.no_deroll else "raw — NOT comparable between cars")
-    fig.suptitle(f"Vertical residual and its per-second spread — "
+    what = ("residual" if args.signal == "resid" else "moving average")
+    fig.suptitle(f"Vertical {what} and its per-second spread — "
                  f"{args.a_label} vs {args.b_label}    "
                  f"(dotted = speed breakers, shaded = broken stretches; {tag})",
                  fontsize=12, y=0.975)
-    os.makedirs(os.path.dirname(args.out), exist_ok=True)
-    fig.savefig(args.out)
-    print(f"wrote {args.out}")
+    out = args.out or os.path.join(
+        DIR, "plots", f"imu_{'resid' if args.signal == 'resid' else 'movavg'}_full.svg")
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    fig.savefig(out)
+    print(f"wrote {out}")
     print(f"  residual y +/-{rlim:.2f} m/s2 (p99.9, shared)   "
           f"std y 0-{slim:.2f} (p99.5, shared)")
     print(f"  {args.a_label}: median per-second std {np.median(sda):.3f}   "
