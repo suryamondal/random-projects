@@ -83,9 +83,20 @@ def deroll(d, rec, smooth):
     # at both ends (phone being placed and picked up); that handling noise is
     # uncorrelated with roll and swamps the regression — it drags the measured
     # correlation from +0.54 down to +0.03 and the correction then does nothing.
-    fit = np.isfinite(d["ikm"]) & np.isfinite(r) & np.isfinite(rd)
+    # fit on MOVING on-route samples: crawling and stopped stretches carry no
+    # roll excitation to fit against and only dilute the estimate (0.65 m / 46 %
+    # with them in, 0.77 m / 62 % with them out).
+    fit = (np.isfinite(d["ikm"]) & np.isfinite(r) & np.isfinite(rd)
+           & (d["v"] > 15))
     c = np.dot(r[fit], rd[fit]) / np.dot(rd[fit], rd[fit])
-    return r - c * rd, float(np.corrcoef(r[fit], rd[fit])[0, 1])
+    # variance explained decides whether this is worth doing at all: a phone on
+    # the roll axis gives ~0.5 %, one in a door pocket ~62 %. Below the
+    # threshold the regressor is mostly noise and subtracting it ADDS variance,
+    # so leave the signal alone and say so.
+    ve = 1.0 - ((r[fit] - c * rd[fit]).var() / r[fit].var())
+    if ve < 0.05:
+        return r, c, ve, False
+    return r - c * rd, c, ve, True
 
 
 def series(d, xmode, resid=None):
@@ -191,10 +202,13 @@ def main():
         resA = resB = None
         rA = rB = float("nan")
     else:
-        resA, rA = deroll(A, args.a, args.smooth)
-        resB, rB = deroll(B, args.b, args.smooth)
-        print(f"  de-rolled: r(residual, roll-accel) "
-              f"{args.a_label} {rA:+.3f}   {args.b_label} {rB:+.3f}")
+        resA, cA, veA, okA_ = deroll(A, args.a, args.smooth)
+        resB, cB, veB, okB_ = deroll(B, args.b, args.smooth)
+        for lab, c_, ve_, did in ((args.a_label, cA, veA, okA_),
+                                  (args.b_label, cB, veB, okB_)):
+            print(f"  roll: lateral offset {c_:+.3f} m, explains {100*ve_:4.1f}% "
+                  f"of the residual -> {'removed' if did else 'LEFT ALONE (below 5%)'}"
+                  f"   [{lab}]")
     xa, ra, va, sxa, sda = series(A, args.x, resA)
     xb, rb, vb_, sxb, sdb = series(B, args.x, resB)
 
