@@ -36,7 +36,16 @@ A trace whose *origin* half is incomplete is drawn **dashed** and its
 origin→breaker time reported `n/a`. Prints an origin→breaker / breaker→dest
 table.
 
+Colour carries two identities at once: **hue = vehicle**, **lightness = date**
+within that vehicle (washed-out oldest → full-strength newest). A flat colour per
+vehicle makes five traces of one car indistinguishable; a single date ramp across
+everything loses which car is which.
+
 Also works for a whole fleet: `python3 breaker_overlay.py gps/office-route/*-honda-brio.gpx`
+
+Traces that do not cross the breaker are skipped with a reason — partial
+recordings are common (logger stopped early, or started late), and a "last 5"
+selection often needs to reach further back than the last 5 files.
 
 ---
 

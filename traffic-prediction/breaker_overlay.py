@@ -30,6 +30,7 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib import colors as mcolors
 
 import ingest_gpx as ig
 
@@ -90,12 +91,31 @@ def main():
     if not rows:
         raise SystemExit("no qualifying traces")
 
+    # One vehicle overlaid on itself needs a date gradient, not one flat colour
+    # per vehicle — five identical reds are indistinguishable. Same convention
+    # as overlay_traces.py: light (oldest) to dark (newest).
+    rows.sort(key=lambda r: r["t0"])
+    # Colour carries BOTH identities: hue = vehicle (so the fleets stay apart),
+    # lightness = date within that vehicle (light oldest -> dark newest). A flat
+    # colour per vehicle makes five traces of one car indistinguishable; a
+    # single date ramp across everything loses which car is which.
+    for bike in {r["bike"] for r in rows}:
+        grp = [r for r in rows if r["bike"] == bike]
+        base = COL.get(bike, "#555555")
+        cmap = mcolors.LinearSegmentedColormap.from_list(
+            bike, [mcolors.to_rgb(base) + (0.30,), mcolors.to_rgb(base)])
+        n = max(1, len(grp) - 1)
+        for i, r in enumerate(grp):
+            rgb = mcolors.to_rgb(base)
+            f = 0.30 + 0.70 * i / n          # 0.30 = washed out, 1.0 = full
+            r["col"] = tuple(1.0 - f * (1.0 - c) for c in rgb)
+
     fig, (a1, a2) = plt.subplots(2, 1, figsize=(13, 9), sharex=True)
     for r in rows:
         k, t = r["km"], r["t"]
         g = np.arange(k.min() + 0.01, k.max() - 0.01, 0.01)
         tg = np.interp(g, k, t) - np.interp(BRK, k, t)
-        c = COL.get(r["bike"], "#555555")
+        c = r["col"]
         lab = r["label"] or f"{r['t0']:%m-%d} dep {r['t0']:%H:%M}"
         # tg[0] is the arrival end for a return (home), tg[-1] for an onward
         seg = tg[0] if r["dirn"] == "return" else tg[-1]
