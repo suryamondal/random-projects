@@ -114,7 +114,12 @@ both drives overlaid as step outlines on identical bins, normalised to % of
 seconds so different drive lengths do not bias it. The **last bin is an
 overflow bin** — the axis stops at p99.5 and matplotlib would otherwise discard
 everything past it, which on this signal is precisely the hard braking worth
-seeing. Each legend entry carries its overflow percentage. The panel-2/4 traces show
+seeing. Each legend entry carries its own n and overflow percentage.
+
+`--bins` (default 60) sets the binning. n is one entry per second of drive, so a
+single commute gives only ~1700: at 60 bins the peak holds ~149 (+/-8 %), at 300
+it holds 36 (+/-17 %) and a quarter of the bins are empty. sqrt(n) and
+Freedman-Diaconis both land near 60, so go finer only after pooling drives. The panel-2/4 traces show
 *where* on the route the activity is; this one shows *how it is distributed* —
 a low, peaky profile (discrete inputs with quiet holds) against a raised floor
 (continuous adjustment).

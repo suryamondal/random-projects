@@ -230,6 +230,12 @@ def main():
                     help="keep the roll-coupled component. Off by default: with "
                          "it in, a phone wedged off the roll axis reads as a "
                          "rougher car and the two panels are not comparable.")
+    ap.add_argument("--bins", type=int, default=60,
+                    help="bins in the distribution panel (default 60). One entry "
+                         "per second of drive, so n is only ~1700 for a single "
+                         "commute: 60 bins puts ~149 in the peak (+/-8%%), 300 "
+                         "bins puts 36 (+/-17%%) and empties a quarter of them. "
+                         "Pool more drives before going much finer.")
     ap.add_argument("--vmax", type=float, default=50.0,
                     help="full scale of the speed background (km/h)")
     ap.add_argument("--out", default=None)
@@ -306,7 +312,7 @@ def main():
                            alpha=.10, lw=0)
     # ---- panel 5: distribution of the per-second std, both drives, shared bins
     hi_ = float(np.percentile(np.r_[sda, sdb], 99.5))
-    bins = np.linspace(0.0, hi_, 61)
+    bins = np.linspace(0.0, hi_, args.bins + 1)
     # OVERFLOW: the axis stops at p99.5, and matplotlib silently discards
     # anything past the last edge. Clip into the final bin instead, so the plot
     # accounts for every second rather than quietly losing the tail — which on
@@ -319,13 +325,13 @@ def main():
         axh.hist(np.clip(X, bins[0], np.nextafter(bins[-1], 0.0)),
                  bins=bins, histtype="step", lw=1.6, color=col,
                  weights=np.full(len(X), 100.0 / len(X)),
-                 label=f"{lab}   (overflow {100.0*n_ovf/len(X):.1f}%)")
+                 label=f"{lab}   n={len(X)}   overflow {100.0*n_ovf/len(X):.1f}%")
     axh.axvline(bins[-1], color="#555555", lw=1.0, ls=":")
     axh.set_xlim(0, hi_)
     axh.set_xlabel("per-second std (m/s²)   — last bin includes overflow")
     axh.set_ylabel("% of seconds", fontsize=8)
-    axh.set_title("distribution of the per-second std — identical bins, both "
-                  "drives, last bin = overflow", fontsize=10, loc="left")
+    axh.set_title(f"distribution of the per-second std — {args.bins} bins, "
+                  f"last = overflow", fontsize=10, loc="left")
     axh.legend(fontsize=8)
     axh.grid(alpha=.25)
     axh.tick_params(labelsize=7)
