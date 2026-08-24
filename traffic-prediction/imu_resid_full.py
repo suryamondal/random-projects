@@ -307,15 +307,25 @@ def main():
     # ---- panel 5: distribution of the per-second std, both drives, shared bins
     hi_ = float(np.percentile(np.r_[sda, sdb], 99.5))
     bins = np.linspace(0.0, hi_, 61)
+    # OVERFLOW: the axis stops at p99.5, and matplotlib silently discards
+    # anything past the last edge. Clip into the final bin instead, so the plot
+    # accounts for every second rather than quietly losing the tail — which on
+    # this signal is exactly the hard braking worth seeing.
+    ovf = []
     for X, lab, col in ((sda, args.a_label, "#d1495b"),
                         (sdb, args.b_label, "#2a9d8f")):
-        axh.hist(X, bins=bins, histtype="step", lw=1.6, color=col,
-                 weights=np.full(len(X), 100.0 / len(X)), label=lab)
+        n_ovf = int((X > bins[-1]).sum())
+        ovf.append(100.0 * n_ovf / len(X))
+        axh.hist(np.clip(X, bins[0], np.nextafter(bins[-1], 0.0)),
+                 bins=bins, histtype="step", lw=1.6, color=col,
+                 weights=np.full(len(X), 100.0 / len(X)),
+                 label=f"{lab}   (overflow {100.0*n_ovf/len(X):.1f}%)")
+    axh.axvline(bins[-1], color="#555555", lw=1.0, ls=":")
     axh.set_xlim(0, hi_)
-    axh.set_xlabel("per-second std (m/s²)")
+    axh.set_xlabel("per-second std (m/s²)   — last bin includes overflow")
     axh.set_ylabel("% of seconds", fontsize=8)
-    axh.set_title("distribution of the per-second std — identical bins, both drives",
-                  fontsize=10, loc="left")
+    axh.set_title("distribution of the per-second std — identical bins, both "
+                  "drives, last bin = overflow", fontsize=10, loc="left")
     axh.legend(fontsize=8)
     axh.grid(alpha=.25)
     axh.tick_params(labelsize=7)

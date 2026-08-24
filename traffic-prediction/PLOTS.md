@@ -111,7 +111,10 @@ energy into the suspension in the first place.
 
 A fifth panel at the bottom holds the **distribution of the per-second std**,
 both drives overlaid as step outlines on identical bins, normalised to % of
-seconds so different drive lengths do not bias it. The panel-2/4 traces show
+seconds so different drive lengths do not bias it. The **last bin is an
+overflow bin** — the axis stops at p99.5 and matplotlib would otherwise discard
+everything past it, which on this signal is precisely the hard braking worth
+seeing. Each legend entry carries its overflow percentage. The panel-2/4 traces show
 *where* on the route the activity is; this one shows *how it is distributed* —
 a low, peaky profile (discrete inputs with quiet holds) against a raised floor
 (continuous adjustment).
