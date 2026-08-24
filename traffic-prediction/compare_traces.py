@@ -25,6 +25,19 @@ DIR = os.path.dirname(os.path.abspath(__file__))
 COLORS = ("#d1495b", "#2a9d8f")
 
 
+def breaker_time(x, t, km):
+    """Time at which a trace passes a given km-from-home mark."""
+    o = np.argsort(t)
+    xs, ts = x[o], t[o]
+    hit = np.where(np.diff(np.sign(xs - km)) != 0)[0]
+    if not len(hit):
+        return None
+    i = hit[len(hit) // 2]              # mid crossing if it wobbles over the mark
+    x0, x1 = xs[i], xs[i + 1]
+    f = 0.0 if x1 == x0 else (km - x0) / (x1 - x0)
+    return float(ts[i] + f * (ts[i + 1] - ts[i]))
+
+
 def series(path, cfg, tz):
     raw = ig.read_points(path, tz)
     d = ig.classify(raw[0][1], raw[0][2], cfg, raw[-1][1], raw[-1][2])[0]
@@ -50,6 +63,12 @@ def main():
     ap.add_argument("--label-a", default=None)
     ap.add_argument("--label-b", default=None)
     ap.add_argument("--out", default=os.path.join(DIR, "plots"))
+    ap.add_argument("--sync", choices=("gate", "breaker"), default="gate",
+                    help="zero each clock at its gate exit (default) or at the "
+                         "moment it crosses --breaker-km")
+    ap.add_argument("--breaker-km", type=float, default=3.20,
+                    help="km-from-home of the breaker to sync on (default 3.20, "
+                         "the deepest dip in both directions)")
     args = ap.parse_args()
 
     cfg = ig.load_cfg()
@@ -61,12 +80,37 @@ def main():
     la = args.label_a or os.path.basename(args.a).replace(".gpx", "")
     lb = args.label_b or os.path.basename(args.b).replace(".gpx", "")
 
+    dur_a, dur_b = ta.max() - ta.min(), tb.max() - tb.min()
+    zero_a = zero_b = 0.0
+    if args.sync == "breaker":
+        za = breaker_time(xa, ta, args.breaker_km)
+        zb = breaker_time(xb, tb, args.breaker_km)
+        if za is None or zb is None:
+            raise SystemExit(f"a trace never crosses {args.breaker_km} km")
+        zero_a, zero_b = za, zb
+        ta = ta - zero_a
+        tb = tb - zero_b
+
+    feat_p = os.path.join(DIR, "route_features.json")
+    feat = json.load(open(feat_p)) if os.path.exists(feat_p) else {}
+
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(13, 8), sharex=True)
     ax1.plot(xa, ta, color=COLORS[0], lw=1.4,
-             label=f"{la} ({t0a:%m-%d %H:%M}) {ta[-1]:.1f} min")
+             label=f"{la} ({t0a:%m-%d %H:%M}) {dur_a:.1f} min total")
     ax1.plot(xb, tb, color=COLORS[1], lw=1.4,
-             label=f"{lb} ({t0b:%m-%d %H:%M}) {tb[-1]:.1f} min")
-    ax1.set_ylabel("time since gate exit (min)")
+             label=f"{lb} ({t0b:%m-%d %H:%M}) {dur_b:.1f} min total")
+    ax1.set_ylabel(f"time relative to the {args.breaker_km:.2f} km breaker (min)"
+                   if args.sync == "breaker" else "time since gate exit (min)")
+    if args.sync == "breaker":
+        ax1.axhline(0, color="#333", lw=0.8, ls="--", alpha=.6)
+        ax1.axvline(args.breaker_km, color="#333", lw=1.2, ls="--", alpha=.8)
+        ax2.axvline(args.breaker_km, color="#333", lw=1.2, ls="--", alpha=.8)
+    for bd in feat.get("speed_breakers", []):
+        for ax in (ax1, ax2):
+            ax.axvline(bd["km_from_home"], color="#999", lw=0.7, ls=":", alpha=.7)
+    for bs in feat.get("broken_stretches", []):
+        for ax in (ax1, ax2):
+            ax.axvspan(bs["from_km"], bs["to_km"], color="#a6761d", alpha=.08, lw=0)
     ax1.legend(loc="upper left", fontsize=9)
     ax1.set_title(f"{da}: position = projected route arc-length"
                   + ("  (drive runs right→left)" if da == "return" else ""))
@@ -79,6 +123,8 @@ def main():
     ax2.axhline(0, color="#333", lw=0.7)
     end = dt_[-1] if da == "onward" else dt_[0]
     ax2.text(0.02, 0.9, f"end gap {end:+.1f} min", transform=ax2.transAxes, fontsize=9)
+    if args.sync == "breaker":
+        ax2.axhline(0, color="#333", lw=0.8, ls="--", alpha=.6)
     ax2.set_ylabel(f"Δ time = {la} − {lb} (min)")
     ax2.set_xlabel("position (km from home)")
     for ax in (ax1, ax2):
@@ -86,7 +132,8 @@ def main():
     os.makedirs(args.out, exist_ok=True)
     sa = os.path.basename(args.a)[:15]
     sb = os.path.basename(args.b)[:15]
-    out = os.path.join(args.out, f"compare_{sa}_vs_{sb}.svg")
+    suf = f"_brk{args.breaker_km:.2f}" if args.sync == "breaker" else ""
+    out = os.path.join(args.out, f"compare_{sa}_vs_{sb}{suf}.svg")
     fig.tight_layout()
     fig.savefig(out)
     print(f"wrote {out}")
