@@ -103,6 +103,7 @@ energy into the suspension in the first place.
 | option | default | note |
 |---|---|---|
 | `--x` | `position` | `position` is the only x that puts both cars over the same tarmac; `time` gives each drive its own clock |
+| `--channel` | `vertical` | `vertical` / `forward` / `lateral`, the vehicle-frame axes. Rotational coupling differs per channel — see below. |
 | `--signal` | `resid` | `resid` = raw − the 25-sample MA: above ~4 Hz, suspension and tyre response. `ma` = the moving average itself: below ~4 Hz, body motion and primary ride. Output file is named after the choice. |
 | `--no-deroll` | *off* | keep the roll-coupled component. **Leave it off** — see gotcha 6; with it in, a phone wedged off the roll axis reads as a rougher car (1.35x vs 1.03x here) |
 | `--vmax` | `50` | full scale of the speed background |
@@ -227,7 +228,14 @@ detour (`--corridor 60 --min-detour 300 --min-depth 200`).
    **+0.77 m** (door pocket). Note it is roll angular ACCELERATION, which grows
    as omega^2 — that is why a low-frequency body mode dominates a >4 Hz residual.
    Corrected, at matched speed, the Brio is 8-11 % SMOOTHER in all four speed
-   bins; the raw ratio was 1.20-1.37 in every bin, so speed does not explain it. That artifact alone produced an
+   bins; the raw ratio was 1.20-1.37 in every bin, so speed does not explain it.
+   Which rotation matters depends on the channel, since `a = alpha x r`:
+   vertical takes pitch and roll (never yaw), forward takes yaw and pitch
+   (never roll), lateral takes roll and yaw (never pitch). The script regresses
+   on all three so the forbidden one comes out at zero as a self-check — it
+   does: roll in the forward channel fits -0.005 / -0.008. Rotation explains
+   ~50 % of the door-pocket VERTICAL moving average but only 0.5 % of its
+   FORWARD one, so the forward channel needs no correction in either car. That artifact alone produced an
    apparent "Brio vibrates 1.35x more", concentrated in 4-10 Hz where
    road-induced roll lives. Removing the roll-coupled term by least squares
    reverses it: 4-10 Hz goes 1.84 -> 1.02, and the low bands go 1.16 -> 0.93.

@@ -44,7 +44,8 @@ import imu_frame
 from imu_compare_pdf import load_drive
 
 DIR = os.path.dirname(os.path.abspath(__file__))
-VERT = 2
+CHAN = {"lateral": 0, "forward": 1, "vertical": 2}   # rows of the vehicle frame
+VERT = CHAN["vertical"]
 RES_COL, STD_COL = "#4c956c", "#b2182b"
 # speed gets its own colour: #2e4a62 is the KTM Duke 390 in this project's
 # vehicle palette, so reusing it for a data channel is a clash waiting to
@@ -52,14 +53,14 @@ RES_COL, STD_COL = "#4c956c", "#b2182b"
 SPD_COL = "#1f6fbf"
 
 
-def target(d, which, smooth):
+def target(d, which, smooth, ci=VERT):
     """The signal being plotted: the residual, or the moving average itself."""
     if which == "resid":
-        return d["Vf"][VERT] - d["MA"][VERT]
-    return d["MA"][VERT]
+        return d["Vf"][ci] - d["MA"][ci]
+    return d["MA"][ci]
 
 
-def deroll(d, rec, smooth, which="resid"):
+def deroll(d, rec, smooth, which="resid", ci=VERT):
     """Remove the roll-coupled part of the vertical residual.
 
     A phone offset laterally from the roll axis sees body ROLL as apparent
@@ -75,8 +76,14 @@ def deroll(d, rec, smooth, which="resid"):
     fp = os.path.join(DIR, "data", f"{stem}_frame.json")
     R = np.array((json.load(open(fp)) if os.path.exists(fp)
                   else imu_frame.derive(rec))["R"])
-    roll = (R @ imu_frame.gyro(rec, d["t"]))[1]        # rate about the fwd axis
-    alpha = np.gradient(roll, d["t"])                  # angular ACCELERATION
+    # a = alpha x r, so each channel couples to only TWO of the three rotations:
+    #   vertical = pitch*longitudinal - roll*lateral      (yaw cannot enter)
+    #   forward  = yaw*lateral        - pitch*vertical    (roll cannot enter)
+    #   lateral  = roll*vertical      - yaw*longitudinal  (pitch cannot enter)
+    # Regressing on all three lets the forbidden one come out at zero as a check
+    # — measured, it does: roll in the forward channel fits -0.005 / -0.008.
+    gv = R @ imu_frame.gyro(rec, d["t"])
+    alpha = np.vstack([np.gradient(gv[i], d["t"]) for i in range(3)])
     # BAND-LIMIT the regressor. a_z = -d x alpha is rigid-body kinematics, and
     # it holds here from 0.5 to 15 Hz: the fitted coefficient is flat at
     # 0.79-1.05 m with coherence up to 0.77. Above 15 Hz coherence falls to
@@ -84,13 +91,15 @@ def deroll(d, rec, smooth, which="resid"):
     # the rigid assumption fails. Correcting up there removes signal for nothing.
     fs = 1.0 / np.median(np.diff(d["t"]))
     bb, aa = butter(4, [0.5 / (fs / 2), 15.0 / (fs / 2)], btype="band")
-    rd = filtfilt(bb, aa, alpha)
-    # put the regressor in the SAME band as the target, or the fit is diluted by
-    # frequencies the target does not contain
     ker = np.ones(smooth) / smooth
-    rd = (rd - np.convolve(rd, ker, mode="same") if which == "resid"
-          else np.convolve(rd, ker, mode="same"))
-    r = target(d, which, smooth)
+    rows = []
+    for i in range(3):
+        a_ = filtfilt(bb, aa, alpha[i])
+        # put the regressor in the SAME band as the target
+        rows.append(a_ - np.convolve(a_, ker, mode="same") if which == "resid"
+                    else np.convolve(a_, ker, mode="same"))
+    rd = np.vstack(rows)
+    r = target(d, which, smooth, ci)
     # FIT ON THE DRIVE ONLY. The recordings run several minutes past their GPX
     # at both ends (phone being placed and picked up); that handling noise is
     # uncorrelated with roll and swamps the regression — it drags the measured
@@ -98,23 +107,24 @@ def deroll(d, rec, smooth, which="resid"):
     # fit on MOVING on-route samples: crawling and stopped stretches carry no
     # roll excitation to fit against and only dilute the estimate (0.65 m / 46 %
     # with them in, 0.77 m / 62 % with them out).
-    fit = (np.isfinite(d["ikm"]) & np.isfinite(r) & np.isfinite(rd)
+    fit = (np.isfinite(d["ikm"]) & np.isfinite(r) & np.isfinite(rd).all(axis=0)
            & (d["v"] > 15))
-    c = np.dot(r[fit], rd[fit]) / np.dot(rd[fit], rd[fit])
+    X = rd[:, fit].T
+    c, *_ = np.linalg.lstsq(X, r[fit], rcond=None)
     # variance explained decides whether this is worth doing at all: a phone on
     # the roll axis gives ~0.5 %, one in a door pocket ~62 %. Below the
     # threshold the regressor is mostly noise and subtracting it ADDS variance,
     # so leave the signal alone and say so.
-    ve = 1.0 - ((r[fit] - c * rd[fit]).var() / r[fit].var())
+    ve = 1.0 - ((r[fit] - X @ c).var() / r[fit].var())
     if ve < 0.05:
         return r, c, ve, False
-    return r - c * rd, c, ve, True
+    return r - c @ rd, c, ve, True
 
 
-def series(d, xmode, resid=None, which="resid", smooth=25):
+def series(d, xmode, resid=None, which="resid", smooth=25, ci=VERT):
     """(x, residual, speed, per-second std x, per-second std) for the whole drive."""
     ok = np.isfinite(d["ikm"]) if xmode == "position" else np.ones(len(d["t"]), bool)
-    r = target(d, which, smooth)[ok] if resid is None else resid[ok]
+    r = target(d, which, smooth, ci)[ok] if resid is None else resid[ok]
     v = d["v"][ok]
     t = d["t"][ok]
     x = d["ikm"][ok] if xmode == "position" else t
@@ -209,6 +219,8 @@ def main():
     ap.add_argument("--hp", type=float, default=0.1)
     ap.add_argument("--smooth", type=int, default=25)
     ap.add_argument("--nbin", type=int, default=2600, help="envelope columns")
+    ap.add_argument("--channel", choices=tuple(CHAN), default="vertical",
+                    help="which vehicle-frame axis to plot")
     ap.add_argument("--signal", choices=("resid", "ma"), default="resid",
                     help="'resid' (default): raw minus the 25-sample moving "
                          "average — above ~4 Hz, suspension and tyre response. "
@@ -228,19 +240,22 @@ def main():
     B = load_drive(args.b, args.b_gpx, args.hp, args.smooth, cfg)
     if A["dirn"] != B["dirn"]:
         raise SystemExit(f"different directions: {A['dirn']} vs {B['dirn']}")
+    didA = didB = False
     if args.no_deroll:
         resA = resB = None
         rA = rB = float("nan")
     else:
-        resA, cA, veA, okA_ = deroll(A, args.a, args.smooth, args.signal)
-        resB, cB, veB, okB_ = deroll(B, args.b, args.smooth, args.signal)
-        for lab, c_, ve_, did in ((args.a_label, cA, veA, okA_),
-                                  (args.b_label, cB, veB, okB_)):
-            print(f"  roll: lateral offset {c_:+.3f} m, explains {100*ve_:4.1f}% "
-                  f"of the residual -> {'removed' if did else 'LEFT ALONE (below 5%)'}"
-                  f"   [{lab}]")
-    xa, ra, va, sxa, sda = series(A, args.x, resA, args.signal, args.smooth)
-    xb, rb, vb_, sxb, sdb = series(B, args.x, resB, args.signal, args.smooth)
+        ci = CHAN[args.channel]
+        resA, cA, veA, didA = deroll(A, args.a, args.smooth, args.signal, ci)
+        resB, cB, veB, didB = deroll(B, args.b, args.smooth, args.signal, ci)
+        for lab, c_, ve_, did in ((args.a_label, cA, veA, didA),
+                                  (args.b_label, cB, veB, didB)):
+            print(f"  rotation: pitch {c_[0]:+.3f} roll {c_[1]:+.3f} "
+                  f"yaw {c_[2]:+.3f} m, explains {100*ve_:4.1f}% -> "
+                  f"{'removed' if did else 'LEFT ALONE (below 5%)'}   [{lab}]")
+    ci = CHAN[args.channel]
+    xa, ra, va, sxa, sda = series(A, args.x, resA, args.signal, args.smooth, ci)
+    xb, rb, vb_, sxb, sdb = series(B, args.x, resB, args.signal, args.smooth, ci)
 
     rlim = float(np.percentile(np.abs(np.r_[ra, rb]), 99.9))
     slim = float(np.percentile(np.r_[sda, sdb], 99.5))
@@ -266,7 +281,7 @@ def main():
             ax.set_ylim(-rlim, rlim)
             ax.set_ylabel((f"raw − {args.smooth}-sample MA" if args.signal == "resid"
                            else f"{args.smooth}-sample MA") + "\n(m/s²)", fontsize=8)
-            ax.set_title(f"{lab} — vertical "
+            ax.set_title(f"{lab} — {args.channel} "
                          + ("residual" if args.signal == "resid"
                             else "moving average"), fontsize=10, loc="left")
         else:
@@ -296,15 +311,24 @@ def main():
             axes[0].text(bd["km_from_home"], rlim * 0.98,
                          f" {bd['km_from_home']:.2f}", fontsize=6.5,
                          rotation=90, va="top")
-    tag = ("roll-coupled component REMOVED"
-           if not args.no_deroll else "raw — NOT comparable between cars")
+    # say what actually happened, not what was requested
+    if args.no_deroll:
+        tag = "raw — rotation NOT removed, not comparable between cars"
+    elif didA and didB:
+        tag = "rotation-coupled component removed from both"
+    elif didA or didB:
+        tag = (f"rotation removed from "
+               f"{args.a_label if didA else args.b_label} only")
+    else:
+        tag = "rotation coupling below 5% in both — nothing removed"
     what = ("residual" if args.signal == "resid" else "moving average")
-    fig.suptitle(f"Vertical {what} and its per-second spread — "
+    fig.suptitle(f"{args.channel.capitalize()} {what} and its per-second spread — "
                  f"{args.a_label} vs {args.b_label}    "
                  f"(dotted = speed breakers, shaded = broken stretches; {tag})",
                  fontsize=12, y=0.975)
     out = args.out or os.path.join(
-        DIR, "plots", f"imu_{'resid' if args.signal == 'resid' else 'movavg'}_full.svg")
+        DIR, "plots",
+        f"imu_{args.channel}_{'resid' if args.signal == 'resid' else 'movavg'}_full.svg")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     fig.savefig(out)
     print(f"wrote {out}")
