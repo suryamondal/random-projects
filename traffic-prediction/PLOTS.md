@@ -124,6 +124,10 @@ second of drive). Heights are then a DENSITY, % of seconds per m/s², because
 equal-count bins would be flat by construction otherwise. `--per-bin` (default
 45) sets the target occupancy.
 
+`--hist-pct` (default 95) sets the panel's x limit, bins unchanged. The bulk of
+this signal sits below ~20 % of its range, so plotting all the way to p99.5
+squeezes every mode into the left edge and the distribution looks featureless.
+
 `--binning width` gives fixed-width bins with `--bins` (default 60). At that n,
 60 fixed bins put ~149 in the peak (+/-8 %) while 300 put 36 (+/-17 %) and empty
 a quarter of them — sqrt(n) and Freedman-Diaconis both land near 60, so fixed

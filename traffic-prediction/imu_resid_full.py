@@ -237,6 +237,11 @@ def main():
                          "same Poisson error. Heights are density (%% per unit), "
                          "since equal-count bins would otherwise be flat by "
                          "construction. 'width': fixed-width bins.")
+    ap.add_argument("--hist-pct", type=float, default=95.0,
+                    help="percentile setting the distribution panel's x limit "
+                         "(default 95). The bulk of this signal sits below ~20%% "
+                         "of its range, so plotting to p99.5 squeezes every mode "
+                         "into the left edge. Bins are unchanged; only the view.")
     ap.add_argument("--per-bin", type=int, default=45,
                     help="target entries per bin for --binning count")
     ap.add_argument("--bins", type=int, default=60,
@@ -327,7 +332,12 @@ def main():
         core = pool[pool <= hi_]
         nb = max(8, len(core) // args.per_bin)
         bins = np.unique(np.percentile(core, np.linspace(0.0, 100.0, nb + 1)))
-        bins[0], bins[-1] = 0.0, hi_
+        # do NOT drag the first edge down to 0: the first quantile edge IS the
+        # data minimum, and widening that bin divides its count by a bigger
+        # width, scaling its density by 0.80x — a 20 % suppression landing
+        # exactly on the quiet pedestal, which is the feature of interest.
+        # The axis is set to start at 0 separately.
+        bins[-1] = hi_
     else:
         bins = np.linspace(0.0, hi_, args.bins + 1)
     w = np.diff(bins)
@@ -346,8 +356,12 @@ def main():
                  lw=1.6, color=col,
                  label=f"{lab}   n={len(X)}   overflow {100.0*n_ovf/len(X):.1f}%")
     axh.axvline(bins[-1], color="#555555", lw=1.0, ls=":")
-    axh.set_xlim(0, hi_)
-    axh.set_xlabel("per-second std (m/s²)   — last bin includes overflow")
+    # bins run to p99.5; the VIEW stops earlier so the modes are legible
+    xmax = float(np.percentile(pool, args.hist_pct))
+    axh.set_xlim(0, xmax)
+    trunc = (f"   — view stops at p{args.hist_pct:g}, bins continue to {hi_:.2f}"
+             if xmax < hi_ * 0.99 else "")
+    axh.set_xlabel("per-second std (m/s²)   — last bin includes overflow" + trunc)
     axh.set_ylabel("% of seconds\nper m/s²", fontsize=8)
     axh.set_title(f"distribution of the per-second std — "
                   + (f"{len(bins)-1} equal-occupancy bins (~{args.per_bin}/bin)"
