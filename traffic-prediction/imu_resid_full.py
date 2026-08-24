@@ -164,8 +164,15 @@ def speed_bg(ax, x, v, nbin, lo, hi, ylim, vmax):
     return axs
 
 
-def envelope(ax, x, y, nbin, color):
-    """Per-pixel min/max band — honest at 200k points, unlike decimation."""
+def envelope(ax, x, y, nbin, color, with_mean=False):
+    """Per-pixel min/max band — honest at 200k points, unlike decimation.
+
+    with_mean also draws the per-column mean as a line. The residual is
+    zero-mean by construction so that line carries nothing, but the moving
+    average is a 0.1-2 Hz BAND, not a slow trend: as a bare min/max envelope it
+    renders as a hairball that looks nothing like a moving average, and the
+    structure only becomes legible with the mean drawn through it.
+    """
     lo, hi = np.nanmin(x), np.nanmax(x)
     e = np.linspace(lo, hi, nbin + 1)
     idx = np.clip(np.digitize(x, e) - 1, 0, nbin - 1)
@@ -179,7 +186,14 @@ def envelope(ax, x, y, nbin, color):
         if b > a:
             mn[i], mx[i] = yi[a:b].min(), yi[a:b].max()
     c = (e[:-1] + e[1:]) / 2
-    ax.fill_between(c, mn, mx, color=color, lw=0, alpha=.85)
+    ax.fill_between(c, mn, mx, color=color, lw=0, alpha=.40 if with_mean else .85)
+    if with_mean:
+        mu = np.full(nbin, np.nan)
+        for i in range(nbin):
+            a, b = bounds[i], bounds[i + 1]
+            if b > a:
+                mu[i] = yi[a:b].mean()
+        ax.plot(c, mu, color="#1f5c3a", lw=0.8)
 
 
 def main():
@@ -247,7 +261,8 @@ def main():
     for ax, X, Y, V, lab, kind in panels:
         if kind == "resid":
             speed_bg(ax, X, V, args.nbin, xlo, xhi, rlim, args.vmax)
-            envelope(ax, X, Y, args.nbin, RES_COL)
+            envelope(ax, X, Y, args.nbin, RES_COL,
+                     with_mean=(args.signal == "ma"))
             ax.set_ylim(-rlim, rlim)
             ax.set_ylabel((f"raw − {args.smooth}-sample MA" if args.signal == "resid"
                            else f"{args.smooth}-sample MA") + "\n(m/s²)", fontsize=8)
