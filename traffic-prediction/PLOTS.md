@@ -206,7 +206,19 @@ detour (`--corridor 60 --min-detour 300 --min-depth 200`).
    `gs -sDEVICE=pdfwrite -dPDFSETTINGS=/printer`, split with
    `qpdf in.pdf --pages in.pdf 1-172 -- part1.pdf`. Do **not** rasterize
    matplotlib artists to shrink — it produces white seams through the traces.
-6. **`Annotation.csv` in the Sensor Logger export is empty.** Tapping the
+6. **Vertical level cannot be compared between recordings unless the phone sat
+   in the same place.** A phone offset laterally from the roll axis turns body
+   ROLL into apparent VERTICAL acceleration, scaled by the offset. Measured
+   `r(vertical, roll-accel)`: Brio 08-21 **+0.781** (door pocket, well off-axis),
+   Jazz 08-24 **+0.088** (near the centreline). That artifact alone produced an
+   apparent "Brio vibrates 1.35x more", concentrated in 4-10 Hz where
+   road-induced roll lives. Removing the roll-coupled term by least squares
+   reverses it: 4-10 Hz goes 1.84 -> 1.02, and the low bands go 1.16 -> 0.93.
+   The Brio is in fact SOFTER (body-bounce resonance 2.44 Hz vs the Jazz's
+   2.73 Hz) and measures smoother once corrected. **Always check the roll
+   correlation before comparing vertical levels across cars.**
+
+7. **`Annotation.csv` in the Sensor Logger export is empty.** Tapping the
    annotation button at each speed breaker would timestamp crossings exactly and
    make per-breaker impact measurable — currently it is not, because breaker
    coordinates carry 10–20 m of their own error and the axle-pair signature
