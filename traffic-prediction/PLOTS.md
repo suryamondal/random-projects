@@ -214,7 +214,15 @@ detour (`--corridor 60 --min-detour 300 --min-depth 200`).
    Jazz 08-24 **+0.088** (near the centreline). Fit the correction on the
    ON-ROUTE samples only — the recordings run minutes past their GPX at both
    ends and that handling noise drags the measured correlation +0.54 -> +0.03,
-   so the correction silently does nothing. That artifact alone produced an
+   so the correction silently does nothing. And BAND-LIMIT the regressor to
+   0.5-15 Hz: `a_z = -d x alpha` is rigid-body kinematics and the fitted
+   coefficient is flat there (Brio 0.79-1.05 m, coherence up to 0.77 in 4-8 Hz)
+   but collapses above 15 Hz (coherence ~0.11) because the phone is wedged, not
+   bolted. Fitted offsets: Jazz **+0.04 m** (on the roll axis), Brio
+   **+0.77 m** (door pocket). Note it is roll angular ACCELERATION, which grows
+   as omega^2 — that is why a low-frequency body mode dominates a >4 Hz residual.
+   Corrected, at matched speed, the Brio is 8-11 % SMOOTHER in all four speed
+   bins; the raw ratio was 1.20-1.37 in every bin, so speed does not explain it. That artifact alone produced an
    apparent "Brio vibrates 1.35x more", concentrated in 4-10 Hz where
    road-induced roll lives. Removing the roll-coupled term by least squares
    reverses it: 4-10 Hz goes 1.84 -> 1.02, and the low bands go 1.16 -> 0.93.

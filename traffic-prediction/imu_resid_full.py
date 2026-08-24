@@ -34,6 +34,7 @@ import json
 import os
 
 import numpy as np
+from scipy.signal import butter, filtfilt
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -68,9 +69,15 @@ def deroll(d, rec, smooth):
     R = np.array((json.load(open(fp)) if os.path.exists(fp)
                   else imu_frame.derive(rec))["R"])
     roll = (R @ imu_frame.gyro(rec, d["t"]))[1]        # rate about the fwd axis
-    rd = np.gradient(roll, d["t"])
-    ker = np.ones(smooth) / smooth
-    rd = rd - np.convolve(rd, ker, mode="same")        # same band as the residual
+    alpha = np.gradient(roll, d["t"])                  # angular ACCELERATION
+    # BAND-LIMIT the regressor. a_z = -d x alpha is rigid-body kinematics, and
+    # it holds here from 0.5 to 15 Hz: the fitted coefficient is flat at
+    # 0.79-1.05 m with coherence up to 0.77. Above 15 Hz coherence falls to
+    # ~0.11 and the coefficient collapses — the phone is wedged, not bolted, so
+    # the rigid assumption fails. Correcting up there removes signal for nothing.
+    fs = 1.0 / np.median(np.diff(d["t"]))
+    bb, aa = butter(4, [0.5 / (fs / 2), 15.0 / (fs / 2)], btype="band")
+    rd = filtfilt(bb, aa, alpha)
     r = d["Vf"][VERT] - d["MA"][VERT]
     # FIT ON THE DRIVE ONLY. The recordings run several minutes past their GPX
     # at both ends (phone being placed and picked up); that handling noise is
