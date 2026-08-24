@@ -64,8 +64,6 @@ def main():
                  ["speed_breakers"])
     BRK = args.breaker_km if args.breaker_km is not None else brk[args.breaker_index]
     slope = 60.0 / args.pace                      # min per km
-    def line(k):
-        return slope * (BRK - k)
 
     labels = args.labels.split(",") if args.labels else [None] * len(args.gpx)
     rows = []
@@ -109,6 +107,14 @@ def main():
             rgb = mcolors.to_rgb(base)
             f = 0.30 + 0.70 * i / n          # 0.30 = washed out, 1.0 = full
             r["col"] = tuple(1.0 - f * (1.0 - c) for c in rgb)
+
+    # Sign depends on travel direction: onward runs 0 -> 8.9 km so time grows
+    # WITH position; return runs the other way. Using the return form for an
+    # onward drive tilts the reference against the traces and turns the delta
+    # panel into a diagonal.
+    sgn = 1.0 if rows[0]["dirn"] == "onward" else -1.0
+    def line(k):
+        return sgn * slope * (k - BRK)
 
     fig, (a1, a2) = plt.subplots(2, 1, figsize=(13, 9), sharex=True)
     for r in rows:
