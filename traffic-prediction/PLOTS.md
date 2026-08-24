@@ -116,10 +116,18 @@ overflow bin** — the axis stops at p99.5 and matplotlib would otherwise discar
 everything past it, which on this signal is precisely the hard braking worth
 seeing. Each legend entry carries its own n and overflow percentage.
 
-`--bins` (default 60) sets the binning. n is one entry per second of drive, so a
-single commute gives only ~1700: at 60 bins the peak holds ~149 (+/-8 %), at 300
-it holds 36 (+/-17 %) and a quarter of the bins are empty. sqrt(n) and
-Freedman-Diaconis both land near 60, so go finer only after pooling drives. The panel-2/4 traces show
+Binning defaults to `--binning count`: **equal-occupancy** bins, edges at
+quantiles of the POOLED data so both drives share them. Bins are narrow where
+the data is dense and wide in the tail, and every bin carries the same Poisson
+error — which is what makes fine resolution possible at n ~ 1700 (one entry per
+second of drive). Heights are then a DENSITY, % of seconds per m/s², because
+equal-count bins would be flat by construction otherwise. `--per-bin` (default
+45) sets the target occupancy.
+
+`--binning width` gives fixed-width bins with `--bins` (default 60). At that n,
+60 fixed bins put ~149 in the peak (+/-8 %) while 300 put 36 (+/-17 %) and empty
+a quarter of them — sqrt(n) and Freedman-Diaconis both land near 60, so fixed
+binning cannot go finer without pooling more drives. The panel-2/4 traces show
 *where* on the route the activity is; this one shows *how it is distributed* —
 a low, peaky profile (discrete inputs with quiet holds) against a raised floor
 (continuous adjustment).

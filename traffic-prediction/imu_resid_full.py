@@ -230,6 +230,15 @@ def main():
                     help="keep the roll-coupled component. Off by default: with "
                          "it in, a phone wedged off the roll axis reads as a "
                          "rougher car and the two panels are not comparable.")
+    ap.add_argument("--binning", choices=("width", "count"), default="count",
+                    help="'count': equal-OCCUPANCY bins — edges at quantiles of "
+                         "the pooled data, so bins are narrow where the data is "
+                         "dense and wide in the tail, and every bin carries the "
+                         "same Poisson error. Heights are density (%% per unit), "
+                         "since equal-count bins would otherwise be flat by "
+                         "construction. 'width': fixed-width bins.")
+    ap.add_argument("--per-bin", type=int, default=45,
+                    help="target entries per bin for --binning count")
     ap.add_argument("--bins", type=int, default=60,
                     help="bins in the distribution panel (default 60). One entry "
                          "per second of drive, so n is only ~1700 for a single "
@@ -311,27 +320,39 @@ def main():
                 ax.axvspan(bs["from_km"], bs["to_km"], color="#a6761d",
                            alpha=.10, lw=0)
     # ---- panel 5: distribution of the per-second std, both drives, shared bins
-    hi_ = float(np.percentile(np.r_[sda, sdb], 99.5))
-    bins = np.linspace(0.0, hi_, args.bins + 1)
+    pool = np.r_[sda, sdb]
+    hi_ = float(np.percentile(pool, 99.5))
+    if args.binning == "count":
+        # edges at quantiles of the POOLED data so both drives share them
+        core = pool[pool <= hi_]
+        nb = max(8, len(core) // args.per_bin)
+        bins = np.unique(np.percentile(core, np.linspace(0.0, 100.0, nb + 1)))
+        bins[0], bins[-1] = 0.0, hi_
+    else:
+        bins = np.linspace(0.0, hi_, args.bins + 1)
+    w = np.diff(bins)
     # OVERFLOW: the axis stops at p99.5, and matplotlib silently discards
     # anything past the last edge. Clip into the final bin instead, so the plot
     # accounts for every second rather than quietly losing the tail — which on
     # this signal is exactly the hard braking worth seeing.
-    ovf = []
     for X, lab, col in ((sda, args.a_label, "#d1495b"),
                         (sdb, args.b_label, "#2a9d8f")):
         n_ovf = int((X > bins[-1]).sum())
-        ovf.append(100.0 * n_ovf / len(X))
-        axh.hist(np.clip(X, bins[0], np.nextafter(bins[-1], 0.0)),
-                 bins=bins, histtype="step", lw=1.6, color=col,
-                 weights=np.full(len(X), 100.0 / len(X)),
+        cnt, _ = np.histogram(np.clip(X, bins[0], np.nextafter(bins[-1], 0.0)),
+                              bins=bins)
+        # density: % of seconds PER UNIT, so unequal bin widths stay comparable
+        h = 100.0 * cnt / len(X) / w
+        axh.step(np.r_[bins[0], bins], np.r_[0.0, h, 0.0], where="post",
+                 lw=1.6, color=col,
                  label=f"{lab}   n={len(X)}   overflow {100.0*n_ovf/len(X):.1f}%")
     axh.axvline(bins[-1], color="#555555", lw=1.0, ls=":")
     axh.set_xlim(0, hi_)
     axh.set_xlabel("per-second std (m/s²)   — last bin includes overflow")
-    axh.set_ylabel("% of seconds", fontsize=8)
-    axh.set_title(f"distribution of the per-second std — {args.bins} bins, "
-                  f"last = overflow", fontsize=10, loc="left")
+    axh.set_ylabel("% of seconds\nper m/s²", fontsize=8)
+    axh.set_title(f"distribution of the per-second std — "
+                  + (f"{len(bins)-1} equal-occupancy bins (~{args.per_bin}/bin)"
+                     if args.binning == "count" else f"{args.bins} fixed-width bins")
+                  + ", last = overflow", fontsize=10, loc="left")
     axh.legend(fontsize=8)
     axh.grid(alpha=.25)
     axh.tick_params(labelsize=7)
