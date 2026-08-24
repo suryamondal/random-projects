@@ -90,11 +90,21 @@ python3 imu_resid_full.py \
 ```
 
 16:9, four stacked panels: A's vertical residual (raw − 25-sample MA), its
-per-second std, then the same two for B. `--x position|time` (default
-`position`, the only x that puts both cars over the same tarmac).
+per-second std, then the same two for B.
+
+**Speed is drawn full-scale behind each residual panel** with its own right-hand
+km/h axis — the residual can't be read without it, since speed is what puts the
+energy into the suspension in the first place.
+
+| option | default | note |
+|---|---|---|
+| `--x` | `position` | `position` is the only x that puts both cars over the same tarmac; `time` gives each drive its own clock |
+| `--vmax` | `50` | full scale of the speed background |
+| `--nbin` | `2600` | envelope columns |
 
 Residual is drawn as a per-pixel min/max envelope, not decimated — decimation
-would alias the amplitude downward.
+would alias the amplitude downward. Residual and std y-scales are shared between
+the two cars, so the panels can be compared by eye.
 
 ---
 
