@@ -99,6 +99,7 @@ energy into the suspension in the first place.
 | option | default | note |
 |---|---|---|
 | `--x` | `position` | `position` is the only x that puts both cars over the same tarmac; `time` gives each drive its own clock |
+| `--no-deroll` | *off* | keep the roll-coupled component. **Leave it off** — see gotcha 6; with it in, a phone wedged off the roll axis reads as a rougher car (1.35x vs 1.03x here) |
 | `--vmax` | `50` | full scale of the speed background |
 | `--nbin` | `2600` | envelope columns |
 
@@ -210,7 +211,10 @@ detour (`--corridor 60 --min-detour 300 --min-depth 200`).
    in the same place.** A phone offset laterally from the roll axis turns body
    ROLL into apparent VERTICAL acceleration, scaled by the offset. Measured
    `r(vertical, roll-accel)`: Brio 08-21 **+0.781** (door pocket, well off-axis),
-   Jazz 08-24 **+0.088** (near the centreline). That artifact alone produced an
+   Jazz 08-24 **+0.088** (near the centreline). Fit the correction on the
+   ON-ROUTE samples only — the recordings run minutes past their GPX at both
+   ends and that handling noise drags the measured correlation +0.54 -> +0.03,
+   so the correction silently does nothing. That artifact alone produced an
    apparent "Brio vibrates 1.35x more", concentrated in 4-10 Hz where
    road-induced roll lives. Removing the roll-coupled term by least squares
    reverses it: 4-10 Hz goes 1.84 -> 1.02, and the low bands go 1.16 -> 0.93.

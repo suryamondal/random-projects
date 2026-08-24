@@ -39,6 +39,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 import ingest_gpx as ig
+import imu_frame
 from imu_compare_pdf import load_drive
 
 DIR = os.path.dirname(os.path.abspath(__file__))
@@ -50,10 +51,40 @@ RES_COL, STD_COL = "#4c956c", "#b2182b"
 SPD_COL = "#1f6fbf"
 
 
-def series(d, xmode):
+def deroll(d, rec, smooth):
+    """Remove the roll-coupled part of the vertical residual.
+
+    A phone offset laterally from the roll axis sees body ROLL as apparent
+    VERTICAL acceleration, scaled by the offset — so two recordings with the
+    phone wedged in different places are not comparable until this is taken out.
+    Measured r(residual, roll-accel): 0.07 with the phone near the centreline,
+    0.54 with it in a door pocket. Left in, that artifact alone made one car
+    look 1.35x rougher than the other across the whole route.
+
+    Returns (residual, r) with the least-squares roll term subtracted.
+    """
+    stem = os.path.splitext(os.path.basename(rec.rstrip("/")))[0]
+    fp = os.path.join(DIR, "data", f"{stem}_frame.json")
+    R = np.array((json.load(open(fp)) if os.path.exists(fp)
+                  else imu_frame.derive(rec))["R"])
+    roll = (R @ imu_frame.gyro(rec, d["t"]))[1]        # rate about the fwd axis
+    rd = np.gradient(roll, d["t"])
+    ker = np.ones(smooth) / smooth
+    rd = rd - np.convolve(rd, ker, mode="same")        # same band as the residual
+    r = d["Vf"][VERT] - d["MA"][VERT]
+    # FIT ON THE DRIVE ONLY. The recordings run several minutes past their GPX
+    # at both ends (phone being placed and picked up); that handling noise is
+    # uncorrelated with roll and swamps the regression — it drags the measured
+    # correlation from +0.54 down to +0.03 and the correction then does nothing.
+    fit = np.isfinite(d["ikm"]) & np.isfinite(r) & np.isfinite(rd)
+    c = np.dot(r[fit], rd[fit]) / np.dot(rd[fit], rd[fit])
+    return r - c * rd, float(np.corrcoef(r[fit], rd[fit])[0, 1])
+
+
+def series(d, xmode, resid=None):
     """(x, residual, speed, per-second std x, per-second std) for the whole drive."""
     ok = np.isfinite(d["ikm"]) if xmode == "position" else np.ones(len(d["t"]), bool)
-    r = (d["Vf"][VERT] - d["MA"][VERT])[ok]
+    r = (d["Vf"][VERT] - d["MA"][VERT])[ok] if resid is None else resid[ok]
     v = d["v"][ok]
     t = d["t"][ok]
     x = d["ikm"][ok] if xmode == "position" else t
@@ -134,6 +165,10 @@ def main():
     ap.add_argument("--hp", type=float, default=0.1)
     ap.add_argument("--smooth", type=int, default=25)
     ap.add_argument("--nbin", type=int, default=2600, help="envelope columns")
+    ap.add_argument("--no-deroll", action="store_true",
+                    help="keep the roll-coupled component. Off by default: with "
+                         "it in, a phone wedged off the roll axis reads as a "
+                         "rougher car and the two panels are not comparable.")
     ap.add_argument("--vmax", type=float, default=50.0,
                     help="full scale of the speed background (km/h)")
     ap.add_argument("--out", default=os.path.join(DIR, "plots",
@@ -145,8 +180,16 @@ def main():
     B = load_drive(args.b, args.b_gpx, args.hp, args.smooth, cfg)
     if A["dirn"] != B["dirn"]:
         raise SystemExit(f"different directions: {A['dirn']} vs {B['dirn']}")
-    xa, ra, va, sxa, sda = series(A, args.x)
-    xb, rb, vb_, sxb, sdb = series(B, args.x)
+    if args.no_deroll:
+        resA = resB = None
+        rA = rB = float("nan")
+    else:
+        resA, rA = deroll(A, args.a, args.smooth)
+        resB, rB = deroll(B, args.b, args.smooth)
+        print(f"  de-rolled: r(residual, roll-accel) "
+              f"{args.a_label} {rA:+.3f}   {args.b_label} {rB:+.3f}")
+    xa, ra, va, sxa, sda = series(A, args.x, resA)
+    xb, rb, vb_, sxb, sdb = series(B, args.x, resB)
 
     rlim = float(np.percentile(np.abs(np.r_[ra, rb]), 99.9))
     slim = float(np.percentile(np.r_[sda, sdb], 99.5))
@@ -197,10 +240,12 @@ def main():
             axes[0].text(bd["km_from_home"], rlim * 0.98,
                          f" {bd['km_from_home']:.2f}", fontsize=6.5,
                          rotation=90, va="top")
+    tag = ("roll-coupled component REMOVED"
+           if not args.no_deroll else "raw — NOT comparable between cars")
     fig.suptitle(f"Vertical residual and its per-second spread — "
                  f"{args.a_label} vs {args.b_label}    "
-                 f"(dotted = speed breakers, shaded = broken stretches)",
-                 fontsize=13, y=0.975)
+                 f"(dotted = speed breakers, shaded = broken stretches; {tag})",
+                 fontsize=12, y=0.975)
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     fig.savefig(args.out)
     print(f"wrote {args.out}")
