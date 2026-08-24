@@ -92,8 +92,8 @@ python3 imu_resid_full.py \
 16:9, four stacked panels: A's vertical residual (raw − 25-sample MA), its
 per-second std, then the same two for B.
 
-**Speed is drawn full-scale behind each residual panel** with its own right-hand
-km/h axis — the residual can't be read without it, since speed is what puts the
+**Speed is drawn full-scale behind each residual panel** as a plain line (no
+fill) with its own right-hand km/h axis — the residual can't be read without it, since speed is what puts the
 energy into the suspension in the first place.
 
 | option | default | note |

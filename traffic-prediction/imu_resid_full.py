@@ -93,7 +93,6 @@ def speed_bg(ax, x, v, nbin, lo, hi, ylim, vmax):
     """
     c, vb = bin_mean(x, v, nbin, lo, hi)
     sv = np.clip(vb, 0, vmax) / vmax * (2 * ylim) - ylim
-    ax.fill_between(c, -ylim, sv, color=SPD_COL, alpha=0.12, zorder=0)
     ax.plot(c, sv, color=SPD_COL, lw=1.0, alpha=0.75, zorder=1)
     axs = ax.twinx()
     axs.set_ylim(0, vmax)
