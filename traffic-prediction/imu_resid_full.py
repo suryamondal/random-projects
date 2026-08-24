@@ -131,13 +131,14 @@ def series(d, xmode, resid=None, which="resid", smooth=25, ci=VERT):
     # per-second std: bin by TIME (a second is a second), place at its own x
     edges = np.arange(t[0], t[-1] + 1.0, 1.0)
     idx = np.digitize(t, edges) - 1
-    sx, sd = [], []
+    sx, sd, sv = [], [], []
     for i in range(len(edges) - 1):
         m = idx == i
         if m.sum() > 5:
             sx.append(x[m].mean())
             sd.append(r[m].std())
-    return x, r, v, np.array(sx), np.array(sd)
+            sv.append(v[m].mean())
+    return x, r, v, np.array(sx), np.array(sd), np.array(sv)
 
 
 def bin_mean(x, y, nbin, lo, hi):
@@ -237,6 +238,12 @@ def main():
                          "same Poisson error. Heights are density (%% per unit), "
                          "since equal-count bins would otherwise be flat by "
                          "construction. 'width': fixed-width bins.")
+    ap.add_argument("--weight", choices=("speed", "none"), default="speed",
+                    help="'speed' (default): weight each second by its speed, so "
+                         "the panel is a distribution over DISTANCE rather than "
+                         "time. A second at 40 km/h covers 8x the road of one at "
+                         "5 km/h, and the crawling seconds are where the two "
+                         "drivers are identical. 'none': plain per-second.")
     ap.add_argument("--hist-pct", type=float, default=95.0,
                     help="percentile setting the distribution panel's x limit "
                          "(default 95). The bulk of this signal sits below ~20%% "
@@ -274,8 +281,8 @@ def main():
                   f"yaw {c_[2]:+.3f} m, explains {100*ve_:4.1f}% -> "
                   f"{'removed' if did else 'LEFT ALONE (below 5%)'}   [{lab}]")
     ci = CHAN[args.channel]
-    xa, ra, va, sxa, sda = series(A, args.x, resA, args.signal, args.smooth, ci)
-    xb, rb, vb_, sxb, sdb = series(B, args.x, resB, args.signal, args.smooth, ci)
+    xa, ra, va, sxa, sda, sva = series(A, args.x, resA, args.signal, args.smooth, ci)
+    xb, rb, vb_, sxb, sdb, svb = series(B, args.x, resB, args.signal, args.smooth, ci)
 
     rlim = float(np.percentile(np.abs(np.r_[ra, rb]), 99.9))
     slim = float(np.percentile(np.r_[sda, sdb], 99.5))
@@ -345,16 +352,19 @@ def main():
     # anything past the last edge. Clip into the final bin instead, so the plot
     # accounts for every second rather than quietly losing the tail — which on
     # this signal is exactly the hard braking worth seeing.
-    for X, lab, col in ((sda, args.a_label, "#d1495b"),
-                        (sdb, args.b_label, "#2a9d8f")):
+    for X, W, lab, col in ((sda, sva, args.a_label, "#d1495b"),
+                           (sdb, svb, args.b_label, "#2a9d8f")):
+        wt = W.copy() if args.weight == "speed" else np.ones_like(X)
         n_ovf = int((X > bins[-1]).sum())
+        ovf_w = 100.0 * wt[X > bins[-1]].sum() / wt.sum()
         cnt, _ = np.histogram(np.clip(X, bins[0], np.nextafter(bins[-1], 0.0)),
-                              bins=bins)
-        # density: % of seconds PER UNIT, so unequal bin widths stay comparable
-        h = 100.0 * cnt / len(X) / w
+                              bins=bins, weights=wt)
+        # density: % of the weighted total PER UNIT, so unequal bin widths and
+        # unequal drive lengths stay comparable
+        h = 100.0 * cnt / wt.sum() / w
         axh.step(np.r_[bins[0], bins], np.r_[0.0, h, 0.0], where="post",
                  lw=1.6, color=col,
-                 label=f"{lab}   n={len(X)}   overflow {100.0*n_ovf/len(X):.1f}%")
+                 label=f"{lab}   n={len(X)}   overflow {ovf_w:.1f}%")
     axh.axvline(bins[-1], color="#555555", lw=1.0, ls=":")
     # bins run to p99.5; the VIEW stops earlier so the modes are legible
     xmax = float(np.percentile(pool, args.hist_pct))
@@ -362,8 +372,10 @@ def main():
     trunc = (f"   — view stops at p{args.hist_pct:g}, bins continue to {hi_:.2f}"
              if xmax < hi_ * 0.99 else "")
     axh.set_xlabel("per-second std (m/s²)   — last bin includes overflow" + trunc)
-    axh.set_ylabel("% of seconds\nper m/s²", fontsize=8)
-    axh.set_title(f"distribution of the per-second std — "
+    axh.set_ylabel(("% of distance" if args.weight == "speed" else "% of seconds")
+                   + "\nper m/s²", fontsize=8)
+    axh.set_title(("speed-weighted " if args.weight == "speed" else "")
+                  + f"distribution of the per-second std — "
                   + (f"{len(bins)-1} equal-occupancy bins (~{args.per_bin}/bin)"
                      if args.binning == "count" else f"{args.bins} fixed-width bins")
                   + ", last = overflow", fontsize=10, loc="left")

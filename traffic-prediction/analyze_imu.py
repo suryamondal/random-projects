@@ -23,9 +23,9 @@ Usage:
 
 import argparse
 import csv
+import io
 import os
 import sys
-import tempfile
 import zipfile
 
 import numpy as np
@@ -37,21 +37,31 @@ DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def load(path):
-    """Return (loc, imu) dicts from a Sensor Logger export (zip or dir)."""
+    """Return (loc, imu) dicts from a Sensor Logger export (zip or dir).
+
+    Reads STRAIGHT OUT of the zip. This used to extract to
+    tempfile.mkdtemp(prefix="imu_") and never clean up — ~99 MB per call, so a
+    session that loaded a few dozen drives left 204 directories and 20 GB in
+    /tmp and filled the disk. Nothing needs the files on disk; both readers
+    take a file object.
+    """
     if path.endswith(".zip"):
-        tmp = tempfile.mkdtemp(prefix="imu_")
         with zipfile.ZipFile(path) as z:
-            z.extractall(tmp)
-        path = tmp
-    loc_rows = list(csv.DictReader(open(os.path.join(path, "Location.csv"))))
+            loc_rows = list(csv.DictReader(
+                io.TextIOWrapper(z.open("Location.csv"))))
+            tot = np.genfromtxt(io.TextIOWrapper(z.open("TotalAcceleration.csv")),
+                                delimiter=",", names=True)
+    else:
+        loc_rows = list(csv.DictReader(
+            open(os.path.join(path, "Location.csv"))))
+        tot = np.genfromtxt(os.path.join(path, "TotalAcceleration.csv"),
+                            delimiter=",", names=True)
     loc = {
         "t": np.array([float(r["seconds_elapsed"]) for r in loc_rows]),
         "kmh": np.array([float(r["speed"]) for r in loc_rows]) * 3.6,
         "lat": np.array([float(r["latitude"]) for r in loc_rows]),
         "lon": np.array([float(r["longitude"]) for r in loc_rows]),
     }
-    tot = np.genfromtxt(os.path.join(path, "TotalAcceleration.csv"),
-                        delimiter=",", names=True)
     imu = {"t": tot["seconds_elapsed"],
            "A": np.vstack([tot["x"], tot["y"], tot["z"]])}
     return loc, imu

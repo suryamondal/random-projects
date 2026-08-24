@@ -124,6 +124,11 @@ second of drive). Heights are then a DENSITY, % of seconds per m/s², because
 equal-count bins would be flat by construction otherwise. `--per-bin` (default
 45) sets the target occupancy.
 
+`--weight speed` (the default) weights each second by its speed, so the panel
+is a distribution over DISTANCE rather than time — a second at 40 km/h covers 8x
+the road of one at 5 km/h, and the crawling seconds are exactly where the two
+drivers are identical. `--weight none` gives plain per-second.
+
 `--hist-pct` (default 95) sets the panel's x limit, bins unchanged. The bulk of
 this signal sits below ~20 % of its range, so plotting all the way to p99.5
 squeezes every mode into the left edge and the distribution looks featureless.
@@ -270,7 +275,15 @@ detour (`--corridor 60 --min-detour 300 --min-depth 200`).
    2.73 Hz) and measures smoother once corrected. **Always check the roll
    correlation before comparing vertical levels across cars.**
 
-7. **`Annotation.csv` in the Sensor Logger export is empty.** Tapping the
+7. **Never extract a sensor zip to a temp dir.** `analyze_imu.load()` used to
+   `tempfile.mkdtemp(prefix="imu_")` and extract ~99 MB per call with no
+   cleanup. A single session that loads a few dozen drives left **204
+   directories and 20 GB in /tmp** and filled the disk. It now reads straight
+   out of the zip via `io.TextIOWrapper(z.open(...))`, which is also faster.
+   If something ever genuinely needs files on disk, use a `./tmp` inside the
+   project, never the system `/tmp`.
+
+8. **`Annotation.csv` in the Sensor Logger export is empty.** Tapping the
    annotation button at each speed breaker would timestamp crossings exactly and
    make per-breaker impact measurable — currently it is not, because breaker
    coordinates carry 10–20 m of their own error and the axle-pair signature
