@@ -11,9 +11,11 @@ back -- which is where soft and stiff suspensions actually differ at this pace.
 Roll angle comes from the GYRO, not the accelerometer. A rolled body tips the
 measured lateral acceleration by g*sin(phi), so the accelerometer confounds the
 roll with the cornering that caused it; the gyro measures the rotation directly.
-The rate is integrated and high-passed at --hp to shed integrator drift, which
-costs the true DC tilt (camber, a long constant-radius bend) but keeps every
-transient -- and the transients are the suspension's signature.
+The rate is integrated and DC-blocked at --hp (0.1 Hz, the project convention)
+to shed integrator drift, which costs the true DC tilt (camber, a long
+constant-radius bend) but keeps every transient -- and the transients are the
+suspension's signature. 0.1 Hz is far below the 1.2-1.5 Hz body roll being
+measured, so it takes the drift and leaves the signal.
 
 Both phones must sit near the centreline for this to compare. A phone offset
 laterally also sees roll as apparent vertical acceleration (see deroll in
@@ -43,6 +45,7 @@ from imu_compare_pdf import load_drive
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 COL = {"a": "#d1495b", "b": "#2a9d8f"}
+STD_COL = "#b2182b"
 
 
 def onroute_slice(d, pad_s=5.0):
@@ -87,23 +90,30 @@ def bucket(x, t, v, ikm, fs, vmin):
     V = v[:k * n].reshape(k, n).mean(axis=1)
     K = ikm[:k * n].reshape(k, n).mean(axis=1)
     S = X.std(axis=1)
+    T = np.arange(k) + 0.5
     m = (V > vmin) & np.isfinite(K)
-    return S[m], V[m], K[m]
+    return S[m], V[m], K[m], T[m]
 
 
 def main():
-    p = argparse.ArgumentParser()
+    p = argparse.ArgumentParser(description=__doc__,
+                                formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--a", required=True)
     p.add_argument("--a-gpx", required=True)
     p.add_argument("--a-label", default="A")
     p.add_argument("--b", required=True)
     p.add_argument("--b-gpx", required=True)
     p.add_argument("--b-label", default="B")
-    p.add_argument("--hp", type=float, default=0.05,
-                   help="high-pass for the roll integration (Hz)")
+    p.add_argument("--hp", type=float, default=0.1,
+                   help="DC block for the roll integration (Hz) — 0.1 is the "
+                        "project convention, same as load_drive uses")
     p.add_argument("--vmin", type=float, default=4.0, help="km/h floor")
+    p.add_argument("--x", choices=["time", "position"], default="time")
     p.add_argument("--smooth", type=float, default=0.25,
                    help="trace smoothing window (s)")
+    p.add_argument("--per-bin", type=int, default=45)
+    p.add_argument("--hist-pct", type=float, default=95.0)
+    p.add_argument("--weight", choices=["speed", "none"], default="speed")
     p.add_argument("--out", default="plots/roll_profile.svg")
     args = p.parse_args()
 
@@ -118,69 +128,102 @@ def main():
             d[k] = d[k][sl]
         ker = np.ones(max(1, int(args.smooth * d["fs"])))
         ker = ker / ker.sum()
+        S, V, K, T = bucket(ang, d["t"], d["v"], d["ikm"], d["fs"], args.vmin)
         D[tag] = dict(d=d, lab=lab, ang=ang, rate=rate,
-                      ang_s=np.convolve(ang, ker, mode="same"))
+                      ang_s=np.convolve(ang, ker, mode="same"),
+                      S=S, V=V, K=K, T=T)
 
-    fig, (a1, a2, a3) = plt.subplots(
-        3, 1, figsize=(13, 11),
-        gridspec_kw={"height_ratios": [2.0, 1.6, 1.4]})
-
-    # ---- 1. the roll motion itself, along the route
     for tag in ("a", "b"):
         e = D[tag]; d = e["d"]
-        m = np.isfinite(d["ikm"]) & (d["v"] > args.vmin)
-        a1.plot(d["ikm"][m], e["ang_s"][m], lw=0.5, color=COL[tag],
-                alpha=0.85, label=f'{e["lab"]}')
-    a1.axhline(0, color="#888", lw=0.8, ls="--")
-    a1.set_ylabel("roll angle (deg)")
-    a1.set_title("body roll along the route — rotation about the forward axis "
-                 f"(gyro, high-passed {args.hp} Hz)")
-    a1.legend(loc="upper right", fontsize=9)
-    a1.grid(alpha=0.3)
+        e["x"] = (d["t"] - d["t"][0]) if args.x == "time" else d["ikm"]
+        e["sx"] = e["T"] if args.x == "time" else e["K"]
+        e["ok"] = np.isfinite(e["x"]) & (d["v"] > args.vmin)
 
-    # ---- 2. rolling amplitude, so the two are comparable at a glance
-    for tag in ("a", "b"):
-        e = D[tag]; d = e["d"]
-        S, V, K = bucket(e["ang"], d["t"], d["v"], d["ikm"], d["fs"], args.vmin)
-        o = np.argsort(K)
-        w = max(1, len(S) // 60)
-        ker = np.ones(w) / w
-        a2.plot(K[o], np.convolve(S[o], ker, mode="same"), lw=1.6,
-                color=COL[tag], label=f'{e["lab"]}  median {np.median(S):.3f} deg')
-        e["S"], e["V"] = S, V
-    a2.set_ylabel("roll amplitude\n(per-second std, deg)")
-    a2.set_xlabel("position (km from home)")
-    a2.legend(loc="upper right", fontsize=9)
-    a2.grid(alpha=0.3)
+    ylim = 1.05 * max(np.percentile(np.abs(D[t]["ang"]), 99.8) for t in "ab")
+    slim = 1.05 * max(np.percentile(D[t]["S"], 99.5) for t in "ab")
+    xlo = min(D[t]["x"][D[t]["ok"]].min() for t in "ab")
+    xhi = max(D[t]["x"][D[t]["ok"]].max() for t in "ab")
+    xlab = ("time since the drive started (s)" if args.x == "time"
+            else "position (km from home)")
 
-    # ---- 3. distribution over DISTANCE (speed-weighted, as elsewhere)
+    fig = plt.figure(figsize=(16, 9))
+    gs = fig.add_gridspec(5, 1, hspace=0.42, left=0.06, right=0.985,
+                          top=0.905, bottom=0.055,
+                          height_ratios=[1, 1, 1, 1, 0.85])
+    axes = [fig.add_subplot(gs[i]) for i in range(4)]
+    axh = fig.add_subplot(gs[4])
+
+    for ax, tag, kind in ((axes[0], "a", "roll"), (axes[1], "a", "std"),
+                          (axes[2], "b", "roll"), (axes[3], "b", "std")):
+        e = D[tag]
+        if kind == "roll":
+            ax.axhline(0, color="#444", lw=0.9)
+            ax.fill_between(e["x"][e["ok"]], 0, e["ang_s"][e["ok"]],
+                            color=COL[tag], lw=0, alpha=.35)
+            ax.plot(e["x"][e["ok"]], e["ang_s"][e["ok"]], lw=0.4, color=COL[tag])
+            ax.set_ylim(-ylim, ylim)
+            ax.set_ylabel("roll angle (deg)\n−left     +right", fontsize=8)
+            ax.set_title(f'{e["lab"]} — body roll, rotation about the forward '
+                         f"axis (DC blocked at {args.hp:g} Hz)",
+                         fontsize=10, loc="left")
+        else:
+            ax.fill_between(e["sx"], 0, e["S"], color=STD_COL, lw=0,
+                            alpha=.30, step="mid")
+            ax.plot(e["sx"], e["S"], color=STD_COL, lw=0.6, drawstyle="steps-mid")
+            ax.set_ylim(0, slim)
+            ax.set_ylabel("std per second\n(deg)", fontsize=8)
+            ax.set_title(f'{e["lab"]} — per-second std of that roll',
+                         fontsize=10, loc="left")
+        ax.set_xlim(xlo, xhi)
+        ax.grid(alpha=.25)
+        ax.tick_params(labelsize=7)
+    axes[3].set_xlabel(xlab, fontsize=8, labelpad=1)
+
+    # ---- 5. distribution of the per-second std, same recipe as plot 5:
+    # equal-occupancy bins on the POOLED data, density so unequal widths and
+    # drive lengths stay comparable, last bin carries the overflow.
     pool = np.r_[D["a"]["S"], D["b"]["S"]]
-    hi = np.percentile(pool, 99.0)
-    core = pool[pool <= hi]
-    nb = max(8, len(core) // 45)
-    bins = np.unique(np.percentile(core, np.linspace(0, 100, nb + 1)))
-    bins[-1] = hi
-    wdt = np.diff(bins)
+    hi_ = float(np.percentile(pool, 99.5))
+    core = pool[pool <= hi_]
+    nb = max(8, len(core) // args.per_bin)
+    bins = np.unique(np.percentile(core, np.linspace(0.0, 100.0, nb + 1)))
+    bins[-1] = hi_
+    w = np.diff(bins)
     for tag in ("a", "b"):
         e = D[tag]
-        cnt, _ = np.histogram(np.clip(e["S"], bins[0], np.nextafter(hi, 0)),
-                              bins=bins, weights=e["V"])
-        dens = 100 * cnt / e["V"].sum() / wdt
-        a3.step(bins[:-1], dens, where="post", lw=1.6, color=COL[tag],
-                label=e["lab"])
-    a3.set_xlabel("per-second roll amplitude (deg)")
-    a3.set_ylabel("% of distance\nper deg")
-    a3.legend(loc="upper right", fontsize=9)
-    a3.grid(alpha=0.3)
+        wt = e["V"].copy() if args.weight == "speed" else np.ones_like(e["S"])
+        ovf_w = 100.0 * wt[e["S"] > bins[-1]].sum() / wt.sum()
+        cnt, _ = np.histogram(np.clip(e["S"], bins[0], np.nextafter(bins[-1], 0.0)),
+                              bins=bins, weights=wt)
+        h = 100.0 * cnt / wt.sum() / w
+        axh.step(np.r_[bins[0], bins], np.r_[0.0, h, 0.0], where="post",
+                 lw=1.6, color=COL[tag],
+                 label=f'{e["lab"]}   n={len(e["S"])}   overflow {ovf_w:.1f}%')
+    axh.axvline(bins[-1], color="#555555", lw=1.0, ls=":")
+    xmax = float(np.percentile(pool, args.hist_pct))
+    axh.set_xlim(0, xmax)
+    trunc = (f"   — view stops at p{args.hist_pct:g}, bins continue to {hi_:.2f}"
+             if xmax < hi_ * 0.99 else "")
+    axh.set_xlabel("per-second std of roll (deg)   — last bin includes overflow"
+                   + trunc)
+    axh.set_ylabel(("% of distance" if args.weight == "speed" else "% of seconds")
+                   + "\nper deg", fontsize=8)
+    axh.set_title(("speed-weighted " if args.weight == "speed" else "")
+                  + f"distribution of the per-second std — {len(bins)-1} "
+                  f"equal-occupancy bins (~{args.per_bin}/bin), last = overflow",
+                  fontsize=10, loc="left", pad=8)
+    axh.legend(fontsize=8)
+    axh.grid(alpha=.25)
+    axh.tick_params(labelsize=7)
 
-    fig.tight_layout()
+    fig.suptitle("body roll — the calculated time series", fontsize=11)
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     fig.savefig(args.out)
     print(f"wrote {args.out}")
 
-    def wq(x, w, q):
-        o = np.argsort(x); x, w = x[o], w[o]
-        c = np.cumsum(w) / w.sum()
+    def wq(x, wt, q):
+        o = np.argsort(x); x, wt = x[o], wt[o]
+        c = np.cumsum(wt) / wt.sum()
         return float(np.interp(q / 100, c, x))
 
     print(f"\n{'':22}{'p25':>9}{'p50':>9}{'p75':>9}{'p90':>9}   (deg, "
