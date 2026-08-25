@@ -108,7 +108,7 @@ def main():
                    help="DC block for the roll integration (Hz) — 0.1 is the "
                         "project convention, same as load_drive uses")
     p.add_argument("--vmin", type=float, default=4.0, help="km/h floor")
-    p.add_argument("--x", choices=["time", "position"], default="time")
+    p.add_argument("--x", choices=["position", "time"], default="position")
     p.add_argument("--smooth", type=float, default=0.25,
                    help="trace smoothing window (s)")
     p.add_argument("--per-bin", type=int, default=45)
@@ -177,7 +177,7 @@ def main():
         ax.set_xlim(xlo, xhi)
         ax.grid(alpha=.25)
         ax.tick_params(labelsize=7)
-    axes[3].set_xlabel(xlab, fontsize=8, labelpad=1)
+    axes[3].set_xlabel(xlab, fontsize=8, labelpad=0)
 
     # ---- 5. distribution of the per-second std, same recipe as plot 5:
     # equal-occupancy bins on the POOLED data, density so unequal widths and
@@ -211,12 +211,12 @@ def main():
     axh.set_title(("speed-weighted " if args.weight == "speed" else "")
                   + f"distribution of the per-second std — {len(bins)-1} "
                   f"equal-occupancy bins (~{args.per_bin}/bin), last = overflow",
-                  fontsize=10, loc="left", pad=8)
+                  fontsize=10, loc="left", pad=12)
     axh.legend(fontsize=8)
     axh.grid(alpha=.25)
     axh.tick_params(labelsize=7)
 
-    fig.suptitle("body roll — the calculated time series", fontsize=11)
+    fig.suptitle("body roll — rotation about the forward axis", fontsize=11)
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     fig.savefig(args.out)
     print(f"wrote {args.out}")
