@@ -361,13 +361,40 @@ def summarize(pts: list[tuple], pockets: list[dict], path: str,
     }
 
 
-def append(path: str, fields: list[str], rows: list[dict]) -> None:
+def append(path: str, fields: list[str], rows: list[dict],
+           key: tuple[str, ...] | None = None) -> None:
+    """Write rows, REPLACING any that describe the same drive.
+
+    This used to open in "a" mode and write unconditionally, so re-running the
+    ingest on a file already in the CSV appended a second copy. Every trace had
+    accumulated four identical rows (197 summary rows for 52 drives), and one
+    drive appeared under two vehicles: it was ingested as honda-brio, the file
+    was renamed to honda-jazz, and the second ingest added rather than replaced.
+
+    `key` names the fields identifying a drive -- (date, start_time), NOT the
+    filename, so a rename still replaces instead of duplicating. Without a key
+    (pockets, which carry no start_time) exact-duplicate rows are dropped, which
+    stops the pile-up without risking a same-date drive being clobbered.
+    """
     os.makedirs(DATA, exist_ok=True)
-    new = not os.path.exists(path)
-    with open(path, "a", newline="") as f:
+    old_rows = []
+    if os.path.exists(path):
+        with open(path, newline="") as f:
+            old_rows = [r for r in csv.DictReader(f)]
+
+    if key:
+        incoming = {tuple(str(r[k]) for k in key) for r in rows}
+        kept = [r for r in old_rows
+                if tuple(str(r[k]) for k in key) not in incoming]
+    else:
+        incoming = {tuple(str(r[k]) for k in fields) for r in rows}
+        kept = [r for r in old_rows
+                if tuple(str(r[k]) for k in fields) not in incoming]
+
+    with open(path, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=fields)
-        if new:
-            w.writeheader()
+        w.writeheader()
+        w.writerows(kept)
         w.writerows(rows)
 
 
@@ -444,7 +471,8 @@ def main() -> int:
         pts, direction, partial, trim = r["pts"], r["direction"], r["partial"], r["trim"]
         pockets = find_pockets(pts, max_kmh, args.min_pocket_sec)
         summary = summarize(pts, pockets, r["path"], direction, partial, trim)
-        append(os.path.join(DATA, f"{direction}_summary.csv"), SUMMARY_FIELDS, [summary])
+        append(os.path.join(DATA, f"{direction}_summary.csv"), SUMMARY_FIELDS,
+               [summary], key=("date", "start_time"))
         append(os.path.join(DATA, f"{direction}_pockets.csv"), POCKET_FIELDS,
                [{"date": summary["date"], **p} for p in pockets])
         if direction in routes:  # partials still cover valid sections of the axis
@@ -458,7 +486,8 @@ def main() -> int:
                           f"projection artifact", file=sys.stderr)
             append(os.path.join(DATA, f"{direction}_sections.csv"), SECTION_FIELDS,
                    [{"date": summary["date"], "start_time": summary["start_time"],
-                     "bike": summary["bike"], **s} for s in sections])
+                     "bike": summary["bike"], **s} for s in sections],
+                   key=("date", "start_time"))
         flag = " [PARTIAL]" if partial else ""
         print(f"{summary['date']} {summary['start_time']} {direction}{flag}: "
               f"{summary['duration_min']} min, {summary['distance_km']} km, "

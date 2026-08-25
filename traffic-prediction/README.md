@@ -57,12 +57,17 @@ office and stay; `timezone_offset` localises the UTC GPS timestamps).
 - `gps/office-route/` — tagged commute traces (`...-<bike>.gpx`); the ingest source
 - `gps/others/` — journeys that aren't the office commute (kept, not ingested)
 
+Re-ingesting a trace is safe: rows are keyed on `(date, start_time)` and
+replaced, not appended. The key is deliberately NOT the filename, so relabelling
+a trace's vehicle (`...-honda-brio.gpx` -> `...-honda-jazz.gpx`) moves the drive
+instead of recording it under both cars.
+
 Drop commute traces into `gps/office-route/` and ingest — direction is detected
 automatically, so you can pass both legs (or the whole folder) at once:
 
 ```bash
 python3 ingest_gpx.py gps/office-route/*.gpx
-#    -> appends data/{onward,return}_summary.csv + _pockets.csv + _sections.csv
+#    -> writes data/{onward,return}_summary.csv + _pockets.csv + _sections.csv
 
 # redraw the plots whenever you want to look
 python3 plot_commute.py
