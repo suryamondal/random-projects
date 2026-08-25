@@ -202,6 +202,52 @@ python3 plot_commute.py        # commute history plot set
 
 ---
 
+## 9. Roll-rate spectrum, two drives
+
+**Answers:** which car has the softer suspension — when roll AMPLITUDE says
+nothing. At commute pace the roll is road-driven, one wheel at a time, so the
+same tarmac tips both bodies by the same couple of degrees: `roll_profile.py`
+measures Brio/Jazz at 1.05 / 1.08 / 1.00 / 0.97 across the quartiles. The
+difference is in the RESPONSE. A soft, softly-damped body has a LOW roll natural
+frequency and rings; a stiff one sits higher and snaps back.
+
+```bash
+python3 roll_spectrum.py \
+  --a sensors/2026-08-22_05-27-31.zip --a-gpx gps/office-route/20260822-105844-honda-jazz.gpx --a-label "Jazz — you" \
+  --b sensors/2026-08-25_04-10-18.zip --b-gpx gps/office-route/20260825-094024-honda-brio.gpx --b-label "Brio — him"
+```
+
+Layout follows plot 5: one panel per car with speed behind it, shared scales,
+comparison overlaid at the bottom. The per-car panels are **spectrograms in
+position**, so a resonance can be told apart from one rough patch of road — both
+cars light up at 3.2-3.8 km, and that is the road, not the car.
+
+Measured, phones in the centre console on both:
+
+| | peak | centroid | 0.8-1.5 Hz | 1.5-3.0 Hz |
+|---|---|---|---|---|
+| Jazz | **1.46 Hz** | 1.92 Hz | 38.4 % | 36.6 % |
+| Brio | **1.17 Hz** | 2.07 Hz | 46.1 % | 18.4 % |
+
+The Brio's body resonates a quarter lower and holds most of its roll power below
+1.5 Hz; the Jazz's sits higher with 2x the share in 1.5-3.0 Hz. Roll frequency
+goes as sqrt(stiffness/inertia), so 1.46/1.17 implies roughly **1.5x the roll
+stiffness** in the Jazz — the soft/hard split that amplitude alone could not show.
+
+**Normalise before comparing.** The absolute PSD panel is included but the faster
+drive puts more energy in at EVERY frequency; only the unit-power shape isolates
+where the body resonates. Resonant frequency is a property of mass and spring
+rate, so unlike amplitude it does not care about speed — that is what makes two
+drives at different paces comparable at all.
+
+| option | default | note |
+|---|---|---|
+| `--fmax` | `15` | above ~15 Hz a wedged phone stops tracking the body (gotcha 6); nothing up there is the car |
+| `--vmin` | `8` | km/h floor — crawling puts no energy into the springs |
+| `--nperseg` | `2048` | ~20 s at 100 Hz; enough resolution to separate 1.17 from 1.46 Hz |
+
+---
+
 ## Data intake
 
 ```bash
@@ -292,7 +338,14 @@ detour (`--corridor 60 --min-detour 300 --min-depth 200`).
    If something ever genuinely needs files on disk, use a `./tmp` inside the
    project, never the system `/tmp`.
 
-8. **`Annotation.csv` in the Sensor Logger export is empty.** Tapping the
+8. **A recording brackets its drive, and the phone gets HANDLED at both ends.**
+   Peak roll rates of 329 deg/s appear in the first and last seconds — that is a
+   hand, not a car. Integrating roll rate across them bled an 85 deg excursion in
+   through the filter edges; trimmed to the on-route span the same drive peaks at
+   a physical 4.2 deg. `roll_profile.onroute_slice()` trims BEFORE filtering —
+   masking afterwards does not help, the edge transient is already smeared inward.
+
+9. **`Annotation.csv` in the Sensor Logger export is empty.** Tapping the
    annotation button at each speed breaker would timestamp crossings exactly and
    make per-breaker impact measurable — currently it is not, because breaker
    coordinates carry 10–20 m of their own error and the axle-pair signature
