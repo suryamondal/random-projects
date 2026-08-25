@@ -217,10 +217,15 @@ python3 roll_spectrum.py \
   --b sensors/2026-08-25_04-10-18.zip --b-gpx gps/office-route/20260825-094024-honda-brio.gpx --b-label "Brio — him"
 ```
 
-Layout follows plot 5: one panel per car with speed behind it, shared scales,
-comparison overlaid at the bottom. The per-car panels are **spectrograms in
-position**, so a resonance can be told apart from one rough patch of road — both
-cars light up at 3.2-3.8 km, and that is the road, not the car.
+**Layout is plot 5's**, panel for panel: 16:9, A's signal, A's per-second
+summary, then the same two for B, and the comparison in a fifth panel. Speed is
+drawn behind each signal panel on its own km/h axis, spectrogram dB and centroid
+scales are shared between the cars, and speed breakers are marked.
+
+The signal panel is a **spectrogram in position**, so a resonance can be told
+apart from one rough patch of road — both cars light up at 3.2-3.8 km, and that
+is the road, not the car. The summary panel is the **spectral centroid**: where
+that second's roll energy sat.
 
 Measured, phones in the centre console on both:
 
