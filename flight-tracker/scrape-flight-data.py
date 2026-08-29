@@ -1,0 +1,400 @@
+#!/usr/bin/env python3
+"""
+Polished FR24 scraper that uses lynx -dump output as source of truth.
+
+Usage:
+  python3 scrape_fr24_lynx_polished.py -f regs.txt -o outdir
+
+Requires: lynx installed and on PATH.
+"""
+import argparse
+import subprocess
+import json
+import os
+import time
+import random
+import re
+import time
+from statistics import mean
+import signal
+import sys
+
+interrupted = False
+
+def handle_sigint(signum, frame):
+    global interrupted
+    interrupted = True
+    print("\n\n[CTRL-C] Graceful stop requested… finishing current task.")
+signal.signal(signal.SIGINT, handle_sigint)
+
+
+def format_time(sec):
+    if sec < 60:
+        return f"{sec:.1f}s"
+    elif sec < 3600:
+        return f"{sec/60:.1f}m"
+    else:
+        return f"{sec/3600:.1f}h"
+
+
+def human_sleep():
+    # mostly between 2–7 seconds, but occasionally a long break
+    base = random.normalvariate(4.5, 1.8)
+    long_pause = False
+    if random.random() < 0.03:  # 3% chance of long safety pause
+        base += random.uniform(12, 25)
+        long_pause = True
+    delay = max(1.2, base)
+    if long_pause:
+        print(f"[PAUSE] Long safety sleep: {delay:.1f}s (simulating human idle)")
+    else:
+        print(f"[PAUSE] Sleeping {delay:.1f}s")
+    time.sleep(delay)
+
+
+def show_progress(done, total, avg_sleep):
+    percent = (done / total) * 100
+    est_left = (total - done) * avg_sleep
+    bar_len = 30
+    filled = int(bar_len * done / total)
+    bar = "#" * filled + "-" * (bar_len - filled)
+
+    print(f"\r[{bar}] {percent:5.1f}%  {done}/{total}",
+          end="\n", flush=True)
+
+
+# --------------------------
+# Run lynx and return text
+# --------------------------
+UAS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+    "Mozilla/5.0 (X11; Linux x86_64)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)",
+]
+def lynx_dump(url, timeout=25):
+    try:
+        ua = random.choice(UAS)
+        out = subprocess.check_output(
+            ["lynx", "-dump", "-nolist",
+             f"-useragent={ua}",
+             url],
+            stderr=subprocess.STDOUT,
+            timeout=timeout   # <-- HARD TIMEOUT (seconds)
+        ).decode("utf-8", errors="ignore")
+        return out
+
+    except subprocess.TimeoutExpired:
+        print(f"[TIMEOUT] lynx exceeded {timeout}s → skipping")
+        return ""
+
+    except subprocess.CalledProcessError as e:
+        print(f"[ERROR] lynx failed: {e}")
+        return ""
+
+    except FileNotFoundError:
+        print("[ERROR] lynx not found. Install lynx or use another method.")
+        return ""
+
+# --------------------------
+# Cleaning helpers
+# --------------------------
+DASH_CHARS = {"-", "—", "\u2014", "\u2013", "\u2012"}  # common dash variants
+
+def normalize_dash(s):
+    """Normalize dash-like strings to a single em-dash or None as required."""
+    if s is None:
+        return None
+    s = s.strip()
+    if s == "":
+        return None
+    # replace non-breaking spaces and weird whitespace
+    s = s.replace("\u00A0", " ").strip()
+    # if the value is just a dash (any variant) treat as None
+    if all(ch in DASH_CHARS or ch.isspace() for ch in s) and len(s) <= 3:
+        return None
+    return s
+
+def remove_prefix(value, prefix):
+    """Remove prefix (case sensitive) if present and strip; then normalize dashes."""
+    if value is None:
+        return None
+    v = value.strip()
+    if v.startswith(prefix):
+        v = v[len(prefix):].strip()
+    return normalize_dash(v)
+
+# --------------------------
+# Meta extraction
+# --------------------------
+def extract_aircraft_type(text):
+    lines = [ln.strip() for ln in text.splitlines()]
+    for idx, ln in enumerate(lines):
+
+        # CASE A: AIRCRAFT and type on SAME line
+        if ln.startswith("AIRCRAFT "):
+            parts = ln.split()
+            # parts[0] = AIRCRAFT, remaining = type words
+            type_words = parts[1:3]  # first two words only
+            return " ".join(type_words).strip()
+
+        # CASE B: AIRCRAFT on its own line → next non-empty line is type
+        if ln == "AIRCRAFT":
+            # find next non-empty line
+            for nxt in lines[idx+1:]:
+                if nxt:
+                    parts = nxt.split()
+                    type_words = parts[:2]  # first two words only
+                    return " ".join(type_words).strip()
+
+    return None  # if not found
+
+def extract_meta(text):
+    operator = None
+    aircraft_type = None
+
+    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+
+    # AIRLINE and OPERATOR extraction (keep your existing logic)
+    for idx, ln in enumerate(lines):
+        if ln.upper() == "AIRLINE":
+            operator = re.sub(r"\[\d+\]", "", lines[idx+1]).strip()
+        elif ln.upper().startswith("AIRLINE "):
+            operator = re.sub(r"\[\d+\]", "", ln[len("AIRLINE "):]).strip()
+
+        if ln.upper() == "OPERATOR":
+            operator = lines[idx+1].strip()
+        elif ln.upper().startswith("OPERATOR "):
+            operator = ln[len("OPERATOR "):].strip()
+
+    aircraft_type = extract_aircraft_type(text)
+
+    return operator, aircraft_type
+
+# --------------------------
+# Flight parsing
+# --------------------------
+# Pattern to detect flight codes such as '6E7246', 'IGO92HY', etc.
+FLIGHT_RE = re.compile(r"^[A-Z0-9/]{1,6}\d{1,5}$", re.I)
+
+def parse_flights(text):
+    """
+    Parse the lynx-dumped text into flight records.
+    The lynx dump tends to present blocks:
+      <flight>
+      <date>
+      <flight_time>
+      <status or 'Landed ...'>
+      STD
+      <std>
+      ATD
+      <atd>
+      STA
+      <sta>
+      FROM
+      <FROM ...>
+      TO
+      <TO ...>
+    We'll scan lines and extract blocks following that pattern.
+    """
+    lines = [ln.rstrip() for ln in text.splitlines()]
+    # compact lines by removing empty lines but keep index positions flexible
+    idx = 0
+    flights = []
+
+    while idx < len(lines):
+        ln = lines[idx].strip()
+        # detect a flight code line
+        if FLIGHT_RE.match(ln):
+            # attempt to harvest fields safely with bounds checks
+            try:
+                flight = ln
+                date = lines[idx + 1].strip()
+                flight_time = normalize_dash(lines[idx + 2].strip())
+                status = normalize_dash(lines[idx + 3].strip())
+
+                # The labels STD/ATD/STA appear on lines; values usually 2 lines after label in lynx dump
+                # Find the next occurrences of STD, ATD, STA and their values robustly
+                # We'll search forward a limited amount to find STD/ATD/STA lines.
+                std = atd = sta = None
+                from_field = to_field = None
+
+                # scan up to next 20 lines for the labels and values
+                for j in range(idx + 4, min(idx + 40, len(lines))):
+                    s = lines[j].strip()
+                    # STD label may be present alone on line 'STD' then value on next; or 'STD 03:00'
+                    if s == "STD" and j + 1 < len(lines):
+                        std = normalize_dash(lines[j + 1].strip())
+                    elif s.startswith("STD "):
+                        std = normalize_dash(s[len("STD "):].strip())
+                    elif s == "ATD" and j + 1 < len(lines):
+                        atd = normalize_dash(lines[j + 1].strip())
+                    elif s.startswith("ATD "):
+                        atd = normalize_dash(s[len("ATD "):].strip())
+                    elif s == "STA" and j + 1 < len(lines):
+                        sta = normalize_dash(lines[j + 1].strip())
+                    elif s.startswith("STA "):
+                        sta = normalize_dash(s[len("STA "):].strip())
+                    elif s == "FROM" and j + 1 < len(lines):
+                        from_field = lines[j + 1].strip()
+                    elif s.startswith("FROM "):
+                        from_field = s[len("FROM "):].strip()
+                    elif s == "TO" and j + 1 < len(lines):
+                        to_field = lines[j + 1].strip()
+                    elif s.startswith("TO "):
+                        to_field = s[len("TO "):].strip()
+
+                    # break early if we've found FROM and TO (typical end of block)
+                    if from_field and to_field:
+                        break
+
+                # If any of std/atd/sta still None, allow them to be None (normalize_dash already did)
+                # Clean the FROM/TO fields to remove any "FROM"/"TO" prefixes (if present)
+                if from_field:
+                    from_field = remove_prefix(from_field, "FROM ")
+                if to_field:
+                    to_field = remove_prefix(to_field, "TO ")
+
+                # flight_time: if '-' or None -> make None
+                flight_time = normalize_dash(flight_time)
+
+                flights.append({
+                    "date": date if date else None,
+                    "from": from_field if from_field else None,
+                    "to": to_field if to_field else None,
+                    "flight": flight,
+                    "flight_time": flight_time,
+                    "std": std,
+                    "atd": atd,
+                    "sta": sta,
+                    "status": status if status else None
+                })
+
+                # advance index past this block. We jump to after the 'TO' value line if possible,
+                # otherwise move +1 to avoid infinite loop.
+                if to_field:
+                    # find the index of that 'TO' value and continue from next line
+                    # simple scan to find first occurrence of that exact to_field after idx
+                    found = False
+                    for k in range(idx + 4, min(len(lines), idx + 80)):
+                        if lines[k].strip() == to_field:
+                            idx = k + 1
+                            found = True
+                            break
+                    if not found:
+                        idx += 6
+                else:
+                    idx += 6
+
+                continue
+
+            except IndexError:
+                # not enough remaining lines to parse a full block; break out
+                break
+
+        idx += 1
+
+    # FR24 shows most recent first in dump; user requested earliest first
+    flights.reverse()
+    return flights
+
+# --------------------------
+# Scrape single registration
+# --------------------------
+def scrape(reg, timeout):
+    url = f"https://www.flightradar24.com/data/aircraft/{reg.lower()}"
+    txt = lynx_dump(url, timeout=timeout)
+    if not txt:
+        return {
+            "registration": reg.upper(),
+            "operator": None,
+            "type": None,
+            "flight_history": []
+        }
+
+    operator, aircraft_type = extract_meta(txt)
+    flights = parse_flights(txt)
+
+    return {
+        "registration": reg.upper(),
+        "operator": operator,
+        "type": aircraft_type,
+        "flight_history": flights
+    }
+
+# --------------------------
+# CLI
+# --------------------------
+def load_registrations_from_files(paths):
+    regs = []
+    for path in paths:
+        with open(path, "r", encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if not line or line.startswith("#"):
+                    continue
+                regs.append(line)
+    return regs
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-f", "--files", nargs="+", required=True,
+                        help="One or more files containing registration numbers")
+    parser.add_argument("-o", "--output", default="database/data", help="Output directory")
+    parser.add_argument("--timeout", type=int, default=25,
+                        help="Max seconds per aircraft scrape (default: 25)")
+    args = parser.parse_args()
+
+    # ------------------------------------------
+    # BACKUP EXISTING OUTPUT DIRECTORY (if any)
+    # ------------------------------------------
+    if os.path.isdir(args.output):
+        ts = time.strftime("%Y%m%d_%H%M%S")
+        backup_dir = f"{args.output}_backup_{ts}"
+        print(f"[BACKUP] Existing directory detected. Backup to → {backup_dir}")
+        os.rename(args.output, backup_dir)
+
+    regs = load_registrations_from_files(args.files)
+    os.makedirs(args.output, exist_ok=True)
+
+    times = []
+    total = len(regs)
+    done = 0
+
+    for reg in regs:
+        start = time.time()
+
+        if interrupted:
+            break
+
+        print(f"\nScraping {reg} ...")
+        data = scrape(reg, args.timeout)
+
+        out_path = os.path.join(args.output, f"{reg.upper()}.json")
+        with open(out_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+
+        print(f"Saved → {out_path}  (flights: {len(data['flight_history'])})")
+
+        # timing
+        elapsed = time.time() - start
+        times.append(elapsed)
+        avg_sleep = mean(times) if times else 5
+
+        done += 1
+        show_progress(done, total, avg_sleep)
+
+        if done < total:
+            human_sleep()   # your existing sleep function
+
+    print("\n\n=== SUMMARY ===")
+    print(f"Total aircraft: {total}")
+    print(f"Completed:      {done}")
+    print(f"Skipped:        {total - done}")
+    if interrupted:
+        print("Interrupted by user.")
+    else:
+        print("Finished normally.")
+
+if __name__ == "__main__":
+    main()

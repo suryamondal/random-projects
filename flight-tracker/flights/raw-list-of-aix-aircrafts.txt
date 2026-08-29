@@ -1,0 +1,110 @@
+Reg	Aircraft Type	Config	Delivered	Remark	Age	
+VT-ATB	Airbus A320-200 	Y180	Oct 2024	lsd	11.8 Years	
+VT-ATF	Airbus A320-200	Y180	Mar 2024	lsd	11.8 Years	
+VT-BKK	Airbus A320-200	Y180	Oct 2024	lsd	15.6 Years	
+VT-BOM	Airbus A320-200	Y180	Oct 2024	lsd	13.9 Years	
+VT-EXA	Airbus A320-200	Y180	Feb 2025	lsd	10.9 Years	
+VT-EXB	Airbus A320-200	Y180	Feb 2025	lsd	10.4 Years	
+VT-EXC	Airbus A320-200	Y180	Feb 2025	lsd	10.4 Years	
+VT-EXD	Airbus A320-200	Y180	Oct 2024	lsd	10.3 Years	
+VT-EXE	Airbus A320-200	Y180	Oct 2024	lsd	10.2 Years	
+VT-IXR	Airbus A320-200	Y180	Oct 2024	lsd	16.9 Years	
+VT-JPR	Airbus A320-200	Y180	Oct 2024	lsd	17.5 Years	
+VT-JRT	Airbus A320-200	Y180	Oct 2024	lsd	17.8 Years	
+VT-KUL	Airbus A320-200	Y180	Oct 2024	lsd	18 Years	
+VT-MLE	Airbus A320-200	Y180	Oct 2024	lsd	18.1 Years	
+VT-VNS	Airbus A320-200	Y180	Oct 2024	lsd	11.5 Years	
+VT-VTZ	Airbus A320-200	Y180	Oct 2024	lsd	15.4 Years	
+VT-ATD	Airbus A320neo	Y186	Nov 2023	lsd, "Ajrakh"  tail	5.5 Years	
+VT-ATE	Airbus A320neo	Y186	Dec 2023	lsd	5.3 Years	
+VT-ATG	Airbus A320neo	Y186	Dec 2023	lsd	5.2 Years	
+VT-ATH	Airbus A320neo	Y186	Oct 2024	lsd	4.7 Years	
+VT-ATJ	Airbus A320neo	Y186	Sep 2023	lsd, "Paithani"  tail	4.5 Years	
+VT-RTF	Airbus A320neo	Y186	Jan 2025	lsd	2.2 Years	
+VT-RTG	Airbus A320neo	Y186	Jan 2025	lsd	2 Years	
+VT-RTH	Airbus A320neo	Y186	Feb 2025	lsd	2 Years	
+VT-RTI	Airbus A320neo	Y186	Jan 2025	lsd	2 Years	
+VT-RTO	Airbus A320neo	Y186	Dec 2024	lsd	2.1 Years	
+VT-RTP	Airbus A320neo	Y186	Dec 2024	lsd	2.1 Years	
+VT-RTQ	Airbus A320neo	Y186	Dec 2024	lsd	2.1 Years	
+VT-RTB	Airbus A321neo	Y232	Apr 2025	lsd	2.6 Years	
+VT-RTC	Airbus A321neo	C6Y186	Apr 2025	lsd	2.7 Years	
+VT-RTD	Airbus A321neo	C6Y186	Aug 2025	lsd, "Gota Patti" tail	2.8 Years	
+VT-RTE	Airbus A321neo	Y232	Apr 2025	lsd	2.6 Years	
+VT-AXI	Boeing 737-800	Y186	Dec 2006	"Ragini Todi / Solah Shringar" tail	19 Years	
+VT-AXJ	Boeing 737-800	Y186	Jan 2007	"Red Fort / Gwalior Fort" tail	19 Years	
+VT-AXM	Boeing 737-800	Y186	Jan 2007	"Mehrangarh Fort Palace / Mysore Palace" tail	19 Years	
+VT-AXN	Boeing 737-800	Y186	Jan 2007	"Kochi-Muziris Biennale"  tail	18.9 Years	
+VT-AXP	Boeing 737-800	Y186	Feb 2007	"Hans Damayanti / Music" tail	18.9 Years	
+VT-AXQ	Boeing 737-800	Y186	May 2007	"Qutb Minar / Jantar Mantar" tail	18.6 Years	
+VT-AXR	Boeing 737-800	Y186	Jul 2007	"Chundan Vallam / Kalaripayattu" tail	18.4 Years	
+VT-AXT	Boeing 737-800	Y186	Jul 2007	Parked / Maintenance, "Peacock / Stork" tail	18.4 Years	
+VT-AXU	Boeing 737-800	Y186	Oct 2007	"Garba Dance / Bihu Dance" tail	18.3 Years	
+VT-AXW	Boeing 737-800	Y186	Jun 2008	"Great Stupa / Charminar" tail	17.6 Years	
+VT-AXX	Boeing 737-800	Y186	Jul 2008	"Beach / Himalayas" tail	17.4 Years	
+VT-AXZ	Boeing 737-800	Y186	Feb 2009	"Himalayan Peaks / Desert" tail	16.9 Years	
+VT-AYA	Boeing 737-800	Y186	Apr 2009	"Ellora Caves / Ajanta Caves" tail	16.7 Years	
+VT-AYB	Boeing 737-800	Y186	Jul 2009	"White Tiger / Spotted Deer" tail	16.4 Years	
+VT-AYC	Boeing 737-800	Y186	Sep 2009	"Patola / Shawl" tail	16.2 Years	
+VT-AYD	Boeing 737-800	Y186	Dec 2009	"Nagaland Folk Dance / Manipuri Dance" tail	16 Years	
+VT-GHA	Boeing 737-800	Y189	Mar 2016	lsd, "Elephant / Camel" tail	9.8 Years	
+VT-GHB	Boeing 737-800	Y189	Apr 2016	lsd, "Rangoli / Kites" tail	9.6 Years	
+VT-GHC	Boeing 737-800	Y189	May 2016	lsd, "Sitar / Tabla" tail	9.6 Years	
+VT-GHD	Boeing 737-800	Y189	Sep 2016	lsd, "Samai / Diya" tail	9.3 Years	
+VT-GHE	Boeing 737-800	Y189	Oct 2016	lsd, "Kathakali / Bharatanatyam" tail	9.2 Years	
+VT-GHF	Boeing 737-800	Y189	Nov 2016	lsd, "Konark Sun Temple / Taj Mahal" tail	9.1 Years	
+VT-GHI	Boeing 737-800	Y189	Oct 2018	lsd, "Harmandir Sahib / Bhangra" tail	7.2 Years
+VT-GHK	Boeing 737-800	Y189	Sep 2018	lsd, "Spices / Fishing" tail	7.3 Years	
+VT-TGG	Boeing 737-800	Y186	Jan 2023	lsd, Dil-Luminati Tour India cs	11.6 Years	
+VT-TGH	Boeing 737-800	Y186	Jan 2023	lsd	11.6 Years	
+VT-BWA	Boeing 737 MAX 8	Y184	Aug 2024	lsd, "Mathura Sanjhi" tail	6.4 Years	
+VT-BWB	Boeing 737 MAX 8	Y184	Jun 2024	lsd, "Jaapi"  tail	6.4 Years	
+VT-BWC	Boeing 737 MAX 8	C8Y154	Jul 2024	lsd, "Bomkai"  tail	6.6 Years	
+VT-BWD	Boeing 737 MAX 8	Y189	Dec 2024	"Tsüngkotepsü" tail	6.7 Years	
+VT-BWE	Boeing 737 MAX 8	Y184	Jul 2024	lsd, "Toda"  tail	6.2 Years	
+VT-BWF	Boeing 737 MAX 8	C8Y154	Jul 2024	Parked / Maintenance, "Danka" tail	3.6 Years	
+VT-BWG	Boeing 737 MAX 8	C8Y154	Sep 2024	lsd, "Kashmiri Handknotted Carpet" tail	6.9 Years	
+VT-BWH	Boeing 737 MAX 8	Y184	Sep 2024	lsd, "Mata Ni Pachedi" tail	6.1 Years	
+VT-BWI	Boeing 737 MAX 8	C8Y168	Feb 2025	lsd, "100th Aircraft" sticker, "Chittara" tail	6 Years	
+VT-BWJ	Boeing 737 MAX 8	C8Y154	Feb 2025	lsd, "Tangaliya Shawl"  tail	6.1 Years	
+VT-BWK	Boeing 737 MAX 8	CY178	Jan 2025	lsd, "Kashmiri Sozani" tail	6.6 Years	
+VT-BWL	Boeing 737 MAX 8	C4Y174	Feb 2025	lsd, "Khes"  tail	6.6 Years	
+VT-BWM	Boeing 737 MAX 8	C8Y168	Feb 2025	lsd, "Himroo"  tail	6.6 Years	
+VT-BWN	Boeing 737 MAX 8	C8Y168	Mar 2025	lsd, "Pipli"  tail	6.5 Years	
+VT-BWO	Boeing 737 MAX 8	C4Y174	Apr 2025	"Akyobi" tail	6.5 Years	
+VT-BWP	Boeing 737 MAX 8	C4Y174	Apr 2025	"Sanganeri Block Print" tail	6.4 Years	
+VT-BWQ	Boeing 737 MAX 8	Y184	May 2025	"Rogan"  tail	6.2 Years	
+VT-BWR	Boeing 737 MAX 8	Y184	Aug 2024	lsd, "Chamba Rumal"  tail	6.2 Years	
+VT-BWS	Boeing 737 MAX 8	C4Y174	Jun 2025	"Zardozi"  tail	6.7 Years	
+VT-BWT	Boeing 737 MAX 8	C4Y174	Apr 2025	"Solapur Chaddar"  tail	6.7 Years	
+VT-BWU	Boeing 737 MAX 8	Y184	Aug 2024	lsd, "Kutch"  tail	6.2 Years	
+VT-BWV	Boeing 737 MAX 8	C8Y160	Jul 2025	"Idu Mishmi" tail	6.4 Years	
+VT-BWW	Boeing 737 MAX 8	C4Y174	Apr 2025	"Moirang Phee"  tail	6.7 Years	
+VT-BWX	Boeing 737 MAX 8	C4Y174	May 2025	"Pochampally" tail	6.7 Years	
+VT-BXA	Boeing 737 MAX 8	C8Y168	Sep 2023	lsd, "Bandhani"  tail	6.6 Years	
+VT-BXB	Boeing 737 MAX 8	C8Y168	Nov 2023	lsd, "Phulkari"  tail	6.3 Years	
+VT-BXC	Boeing 737 MAX 8	C8Y168	Dec 2023	lsd, "Paisley"  tail	6.7 Years	
+VT-BXD	Boeing 737 MAX 8	C8Y168	Sep 2023	lsd, "Patola"  tail	4.3 Years	
+VT-BXE	Boeing 737 MAX 8	C8Y168	Dec 2023	lsd, "Kanjeevaram"  tail	6.1 Years	
+VT-BXF	Boeing 737 MAX 8	C8Y168	Jan 2024	lsd, "Warli"  tail	4 Years	
+VT-BXG	Boeing 737 MAX 8	C8Y168	Oct 2023	lsd, "Jamdani"  tail	4.4 Years	
+VT-BXH	Boeing 737 MAX 8	Y189	Dec 2023	lsd, "Kalamkari"  tail	6.6 Years	
+VT-BXI	Boeing 737 MAX 8	C4Y174	Dec 2023	lsd, "Gamosa"  tail	6.4 Years	
+VT-BXJ	Boeing 737 MAX 8	C4Y174	Dec 2023	lsd, "Banarasi"  tail	6.1 Years	
+VT-BXK	Boeing 737 MAX 8	C8Y168	Mar 2024	lsd, "Pattu" tail	6.5 Years	
+VT-BXL	Boeing 737 MAX 8	C8Y168	Mar 2024	lsd, "Ikat"  tail	3.9 Years	
+VT-BXM	Boeing 737 MAX 8	C8Y168	Apr 2024	lsd, "Kasavu"  tail	6.4 Years	
+VT-BXN	Boeing 737 MAX 8	C8Y168	Mar 2024	lsd, "Aipan"  tail	6.4 Years	
+VT-BXO	Boeing 737 MAX 8	C8Y168	Mar 2024	lsd, "Kasuti"  tail	6.3 Years	
+VT-BXP	Boeing 737 MAX 8	C8Y168	Apr 2024	lsd, "Madhubani"  tail	6.2 Years	
+VT-BXQ	Boeing 737 MAX 8	C8Y154	Jan 2024	lsd, "Bagh"  tail	6.5 Years	
+VT-BXR	Boeing 737 MAX 8	C8Y154	Feb 2024	lsd, "Jamawar"  tail	6.4 Years	
+VT-BXS	Boeing 737 MAX 8	C8Y154	Jan 2024	lsd, "Pichwai"  tail	6.2 Years	
+VT-BXT	Boeing 737 MAX 8	C8Y168	Jul 2024	lsd, "Chikankari"  tail	6.4 Years	
+VT-BXU	Boeing 737 MAX 8	C8Y168	May 2024	lsd, "Kantha"  tail	6.4 Years	
+VT-BXV	Boeing 737 MAX 8	C8Y168	May 2024	lsd, "Sohrai"  tail	6.2 Years	
+VT-BXW	Boeing 737 MAX 8	C8Y168	Jun 2024	lsd, "Puanchei" tail	6.3 Years	
+VT-BXX	Boeing 737 MAX 8	C8Y168	Jun 2024	lsd, "Khneng" tail	6.2 Years	
+VT-BXY	Boeing 737 MAX 8	C8Y168	Jun 2024	lsd, "Chanderi"  tail	6.6 Years	
+VT-BXZ	Boeing 737 MAX 8	C8Y168	Apr 2024	lsd, "Saphee Lanphee"  tail	6.6 Years	
+VT-	Boeing 737 MAX 8		On Order		Brand new

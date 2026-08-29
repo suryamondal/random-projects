@@ -1,0 +1,70 @@
+Reg	Aircraft Type	Config	Delivered	Remark	Aircraft Name	Age	
+VT-SFB	Boeing 737-700(F) 	Cargo	Sep 2018	Parked at DEL, lsd	Bolt	27.4 Years	
+VT-SFD	Boeing 737-700(F)	Cargo	Apr 2019	Parked at DEL, lsd	Sonic	25.3 Years	
+VT-SFE	Boeing 737-700(F)	Cargo	Jul 2019	Parked at DEL, lsd	Flash	27.3 Years	
+VT-SLA	Boeing 737-700	Y149	Nov 2015	lsd		18.4 Years	
+VT-SLB	Boeing 737-700	Y149	Nov 2015	Parked / Maintenance, lsd	Asafoetida	18.3 Years	
+VT-SLP	Boeing 737-700	Y149	May 2018	lsd		16.8 Years	
+VT-SYT	Boeing 737-700	C8Y126	Jun 2019	Parked at MAA		18.3 Years	
+VT-SYU	Boeing 737-700	Y144	May 2019	Parked at DEL		18.2 Years	
+9H-CXA	Boeing 737-800	Y189	Oct 2025	lsf Corendon Airlines Europe		11.3 Years	
+9H-CXB	Boeing 737-800	Y189	Nov 2025	lsf Corendon Airlines Europe		11.5 Years	
+9H-CXH	Boeing 737-800	Y189	Nov 2025	lsf Corendon Airlines Europe		7.6 Years	
+9H-TJC	Boeing 737-800	Y189	Oct 2025	lsf Corendon Airlines Europe		14.9 Years	
+9H-TJE	Boeing 737-800	Y189	Nov 2025	lsf Corendon Airlines Europe		17.8 Years	
+EI-FFA	Boeing 737-800	Y189	Nov 2025	lsf Fly4 Airlines		14.9 Years	
+EI-FFB	Boeing 737-800	Y189	Oct 2025	lsf Fly4 Airlines		13 Years	
+EI-FFC	Boeing 737-800	Y189	Oct 2025	lsf Fly4 Airlines		12.8 Years	
+EI-FFD	Boeing 737-800	Y189	Due	Stored, lsf Fly4 Airlines		12.7 Years	
+OK-TVM	Boeing 737-800	Y189	Oct 2025	lsf Smartwings		15.9 Years	
+OK-TVR	Boeing 737-800	Y189	Oct 2025	lsf Smartwings		14.7 Years	
+OK-TVS	Boeing 737-800	Y189	Oct 2025	lsf Smartwings		14.6 Years	
+OK-TVU	Boeing 737-800	Y189	Nov 2025	lsf Smartwings		13.7 Years	
+VT-SGG	Boeing 737-800	Y189	Jun 2010	lsd	Chilli	15.5 Years	
+VT-SGJ	Boeing 737-800	Y189	Dec 2010	Parked at CCU, lsd	Cumin 	20.8 Years	
+VT-SGV	Boeing 737-800	Y189	Nov 2011	lsd	Nigella	14.1 Years	
+VT-SLF	Boeing 737-800	Y189	Dec 2016	lsd, Danube Properties cs		19.7 Years	
+VT-SLG	Boeing 737-800	Y189	Jan 2017	lsd	Mace 	19.7 Years	
+VT-SLJ	Boeing 737-800	Y189	Jul 2016	lsd		18 Years	
+VT-SLM	Boeing 737-800	Y189	Jul 2016	Parked at DEL, lsd	Paprika 	18 Years	
+VT-SXA	Boeing 737-800	Y186	Jun 2019	lsd		18.5 Years	
+VT-SXE	Boeing 737-800	Y186	Oct 2023	Parked / Maintenance, lsd		18.9 Years	
+VT-SYJ	Boeing 737-800	Y189	May 2019	lsd		22 Years	
+VT-SYZ	Boeing 737-800	Y186	Aug 2019	lsd		18.8 Years	
+VT-SLC	Boeing 737-900ER	Y212	Aug 2015	lsd	Oregano	17.6 Years	
+VT-SLD	Boeing 737-900ER	Y212	Aug 2015	Parked at MAA, lsd	Fenugreek 	17.5 Years	
+VT-SZL	Boeing 737-900ER	Y212	Jun 2015	Parked at DEL, lsd, Yu Rise & Conquer Hardik cs	Sesame	17 Years	
+G-LESO	Boeing 737 MAX 8	Y189	Nov 2025	lsf Ascend Airways		7.5 Years	
+G-MULR	Boeing 737 MAX 8	Y189	Oct 2025	lsf Ascend Airways		8 Years	
+G-NOLA	Boeing 737 MAX 8	Y189	Nov 2025	lsf Ascend Airways		7.2 Years	
+VT-MAX	Boeing 737 MAX 8	Y189	Sep 2018	Parked at HYD, lsd	King Chilli 	7.2 Years	
+VT-MXA	Boeing 737 MAX 8	Y189	Oct 2018	Parked at HYD, lsd	Wasabi 	7.1 Years	
+VT-MXB	Boeing 737 MAX 8	Y189	Dec 2018	Parked at CCU, lsd, "Mankind Pharma Brings Premium DMF Quality" sticker	Jalapeño 	7 Years	
+VT-MXC	Boeing 737 MAX 8	Y189	Dec 2018	Parked at HYD, lsd	Mint	7 Years	
+VT-MXD	Boeing 737 MAX 8	Y189	Nov 2018	lsd, Danube Properties cs	Cinnamon 	7.1 Years	
+VT-MXE	Boeing 737 MAX 8	Y189	Nov 2018	Parked at DEL, lsd	Tarragon 	7.1 Years	
+VT-MXI	Boeing 737 MAX 8	Y189	Dec 2018	lsd	Dill 	7 Years	
+VT-SJU	Bombardier DHC-8-400	Y78	Feb 2024	Parked at MAA		15.3 Years	
+VT-SQA	Bombardier DHC-8-400	Y90	Sep 2018		Lal Mirch	7.4 Years	
+VT-SQB	Bombardier DHC-8-400	Y90	Oct 2018		Kalonji	7.3 Years	
+VT-SQC	Bombardier DHC-8-400	Y90	Nov 2018		Kali Mirch	7.1 Years	
+VT-SQD	Bombardier DHC-8-400	Y90	Dec 2018		Rye	7 Years
+VT-SQE	Bombardier DHC-8-400 	Y90	Jan 2019	Parked at MAA	Shahi Zeera	7 Years	
+VT-SUB	Bombardier DHC-8-400	Y78	Aug 2011	Parked at MAA	Heeng	14.6 Years	
+VT-SUD	Bombardier DHC-8-400	Y78	Sep 2011	Stored at DEL after incident	Tejpatta	14.4 Years	
+VT-SUE	Bombardier DHC-8-400	Y78	Sep 2011	Parked at BOM	Elaichi	14.4 Years	
+VT-SUF	Bombardier DHC-8-400	Y78	Oct 2011	Parked / Maintenance	Kesar	14.3 Years	
+VT-SUG	Bombardier DHC-8-400	Y78	Oct 2011	Parked at MAA	Jeera	14.2 Years	
+VT-SUH	Bombardier DHC-8-400	Y78	Jun 2012	Parked / Maintenance	Dhania	14.2 Years	
+VT-SUI	Bombardier DHC-8-400	Y78	Jun 2012	Parked at MAA	Haldi	14.1 Years	
+VT-SUJ	Bombardier DHC-8-400	Y78	Dec 2012	Parked / Maintenance	Dalchini	14.1 Years	
+VT-SUK	Bombardier DHC-8-400	Y78	Dec 2012	Parked at MAA	Sarson	14 Years	
+VT-SUL	Bombardier DHC-8-400	Y78	Jun 2012	Parked / Maintenance	Javitri	14 Years	
+VT-SUM	Bombardier DHC-8-400	Y78	Jun 2012	Parked at MAA	Jaiphal	13.9 Years	
+VT-SUO	Bombardier DHC-8-400	Y78	Jun 2012	Parked / Maintenance	Laung	13.8 Years	
+VT-SUP	Bombardier DHC-8-400	Y78	Dec 2012	Parked / Maintenance	Imli 	13.6 Years	
+VT-SUQ	Bombardier DHC-8-400	Y78	Apr 2016	Parked at MAA, lsd	Tulsi 	13.8 Years	
+VT-SUR	Bombardier DHC-8-400	Y78	Oct 2016	Parked at MAA, lsd		15.2 Years	
+VT-SUS	Bombardier DHC-8-400	Y78	Oct 2016	Parked / Maintenance, lsd		15.1 Years	
+VT-SUV	Bombardier DHC-8-400	Y78	May 2017	Parked at MAA, lsd		15.2 Years	
+VT-SUY	Bombardier DHC-8-400	Y78	Nov 2017	Parked at DEL, lsd		15.2 Years

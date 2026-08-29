@@ -1,0 +1,190 @@
+Reg	Aircraft Type	Config	Delivered	Remark	Aircraft Name	Age	
+VT-SCF	Airbus A319-100 	C8Y114	Aug 2007			19.2 Years	
+VT-SCH	Airbus A319-100	C8Y114	Oct 2007			18.1 Years	
+VT-SCM	Airbus A319-100	C8Y114	Nov 2008			17.3 Years	
+VT-SCQ	Airbus A319-100	C8Y114	May 2009			16.6 Years	
+VT-SCR	Airbus A319-100	C8Y114	Jul 2009			16.4 Years	
+VT-SCV	Airbus A319-100	C8Y114	Nov 2009			16.1 Years	
+VT-EDC	Airbus A320-200	C12Y138	Feb 2010			15.9 Years	
+VT-EDD	Airbus A320-200	C12Y138	Feb 2010			15.8 Years	
+VT-EDE	Airbus A320-200	C12Y138	Mar 2010			15.8 Years	
+VT-EDF	Airbus A320-200	C12Y138	Mar 2010			15.8 Years	
+VT-ATV	Airbus A320neo	C8W24Y132	Nov 2024	lsd, TATA SIA Airlines Retro cs		7.3 Years	
+VT-CID	Airbus A320neo	C8W24Y132	Feb 2017	Parked / Maintenance, lsd		8.8 Years	
+VT-CIE	Airbus A320neo	C8W24Y132	Apr 2017	lsd		8.7 Years	
+VT-CIF	Airbus A320neo	C8W24Y132	Jun 2017	lsd		8.5 Years	
+VT-CIG	Airbus A320neo	C8W24Y132	Oct 2017	lsd		8.2 Years	
+VT-CIH	Airbus A320neo	C8W24Y132	Jan 2018	lsd		7.9 Years	
+VT-CIM	Airbus A320neo	C8W24Y132	Jun 2018	lsd		7.5 Years	
+VT-CIN	Airbus A320neo	C8W24Y132	Apr 2018	lsd, Star Alliance  cs		7.7 Years	
+VT-CIO	Airbus A320neo	C8W24Y132	Apr 2018	lsd		7.6 Years	
+VT-CIP	Airbus A320neo	C8W24Y132	Jul 2018	lsd		7.4 Years	
+VT-CIQ	Airbus A320neo	C8W24Y132	Jul 2018	lsd		7.4 Years	
+VT-EXF	Airbus A320neo	C8W24Y132	Feb 2017	lsd		8.9 Years	
+VT-EXG	Airbus A320neo	C8W24Y132	Apr 2017	lsd		8.7 Years	
+VT-EXH	Airbus A320neo	C8W24Y132	Dec 2017	lsd		8 Years	
+VT-EXI	Airbus A320neo	C8W24Y132	Sep 2017	lsd		8.2 Years	
+VT-EXJ	Airbus A320neo	C8W24Y132	Dec 2017	lsd		8 Years	
+VT-EXK	Airbus A320neo	C8W24Y132	Dec 2017	lsd		8 Years	
+VT-EXL	Airbus A320neo	C8W24Y132	Dec 2017	Parked / Maintenance, lsd		8 Years	
+VT-EXM	Airbus A320neo	C8W24Y132	Feb 2018	lsd		7.9 Years	
+VT-EXN	Airbus A320neo	C8W24Y132	Jan 2019	lsd		7 Years	
+VT-EXO	Airbus A320neo	C8W24Y132	Nov 2018	lsd, Star Alliance  cs		7.1 Years	
+VT-EXP	Airbus A320neo	C8W24Y132	Dec 2018	lsd		7 Years	
+VT-EXQ	Airbus A320neo	C8W24Y132	Feb 2019	lsd		6.8 Years	
+VT-EXR	Airbus A320neo	C8W24Y132	Apr 2019	lsd		6.6 Years	
+VT-EXS	Airbus A320neo	C8W24Y132	Mar 2019	lsd		6.7 Years	
+VT-EXT	Airbus A320neo	C8W24Y132	Apr 2017	lsd		8.7 Years	
+VT-EXU	Airbus A320neo	C8W24Y132	May 2017	lsd		8.6 Years	
+VT-EXV	Airbus A320neo	C8W24Y132	Jul 2017	lsd		8.5 Years	
+VT-RIO	Airbus A320neo	C8W24Y132	Jul 2024	lsd		1.4 Years	
+VT-RTJ	Airbus A320neo	C8W24Y132	Jan 2024	lsd		1.9 Years	
+VT-RTK	Airbus A320neo	C8W24Y132	Feb 2024	lsd		1.8 Years	
+VT-RTL	Airbus A320neo	C8W24Y132	Mar 2024	lsd		1.7 Years	
+VT-RTM	Airbus A320neo	C8W24Y132	May 2024	lsd		1.6 Years	
+VT-RTN	Airbus A320neo	C8W24Y132	Jul 2024	lsd		1.5 Years	
+VT-RTS	Airbus A320neo	C8W24Y132	Mar 2024	lsd		1.8 Years	
+VT-RTT	Airbus A320neo	C8W24Y132	Nov 2023	lsd		2.1 Years	
+VT-RTU	Airbus A320neo	C8W24Y132	Dec 2023	lsd		2 Years	
+VT-RTV	Airbus A320neo	C8W24Y132	Feb 2024	lsd		1.9 Years	
+VT-RTW	Airbus A320neo	C8W24Y132	Feb 2024	lsd		1.9 Years	
+VT-RTX	Airbus A320neo	C8W24Y132	Feb 2024	lsd		1.9 Years
+VT-RTY	Airbus A320neo 	C8W24Y132	Mar 2024	lsd		1.7 Years	
+VT-RTZ	Airbus A320neo	C8W24Y132	May 2024	lsd		1.6 Years	
+VT-TNB	Airbus A320neo	C8W24Y132	Nov 2024	lsd		8.6 Years	
+VT-TNC	Airbus A320neo	C8W24Y132	Nov 2024	lsd		8.5 Years	
+VT-TNE	Airbus A320neo	C8W24Y132	Nov 2024	lsd		8.3 Years	
+VT-TNF	Airbus A320neo	C8W24Y132	Nov 2024	lsd		8.1 Years	
+VT-TNH	Airbus A320neo	C8W24Y132	Nov 2024	lsd		7.9 Years	
+VT-TNI	Airbus A320neo	C8W24Y132	Nov 2024	lsd		7.8 Years	
+VT-TNJ	Airbus A320neo	C8W24Y132	Nov 2024	lsd		7.7 Years	
+VT-TNK	Airbus A320neo	C8W24Y132	Nov 2024	lsd		7.5 Years	
+VT-TNL	Airbus A320neo	Y180	Nov 2024	lsd		6.1 Years	
+VT-TNM	Airbus A320neo	Y180	Nov 2024	lsd		6.1 Years	
+VT-TNN	Airbus A320neo	Y180	Nov 2024	lsd		8.7 Years	
+VT-TNP	Airbus A320neo	C8W24Y132	Nov 2024	lsd		6.2 Years	
+VT-TNQ	Airbus A320neo	C8W24Y132	Nov 2024	lsd		6.2 Years	
+VT-TNR	Airbus A320neo	C8W24Y132	Nov 2024	Parked / Maintenance, lsd		6.1 Years	
+VT-TNS	Airbus A320neo	C8W24Y132	Nov 2024	lsd		6 Years	
+VT-TNU	Airbus A320neo	C8W24Y132	Nov 2024	lsd		6.1 Years	
+VT-TNV	Airbus A320neo	C8W24Y132	Nov 2024	lsd		6 Years	
+VT-TNW	Airbus A320neo	C8W24Y132	Nov 2024	lsd		6 Years	
+VT-TNX	Airbus A320neo	C8W24Y132	Nov 2024	lsd		5.5 Years	
+VT-TNY	Airbus A320neo	C8W24Y132	Nov 2024	lsd		5.8 Years	
+VT-TNZ	Airbus A320neo	C8W24Y132	Nov 2024	lsd		5.2 Years	
+VT-TQA	Airbus A320neo	C8W24Y132	Nov 2024			5.1 Years	
+VT-TQB	Airbus A320neo	C8W24Y132	Nov 2024	lsd		5.1 Years	
+VT-TQC	Airbus A320neo	C8W24Y132	Nov 2024	lsd		4.9 Years	
+VT-TQD	Airbus A320neo	C8W24Y132	Nov 2024	lsd		4.8 Years	
+VT-TQE	Airbus A320neo	C8W24Y132	Nov 2024			4.7 Years	
+VT-TQF	Airbus A320neo	C8W24Y132	Nov 2024	lsd		4.8 Years	
+VT-TQG	Airbus A320neo	C8W24Y132	Nov 2024	lsd		4.4 Years	
+VT-TQH	Airbus A320neo	C8W24Y132	Nov 2024	lsd		4.3 Years	
+VT-TQI	Airbus A320neo	C8W24Y132	Nov 2024	lsd		3.7 Years	
+VT-TQJ	Airbus A320neo	C8W24Y132	Nov 2024	lsd		3.6 Years	
+VT-TQK	Airbus A320neo	C8W24Y132	Nov 2024	lsd		3.7 Years	
+VT-TQL	Airbus A320neo	C8W24Y132	Nov 2024	lsd		3.7 Years	
+VT-TQM	Airbus A320neo	C8W24Y132	Nov 2024	lsd		3.3 Years	
+VT-TQN	Airbus A320neo	C8W24Y132	Nov 2024	Parked / Maintenance, lsd		3.2 Years	
+VT-TQO	Airbus A320neo	C8W24Y132	Nov 2024	lsd		3 Years	
+VT-TQP	Airbus A320neo	C8W24Y132	Nov 2024	lsd		2.7 Years	
+VT-TQQ	Airbus A320neo	C8W24Y132	Nov 2024	lsd		2.7 Years	
+VT-TQR	Airbus A320neo	C8W24Y132	Nov 2024	lsd		2.3 Years	
+VT-TQS	Airbus A320neo	C8W24Y132	Nov 2024	lsd		2.3 Years	
+VT-TQT	Airbus A320neo	C8W24Y132	Nov 2024	lsd		2.1 Years	
+VT-TQU	Airbus A320neo	C8W24Y132	Nov 2024	lsd		2 Years	
+VT-TQV	Airbus A320neo	C8W24Y132	Nov 2024	lsd		2 Years	
+VT-TQW	Airbus A320neo	C8W24Y132	Nov 2024			1.8 Years	
+VT-TQX	Airbus A320neo	C8W24Y132	Nov 2024			1.8 Years	
+VT-TYA	Airbus A320neo	Y180	Nov 2024	Stored at BOM after incident, lsd		4.8 Years	
+VT-TYB	Airbus A320neo	Y180	Nov 2024	lsd		4.5 Years	
+VT-TYC	Airbus A320neo	Y180	Nov 2024	lsd		4.2 Years
+VT-TYD	Airbus A320neo 	Y180	Nov 2024	lsd		4.3 Years	
+VT-TYE	Airbus A320neo	Y180	Nov 2024	lsd		3.4 Years	
+VT-TYF	Airbus A320neo	Y180	Nov 2024	lsd		2.9 Years	
+VT-TYG	Airbus A320neo	Y180	Nov 2024	lsd		2.9 Years	
+VT-PPH	Airbus A321-200	C12Y170	Apr 2008	Parked / Maintenance		17.6 Years	
+VT-PPI	Airbus A321-200	C12Y170	Jun 2008			17.5 Years	
+VT-PPJ	Airbus A321-200	C12Y170	Jul 2008			17.5 Years	
+VT-PPK	Airbus A321-200	C12Y170	Aug 2008			17.3 Years	
+VT-PPL	Airbus A321-200	C12Y170	Jan 2009			17 Years	
+VT-PPM	Airbus A321-200	C12Y170	Feb 2009			16.8 Years	
+VT-PPO	Airbus A321-200	C12Y170	Aug 2009			16.4 Years	
+VT-PPQ	Airbus A321-200	C12Y170	Aug 2009			16.3 Years	
+VT-PPT	Airbus A321-200	C12Y170	Oct 2009			16.1 Years	
+VT-PPU	Airbus A321-200	C12Y170	Nov 2009			16.1 Years	
+VT-PPV	Airbus A321-200	C12Y170	Dec 2009			16 Years	
+VT-PPW	Airbus A321-200	C12Y170	Jan 2010			15.9 Years	
+VT-PPX	Airbus A321-200	C12Y170	Apr 2010			15.7 Years	
+VT-TVA	Airbus A321neo	C12W24Y152	Nov 2024	lsd		5.6 Years	
+VT-TVB	Airbus A321neo	C12W24Y152	Nov 2024	lsd		5.2 Years	
+VT-TVC	Airbus A321neo	C12W24Y152	Nov 2024	lsd		4.6 Years	
+VT-TVD	Airbus A321neo	C12W24Y152	Nov 2024	lsd		4.3 Years	
+VT-TVE	Airbus A321neo	C12W24Y152	Nov 2024	lsd		3.6 Years	
+VT-TVF	Airbus A321neo	C12W24Y152	Nov 2024	lsd		2.8 Years	
+VT-TVG	Airbus A321neo	C12W24Y152	Nov 2024	lsd		2.9 Years	
+VT-TVH	Airbus A321neo	C12W24Y152	Nov 2024	lsd		2.8 Years	
+VT-TVI	Airbus A321neo	C12W24Y152	Nov 2024	lsd		2.7 Years	
+VT-TVJ	Airbus A321neo	C12W24Y152	Nov 2024	lsd		2.6 Years	
+VT-JRA	Airbus A350-900	C28W24Y264	Dec 2023	lsd		2.3 Years	
+VT-JRB	Airbus A350-900	C28W24Y264	Feb 2024	lsd		2.2 Years	
+VT-JRE	Airbus A350-900	C28W24Y264	Mar 2024			2.2 Years	
+VT-JRF	Airbus A350-900	C28W24Y264	Apr 2024	lsd		2.1 Years	
+VT-JRH	Airbus A350-900	C28W24Y264	Feb 2024	lsd		2 Years	
+VT-JRI	Airbus A350-900	C28W24Y264	Apr 2024	lsd		2 Years	
+VT-JRO	Airbus A350-1000		On Order			Brand new	
+VT-AEE	Boeing 777-200	C28W48Y212	Apr 2023	lsd	अविजित / Avijit	16.8 Years	
+VT-AEH	Boeing 777-200	C28W48Y212	Jan 2023	lsd	आलोक / Alok	16.6 Years	
+VT-AEI	Boeing 777-200	C28W48Y212	Jun 2023	lsd	उदय / Uday	16.6 Years	
+VT-AEM	Boeing 777-300ER	F8C40Y280	Jan 2024	lsd	Sharika / सारिका	13.5 Years	
+VT-AEN	Boeing 777-300ER	F8C40Y280	Feb 2024	lsd	Dhyuti / द्युति	13 Years	
+VT-AEO	Boeing 777-300ER	F8C40Y280	Feb 2024	lsd	Tvisha	13 Years	
+VT-AEP	Boeing 777-300ER	F8C40Y280	Jan 2024	lsd	Nitya / नित्या	12.8 Years	
+VT-AEQ	Boeing 777-300ER	F8C40Y280	Oct 2023		साधवी / Sadhvi	12.6 Years	
+VT-AER	Boeing 777-300ER	F8C40Y280	Jul 2023	Parked / Maintenance	क्रिया / Kriyā	12.1 Years	
+VT-ALJ	Boeing 777-300ER	F4C35Y303	Oct 2007	Star Alliance  cs	बिहार / Bihar 	18.2 Years	
+VT-ALK	Boeing 777-300ER	F4C35Y303	Oct 2007		छत्तीसगढ / Chattisgarh 	18.1 Years	
+VT-ALL	Boeing 777-300ER	F4C35Y303	Dec 2007	Parked at NAG	गोवा / Goa 	18 Years	
+VT-ALM	Boeing 777-300ER	F4C35Y303	Jun 2008		हिमाचल प्रदेश / Himachal Pradesh 	17.5 Years	
+VT-ALN	Boeing 777-300ER	F4C35Y303	Jul 2008	"Celebrating India" sticker	जम्मू एवं कश्मीर / Jammu and Kashmir 	17.4 Years	
+VT-ALO	Boeing 777-300ER	F4C35Y303	Jul 2009		कर्नाटक / Karnataka 	16.4 Years	
+VT-ALP	Boeing 777-300ER	F4C35Y303	Aug 2009		मध्य प्रदेश / Madhya Pradesh 	16.4 Years
+VT-ALQ	Boeing 777-300ER 	F4C35Y303	Aug 2009		मणिपुर / Manipur 	16.3 Years	
+VT-ALR	Boeing 777-300ER	F4C35Y303	Sep 2009		मेघालय / Meghalaya 	16.2 Years	
+VT-ALS	Boeing 777-300ER	F4C35Y303	Apr 2010		मिजोरम / Mizoram 	15.6 Years	
+VT-ALT	Boeing 777-300ER	F4C35Y303	May 2010		नगालैंड / Nagaland 	15.6 Years	
+VT-ALU	Boeing 777-300ER	F4C35Y303	Jul 2010		ओडिशा / Odisha 	15.4 Years	
+VT-ALX	Boeing 777-300ER	F4C35Y303	Mar 2018	Parked / Maintenance	सिक्किम / Sikkim 	7.8 Years	
+VT-ANA	Boeing 787-8 Dreamliner	C18Y238	Mar 2014			11.9 Years	
+VT-ANC	Boeing 787-8 Dreamliner	C18Y238	Jun 2014	"75th Anniversary" sticker		11.6 Years	
+VT-AND	Boeing 787-8 Dreamliner	C18Y238	Sep 2012			14.4 Years	
+VT-ANE	Boeing 787-8 Dreamliner	C18Y238	Dec 2013			12.1 Years	
+VT-ANG	Boeing 787-8 Dreamliner	C18Y238	Nov 2013	Parked at BOM		12.2 Years	
+VT-ANH	Boeing 787-8 Dreamliner	C18Y238	Sep 2012			13.9 Years	
+VT-ANI	Boeing 787-8 Dreamliner	C18Y238	Oct 2012			13.5 Years	
+VT-ANJ	Boeing 787-8 Dreamliner	C18Y238	Mar 2013			13.2 Years	
+VT-ANK	Boeing 787-8 Dreamliner	C18Y238	Dec 2012			13.1 Years	
+VT-ANL	Boeing 787-8 Dreamliner	C18Y238	Dec 2012			13.1 Years	
+VT-ANM	Boeing 787-8 Dreamliner	C18Y238	Jun 2013			13 Years	
+VT-ANN	Boeing 787-8 Dreamliner	C18Y238	Aug 2013			12.6 Years	
+VT-ANO	Boeing 787-8 Dreamliner	C18Y238	Oct 2013			12.5 Years	
+VT-ANP	Boeing 787-8 Dreamliner		Jun 2014	Seating reconfiguration at VCV, "Mahatma Gandhi"  tail		11.7 Years	
+VT-ANQ	Boeing 787-8 Dreamliner	C18Y238	Jul 2014	"Guru Nanak - 550 Years Celebration"  tail		11.5 Years	
+VT-ANR	Boeing 787-8 Dreamliner	C18Y238	Sep 2014			11.3 Years	
+VT-ANS	Boeing 787-8 Dreamliner	C18Y238	Dec 2014			11.1 Years	
+VT-ANT	Boeing 787-8 Dreamliner		Feb 2015	Seating reconfiguration at VCV		11 Years	
+VT-ANU	Boeing 787-8 Dreamliner	C18Y238	Mar 2015	Star Alliance  cs		10.8 Years	
+VT-ANV	Boeing 787-8 Dreamliner	C18Y238	Jun 2015			10.5 Years	
+VT-ANW	Boeing 787-8 Dreamliner	C18Y238	Nov 2016			9.1 Years	
+VT-ANX	Boeing 787-8 Dreamliner	C18Y238	Jan 2017			9 Years	
+VT-ANY	Boeing 787-8 Dreamliner	C18Y241	Jul 2017			8.5 Years	
+VT-ANZ	Boeing 787-8 Dreamliner	C18Y241	Aug 2017			8.4 Years	
+VT-NAA	Boeing 787-8 Dreamliner	C18Y241	Aug 2017			8.3 Years	
+VT-NAC	Boeing 787-8 Dreamliner	C18Y241	Oct 2017			8.2 Years	
+VT-AWA	Boeing 787-9 Dreamliner		On Order			0.3 Years	
+VT-TSD	Boeing 787-9 Dreamliner	C30W21Y248	Nov 2024			5.8 Years	
+VT-TSE	Boeing 787-9 Dreamliner	C30W21Y248	Nov 2024			5.7 Years	
+VT-TSH	Boeing 787-9 Dreamliner	C30W21Y248	Nov 2024	lsd		5 Years	
+VT-TSN	Boeing 787-9 Dreamliner	C30W21Y248	Nov 2024			5.2 Years	
+VT-TSO	Boeing 787-9 Dreamliner	C30W21Y248	Nov 2024	lsd		4.3 Years	
+VT-TSP	Boeing 787-9 Dreamliner	C30W21Y248	Nov 2024	lsd		2.8 Years	
