@@ -11,11 +11,16 @@ Two traffic-robust signals per trace (clamped to the gate-to-gate route):
 
   free-flow speed  = 85th-percentile of the smoothed moving speed. "When the road
                      opened up, how fast did you dare go" — a confidence proxy.
-                     Read on the ONWARD (morning) leg, which flows; the evening
-                     return is traffic-capped and carries little skill signal.
   assertiveness    = std of acceleration. A timid new driver feathers throttle and
                      brake (low); confidence and the Duke's sportier riding raise
                      it. Not "smoothness is better" — it reads caution vs commitment.
+
+Both signals are drawn per leg: a 2x2 grid, metric by row, direction by column,
+with y shared across each row so the two legs sit on one scale. The ONWARD
+(morning) leg flows and carries the skill signal. The RETURN is traffic-capped —
+congestion, not nerve, sets its ceiling — so its free-flow trend is the weaker
+of the two and is labelled as such on the plot rather than left to be read as
+a plateau in skill.
 
 Writes plots/driving_style.svg.
 """
@@ -41,6 +46,7 @@ LABEL = {"honda-jazz": "Honda Jazz (1st car, learning)",
          "ktm-duke-390": "KTM Duke 390 (10-yr veteran)",
          "re-hunter-350": "RE Hunter 350 (sedate ref.)",
          "honda-brio": "Honda Brio (colleague, lapsed-trained)"}
+ORDER = ("ktm-duke-390", "re-hunter-350", "honda-jazz", "honda-brio")
 
 
 def trace_metrics(pts):
@@ -87,63 +93,99 @@ def collect():
     return rows
 
 
+
+
 def _days(rows, d0):
     return np.array([(r["date"] - d0).days for r in rows], dtype=float)
+
+
+def _fit(ax, x, y, color, style):
+    """Least-squares line + its R², drawn on ax. Returns (slope, xs, y_at_xs_end, r2)."""
+    m, b = np.polyfit(x, y, 1)
+    xs = np.array([x.min(), x.max()])
+    r2 = 1 - ((y - (m * x + b)) ** 2).sum() / (((y - y.mean()) ** 2).sum() + 1e-9)
+    ax.plot(xs, m * xs + b, style, color=color, linewidth=2, zorder=2)
+    return m, xs, m * xs[-1] + b, r2
+
+
+def freeflow_panel(ax, rows, direction, d0, legend=False):
+    """Free-flow speed vs date for one leg. Slope annotated for learner + veteran."""
+    for bike in ORDER:
+        pts = [r for r in rows if r["bike"] == bike and r["direction"] == direction]
+        if not pts:
+            continue
+        x, y = _days(pts, d0), np.array([r["p85"] for r in pts])
+        ax.scatter(x, y, s=60, color=COL[bike], label=LABEL[bike], zorder=3,
+                   edgecolor="white", linewidth=0.6)
+        if len(x) >= 3:
+            style = "-" if bike == "honda-jazz" else "--"
+            m, xs, yend, r2 = _fit(ax, x, y, COL[bike], style)
+            if bike in ("honda-jazz", "ktm-duke-390"):
+                ax.annotate(f"{m*7:+.1f} km/h/wk (R²={r2:.2f})", xy=(xs[-1], yend),
+                            xytext=(6, 0), textcoords="offset points",
+                            va="center", fontsize=9, color=COL[bike],
+                            fontweight="bold")
+    ax.grid(True, alpha=0.3)
+    ax.margins(x=0.10)
+    if legend:
+        ax.legend(loc="upper right", fontsize=8.5)
+
+
+def assert_panel(ax, rows, direction, d0):
+    """Acceleration std vs date for one leg."""
+    for bike in ORDER:
+        pts = [r for r in rows if r["bike"] == bike and r["direction"] == direction]
+        if not pts:
+            continue
+        x, y = _days(pts, d0), np.array([r["accel_std"] for r in pts])
+        ax.scatter(x, y, s=45, color=COL[bike], alpha=0.8, zorder=3,
+                   edgecolor="white", linewidth=0.5)
+        if len(x) >= 3:
+            style = "-" if bike == "honda-jazz" else "--"
+            _fit(ax, x, y, COL[bike], style)
+    ax.grid(True, alpha=0.3)
+    ax.margins(x=0.10)
 
 
 def main():
     rows = collect()
     d0 = min(r["date"] for r in rows)
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(11, 9), sharex=True)
+    fig, axes = plt.subplots(2, 2, figsize=(16, 9.5), sharex=True, sharey="row")
 
-    # ---- panel 1: free-flow confidence on the onward (flowing) leg ----
-    for bike in ("ktm-duke-390", "re-hunter-350", "honda-jazz", "honda-brio"):
-        pts = [r for r in rows if r["bike"] == bike and r["direction"] == "onward"]
-        if not pts:
-            continue
-        x, y = _days(pts, d0), np.array([r["p85"] for r in pts])
-        ax1.scatter(x, y, s=60, color=COL[bike], label=LABEL[bike], zorder=3,
-                    edgecolor="white", linewidth=0.6)
-        if len(x) >= 3:
-            m, b = np.polyfit(x, y, 1)
-            xs = np.array([x.min(), x.max()])
-            r2 = 1 - ((y - (m * x + b)) ** 2).sum() / (((y - y.mean()) ** 2).sum() + 1e-9)
-            style = "-" if bike == "honda-jazz" else "--"
-            ax1.plot(xs, m * xs + b, style, color=COL[bike], linewidth=2, zorder=2)
-            if bike in ("honda-jazz", "ktm-duke-390"):
-                ax1.annotate(f"{m*7:+.1f} km/h/wk (R²={r2:.2f})",
-                             xy=(xs[-1], m * xs[-1] + b),
-                             xytext=(6, 0), textcoords="offset points",
-                             va="center", fontsize=9, color=COL[bike], fontweight="bold")
-    ax1.set_ylabel("free-flow speed  (85th-pct, km/h)")
-    ax1.set_title("Learning to drive: free-flow confidence on the morning leg\n"
-                  "veteran bike is flat (mastered) — the car is climbing (still improving)",
-                  fontsize=12)
-    ax1.grid(True, alpha=0.3)
-    ax1.legend(loc="upper right", fontsize=9)
-    ax1.margins(x=0.08)
+    # rows = metric, columns = leg; y shared per row so the two legs read on one
+    # scale and a column-to-column difference is a real one, not an axis artefact
+    freeflow_panel(axes[0, 0], rows, "onward", d0, legend=True)
+    freeflow_panel(axes[0, 1], rows, "return", d0)
+    assert_panel(axes[1, 0], rows, "onward", d0)
+    assert_panel(axes[1, 1], rows, "return", d0)
 
-    # ---- panel 2: assertiveness (accel std), all legs ----
-    for bike in ("ktm-duke-390", "re-hunter-350", "honda-jazz", "honda-brio"):
-        pts = [r for r in rows if r["bike"] == bike]
-        if not pts:
-            continue
-        x, y = _days(pts, d0), np.array([r["accel_std"] for r in pts])
-        ax2.scatter(x, y, s=45, color=COL[bike], alpha=0.8, zorder=3,
-                    edgecolor="white", linewidth=0.5)
-        if len(x) >= 3:
-            m, b = np.polyfit(x, y, 1)
-            xs = np.array([x.min(), x.max()])
-            style = "-" if bike == "honda-jazz" else "--"
-            ax2.plot(xs, m * xs + b, style, color=COL[bike], linewidth=2, zorder=2)
-    ax2.set_ylabel("assertiveness  (accel std, m/s²)")
-    ax2.set_xlabel(f"days since first recorded trace ({d0.isoformat()})")
-    ax2.set_title("Throttle/brake commitment — timid (low) vs decisive (high)",
-                  fontsize=12)
-    ax2.grid(True, alpha=0.3)
-    ax2.annotate("cautious new-driver zone: smooth but timid",
-                 xy=(0.02, 0.06), xycoords="axes fraction", fontsize=9,
-                 bbox=dict(boxstyle="round", fc="#fbeaec", ec="none"))
+    axes[0, 0].set_ylabel("free-flow speed  (85th-pct, km/h)")
+    axes[1, 0].set_ylabel("assertiveness  (accel std, m/s²)")
+    axes[0, 0].set_title("Free-flow confidence — ONWARD (morning, flows)\n"
+                         "veteran bike flat (mastered); car climbing (still improving)",
+                         fontsize=11)
+    axes[0, 1].set_title("Free-flow confidence — RETURN (evening, traffic-capped)\n"
+                         "congestion sets the ceiling here, so read the trend with care",
+                         fontsize=11)
+    axes[1, 0].set_title("Throttle/brake commitment — ONWARD", fontsize=11)
+    axes[1, 1].set_title("Throttle/brake commitment — RETURN", fontsize=11)
+    for ax in axes[1]:
+        ax.set_xlabel(f"days since first recorded trace ({d0.isoformat()})")
+
+    axes[0, 1].annotate("traffic-capped leg: a flat or falling line here is the\n"
+                        "evening jam, not a skill plateau — compare shapes, not slopes",
+                        xy=(0.02, 0.06), xycoords="axes fraction", fontsize=8.5,
+                        va="bottom", bbox=dict(boxstyle="round", fc="#fff4e6", ec="none"))
+    axes[1, 0].annotate("cautious new-driver zone: smooth but timid",
+                        xy=(0.02, 0.06), xycoords="axes fraction", fontsize=9,
+                        bbox=dict(boxstyle="round", fc="#fbeaec", ec="none"))
+
+    # per-panel n, so a thin leg can't be mistaken for a confident one
+    for ax, dirn in ((axes[0, 0], "onward"), (axes[0, 1], "return"),
+                     (axes[1, 0], "onward"), (axes[1, 1], "return")):
+        n = sum(1 for r in rows if r["direction"] == dirn)
+        ax.annotate(f"n={n}", xy=(0.99, 0.02), xycoords="axes fraction",
+                    ha="right", fontsize=8, color="#666")
 
     fig.tight_layout()
     out = os.path.join(PLOTS, "driving_style.svg")
