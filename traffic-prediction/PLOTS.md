@@ -253,6 +253,70 @@ drives at different paces comparable at all.
 
 ---
 
+## 10. Per-section time, several drives on one canvas
+
+**Answers:** *where* on the route one car loses time to the other — the same
+quantity as the §8 heatmap, but as curves, so the shape of a delay (one tall
+spike vs a broad rise across several sections) is readable.
+
+```bash
+python3 section_compare.py                          # first 5 traces per car
+python3 section_compare.py --last --n 5             # the most recent 5
+python3 section_compare.py --median                 # one line per car, all days
+python3 section_compare.py --median --median-n 6 --last --full
+```
+
+Writes `plots/section_compare_<sel>_<direction>.svg`, one per direction. x is
+distance from **home** in both, the return's office-origin axis flipped, so a
+place sits at the same x here as in `combined_section_profile.svg`.
+
+| option | default | note |
+|---|---|---|
+| `--n` | `5` | traces per vehicle |
+| `--last` | *off* | take the most recent n instead of the earliest |
+| `--bikes` | `honda-jazz,honda-brio` | |
+| `--ymax` | `60` | y cap, seconds per 200 m section |
+| `--ymin` | `10` | y floor; 200 m under 10 s is ~72 km/h, which this road never sees |
+| `--median` | *off* | collapse each vehicle to ONE line: the per-section median over every day it drove |
+| `--median-n` | – | with `--median`, use only the first (or `--last`) N days |
+| `--full` | *off* | keep only traces covering every section |
+| `--min-days` | `3` | a section needs this many days before its median is drawn |
+
+**The cap is load-bearing.** Every trace has sections above 60 s — up to 935 s —
+and without the cap the 25-35 s band where the driving actually differs
+collapses onto the floor. Clipped sections get a caret at the top of the axis
+and a count in that trace's legend entry, so a hidden crawl is never silently
+dropped. The 10 s floor clips nothing today but is **not** marked: a dip below
+it would leave the axis unannounced, so lower `--ymin` rather than read a gap
+as missing data.
+
+**`--median` takes the median, not the mean**, so one 900 s crawl cannot drag a
+section. Legend entries carry the real day count, which is not always what you
+asked for — the Brio has only 6 full onward traces in total.
+
+**`--full` is a real filter, not a formality.** The summary's `partial` flag asks
+only whether a trace STARTED near its origin gate; a trace can clear that and
+still be missing sections to a late first GPS fix. In a median those absent
+sections get filled by the other days, quietly making the line a different
+mixture at one end of the route than the other. It drops 6 onward and 15 return
+traces, and on a last-6 return selection it is what removes Brio 08-17
+(covers 800-8600 m, not 0-8600 m).
+
+Measured, median over all recorded days:
+
+| | days | median s/section | total | Jazz faster in |
+|---|---|---|---|---|
+| onward Jazz | 30 | 24.9 | 20.1 min | 32/40 sections |
+| onward Brio | 6 | 25.9 | 22.9 min | |
+| return Jazz | 24 | 29.7 | 26.1 min | 34/44 sections |
+| return Brio | 8 | 31.9 | 27.9 min | |
+
+The n's are very unequal — the Brio onward median rests on 6 days and will move
+as more arrive. Read the gap with that in mind before calling it a car
+difference.
+
+---
+
 ## Data intake
 
 ```bash
@@ -276,6 +340,7 @@ detour (`--corridor 60 --min-detour 300 --min-depth 200`).
   Speed must not reuse `#2e4a62` — that is the Duke 390. The IMU flipbooks
   (§6, §7) still draw speed in `#2e4a62` and have not been migrated.
 - Per-100 m section-time step plots: cap y at **12 s/100 m**.
+- Per-200 m section-time curves (§10): y window **10-60 s**, clipped sections marked.
 - Breaker sync defaults to **4.39 km**; constant-pace reference **24 km/h**.
 - Style metrics use full gate-to-gate traces only (both ends within 1 km).
 - `gps/`, `sensors/`, `data/`, `plots/` are gitignored — scripts are committed, data is not.
