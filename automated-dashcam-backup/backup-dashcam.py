@@ -416,7 +416,7 @@ def main() -> None:
     verify_source_device(src)
     dest.mkdir(parents=True, exist_ok=True)
 
-    print(f"== Pruning old backups to fit {PRUNE_LIMIT_BYTES / 1e12:.1f} TB limit")
+    print(f"== Pruning old backups to fit {PRUNE_LIMIT_BYTES / 1e12:.2f} TB limit")
     prune_old_files(src, dest)
     print(f"== Backing up videos: {src} -> {dest}")
     failed = backup_videos(src, dest)
