@@ -8,7 +8,7 @@ in, keeps the archive under a size limit, and verifies what it copied.
 1. **Checks the card is the dashcam's.** It looks for the camera's marker file
    `.used.file.DR2500` at the card root and refuses to run without it.
 2. **Prunes, if needed.** If `70mai/` plus the incoming files would exceed
-   `PRUNE_LIMIT_BYTES` (1.35 TB), the oldest recordings are converted to 1 fps
+   `PRUNE_LIMIT_BYTES` (1.4 TB), the oldest recordings are converted to 1 fps
    timelapses (`TL-<name>.MP4`, about 10x smaller) and the originals deleted,
    oldest first, until it fits.
    * The limit is measured against the **whole** `70mai/` directory, Event/ and
@@ -40,7 +40,7 @@ Defaults are set at the top of the script:
 |---|---|
 | `DEFAULT_SRC` | `/media/surya/70MAI` |
 | `DEFAULT_DEST` | `/media/surya/Surya_HDD_5/Jazz-Dashcam/70mai` |
-| `PRUNE_LIMIT_BYTES` | `1_350_000_000_000` (1.35 TB) |
+| `PRUNE_LIMIT_BYTES` | `1_400_000_000_000` (1.4 TB) |
 
 Needs `python3` (3.10+), `rsync` and `ffmpeg`/`ffprobe`.
 
@@ -57,9 +57,10 @@ the lock and later firings exit immediately.
 ## Sizing the limit
 
 On a 1.5 TB drive the usable space is about 1,400 GB: ext4 metadata takes
-~25 GB and the default 5% root reserve another ~75 GB. With the limit at
-1.35 TB plus other content on the drive, about 40 GB stays free. On a pure
-data drive, `sudo tune2fs -m 1 /dev/sdX1` gives back ~60 GB of the reserve.
+~25 GB and the default 5% root reserve another ~75 GB. This drive holds only
+data, so the reserve was cut to 1% with `sudo tune2fs -m 1 /dev/sdX1`, which
+gave back ~60 GB. With the limit at 1.4 TB plus other content on the drive,
+about 50 GB stays free.
 
 ## Things learned the hard way
 
