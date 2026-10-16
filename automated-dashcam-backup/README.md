@@ -13,9 +13,12 @@ in, keeps the archive under a size limit, and verifies what it copied.
    oldest first, until it fits.
    * The limit is measured against the **whole** `70mai/` directory, Event/ and
      GPS/ included.
-   * `Event/` is never deleted, and existing `TL-` files are never deleted.
-     Both count against the limit, so the script warns if it is asked to free
-     more than is deletable.
+   * `Event/` clips are pruned over the **same time range** as `Normal/`:
+     after every prune, any event clip no newer than the newest timelapsed
+     normal clip is converted too, so a period is either all full resolution
+     or all timelapse.
+   * Existing `TL-` files are never deleted. They count against the limit,
+     so the script warns if it is asked to free more than is deletable.
    * Pruned names go to `pruned.txt`, so a file still on the card is never
      copied back in.
 3. **Copies the videos.** `rsync -au` of `Normal/ Event/ Parking/ Lapse/ Photo/`.

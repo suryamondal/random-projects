@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Backup 70mai dashcam videos + GPS data from the SD card to the HDD.
 
-- Prune: before copying, deletes the oldest non-Event recordings from the
-  backup so that existing + incoming files stay under PRUNE_LIMIT_BYTES.
-  Event/ is never pruned. Pruned files are listed in pruned.txt and never
-  re-copied from the card.
+- Prune: before copying, replaces the oldest recordings in the backup with
+  1 fps timelapses so that existing + incoming files stay under
+  PRUNE_LIMIT_BYTES. Event/ clips are pruned over the same time range as
+  Normal/, so no full-resolution event survives from a period whose normal
+  footage is already a timelapse. Pruned files are listed in pruned.txt
+  and never re-copied from the card.
 - Videos: rsync -au of Normal/Event/Parking/Lapse/Photo, skipping files
   that already exist in the backup.
 - GPS: snapshots the card's GPSData*.txt files verbatim into GPS/, named
@@ -29,11 +31,13 @@ from pathlib import Path
 DEFAULT_SRC = "/media/surya/70MAI"
 DEFAULT_DEST = "/media/surya/Surya_HDD_5/Jazz-Dashcam/70mai"
 VIDEO_DIRS = ["Normal", "Event", "Parking", "Lapse", "Photo"]
-# Storage cap for the whole backup directory, Event/, GPS/ and existing
-# timelapses included (those are never pruned, but they count). Before
-# copying, the oldest recordings are pruned until the incoming files fit.
+# Storage cap for the whole backup directory, GPS/ and existing timelapses
+# included (those are never pruned, but they count). Before copying, the
+# oldest recordings are pruned until the incoming files fit.
 PRUNE_LIMIT_BYTES = 1_200_000_000_000  # 1.2 TB
-PRUNE_PROTECTED = {"Event"}
+# Directories whose recordings are never pruned. Event/ used to be here; it is
+# now pruned over the same time range as Normal/ (see prune_events_in_range).
+PRUNE_PROTECTED: set[str] = set()
 # Files deleted by pruning are recorded here (one filename per line) and
 # excluded from future rsyncs, so a pruned file still present on the card
 # is never copied back in.
@@ -123,8 +127,8 @@ def prunable_backup_files(dest: Path) -> list[Path]:
 def total_backup_bytes(dest: Path) -> int:
     """Every byte under the backup root.
 
-    The limit is measured against the whole 70mai directory -- Event/ and
-    GPS/ included -- even though Event/ is never deleted to satisfy it.
+    The limit is measured against the whole 70mai directory -- GPS/ and the
+    timelapses included -- even though those are never deleted to satisfy it.
     """
     if not dest.is_dir():
         return 0
@@ -161,10 +165,11 @@ def prune_old_files(src: Path, dest: Path, limit: int = PRUNE_LIMIT_BYTES) -> No
     print(f"  backup uses {used / 1e9:.1f} GB, incoming {needed / 1e9:.1f} GB, "
           f"limit {limit / 1e9:.1f} GB")
     print(f"  deletable: {deletable / 1e9:.1f} GB "
-          f"(Event/ and existing timelapses count but cannot be freed)")
+          f"(GPS/ and existing timelapses count but cannot be freed)")
     excess = used + needed - limit
     if excess <= 0:
         print("  nothing to prune")
+        prune_events_in_range(dest, pruned_file)
         return
     if excess > deletable:
         print(f"  !! need {excess / 1e9:.1f} GB but only {deletable / 1e9:.1f} GB "
@@ -196,6 +201,47 @@ def prune_old_files(src: Path, dest: Path, limit: int = PRUNE_LIMIT_BYTES) -> No
           f"({lapsed} replaced by 1 fps timelapses)")
     if kept:
         print(f"  !! {kept} files kept because the timelapse could not be made")
+    prune_events_in_range(dest, pruned_file)
+
+
+def prune_events_in_range(dest: Path, pruned_file: Path) -> None:
+    """Timelapse every Event/ clip no newer than the newest pruned Normal/ clip.
+
+    The main prune walks Normal/ and Event/ together in time order and stops
+    as soon as enough is freed, so it can stop inside a stretch that still
+    has full-resolution events. This sweep makes the two ranges match, and it
+    also catches up the events kept from before Event/ was prunable. It runs
+    on every backup and does nothing once the ranges already agree.
+    """
+    normal = dest / "Normal"
+    lapsed_normal = [f for f in normal.rglob(TIMELAPSE_PREFIX + "*")
+                     if f.is_file() and ".part." not in f.name] \
+        if normal.is_dir() else []
+    event = dest / "Event"
+    if not lapsed_normal or not event.is_dir():
+        return
+    cutoff = max(recording_key(f) for f in lapsed_normal)
+    todo = sorted((f for f in event.rglob("*") if f.is_file()
+                   and not is_timelapse(f) and ".part." not in f.name
+                   and recording_key(f) <= cutoff), key=recording_key)
+    if not todo:
+        return
+    freed = lapsed = kept = 0
+    with pruned_file.open("a") as plog:
+        for f in todo:
+            size = f.stat().st_size
+            tl = make_timelapse(f)
+            if tl is None and f.suffix.upper() == ".MP4":
+                kept += 1
+                continue
+            f.unlink()
+            plog.write(f.name + "\n")
+            freed += size - (tl.stat().st_size if tl else 0)
+            lapsed += tl is not None
+    print(f"  events up to {cutoff[:8]}-{cutoff[8:]}: {lapsed} replaced by 1 fps "
+          f"timelapses, freed {freed / 1e9:.1f} GB")
+    if kept:
+        print(f"  !! {kept} event files kept because the timelapse could not be made")
 
 
 def clip_readable(path: Path) -> bool:
