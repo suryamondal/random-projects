@@ -29,10 +29,10 @@ from pathlib import Path
 DEFAULT_SRC = "/media/surya/70MAI"
 DEFAULT_DEST = "/media/surya/Surya_HDD_5/Jazz-Dashcam/70mai"
 VIDEO_DIRS = ["Normal", "Event", "Parking", "Lapse", "Photo"]
-# Storage cap for the backup, excluding Event/ (crash events are never
-# pruned). Before copying, the oldest recordings are deleted until the
-# incoming files fit under this limit.
-PRUNE_LIMIT_BYTES = 1_400_000_000_000  # 1.4 TB
+# Storage cap for the whole backup directory, Event/, GPS/ and existing
+# timelapses included (those are never pruned, but they count). Before
+# copying, the oldest recordings are pruned until the incoming files fit.
+PRUNE_LIMIT_BYTES = 1_350_000_000_000  # 1.35 TB
 PRUNE_PROTECTED = {"Event"}
 # Files deleted by pruning are recorded here (one filename per line) and
 # excluded from future rsyncs, so a pruned file still present on the card
