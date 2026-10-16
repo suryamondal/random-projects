@@ -32,7 +32,7 @@ VIDEO_DIRS = ["Normal", "Event", "Parking", "Lapse", "Photo"]
 # Storage cap for the whole backup directory, Event/, GPS/ and existing
 # timelapses included (those are never pruned, but they count). Before
 # copying, the oldest recordings are pruned until the incoming files fit.
-PRUNE_LIMIT_BYTES = 1_350_000_000_000  # 1.35 TB
+PRUNE_LIMIT_BYTES = 1_200_000_000_000  # 1.2 TB
 PRUNE_PROTECTED = {"Event"}
 # Files deleted by pruning are recorded here (one filename per line) and
 # excluded from future rsyncs, so a pruned file still present on the card
