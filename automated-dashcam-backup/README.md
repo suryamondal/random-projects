@@ -73,6 +73,23 @@ MB/s), then drops to 3-20 MB/s. (Earlier slow runs were partly the card
 reader and USB ports, not the drive.) Its USB bridge does not pass TRIM, so the
 drive never learns that pruned files were freed.
 
+## Disk map
+
+`disk-map/disk-map.py` draws where every file physically sits on the archive
+drive, as a static SVG named `disk-map-YYYYMMDD-HHMM.svg` (scan time), so maps
+from different days can be compared:
+
+```
+python3 disk-map/disk-map.py [mount] [-o out-dir]
+```
+
+It reads file extents with the FIEMAP ioctl (read-only, no root, ~10 s) and
+draws one panel by content and one by write age. The notes give free-space gap
+sizes, fragmentation (pieces per GB) and the per-5 GB copy speed of the latest
+backup run, reconstructed from the copied clips' change times. Earlier runs
+slowed when clips landed in pieces under ~20 MB (over ~50 pieces per GB). Run
+it when no backup is copying, since it makes the drive seek.
+
 ## Things learned the hard way
 
 * **A missing day shows up as GPS fixes with zero clips.** If the card sits
