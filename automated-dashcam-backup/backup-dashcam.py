@@ -34,7 +34,7 @@ VIDEO_DIRS = ["Normal", "Event", "Parking", "Lapse", "Photo"]
 # Storage cap for the whole backup directory, GPS/ and existing timelapses
 # included (those are never pruned, but they count). Before copying, the
 # oldest recordings are pruned until the incoming files fit.
-PRUNE_LIMIT_BYTES = 1_200_000_000_000  # 1.2 TB
+PRUNE_LIMIT_BYTES = 1_275_000_000_000  # 1.275 TB
 # Directories whose recordings are never pruned. Event/ used to be here; it is
 # now pruned over the same time range as Normal/ (see prune_events_in_range).
 PRUNE_PROTECTED: set[str] = set()
@@ -462,7 +462,7 @@ def main() -> None:
     verify_source_device(src)
     dest.mkdir(parents=True, exist_ok=True)
 
-    print(f"== Pruning old backups to fit {PRUNE_LIMIT_BYTES / 1e12:.2f} TB limit")
+    print(f"== Pruning old backups to fit {PRUNE_LIMIT_BYTES / 1e12:.3f} TB limit")
     prune_old_files(src, dest)
     print(f"== Backing up videos: {src} -> {dest}")
     failed = backup_videos(src, dest)
