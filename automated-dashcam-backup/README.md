@@ -8,7 +8,7 @@ in, keeps the archive under a size limit, and verifies what it copied.
 1. **Checks the card is the dashcam's.** It looks for the camera's marker file
    `.used.file.DR2500` at the card root and refuses to run without it.
 2. **Prunes, if needed.** If `70mai/` plus the incoming files would exceed
-   `PRUNE_LIMIT_BYTES` (1.275 TB), the oldest recordings are converted to 1 fps
+   `PRUNE_LIMIT_BYTES` (1.25 TB), the oldest recordings are converted to 1 fps
    timelapses (`TL-<name>.MP4`, about 10x smaller) and the originals deleted,
    oldest first, until it fits.
    * The limit is measured against the **whole** `70mai/` directory, Event/ and
@@ -43,7 +43,7 @@ Defaults are set at the top of the script:
 |---|---|
 | `DEFAULT_SRC` | `/media/surya/70MAI` |
 | `DEFAULT_DEST` | `/media/surya/Surya_HDD_5/Jazz-Dashcam/70mai` |
-| `PRUNE_LIMIT_BYTES` | `1_275_000_000_000` (1.275 TB) |
+| `PRUNE_LIMIT_BYTES` | `1_250_000_000_000` (1.25 TB) |
 
 Needs `python3` (3.10+), `rsync` and `ffmpeg`/`ffprobe`.
 
@@ -60,10 +60,13 @@ the lock and later firings exit immediately.
 ## Sizing the limit
 
 On a 1.5 TB drive the usable space is about 1,400 GB: ext4 metadata takes
-~25 GB and the default 5% root reserve another ~75 GB. The limit is 1.275 TB
-(since 2026-10-19), which leaves ~115 GB free; 1.2 TB and 1.35 TB were used
-before. Runs at 1.2 TB copied 55-108 GB at a steady ~80 MB/s; one run on
-2026-10-16 stayed fast up to ~1,278 GB of archive and collapsed above it.
+~25 GB and the default 5% root reserve another ~75 GB. The limit is 1.25 TB
+(since 2026-10-22), which leaves ~150 GB free; 1.2, 1.275 and 1.35 TB were used
+before. Runs at 1.2 TB copied 55-108 GB at a steady ~80 MB/s. The 1.275 TB
+test failed on 2026-10-22: after ~35 GB of writing that night (prune plus
+copy) the copy fell from ~86 MB/s to 7-20 MB/s with the drive 99% busy and the
+card reader idle, at only ~1,210 GB of archive. So the slowdown depends on how
+much is written in one go as well as on how full the drive is.
 
 Keep the 5% reserve. The archive drive is a Seagate Expansion Portable, which
 is SMR: as it nears full its writes collapse to a few MB/s (seen at 90% full,

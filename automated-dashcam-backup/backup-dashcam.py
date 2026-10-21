@@ -34,7 +34,7 @@ VIDEO_DIRS = ["Normal", "Event", "Parking", "Lapse", "Photo"]
 # Storage cap for the whole backup directory, GPS/ and existing timelapses
 # included (those are never pruned, but they count). Before copying, the
 # oldest recordings are pruned until the incoming files fit.
-PRUNE_LIMIT_BYTES = 1_275_000_000_000  # 1.275 TB
+PRUNE_LIMIT_BYTES = 1_250_000_000_000  # 1.25 TB
 # Directories whose recordings are never pruned. Event/ used to be here; it is
 # now pruned over the same time range as Normal/ (see prune_events_in_range).
 PRUNE_PROTECTED: set[str] = set()
