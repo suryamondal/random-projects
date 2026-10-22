@@ -90,13 +90,14 @@ python3 disk-map/disk-map.py [mount] [-o out-dir]
 ```
 
 It reads file extents with the FIEMAP ioctl (read-only, no root, ~10 s) and
-draws one panel by content and one by recording date (taken from dashcam
-filenames). The date panel uses one yellow-green-blue band split 50/50: 1 fps
-timelapses take the light half and raw clips the dark half, each stretched over
-its own date range (from where that kind's oldest 1% of data ends), so recent
-raw clips are not squeezed by the long timelapse span. Other files are one
-neutral. Legend swatches are the mean colour of each date slice; compare maps
-by the legend dates, not by colour. The notes give free-space gap
+draws a 1920x1080 (16:9) dark page with two panels side by side: what is
+stored where, and when it was recorded (taken from dashcam filenames). The date
+panel uses one viridis band (dark = old, bright = new) split 50/50: 1 fps
+timelapses take the dark half and raw clips the bright half, each stretched
+over its own date range (from where that kind's oldest 1% of data ends), so
+recent raw clips are not squeezed by the long timelapse span. Other files are
+one neutral. Legend swatches are the mean colour of each date slice; compare
+maps by the legend dates, not by colour. The notes give free-space gap
 sizes, fragmentation (pieces per GB) and the per-5 GB copy speed of the latest
 backup run, reconstructed from the copied clips' change times. Earlier runs
 slowed when clips landed in pieces under ~20 MB (over ~50 pieces per GB). Run

@@ -100,8 +100,10 @@ CATS = ["normal", "event", "tl", "dashother", "otherbk", "meta", "free"]
 LABEL = {"normal": "Raw Normal clips", "event": "Raw Event clips", "tl": "1 fps timelapses (pruned)",
          "dashother": "GPS, scripts, finished timelapses", "otherbk": "Other backups (repos, personal)",
          "meta": "ext4 metadata (inode tables)", "free": "Free"}
-COLOR = {"normal": "#2a78d6", "event": "#eb6834", "tl": "#1baf7a", "dashother": "#eda100",
-         "otherbk": "#e87ba4", "meta": "#898781", "free": "#e6e5df"}
+# Dark page: categorical hues are the dark-mode steps of the default palette;
+# free space is a dim grey just above the page, so it reads as empty.
+COLOR = {"normal": "#3987e5", "event": "#d95926", "tl": "#199e70", "dashother": "#c98500",
+         "otherbk": "#d55181", "meta": "#6f6e69", "free": "#2f2f2c"}
 
 
 def cat(p):
@@ -133,7 +135,7 @@ def render(files, part_bytes, scanned, dest):
     PART = part_bytes // B
     FLEX = 16 * 32768                         # ext4 flex_bg span (blocks)
     META_RUN = 8224                           # inode tables + bitmaps at each flex-group start
-    COLS, ROWS = 500, 80
+    COLS, ROWS = 288, 152                     # two panels side by side on a 1920x1080 page
     CELL = -(-PART // (COLS * ROWS))           # blocks per cell
     NCELL = COLS * ROWS
 
@@ -180,17 +182,18 @@ def render(files, part_bytes, scanned, dest):
         gaps.append(PART - cur)
     gaps = np.array(gaps) * B / 1e9
 
-    # recording-date colour: one continuous yellow-green-blue band (ColorBrewer
-    # YlGnBu, light = old, dark = new) split 50/50. 1 fps timelapses take the light
-    # half, raw clips the dark half, and each kind is stretched over its own date
+    # recording-date colour: one continuous viridis band (perceptually even and
+    # made for dark backgrounds: dark = old, bright = new) split 50/50. 1 fps
+    # timelapses take the dark half (purple -> blue), raw clips the bright half
+    # (teal -> green -> yellow), and each kind is stretched over its own date
     # range, so the short span of recent raw clips gets as much colour as the long
     # timelapse span. Each range starts where that kind's oldest 1% of data ends
-    # (older files take the lightest colour of the half). Other files (GPS,
-    # scripts, other backups) are one neutral; their dates don't matter here.
+    # (older files take the first colour of the half). Other files (GPS, scripts,
+    # other backups) are one neutral; their dates don't matter here.
     # Legend swatches are references: the mean colour of each date slice.
-    HALVES = [["#edf8b1", "#c7e9b4", "#7fcdbb", "#41b6c4"],      # timelapses
-              ["#1d91c0", "#225ea8", "#253494", "#081d58"]]      # raw clips
-    OTHER_COL = "#b5b0a3"
+    HALVES = [["#472d7b", "#3e4a89", "#31688e", "#26828e"],      # timelapses
+              ["#1f9e89", "#35b779", "#90d743", "#fde725"]]      # raw clips
+    OTHER_COL = "#8c8778"
     hexrgb = lambda h: [int(h[i:i + 2], 16) for i in (1, 3, 5)]
     fmt = lambda t: dt.datetime.fromtimestamp(t).strftime("%-d %b")
 
@@ -229,10 +232,12 @@ def render(files, part_bytes, scanned, dest):
         return [(None, name)] + row
 
     # ---------- SVG ----------
-    INK, INK2, MUTED, SURF = "#0b0b0b", "#52514e", "#898781", "#fcfcfb"
-    CW, RH, GAP = 2, 5, 1
+    INK, INK2, MUTED, SURF = "#f0efec", "#c3c2b7", "#8f8e86", "#1a1a19"
+    CW, RH, GAP = 3, 4, 1
     MAPH = ROWS * (RH + GAP) - GAP
-    LM, W = 70, 70 + COLS * CW + 30
+    W, H = 1920, 1080                          # 16:9
+    LM = 70                                    # left edge of panel 1 (GB labels sit left of it)
+    PX = [LM, LM + COLS * CW + 90]             # x of each panel
     out = []
 
     def text(x, y, s, size=12, fill=INK2, anchor="start", weight=400):
@@ -240,7 +245,7 @@ def render(files, part_bytes, scanned, dest):
 
     row_gb = COLS * CELL * B / 1e9
 
-    def draw_map(y0, colour_of):
+    def draw_map(x0, y0, colour_of):
         for r in range(ROWS):
             yy = y0 + r * (RH + GAP)
             run_c, run_s = None, 0
@@ -248,14 +253,14 @@ def render(files, part_bytes, scanned, dest):
                 col = colour_of(r * COLS + c) if c < COLS else None
                 if col != run_c:
                     if run_c is not None:
-                        out.append(f'<rect x="{LM + run_s * CW}" y="{yy}" width="{(c - run_s) * CW}" height="{RH}" fill="{run_c}"/>')
+                        out.append(f'<rect x="{x0 + run_s * CW}" y="{yy}" width="{(c - run_s) * CW}" height="{RH}" fill="{run_c}"/>')
                     run_c, run_s = col, c
         for r in range(0, ROWS + 1, 10):
             yy = y0 + r * (RH + GAP) - (GAP if r else 0)
-            text(LM - 8, yy + 4, f"{r * row_gb:,.0f} GB", 10, MUTED, "end")
+            text(x0 - 8, yy + 4, f"{r * row_gb:,.0f} GB", 10, MUTED, "end")
 
-    def legend(y0, items):
-        x = LM
+    def legend(x0, y0, items):
+        x = x0
         for col, lab in items:
             if col is None:                    # row heading, no swatch
                 text(x, y0, lab, 12, INK, weight=600)
@@ -266,33 +271,28 @@ def render(files, part_bytes, scanned, dest):
             x += 15 + len(lab) * 6.6 + 20
 
     tot = {c: occ[i].sum() * B / 1e9 for i, c in enumerate(CATS)}
-    y = 34
-    text(LM, y, "Surya_HDD_5 — where the data physically sits", 20, INK, weight=600)
-    y += 20
-    text(LM, y, f"{part_bytes / 1e9:,.0f} GB partition, start of disk at top-left, read left to right, then down. "
+    text(LM, 40, "Surya_HDD_5 — where the data physically sits", 22, INK, weight=600)
+    text(LM, 64, f"{part_bytes / 1e9:,.0f} GB partition, start of disk at top-left of each panel, read left to right, then down. "
          f"Each row = {row_gb:.1f} GB, each cell = {CELL * B / 1e6:.0f} MB, coloured by what fills most of it. "
-         f"Scanned {scanned:%d %b %Y %H:%M}.", 11.5, INK2)
+         f"Scanned {scanned:%d %b %Y %H:%M}.", 12, INK2)
 
-    y += 40
-    text(LM, y, "1 · What is stored where", 15, INK, weight=600)
-    y += 22
-    legend(y, [(COLOR[c], f"{LABEL[c]} {tot[c]:,.0f} GB") for c in CATS[:4]])
-    y += 18
-    legend(y, [(COLOR[c], f"{LABEL[c]} {tot[c]:,.0f} GB") for c in CATS[4:]])
-    y += 14
-    draw_map(y, lambda i: COLOR[CATS[dom[i]]])
-    y += MAPH + 40
+    top = 104
+    lg = lambda k: (COLOR[k], f"{LABEL[k]} {tot[k]:,.0f} GB")
+    x = PX[0]
+    text(x, top, "1 · What is stored where", 16, INK, weight=600)
+    legend(x, top + 24, [lg("normal"), lg("event"), lg("tl")])
+    legend(x, top + 42, [lg("dashother"), lg("otherbk")])
+    legend(x, top + 60, [lg("meta"), lg("free")])
+    x = PX[1]
+    text(x, top, "2 · When it was recorded (from filenames) — dark = oldest, bright = newest", 16, INK, weight=600)
+    legend(x, top + 24, legend_row(0, "1 fps timelapses:"))
+    legend(x, top + 42, legend_row(1, "Raw clips:"))
+    legend(x, top + 60, [(OTHER_COL, "Other files (GPS, scripts, other backups)"), (COLOR["free"], "Free"), (COLOR["meta"], "Metadata")])
 
-    text(LM, y, "2 · When it was recorded (from filenames) — light = oldest, dark = newest, each kind over its own dates", 15, INK, weight=600)
-    y += 22
-    legend(y, legend_row(0, "1 fps timelapses:"))
-    y += 18
-    legend(y, legend_row(1, "Raw clips:"))
-    y += 18
-    legend(y, [(OTHER_COL, "Other files (GPS, scripts, other backups)"), (COLOR["free"], "Free"), (COLOR["meta"], "Metadata")])
-    y += 14
-    draw_map(y, lambda i: kind_colour(kind[i], tmean[i]) if dom[i] < 5 else COLOR[CATS[dom[i]]])
-    y += MAPH + 40
+    map_top = top + 78
+    draw_map(PX[0], map_top, lambda i: COLOR[CATS[dom[i]]])
+    draw_map(PX[1], map_top, lambda i: kind_colour(kind[i], tmean[i]) if dom[i] < 5 else COLOR[CATS[dom[i]]])
+    y = map_top + MAPH + 34
 
     # notes
     run = last_run(files)
@@ -314,12 +314,13 @@ def render(files, part_bytes, scanned, dest):
         "Over ~50 pieces per GB (pieces under ~20 MB) went with SMR slowdowns in earlier runs; 85 MB/s is about the card reader's ceiling.",
         "Grey dots every 2 GB are ext4 inode tables (~25 GB in all). FIEMAP sees files only, so their positions are computed, not read.",
     ]
-    text(LM, y, "3 · Notes", 15, INK, weight=600)
-    y += 20
+    text(LM, y, "3 · Notes", 16, INK, weight=600)
+    y += 22
     for n in notes:
-        text(LM, y, "• " + n, 11.5, INK2)
-        y += 18
-    H = y + 16
+        text(LM, y, "• " + n, 12, INK2)
+        y += 19
+    if y - 19 > H - 8:
+        print(f"warning: notes run past the 1080 px page ({y - 19:.0f})")
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
            f'font-family="system-ui, -apple-system, Segoe UI, Ubuntu, sans-serif">'
            f'<rect width="100%" height="100%" fill="{SURF}"/>' + "".join(out) + "</svg>")
