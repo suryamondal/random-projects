@@ -12,7 +12,7 @@ Writes disk-map-YYYYMMDD-HHMM.svg (scan time) into out-dir, by default the
 Jazz-Dashcam folder. Takes ~10 s; run it when no backup is copying, since
 it makes the drive seek.
 """
-import argparse, datetime as dt, fcntl, os, struct
+import argparse, datetime as dt, fcntl, os, re, struct
 from pathlib import Path
 
 import numpy as np
@@ -48,6 +48,21 @@ def extents(fd):
             return out
 
 
+DASH_NAME = re.compile(r"^(?:TL-)?(?:NO|EV|PA)(\d{8})-(\d{6})")
+
+
+def recorded(name, fallback):
+    """Recording time from a dashcam name (NO/EV, with or without the TL- prefix of a
+    1 fps timelapse); other files fall back to when they were written (ctime)."""
+    m = DASH_NAME.match(name)
+    if m:
+        try:
+            return dt.datetime.strptime(m[1] + m[2], "%Y%m%d%H%M%S").timestamp()
+        except ValueError:
+            pass
+    return fallback
+
+
 def collect(root):
     files = []
     for dp, dns, fns in os.walk(root):
@@ -65,7 +80,8 @@ def collect(root):
                     os.close(fd)
             except OSError:
                 continue
-            files.append({"p": os.path.relpath(p, root), "s": st.st_size, "c": st.st_ctime, "x": ex})
+            files.append({"p": os.path.relpath(p, root), "s": st.st_size, "c": st.st_ctime,
+                          "r": recorded(fn, st.st_ctime), "x": ex})
     return files
 
 
@@ -136,7 +152,7 @@ def render(files, part_bytes, scanned, dest):
     for f in files:
         ci = CATS.index(cat(f["p"]))
         for ph, ln in f["x"]:
-            add(ci, ph // B, ln // B or 1, f["c"])
+            add(ci, ph // B, ln // B or 1, f["r"])
             intervals.append((ph // B, (ph + ln) // B))
     # metadata positions are computed from the ext4 layout, not read
     for k in range(0, PART, FLEX):
@@ -159,21 +175,34 @@ def render(files, part_bytes, scanned, dest):
         gaps.append(PART - cur)
     gaps = np.array(gaps) * B / 1e9
 
-    # write-age bins (sequential blue, light = old, dark = recent)
-    now = scanned.timestamp()
-    AGES = [(None, 56), (56, 28), (28, 14), (14, 7), (7, 2), (2, 0)]   # days ago (older, newer)
-    SEQ = ["#b7d3f6", "#86b6ef", "#5598e7", "#2a78d6", "#1c5cab", "#0d366b"]
+    # write-date colour: continuous blue ramp, light = oldest, dark = newest, mapped
+    # linearly over this scan's own date span. The span starts at the date before
+    # which only 1% of the data sits (so a few months-old files don't wash out the
+    # range); anything older takes the lightest colour. The legend swatches are just
+    # references: the mean colour of each slice of the span.
+    RAMP = ["#b7d3f6", "#86b6ef", "#5598e7", "#2a78d6", "#1c5cab", "#104281", "#0d366b"]
+    rgb = np.array([[int(h[i:i + 2], 16) for i in (1, 3, 5)] for h in RAMP], float)
+    fc = [(f["r"], f["s"]) for f in files]
+    fc.sort()
+    acc, total, t_lo = 0, sum(z for _, z in fc), fc[0][0]
+    for t, z in fc:
+        acc += z
+        if acc >= 0.01 * total:
+            t_lo = t
+            break
+    t_hi = fc[-1][0]
 
-    def age_label(older, newer):
-        d = lambda n: (scanned - dt.timedelta(days=n)).strftime("%-d %b")
-        return f"before {d(newer)}" if older is None else f"{d(older)} – {d(newer)}" if newer else f"since {d(older)}"
+    def date_colour(t):
+        u = min(max((t - t_lo) / max(t_hi - t_lo, 1), 0.0), 1.0) * (len(RAMP) - 1)
+        i = min(int(u), len(RAMP) - 2)
+        c = rgb[i] + (rgb[i + 1] - rgb[i]) * (u - i)
+        return "#%02x%02x%02x" % tuple(int(round(v)) for v in c)
 
-    def tbin(t):
-        days = (now - t) / 86400
-        for i, (older, newer) in enumerate(AGES):
-            if days >= newer and (older is None or days < older):
-                return i
-        return len(AGES) - 1
+    NSLICE = 8
+    edges = [t_lo + (t_hi - t_lo) * k / NSLICE for k in range(NSLICE + 1)]
+    fmt = lambda t: dt.datetime.fromtimestamp(t).strftime("%-d %b")
+    slices = [(date_colour((edges[k] + edges[k + 1]) / 2), f"{fmt(edges[k])}–{fmt(edges[k + 1])}") for k in range(NSLICE)]
+    older = (date_colour(t_lo), f"before {fmt(t_lo)}") if fc[0][0] < t_lo else None
 
     # ---------- SVG ----------
     INK, INK2, MUTED, SURF = "#0b0b0b", "#52514e", "#898781", "#fcfcfb"
@@ -226,11 +255,14 @@ def render(files, part_bytes, scanned, dest):
     draw_map(y, lambda i: COLOR[CATS[dom[i]]])
     y += MAPH + 40
 
-    text(LM, y, "2 · When each part was written (file change time)", 15, INK, weight=600)
+    text(LM, y, "2 · When it was recorded (dashcam files by filename, incl. 1 fps timelapses; others by write time) — light = oldest, dark = newest", 15, INK, weight=600)
     y += 22
-    legend(y, [(SEQ[i], age_label(*a)) for i, a in enumerate(AGES)] + [(COLOR["free"], "Free"), (COLOR["meta"], "Metadata")])
+    items = ([older] if older else []) + slices
+    legend(y, items[:5])
+    y += 18
+    legend(y, items[5:] + [(COLOR["free"], "Free"), (COLOR["meta"], "Metadata")])
     y += 14
-    draw_map(y, lambda i: SEQ[tbin(tmean[i])] if dom[i] < 5 else COLOR[CATS[dom[i]]])
+    draw_map(y, lambda i: date_colour(tmean[i]) if dom[i] < 5 else COLOR[CATS[dom[i]]])
     y += MAPH + 40
 
     # notes
