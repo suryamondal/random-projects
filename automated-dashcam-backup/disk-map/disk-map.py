@@ -138,21 +138,26 @@ def render(files, part_bytes, scanned, dest):
     NCELL = COLS * ROWS
 
     occ = np.zeros((len(CATS), NCELL))
-    tw = np.zeros(NCELL)
+    KINDS = ["tl", "raw", "other"]             # date panel: each kind coloured on its own
+    KIND_OF = {"tl": 0, "normal": 1, "event": 1, "dashother": 2, "otherbk": 2}
+    tw = np.zeros((3, NCELL))                  # recording time x blocks, per kind
+    bw = np.zeros((3, NCELL))                  # blocks, per kind
     intervals = []
 
-    def add(ci, start, length, t=None):
+    def add(ci, start, length, t=None, k=None):
         end = start + length
         for c in range(start // CELL, min((end - 1) // CELL, NCELL - 1) + 1):
             lo, hi = max(start, c * CELL), min(end, (c + 1) * CELL)
             occ[ci, c] += hi - lo
             if t is not None:
-                tw[c] += (hi - lo) * t
+                tw[k, c] += (hi - lo) * t
+                bw[k, c] += hi - lo
 
     for f in files:
-        ci = CATS.index(cat(f["p"]))
+        cn = cat(f["p"])
+        ci = CATS.index(cn)
         for ph, ln in f["x"]:
-            add(ci, ph // B, ln // B or 1, f["r"])
+            add(ci, ph // B, ln // B or 1, f["r"], KIND_OF[cn])
             intervals.append((ph // B, (ph + ln) // B))
     # metadata positions are computed from the ext4 layout, not read
     for k in range(0, PART, FLEX):
@@ -160,8 +165,8 @@ def render(files, part_bytes, scanned, dest):
         intervals.append((k, min(k + META_RUN, PART)))
     cap = np.clip(np.minimum(CELL, PART - np.arange(NCELL) * CELL), 0, None)
     occ[CATS.index("free")] = np.clip(cap - occ.sum(0), 0, None)
-    file_blocks = occ[:5].sum(0)
-    tmean = np.where(file_blocks > 0, tw / np.maximum(file_blocks, 1), 0)
+    kind = bw.argmax(0)                        # the kind filling most of each cell
+    tmean = tw[kind, np.arange(NCELL)] / np.maximum(bw[kind, np.arange(NCELL)], 1)
     dom = occ.argmax(0)
 
     # free gaps
@@ -175,34 +180,53 @@ def render(files, part_bytes, scanned, dest):
         gaps.append(PART - cur)
     gaps = np.array(gaps) * B / 1e9
 
-    # write-date colour: continuous blue ramp, light = oldest, dark = newest, mapped
-    # linearly over this scan's own date span. The span starts at the date before
-    # which only 1% of the data sits (so a few months-old files don't wash out the
-    # range); anything older takes the lightest colour. The legend swatches are just
-    # references: the mean colour of each slice of the span.
-    RAMP = ["#b7d3f6", "#86b6ef", "#5598e7", "#2a78d6", "#1c5cab", "#104281", "#0d366b"]
-    rgb = np.array([[int(h[i:i + 2], 16) for i in (1, 3, 5)] for h in RAMP], float)
-    fc = [(f["r"], f["s"]) for f in files]
-    fc.sort()
-    acc, total, t_lo = 0, sum(z for _, z in fc), fc[0][0]
-    for t, z in fc:
-        acc += z
-        if acc >= 0.01 * total:
-            t_lo = t
-            break
-    t_hi = fc[-1][0]
+    # recording-date colour: one continuous yellow-green-blue band (ColorBrewer
+    # YlGnBu, light = old, dark = new) split 50/50. 1 fps timelapses take the light
+    # half, raw clips the dark half, and each kind is stretched over its own date
+    # range, so the short span of recent raw clips gets as much colour as the long
+    # timelapse span. Each range starts where that kind's oldest 1% of data ends
+    # (older files take the lightest colour of the half). Other files (GPS,
+    # scripts, other backups) are one neutral; their dates don't matter here.
+    # Legend swatches are references: the mean colour of each date slice.
+    HALVES = [["#edf8b1", "#c7e9b4", "#7fcdbb", "#41b6c4"],      # timelapses
+              ["#1d91c0", "#225ea8", "#253494", "#081d58"]]      # raw clips
+    OTHER_COL = "#b5b0a3"
+    hexrgb = lambda h: [int(h[i:i + 2], 16) for i in (1, 3, 5)]
+    fmt = lambda t: dt.datetime.fromtimestamp(t).strftime("%-d %b")
 
-    def date_colour(t):
-        u = min(max((t - t_lo) / max(t_hi - t_lo, 1), 0.0), 1.0) * (len(RAMP) - 1)
-        i = min(int(u), len(RAMP) - 2)
-        c = rgb[i] + (rgb[i + 1] - rgb[i]) * (u - i)
+    def span(k):
+        fc = sorted((f["r"], f["s"]) for f in files if KIND_OF.get(cat(f["p"])) == k)
+        if not fc:
+            return None
+        acc, total, lo = 0, sum(z for _, z in fc), fc[0][0]
+        for t, z in fc:
+            acc += z
+            if acc >= 0.01 * total:
+                lo = t
+                break
+        return lo, fc[-1][0], fc[0][0]
+
+    SPANS = [span(0), span(1)]
+
+    def kind_colour(k, t):
+        if k == 2 or SPANS[k] is None:
+            return OTHER_COL
+        lo, hi, _ = SPANS[k]
+        ramp = np.array([hexrgb(h) for h in HALVES[k]], float)
+        u = min(max((t - lo) / max(hi - lo, 1), 0.0), 1.0) * (len(ramp) - 1)
+        i = min(int(u), len(ramp) - 2)
+        c = ramp[i] + (ramp[i + 1] - ramp[i]) * (u - i)
         return "#%02x%02x%02x" % tuple(int(round(v)) for v in c)
 
-    NSLICE = 8
-    edges = [t_lo + (t_hi - t_lo) * k / NSLICE for k in range(NSLICE + 1)]
-    fmt = lambda t: dt.datetime.fromtimestamp(t).strftime("%-d %b")
-    slices = [(date_colour((edges[k] + edges[k + 1]) / 2), f"{fmt(edges[k])}–{fmt(edges[k + 1])}") for k in range(NSLICE)]
-    older = (date_colour(t_lo), f"before {fmt(t_lo)}") if fc[0][0] < t_lo else None
+    def legend_row(k, name, n=4):
+        if SPANS[k] is None:
+            return []
+        lo, hi, first = SPANS[k]
+        e = [lo + (hi - lo) * j / n for j in range(n + 1)]
+        row = [(kind_colour(k, (e[j] + e[j + 1]) / 2), f"{fmt(e[j])}–{fmt(e[j + 1])}") for j in range(n)]
+        if first < lo:
+            row[0] = (row[0][0], f"to {fmt(e[1])}")
+        return [(None, name)] + row
 
     # ---------- SVG ----------
     INK, INK2, MUTED, SURF = "#0b0b0b", "#52514e", "#898781", "#fcfcfb"
@@ -233,6 +257,10 @@ def render(files, part_bytes, scanned, dest):
     def legend(y0, items):
         x = LM
         for col, lab in items:
+            if col is None:                    # row heading, no swatch
+                text(x, y0, lab, 12, INK, weight=600)
+                x += len(lab) * 6.8 + 12
+                continue
             out.append(f'<rect x="{x}" y="{y0 - 9}" width="10" height="10" rx="2" fill="{col}"/>')
             text(x + 15, y0, lab, 12, INK2)
             x += 15 + len(lab) * 6.6 + 20
@@ -255,14 +283,15 @@ def render(files, part_bytes, scanned, dest):
     draw_map(y, lambda i: COLOR[CATS[dom[i]]])
     y += MAPH + 40
 
-    text(LM, y, "2 · When it was recorded (dashcam files by filename, incl. 1 fps timelapses; others by write time) — light = oldest, dark = newest", 15, INK, weight=600)
+    text(LM, y, "2 · When it was recorded (from filenames) — light = oldest, dark = newest, each kind over its own dates", 15, INK, weight=600)
     y += 22
-    items = ([older] if older else []) + slices
-    legend(y, items[:5])
+    legend(y, legend_row(0, "1 fps timelapses:"))
     y += 18
-    legend(y, items[5:] + [(COLOR["free"], "Free"), (COLOR["meta"], "Metadata")])
+    legend(y, legend_row(1, "Raw clips:"))
+    y += 18
+    legend(y, [(OTHER_COL, "Other files (GPS, scripts, other backups)"), (COLOR["free"], "Free"), (COLOR["meta"], "Metadata")])
     y += 14
-    draw_map(y, lambda i: date_colour(tmean[i]) if dom[i] < 5 else COLOR[CATS[dom[i]]])
+    draw_map(y, lambda i: kind_colour(kind[i], tmean[i]) if dom[i] < 5 else COLOR[CATS[dom[i]]])
     y += MAPH + 40
 
     # notes
