@@ -328,7 +328,32 @@ def verify_copied(src_dir: Path, dest_dir: Path, names: list[str],
     return unresolved
 
 
+# Clips copied in this run, across all video folders; a disk map is drawn only
+# when this is non-zero, so the idle 5-minute runs leave nothing behind.
+copied_clips = 0
+
+# Disk-map generator (sibling folder); writes disk-map-YYYYMMDD-HHMM.svg into
+# Jazz-Dashcam/ after every run that copied clips.
+DISK_MAP = Path(__file__).resolve().parent / "disk-map" / "disk-map.py"
+
+
+def draw_disk_map() -> None:
+    """Snapshot where the data sits on the HDD. Never fails the backup."""
+    if not DISK_MAP.exists():
+        return
+    print("== Drawing disk map")
+    try:
+        r = subprocess.run([sys.executable, str(DISK_MAP)], capture_output=True,
+                           text=True, timeout=600)
+        out = (r.stdout.strip().splitlines() or ["(no output)"])[-1]
+        print(f"  {out}" if r.returncode == 0 else
+              f"  disk map failed (exit {r.returncode}): {r.stderr.strip()[-300:]}")
+    except (OSError, subprocess.TimeoutExpired) as e:
+        print(f"  disk map failed: {e}")
+
+
 def backup_videos(src: Path, dest: Path) -> list[str]:
+    global copied_clips
     failed = []
     pruned_file = dest / PRUNED_LIST
     for dirname in VIDEO_DIRS:
@@ -358,6 +383,7 @@ def backup_videos(src: Path, dest: Path) -> list[str]:
             if stripped.upper().endswith(".MP4"):
                 names.append(stripped)
         proc.stdout.close()
+        copied_clips += len(names)
         if proc.wait() != 0:
             failed.append(f"{dirname}/ (rsync exit code {proc.returncode})")
             continue
@@ -468,6 +494,8 @@ def main() -> None:
     failed = backup_videos(src, dest)
     print(f"== Snapshotting GPS data into {dest / 'GPS'}/")
     update_gps(src, dest / "GPS")
+    if copied_clips:
+        draw_disk_map()
 
     if failed:
         print("Backup finished WITH ERRORS — these files could not be copied:")

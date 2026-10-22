@@ -29,6 +29,9 @@ in, keeps the archive under a size limit, and verifies what it copied.
 5. **Snapshots the GPS log.** `GPSData*.txt` is copied verbatim into `GPS/`,
    named by the timestamp of its first valid fix, so cards backed up in any
    order never overwrite each other.
+6. **Draws a disk map** after any run that copied clips, by running
+   `disk-map/disk-map.py` (see below). The idle 5-minute runs skip it, and a
+   failed map never fails the backup.
 
 ## Usage
 
