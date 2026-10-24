@@ -191,7 +191,7 @@ def incoming_bytes(src: Path, dest: Path, pruned: set[str]) -> int:
         if not src_dir.is_dir():
             continue
         for f in src_dir.rglob("*"):
-            if not f.is_file() or f.name in pruned:
+            if not f.is_file() or f.name.startswith(".") or f.name in pruned:
                 continue
             dest_file = dest / f.relative_to(src)
             if not dest_file.exists():
@@ -430,10 +430,9 @@ def backup_videos(src: Path, dest: Path, staged: bool = False) -> list[str]:
         # aren't re-copied. rsync copies via a temp file and renames on
         # success, so an interrupted run never leaves a partial .MP4 behind.
         cmd = ["rsync", "-au", "--modify-window=2", "--info=name1,stats1"]
-        if staged:
-            # a stager killed by a power cut can leave rsync temp files
-            # (.NAME.XXXXXX) in its batch; they must never reach the archive
-            cmd += ["--exclude", ".*"]
+        # rsync temp files (.NAME.XXXXXX) left by a killed stager or another
+        # copier must never reach the archive; the camera writes no dotfiles
+        cmd += ["--exclude", ".*"]
         if pruned_file.exists() and dirname not in PRUNE_PROTECTED:
             cmd += ["--exclude-from", str(pruned_file)]
         cmd += [f"{src_dir}/", f"{dest / dirname}/"]
@@ -452,11 +451,11 @@ def backup_videos(src: Path, dest: Path, staged: bool = False) -> list[str]:
         proc.stdout.close()
         copied_clips += len(names)
         if proc.wait() != 0:
-            failed.append(f"{dirname}/ (rsync exit code {proc.returncode})")
+            failed.append(f"{dirname}/ — not everything was copied (rsync exit code {proc.returncode})")
             continue
         for rel in verify_copied(src_dir, dest / dirname, names,
                                  dest / CORRUPT_LIST):
-            failed.append(f"{dirname}/{rel} (unreadable even after re-copy)")
+            failed.append(f"{dirname}/{rel} — copied, but unreadable even after re-copy (see {CORRUPT_LIST})")
     return failed
 
 
@@ -672,7 +671,8 @@ def stage_card(src: Path, dest: Path) -> int:
             if not sd.is_dir():
                 continue
             for f in sd.rglob("*"):
-                if not f.is_file() or f.name in pruned:
+                # dotfiles are some copier's half-written temp files, never clips
+                if not f.is_file() or f.name.startswith(".") or f.name in pruned:
                     continue
                 rel = str(f.relative_to(src))
                 if rel not in elsewhere and not (dest / rel).exists():
@@ -992,7 +992,7 @@ def main() -> None:
     if copied_clips:
         draw_disk_map()
     if failed:
-        print("Backup finished WITH ERRORS — these files could not be copied:")
+        print("Backup finished WITH ERRORS:")
         for f in failed:
             print(f"  {f}")
         sys.exit(1)
