@@ -3,7 +3,43 @@
 Backs up a 70mai A500S dashcam SD card to an HDD whenever the card is plugged
 in, keeps the archive under a size limit, and verifies what it copied.
 
-## What it does, in order
+## Two processes: stage the card, then back up
+
+The card is read once, at full speed, into a staging folder on the NVMe; the
+slow work (pruning, writing to the SMR HDD) happens from there. The card can
+come out as soon as the log says `[A] ... card can be removed` — about 10 min
+for 50 GB, instead of waiting through a 40-minute prune first.
+
+* **Stager (`--stage`, lines tagged `[A]` in the log).** Lists the card's clips
+  that are not in the archive, not in `pruned.txt` and not already staged.
+  Refuses (status "nospace") unless the NVMe has **1.5x** that much free.
+  Otherwise copies them plus `GPSData*.txt` into
+  `/media/surya/Surya_NVME_1/dashcam-staging/<YYYYMMDD-HHMMSS>-<card id>/`,
+  checks sizes against the card, `ffprobe`s every clip (re-reading bad ones
+  while the card is still in) and marks the batch complete in `.batch.json`.
+  It holds `.stage.lock`, so only one stager ever runs. If the card is pulled
+  mid-copy, the batch stays "copying" and the same card resumes it later
+  (matched by FAT volume id).
+* **Backup (default).** Runs from cron every 5 minutes, card or no card, and
+  launches the stager each time (a no-op if one is running). Then:
+  1. A **complete batch** is moved to the HDD with the steps below, and deleted.
+  2. If the stager is **still copying**, the backup prunes for that card
+     straight away, then waits for it.
+  3. If the stager **could not stage** (no NVMe space, failed with the card
+     still in), it copies straight from the card, as before the split.
+  4. A half-staged batch whose card has been gone 30 minutes is moved anyway,
+     readable clips only; the rest are staged when the card returns.
+  With no card and nothing staged it exits without touching the HDD.
+
+**Why a crash can't prune twice.** The prune keeps no running total: every
+run measures the HDD afresh and frees only what is still missing for the
+clips that have not arrived yet (recomputed from the batches and the archive,
+each clip counted once). Only the backup prunes, under one lock. A pruned
+name is written to `pruned.txt` and fsync'd *before* the file is deleted, and
+half-made `TL-*.part.MP4` files from a killed run are removed at start-up
+(the original is only deleted after its timelapse is complete).
+
+## What the backup does, in order
 
 1. **Checks the card is the dashcam's.** It looks for the camera's marker file
    `.used.file.DR2500` at the card root and refuses to run without it.
@@ -37,6 +73,7 @@ in, keeps the archive under a size limit, and verifies what it copied.
 
 ```bash
 python3 backup-dashcam.py [source_mount] [dest_dir]
+python3 backup-dashcam.py --stage [source_mount] [dest_dir]   # the stager on its own
 python3 backup-dashcam.py --verify-all     # probe every clip already in the archive
 ```
 
@@ -47,18 +84,24 @@ Defaults are set at the top of the script:
 | `DEFAULT_SRC` | `/media/surya/70MAI` |
 | `DEFAULT_DEST` | `/media/surya/Surya_HDD_5/Jazz-Dashcam/70mai` |
 | `PRUNE_LIMIT_BYTES` | `1_250_000_000_000` (1.25 TB) |
+| `STAGING_ROOT` | `/media/surya/Surya_NVME_1/dashcam-staging` |
+| `STAGE_SPACE_FACTOR` | `1.5` |
 
 Needs `python3` (3.10+), `rsync` and `ffmpeg`/`ffprobe`.
 
 ## Running it automatically
 
-A cron entry fires every 5 minutes. It only does anything when the card is
-mounted, and `flock -n` makes sure two runs never overlap: a long prune holds
-the lock and later firings exit immediately.
+A cron entry fires every 5 minutes, card or no card (staged batches must
+move on after the card is out). `flock -n` makes sure two backups never
+overlap: a long prune holds the lock and later firings exit immediately. The
+script timestamps the log itself, only on runs that have work.
 
 ```cron
-*/5 * * * * mountpoint -q /media/surya/70MAI && { date; flock -n /tmp/jazz-dashcam-backup.lock python3 -u "/media/surya/Surya_HDD_5/Jazz-Dashcam/scripts/backup-dashcam.py"; } >> "/media/surya/Surya_HDD_5/Jazz-Dashcam/scripts/backup.log" 2>&1
+*/5 * * * * flock -n /tmp/jazz-dashcam-backup.lock python3 -u "/media/surya/Surya_HDD_5/Jazz-Dashcam/scripts/backup-dashcam.py" >> "/media/surya/Surya_HDD_5/Jazz-Dashcam/scripts/backup.log" 2>&1
 ```
+
+Run it by hand under the same lock, or the two copies could prune at once:
+`setsid flock -n /tmp/jazz-dashcam-backup.lock python3 -u backup-dashcam.py >> backup.log`.
 
 ## Sizing the limit
 
