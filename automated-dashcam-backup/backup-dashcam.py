@@ -110,8 +110,14 @@ def verify_source_device(src: Path) -> None:
             f"ERROR: '{src}' has no '{CAMERA_MARKER}' signature — not a "
             f"70mai dashcam card, refusing to back up an unknown device."
         )
-    if not (src / "Normal").is_dir() and not list(src.glob("GPSData*.txt")):
+    if not has_recordings(src):
         sys.exit(f"ERROR: '{src}' has no Normal/ or GPSData*.txt — nothing to back up.")
+
+
+def has_recordings(src: Path) -> bool:
+    """A 70mai-marked card can still hold no recordings (e.g. reused to carry
+    other files); such a card is skipped, never copied from."""
+    return (src / "Normal").is_dir() or bool(list(src.glob("GPSData*.txt")))
 
 
 def recording_key(f: Path) -> str:
@@ -867,6 +873,10 @@ def salvage(bdir: Path, st: dict) -> dict:
 def direct_backup(src: Path, dest: Path, why: str) -> list[str]:
     """The old path: prune for the card, copy from it, snapshot its GPS."""
     announce()
+    if not has_recordings(src):
+        print(f"== {src} has the 70mai marker but no Normal/ or GPSData*.txt "
+              "— not a recording card, skipped")
+        return []
     print(f"== {why} — copying straight from the card")
     print(f"== Pruning old backups to fit {PRUNE_LIMIT_BYTES / 1e12:.3f} TB limit")
     prune_old_files(dest, incoming_bytes(src, dest, load_pruned(dest)))
